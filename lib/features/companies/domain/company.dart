@@ -28,11 +28,14 @@ enum LocationConfidence {
 
   static LocationConfidence fromJson(String? value) {
     return switch (value) {
-      'high' || 'confirmed' || 'fiscal_only' || 'address_geocoded' =>
-        LocationConfidence.high,
+      'high' => LocationConfidence.high,
+      'confirmed' => LocationConfidence.high,
+      'fiscal_only' => LocationConfidence.high,
+      'address_geocoded' => LocationConfidence.high,
       'medium' => LocationConfidence.medium,
       'low' => LocationConfidence.low,
-      'very_low' || 'district_reference' => LocationConfidence.veryLow,
+      'very_low' => LocationConfidence.veryLow,
+      'district_reference' => LocationConfidence.veryLow,
       _ => LocationConfidence.veryLow,
     };
   }
