@@ -32,7 +32,7 @@ class ActivityScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 4),
                     const Text(
-                      'Solo lo que realmente registraste en campo.',
+                      'Gestiones reales, resultados y próximos pasos.',
                       style: TextStyle(color: NexoColors.muted),
                     ),
                   ],
@@ -49,29 +49,74 @@ class ActivityScreen extends StatelessWidget {
                           final item = items[index];
 
                           return Card(
-                            child: ListTile(
-                              contentPadding: const EdgeInsets.symmetric(
-                                horizontal: 16,
-                                vertical: 10,
+                            child: Padding(
+                              padding: const EdgeInsets.all(16),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  CircleAvatar(
+                                    backgroundColor: NexoColors.mint.withValues(
+                                      alpha: 0.12,
+                                    ),
+                                    foregroundColor: NexoColors.teal,
+                                    child: Icon(_iconFor(item.type)),
+                                  ),
+                                  const SizedBox(width: 12),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Expanded(
+                                              child: Text(
+                                                item.companyName,
+                                                style: const TextStyle(
+                                                  fontWeight: FontWeight.w800,
+                                                ),
+                                              ),
+                                            ),
+                                            _StatusPill(
+                                              label: item.status.label,
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 6),
+                                        Text(
+                                          '${item.type.label} · ${item.outcome}',
+                                        ),
+                                        if (item.note.isNotEmpty) ...[
+                                          const SizedBox(height: 6),
+                                          Text(
+                                            item.note,
+                                            style: const TextStyle(
+                                              color: NexoColors.muted,
+                                            ),
+                                          ),
+                                        ],
+                                        const SizedBox(height: 8),
+                                        Text(
+                                          'Siguiente: ${item.nextStep}',
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                        if (item.followUpAt case final date?) ...[
+                                          const SizedBox(height: 4),
+                                          Text(
+                                            'Seguimiento: ${_dateLabel(date)}',
+                                            style: const TextStyle(
+                                              color: NexoColors.orange,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          ),
+                                        ],
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
-                              leading: CircleAvatar(
-                                backgroundColor: NexoColors.mint.withValues(
-                                  alpha: 0.12,
-                                ),
-                                foregroundColor: NexoColors.teal,
-                                child: Icon(_iconFor(item.type)),
-                              ),
-                              title: Text(
-                                item.companyName,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.w800,
-                                ),
-                              ),
-                              subtitle: Text(
-                                '${item.type.label} · ${item.outcome}\n'
-                                'Siguiente: ${item.nextStep}',
-                              ),
-                              isThreeLine: true,
                             ),
                           );
                         },
@@ -84,11 +129,43 @@ class ActivityScreen extends StatelessWidget {
     );
   }
 
+  static String _dateLabel(DateTime date) {
+    final local = date.toLocal();
+    final day = local.day.toString().padLeft(2, '0');
+    final month = local.month.toString().padLeft(2, '0');
+    return '$day/$month/${local.year}';
+  }
+
   static IconData _iconFor(ActivityType type) => switch (type) {
     ActivityType.visit => Icons.directions_walk_rounded,
     ActivityType.call => Icons.call_outlined,
     ActivityType.information => Icons.send_outlined,
   };
+}
+
+class _StatusPill extends StatelessWidget {
+  const _StatusPill({required this.label});
+
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      decoration: BoxDecoration(
+        color: NexoColors.teal.withValues(alpha: 0.08),
+        borderRadius: BorderRadius.circular(99),
+      ),
+      child: Text(
+        label,
+        style: const TextStyle(
+          color: NexoColors.teal,
+          fontWeight: FontWeight.w700,
+          fontSize: 11,
+        ),
+      ),
+    );
+  }
 }
 
 class _EmptyActivity extends StatelessWidget {
@@ -125,8 +202,8 @@ class _EmptyActivity extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             const Text(
-              'Nexo no inventa tu agenda. Aquí aparecerán las visitas, llamadas '
-              'o envíos de información que tú registres desde una ficha comercial.',
+              'Aquí aparecerán las visitas, llamadas y envíos que registres, '
+              'junto con su resultado y siguiente paso.',
               textAlign: TextAlign.center,
               style: TextStyle(color: NexoColors.muted),
             ),
