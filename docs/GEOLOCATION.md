@@ -1,115 +1,68 @@
 # Geolocalización de cuentas
 
-## Datos y evidencia
+## Estado productivo
 
-El archivo canónico es `assets/data/companies.production.json` (1,907 RUC únicos).
-Los domicilios se cruzan por RUC con el padrón reducido oficial de SUNAT:
-https://www.sunat.gob.pe/descargaPRR/mrc137_padron_reducido.html
+Nexo contiene **1,907 cuentas y 1,907 RUC únicos**. Todas tienen latitud y longitud.
 
-El padrón identifica domicilio fiscal. No demuestra que allí opere una planta,
-que se atienda al público ni que esté la persona responsable de compras.
-Se conservan dirección original, ubigeo, fecha, fuente y referencia distrital.
+La cobertura auditada del 9 de noviembre de 2026 es:
 
-## Precisión
+| Calidad | Cuentas | Uso |
+| --- | ---: | --- |
+| `exact_address` | 334 | Dirección precisa; navegación permitida cuando la auditoría lo autoriza. |
+| `address_reference` | 36 | Referencia de dirección sólida; navegación permitida. |
+| `interpolated_address` | 137 | Punto aproximado por numeración; cercanía penalizada, sin navegación directa. |
+| `street_reference` | 551 | Referencia de vía; solo contexto visual. |
+| `district_reference` | 849 | Referencia territorial; solo contexto visual. |
 
-| Estado | Uso |
-| --- | --- |
-| `district_reference` | Solo referencia territorial. Sin distancia de visita ni navegación. |
-| `address_geocoded` | Coincidencia automática de número, calle y distrito. Domicilio fiscal; central por confirmar. |
-| `uncertain` | No apto para navegación ni ranking de cercanía. |
+**370 cuentas** están habilitadas para navegación directa.
 
-Solo `address_geocoded` validado o ubicaciones verificadas expresamente pueden
-habilitar `nearby_ranking_eligible` y `navigation_eligible`.
+## Arquitectura de datos
 
-## Fallback en Google Maps
+El domicilio fiscal y los atributos comerciales permanecen en:
 
-Cuando `navigation_eligible=false`, la app no navega hacia el centro distrital.
-En su lugar abre una búsqueda externa mediante Google Maps URLs con esta
-composición:
+`assets/data/companies.production.json`
 
-```text
-razón social + domicilio fiscal + distrito + provincia + departamento + Perú
-```
+La auditoría geográfica se conserva separada en:
 
-La búsqueda usa `https://www.google.com/maps/search/?api=1&query=...` y se
-construye con `Uri` para codificar correctamente espacios y caracteres
-especiales. No requiere Google Maps SDK ni una API key dentro de Nexo.
+`assets/data/companies.geolocation.overlay.json`
 
-El resultado de Google Maps es solo asistencia al vendedor. Nexo no captura ni
-promueve automáticamente la coordenada devuelta como ubicación verificada; para
-eso sigue aplicando el proceso de auditoría geográfica del dataset.
+La app cruza ambas capas por RUC al cargar. Esto permite actualizar geolocalización sin alterar la fuente comercial canónica.
 
-## Validación de resultados
+## Domicilio fiscal
 
-El geocoder exige:
+SUNAT identifica domicilio fiscal. No demuestra que allí opere una planta, un almacén, una sede visitable ni la persona responsable de compras.
 
-1. Resultado a nivel de dirección (no centroide de calle/distrito).
-2. Número de puerta coincidente; admite ceros iniciales equivalentes.
-3. Calle coincidente y distrito correspondiente al ubigeo fiscal.
-4. País Perú, coordenadas válidas y coherencia territorial.
-5. Coincidencia única. Si hay varios negocios en el mismo número, solo se
-   prefiere la huella del edificio cuando contiene todos esos resultados.
+Por eso Nexo diferencia “dirección georreferenciada” de “sede operativa confirmada”.
 
-El resultado conserva identificador OSM, dirección devuelta, fecha de proceso,
-fuente y regla de validación. No se trata como verificación en campo.
-Los resultados ambiguos, sin número o sin cobertura quedan pendientes.
+## Ranking
 
-## Ejecución puntual
+La distancia solo participa cuando la evidencia lo permite:
 
-```bash
-python -m pip install -r tool/requirements-geocoding.txt
-# Descargar el ZIP oficial desde el enlace de SUNAT y cruzar por RUC.
-python tool/import_sunat_padron.py \
-  --archive /ruta/de/trabajo/padron_reducido_ruc.zip \
-  --input assets/data/companies.production.json \
-  --cache /ruta/de/trabajo/geocoding-cache \
-  --as-of AAAA-MM-DD
-python tool/geocode_accounts.py \
-  --input assets/data/companies.production.json \
-  --output /ruta/de/trabajo/companies.geocoded.json \
-  --cache /ruta/de/trabajo/geocoding-cache
-python -m unittest discover -s tool -p 'test_geocode_verified.py'
-```
+- exacta: peso completo;
+- referencia de dirección: casi completo;
+- interpolada: peso reducido;
+- calle/distrito: no compiten por cercanía.
 
-La caché RUC puede precargarse desde el padrón oficial, evitando consultas
-individuales. Los resultados del geocoder se cachean por consulta y se reusan
-al reanudar. El JSON de salida y su resumen se escriben por lotes de diez.
-Revisar el resumen antes de reemplazar el asset canónico.
+Así se evita que un centroide distrital gane artificialmente frente a una dirección real.
 
-## Nominatim
+## Google Maps fallback
 
-Este pipeline es una tarea puntual sobre la cartera existente; no descubre
-clientes ni integra un servicio de búsqueda genérico en la app.
-Política: https://operations.osmfoundation.org/policies/nominatim/
+Cuando `navigation_eligible=true`, “Cómo llegar” abre:
 
-Una sola máquina y un hilo de geocodificación, User-Agent identificable,
-intervalo mínimo 1.15 s entre solicitudes y caché obligatoria. Se detiene ante
-HTTP 403/429. No reintentar repetidamente ni programarlo como tarea recurrente.
-Para uso recurrente debe elegirse una instancia propia o proveedor autorizado.
-Atribución: © OpenStreetMap contributors, ODbL.
+`https://www.google.com/maps/dir/?api=1&destination=LAT,LON`
 
-## Catastro municipal complementario
+Cuando `navigation_eligible=false`, “Buscar en Maps” abre:
 
-Se cruzan solo las direcciones existentes por distrito, código de vía y número.
-Fuentes públicas de descarga interoperable:
+`https://www.google.com/maps/search/?api=1&query=...`
 
-- Instituto Catastral de Lima, puertas y ejes de vía (Cercado de Lima):
-  https://www.geoidep.gob.pe/catalogo-nacional-de-servicios-web/servicio-de-descarga-wfs
-- Numeración municipal de Miraflores, publicada en IDEMIL:
-  https://www.idemil.gob.pe/geoportal/rest/services/Hosted/SHP_Municipalidad_de_Miraflores___Lima_08_07_2024/FeatureServer
+Query:
 
-Para puertas representadas por segmentos cortos, se registra el promedio de sus
-vértices y la extensión medida de la geometría. No se aceptan grupos de geometrías
-con separación superior a 30 m. Las discrepancias mayores a 100 m con OSM quedan
-pendientes, sin navegación. No se deduce una empresa a partir de un dueño de predio.
+`razón social + domicilio fiscal + distrito + provincia + departamento + Perú`
 
-```bash
-python tool/audit_geocodes.py --input /ruta/resultado.json \
-  --output /ruta/auditado.json --cache /ruta/geocoding-cache
-python tool/enrich_municipal.py --input /ruta/auditado.json \
-  --output /ruta/final.json --cache /ruta/municipal-cache
-```
+No requiere Google Maps SDK ni API key. El resultado externo no se promueve automáticamente a evidencia verificada.
 
-Resultado de esta corrida: **274 ubicaciones utilizables, 1,633 pendientes**.
-Las 1,907 cuentas tienen domicilio fiscal por RUC. El detalle de estados y fuentes
-está en `GEOLOCATION_RESULT.json`. Esto no equivale a geocodificación exacta al 100%.
+## Principio de seguridad de datos
+
+**100% de cobertura geográfica no significa 100% de exactitud de puerta.**
+
+Nunca se promueve una referencia distrital, una vía o una interpolación como ubicación exacta solo para completar un contador.
