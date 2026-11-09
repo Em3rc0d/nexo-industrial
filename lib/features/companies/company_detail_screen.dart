@@ -296,9 +296,15 @@ class CompanyDetailScreen extends StatelessWidget {
               const SizedBox(width: 10),
               Expanded(
                 child: OutlinedButton.icon(
-                  onPressed: () => _directions(context),
+                  onPressed: company.navigationEligible
+                      ? () => _directions(context)
+                      : null,
                   icon: const Icon(Icons.directions_outlined),
-                  label: const Text('Cómo llegar'),
+                  label: Text(
+                    company.navigationEligible
+                        ? 'Cómo llegar'
+                        : 'Ubicación pendiente',
+                  ),
                 ),
               ),
             ],
