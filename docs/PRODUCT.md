@@ -12,42 +12,59 @@ No es un Google Maps de empresas, no es un CRM generalista y no intenta construi
 
 Cuando el vendedor está caminando, manejando o visitando una zona industrial, quiere abrir la app y descubrir rápidamente cuentas cercanas que tengan sentido comercial, sin revisar manualmente cientos de registros.
 
-## MVP
+## MVP 1.0
 
 ### Mapa / Home
-- ubicación actual;
-- dataset propio como fuente de cuentas;
-- clusters para evitar saturación;
-- máximo de candidatos visibles por contexto geográfico;
-- oportunidades superiores destacadas fuera del cluster;
+- ubicación actual y seguimiento;
+- dataset propio como única fuente de cuentas;
+- clusters;
 - búsqueda por empresa/RUC;
-- modo seguimiento de ubicación;
-- al mover el mapa: **Buscar en esta zona**;
-- la cámara no vuelve sola mientras el usuario explora.
-
-### Oportunidad rápida
-Responde por qué interesa, calidad de ubicación y siguiente paso sugerido.
+- “Buscar en esta zona”;
+- ranking por potencial, distancia y evidencia geográfica;
+- 1,907 cuentas georreferenciadas.
 
 ### Ficha comercial
-1. ¿Por qué me conviene contactarla?
-2. ¿Qué puedo ofrecerle de Aurora o Sigma?
-3. ¿Con quién hablo y cómo lo contacto?
-4. ¿Qué pasó antes y qué toca hacer?
+Responde:
+1. por qué interesa;
+2. qué ofrecer de Aurora o Sigma;
+3. con quién hablar;
+4. qué pasó antes;
+5. qué hacer después;
+6. cómo llegar o cómo buscar la ubicación en Maps.
 
-### Cuentas cercanas
-Permite comparar alternativas sin ensuciar el mapa.
+### Cuentas
+- búsqueda;
+- filtro por sector;
+- filtro por calidad de ubicación;
+- gestionada/no gestionada;
+- prioridad alta.
 
 ### Actividad
-Solo nace de acciones reales registradas por el vendedor.
+Cada gestión puede guardar:
+- tipo;
+- resultado;
+- nota;
+- estado comercial;
+- siguiente paso;
+- fecha opcional de seguimiento.
 
-## Fuera del core MVP
+Estados:
+- Contactada;
+- Interesada;
+- Seguimiento;
+- No oportunidad.
 
-- ruta óptima del día;
+## Fuera del MVP
+
+- rutas automáticas del día;
 - agenda automática;
-- descubrimiento desde Google Maps/Places;
+- notificaciones push;
+- backend obligatorio;
+- CRM completo;
+- descubrimiento de clientes con Google Maps/Places;
 - IA inventando contactos;
-- scores técnicos expuestos al usuario.
+- scores numéricos expuestos al vendedor.
 
-## Futuro
+## Criterio de cierre
 
-Una ruta ligera puede añadirse cuando el uso real demuestre que los vendedores encadenan varias visitas en una salida.
+El MVP 1.0 se considera cerrado cuando pasa análisis estático, tests, build Android release y smoke test real en dispositivo con el dataset completo.
