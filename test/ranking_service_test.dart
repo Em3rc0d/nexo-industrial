@@ -13,8 +13,12 @@ void main() {
     required double latitude,
     required double longitude,
     required double potential,
-    bool precise = true,
+    LocationQuality quality = LocationQuality.exactAddress,
   }) {
+    final precise =
+        quality == LocationQuality.exactAddress ||
+        quality == LocationQuality.addressReference;
+
     return Company(
       id: id,
       ruc: 'DEMO-$id',
@@ -26,9 +30,12 @@ void main() {
       address: 'Lima',
       latitude: latitude,
       longitude: longitude,
+      locationQuality: quality,
       locationConfidence: precise
-          ? LocationConfidence.confirmed
-          : LocationConfidence.districtReference,
+          ? LocationConfidence.high
+          : quality == LocationQuality.interpolatedAddress
+              ? LocationConfidence.medium
+              : LocationConfidence.veryLow,
       internalPotential: potential,
       auroraProducts: const [],
       sigmaProducts: const [],
@@ -63,14 +70,14 @@ void main() {
     expect(result.first.distanceKm, lessThan(result.last.distanceKm));
   });
 
-  test('a precise local account precedes a district centroid', () {
+  test('una dirección precisa precede a un centro distrital cercano', () {
     final approximate = company(
       id: 'district',
       name: 'District',
       latitude: -12.10,
       longitude: -77.03,
       potential: 1.0,
-      precise: false,
+      quality: LocationQuality.districtReference,
     );
     final precise = company(
       id: 'address',
@@ -82,6 +89,30 @@ void main() {
     expect(
       service.rank([approximate, precise], anchor).first.company.id,
       'address',
+    );
+  });
+
+  test('una interpolación usa cercanía con menor peso que una dirección exacta', () {
+    final interpolated = company(
+      id: 'interpolated',
+      name: 'Interpolated',
+      latitude: -12.1001,
+      longitude: -77.0301,
+      potential: 0.75,
+      quality: LocationQuality.interpolatedAddress,
+    );
+    final exact = company(
+      id: 'exact',
+      name: 'Exact',
+      latitude: -12.102,
+      longitude: -77.032,
+      potential: 0.75,
+      quality: LocationQuality.exactAddress,
+    );
+
+    expect(
+      service.rank([interpolated, exact], anchor).first.company.id,
+      'exact',
     );
   });
 
