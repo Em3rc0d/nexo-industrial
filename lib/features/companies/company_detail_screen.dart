@@ -28,16 +28,22 @@ class CompanyDetailScreen extends StatelessWidget {
     }
   }
 
-  Future<void> _directions(BuildContext context) async {
-    final uri = Uri.parse(
-      'https://www.google.com/maps/dir/?api=1&destination='
-      '${company.latitude},${company.longitude}',
-    );
+  Future<void> _openLocation(BuildContext context) async {
+    final precise = company.navigationEligible;
+    final uri = precise
+        ? company.googleMapsDirectionsUri
+        : company.googleMapsSearchUri;
 
     if (!await launchUrl(uri, mode: LaunchMode.externalApplication) &&
         context.mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('No se pudo abrir la navegación.')),
+        SnackBar(
+          content: Text(
+            precise
+                ? 'No se pudo abrir la navegación.'
+                : 'No se pudo abrir la búsqueda en Google Maps.',
+          ),
+        ),
       );
     }
   }
@@ -287,15 +293,13 @@ class CompanyDetailScreen extends StatelessWidget {
               const SizedBox(width: 10),
               Expanded(
                 child: OutlinedButton.icon(
-                  onPressed: company.navigationEligible
-                      ? () => _directions(context)
-                      : null,
-                  icon: const Icon(Icons.directions_outlined),
-                  label: Text(
+                  onPressed: () => _openLocation(context),
+                  icon: Icon(
                     company.navigationEligible
-                        ? 'Cómo llegar'
-                        : 'Ubicación pendiente',
+                        ? Icons.directions_outlined
+                        : Icons.search_rounded,
                   ),
+                  label: Text(company.locationActionLabel),
                 ),
               ),
             ],
