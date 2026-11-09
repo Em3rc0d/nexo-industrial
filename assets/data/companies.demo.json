@@ -10,14 +10,27 @@
     "address": "San Isidro, Lima",
     "latitude": -12.0972,
     "longitude": -77.0365,
-    "location_confidence": "confirmed",
+    "location_confidence": "high",
     "internal_potential": 0.94,
-    "aurora_products": ["Epóxicos", "Anticorrosivos", "Poliuretanos"],
-    "sigma_products": ["SIGMACOVER", "SIGMADUR", "Sistemas ricos en zinc"],
-    "contact": {"role": "Área de Compras"},
+    "aurora_products": [
+      "Epóxicos",
+      "Anticorrosivos",
+      "Poliuretanos"
+    ],
+    "sigma_products": [
+      "SIGMACOVER",
+      "SIGMADUR",
+      "Sistemas ricos en zinc"
+    ],
+    "contact": {
+      "role": "Área de Compras"
+    },
     "source": "Dataset demo de Nexo",
     "source_updated_at": "2026-11-09T00:00:00-05:00",
-    "management_status": "Central documentada"
+    "management_status": "Central documentada",
+    "location_quality": "exact_address",
+    "navigation_eligible": true,
+    "nearby_ranking_eligible": true
   },
   {
     "id": "demo-002",
@@ -30,14 +43,24 @@
     "address": "Lince, Lima",
     "latitude": -12.0866,
     "longitude": -77.0357,
-    "location_confidence": "fiscal_only",
+    "location_confidence": "high",
     "internal_potential": 0.87,
-    "aurora_products": ["Anticorrosivos", "Epóxicos", "Poliuretanos"],
-    "sigma_products": ["SIGMAFAST 278", "SIGMADUR 550H"],
+    "aurora_products": [
+      "Anticorrosivos",
+      "Epóxicos",
+      "Poliuretanos"
+    ],
+    "sigma_products": [
+      "SIGMAFAST 278",
+      "SIGMADUR 550H"
+    ],
     "contact": {},
     "source": "Dataset demo de Nexo",
     "source_updated_at": "2026-11-09T00:00:00-05:00",
-    "management_status": "Contacto de compras pendiente"
+    "management_status": "Contacto de compras pendiente",
+    "location_quality": "address_reference",
+    "navigation_eligible": true,
+    "nearby_ranking_eligible": true
   },
   {
     "id": "demo-003",
@@ -50,14 +73,25 @@
     "address": "La Victoria, Lima",
     "latitude": -12.0717,
     "longitude": -77.0198,
-    "location_confidence": "confirmed",
+    "location_confidence": "high",
     "internal_potential": 0.91,
-    "aurora_products": ["Epóxicos de altos sólidos", "Tank lining"],
-    "sigma_products": ["NOVAGUARD", "SIGMASHIELD"],
-    "contact": {"role": "Operaciones / Compras"},
+    "aurora_products": [
+      "Epóxicos de altos sólidos",
+      "Tank lining"
+    ],
+    "sigma_products": [
+      "NOVAGUARD",
+      "SIGMASHIELD"
+    ],
+    "contact": {
+      "role": "Operaciones / Compras"
+    },
     "source": "Dataset demo de Nexo",
     "source_updated_at": "2026-11-09T00:00:00-05:00",
-    "management_status": "Sin gestión registrada"
+    "management_status": "Sin gestión registrada",
+    "location_quality": "exact_address",
+    "navigation_eligible": true,
+    "nearby_ranking_eligible": true
   },
   {
     "id": "demo-004",
@@ -70,14 +104,24 @@
     "address": "Surquillo, Lima",
     "latitude": -12.1124,
     "longitude": -77.0123,
-    "location_confidence": "confirmed",
+    "location_confidence": "high",
     "internal_potential": 0.83,
-    "aurora_products": ["Epóxicos", "Anticorrosivos", "Poliuretanos"],
-    "sigma_products": ["SIGMAFAST 278", "SIGMACOVER 350"],
+    "aurora_products": [
+      "Epóxicos",
+      "Anticorrosivos",
+      "Poliuretanos"
+    ],
+    "sigma_products": [
+      "SIGMAFAST 278",
+      "SIGMACOVER 350"
+    ],
     "contact": {},
     "source": "Dataset demo de Nexo",
     "source_updated_at": "2026-11-09T00:00:00-05:00",
-    "management_status": "Central documentada"
+    "management_status": "Central documentada",
+    "location_quality": "exact_address",
+    "navigation_eligible": true,
+    "nearby_ranking_eligible": true
   },
   {
     "id": "demo-005",
@@ -90,14 +134,20 @@
     "address": "San Borja, Lima",
     "latitude": -12.1047,
     "longitude": -76.9989,
-    "location_confidence": "fiscal_only",
+    "location_confidence": "high",
     "internal_potential": 0.81,
-    "aurora_products": ["Pintura de tráfico", "Demarcación vial"],
+    "aurora_products": [
+      "Pintura de tráfico",
+      "Demarcación vial"
+    ],
     "sigma_products": [],
     "contact": {},
     "source": "Dataset demo de Nexo",
     "source_updated_at": "2026-11-09T00:00:00-05:00",
-    "management_status": "Contacto pendiente"
+    "management_status": "Contacto pendiente",
+    "location_quality": "address_reference",
+    "navigation_eligible": true,
+    "nearby_ranking_eligible": true
   },
   {
     "id": "demo-006",
@@ -110,14 +160,27 @@
     "address": "Callao",
     "latitude": -12.0566,
     "longitude": -77.1181,
-    "location_confidence": "confirmed",
+    "location_confidence": "high",
     "internal_potential": 0.96,
-    "aurora_products": ["Antifouling", "Epóxicos", "Poliuretanos"],
-    "sigma_products": ["SIGMAZINC", "SIGMACOVER", "SIGMADUR"],
-    "contact": {"role": "Compras / Mantenimiento"},
+    "aurora_products": [
+      "Antifouling",
+      "Epóxicos",
+      "Poliuretanos"
+    ],
+    "sigma_products": [
+      "SIGMAZINC",
+      "SIGMACOVER",
+      "SIGMADUR"
+    ],
+    "contact": {
+      "role": "Compras / Mantenimiento"
+    },
     "source": "Dataset demo de Nexo",
     "source_updated_at": "2026-11-09T00:00:00-05:00",
-    "management_status": "Central documentada"
+    "management_status": "Central documentada",
+    "location_quality": "exact_address",
+    "navigation_eligible": true,
+    "nearby_ranking_eligible": true
   },
   {
     "id": "demo-007",
@@ -130,14 +193,24 @@
     "address": "Ate, Lima",
     "latitude": -12.0543,
     "longitude": -76.9364,
-    "location_confidence": "fiscal_only",
+    "location_confidence": "high",
     "internal_potential": 0.88,
-    "aurora_products": ["Epóxicos", "Altos sólidos", "Alta temperatura"],
-    "sigma_products": ["SIGMAFAST", "SIGMACOVER"],
+    "aurora_products": [
+      "Epóxicos",
+      "Altos sólidos",
+      "Alta temperatura"
+    ],
+    "sigma_products": [
+      "SIGMAFAST",
+      "SIGMACOVER"
+    ],
     "contact": {},
     "source": "Dataset demo de Nexo",
     "source_updated_at": "2026-11-09T00:00:00-05:00",
-    "management_status": "Contacto pendiente"
+    "management_status": "Contacto pendiente",
+    "location_quality": "address_reference",
+    "navigation_eligible": true,
+    "nearby_ranking_eligible": true
   },
   {
     "id": "demo-008",
@@ -150,13 +223,23 @@
     "address": "Santiago de Surco, Lima",
     "latitude": -12.1266,
     "longitude": -77.0203,
-    "location_confidence": "confirmed",
+    "location_confidence": "high",
     "internal_potential": 0.86,
-    "aurora_products": ["Anticorrosivos", "Epóxicos", "Poliuretanos"],
-    "sigma_products": ["SIGMAZINC 68GP", "SIGMADUR 550H"],
+    "aurora_products": [
+      "Anticorrosivos",
+      "Epóxicos",
+      "Poliuretanos"
+    ],
+    "sigma_products": [
+      "SIGMAZINC 68GP",
+      "SIGMADUR 550H"
+    ],
     "contact": {},
     "source": "Dataset demo de Nexo",
     "source_updated_at": "2026-11-09T00:00:00-05:00",
-    "management_status": "Sin gestión registrada"
+    "management_status": "Sin gestión registrada",
+    "location_quality": "exact_address",
+    "navigation_eligible": true,
+    "nearby_ranking_eligible": true
   }
 ]
