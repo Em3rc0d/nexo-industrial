@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 108 108" role="img" aria-labelledby="title desc">
+  <title id="title">Nexo Industrial</title>
+  <desc id="desc">Marca N estilizada en verde turquesa sobre fondo azul oscuro.</desc>
+  <rect x="2" y="2" width="104" height="104" rx="14" fill="#0E2A47"/>
+  <rect x="27" y="26" width="13" height="56" fill="#16B8A6"/>
+  <rect x="68" y="26" width="13" height="56" fill="#16B8A6"/>
+  <path d="M40 26 L68 64 L68 82 L40 44 Z" fill="#16B8A6"/>
+  <circle cx="84" cy="22" r="7" fill="#F59E42"/>
+</svg>
