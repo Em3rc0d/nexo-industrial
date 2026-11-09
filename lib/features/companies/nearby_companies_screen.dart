@@ -4,6 +4,7 @@ import '../../core/theme/app_theme.dart';
 import '../activity/activity_store.dart';
 import '../map/ranking_service.dart';
 import 'company_detail_screen.dart';
+import 'domain/company.dart';
 
 enum NearbySort { potential, distance }
 
@@ -30,12 +31,12 @@ class _NearbyCompaniesScreenState extends State<NearbyCompaniesScreen> {
 
     if (_sort == NearbySort.distance) {
       companies.sort((a, b) {
-        if (a.company.nearbyRankingEligible !=
-            b.company.nearbyRankingEligible) {
-          return a.company.nearbyRankingEligible ? -1 : 1;
+        if (a.company.canUseDistanceForRanking !=
+            b.company.canUseDistanceForRanking) {
+          return a.company.canUseDistanceForRanking ? -1 : 1;
         }
 
-        if (!a.company.nearbyRankingEligible) {
+        if (!a.company.canUseDistanceForRanking) {
           return b.company.internalPotential.compareTo(
             a.company.internalPotential,
           );
@@ -115,9 +116,9 @@ class _NearbyCompaniesScreenState extends State<NearbyCompaniesScreen> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
-                        company.nearbyRankingEligible
-                            ? '${item.distanceKm.toStringAsFixed(1)} km'
-                            : 'Distrital',
+                        company.canUseDistanceForRanking
+                            ? '${company.locationQuality == LocationQuality.interpolatedAddress ? '≈ ' : ''}${item.distanceKm.toStringAsFixed(1)} km'
+                            : company.compactLocationLabel,
                         style: const TextStyle(
                           fontWeight: FontWeight.w700,
                           color: NexoColors.text,
