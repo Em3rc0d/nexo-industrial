@@ -29,7 +29,19 @@ class _NearbyCompaniesScreenState extends State<NearbyCompaniesScreen> {
     final companies = [...widget.companies];
 
     if (_sort == NearbySort.distance) {
-      companies.sort((a, b) => a.distanceKm.compareTo(b.distanceKm));
+      companies.sort((a, b) {
+        if (a.company.nearbyRankingEligible !=
+            b.company.nearbyRankingEligible) {
+          return a.company.nearbyRankingEligible ? -1 : 1;
+        }
+
+        if (!a.company.nearbyRankingEligible) {
+          return b.company.internalPotential
+              .compareTo(a.company.internalPotential);
+        }
+
+        return a.distanceKm.compareTo(b.distanceKm);
+      });
     }
 
     return Scaffold(
@@ -56,7 +68,7 @@ class _NearbyCompaniesScreenState extends State<NearbyCompaniesScreen> {
                 ),
                 DropdownMenuItem(
                   value: NearbySort.distance,
-                  child: Text('Más cercanas'),
+                  child: Text('Más cercanas (ubicación precisa)'),
                 ),
               ],
               onChanged: (value) {
@@ -102,7 +114,9 @@ class _NearbyCompaniesScreenState extends State<NearbyCompaniesScreen> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
-                        '${item.distanceKm.toStringAsFixed(1)} km',
+                        company.nearbyRankingEligible
+                            ? '${item.distanceKm.toStringAsFixed(1)} km'
+                            : 'Distrital',
                         style: const TextStyle(
                           fontWeight: FontWeight.w700,
                           color: NexoColors.text,
