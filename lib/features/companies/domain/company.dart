@@ -155,9 +155,9 @@ class Company {
     final parts = <String>[
       name,
       address,
-      if (locationDistrict case final district?) district,
-      if (locationProvince case final province?) province,
-      if (locationDepartment case final department?) department,
+      ?locationDistrict,
+      ?locationProvince,
+      ?locationDepartment,
       'Perú',
     ];
 
