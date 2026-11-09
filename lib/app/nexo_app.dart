@@ -41,7 +41,8 @@ class _NexoAppState extends State<NexoApp> {
                   padding: const EdgeInsets.all(24),
                   child: Center(
                     child: Text(
-                      'No se pudo cargar el dataset local.\n\n$error',
+                      'No se pudo cargar el dataset local.\n\n'
+                      '${snapshot.error}',
                       textAlign: TextAlign.center,
                     ),
                   ),
