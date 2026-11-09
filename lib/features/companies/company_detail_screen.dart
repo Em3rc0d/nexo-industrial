@@ -259,12 +259,28 @@ class CompanyDetailScreen extends StatelessWidget {
                     : Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            '${latest.type.label} · ${_dateLabel(latest.createdAt)}',
-                            style: const TextStyle(fontWeight: FontWeight.w800),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  '${latest.type.label} · ${_dateLabel(latest.createdAt)}',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w800,
+                                  ),
+                                ),
+                              ),
+                              _StatusPill(label: latest.status.label),
+                            ],
                           ),
                           const SizedBox(height: 5),
                           Text(latest.outcome),
+                          if (latest.note.isNotEmpty) ...[
+                            const SizedBox(height: 6),
+                            Text(
+                              latest.note,
+                              style: const TextStyle(color: NexoColors.muted),
+                            ),
+                          ],
                           const SizedBox(height: 10),
                           const Text(
                             'Ahora toca',
@@ -274,6 +290,16 @@ class CompanyDetailScreen extends StatelessWidget {
                             ),
                           ),
                           Text(latest.nextStep),
+                          if (latest.followUpAt case final followUp?) ...[
+                            const SizedBox(height: 6),
+                            Text(
+                              'Seguimiento: ${_dateLabel(followUp)}',
+                              style: const TextStyle(
+                                color: NexoColors.orange,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ],
                         ],
                       ),
               );
