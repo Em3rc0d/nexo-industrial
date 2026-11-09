@@ -306,6 +306,7 @@ class _MapScreenState extends State<MapScreen> {
             _selected = null;
           }),
           onListTap: () => _openNearbyList(_candidates()),
+          onRetryLocation: _startLocation,
         ),
         if (_exploring)
           Positioned(
@@ -348,11 +349,13 @@ class _MapHeader extends StatelessWidget {
     required this.locationUnavailable,
     required this.onQueryChanged,
     required this.onListTap,
+    required this.onRetryLocation,
   });
 
   final bool locationUnavailable;
   final ValueChanged<String> onQueryChanged;
   final VoidCallback onListTap;
+  final VoidCallback onRetryLocation;
 
   @override
   Widget build(BuildContext context) {
@@ -414,10 +417,10 @@ class _MapHeader extends StatelessWidget {
                   const Expanded(child: _PriorityChip()),
                   if (locationUnavailable) ...[
                     const SizedBox(width: 8),
-                    const Tooltip(
-                      message:
-                          'Sin ubicación disponible; se usa una zona de referencia.',
-                      child: Icon(
+                    IconButton(
+                      onPressed: onRetryLocation,
+                      tooltip: 'Reintentar ubicación',
+                      icon: const Icon(
                         Icons.location_off_outlined,
                         color: Colors.white70,
                       ),
