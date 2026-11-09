@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../core/theme/app_theme.dart';
+import '../activity/activity_entry_sheet.dart';
 import '../activity/activity_store.dart';
 import 'domain/company.dart';
 
@@ -48,15 +49,22 @@ class CompanyDetailScreen extends StatelessWidget {
     }
   }
 
-  Future<void> _recordActivity(BuildContext context, ActivityType type) async {
-    await activityStore.record(company, type);
+  Future<void> _openActivityEntry(
+    BuildContext context,
+    ActivityType type,
+  ) async {
+    final saved = await showActivityEntrySheet(
+      context: context,
+      company: company,
+      activityStore: activityStore,
+      type: type,
+    );
 
-    if (!context.mounted) return;
+    if (!context.mounted || !saved) return;
 
-    Navigator.of(context).pop();
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text('${type.label} registrada.')));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('${type.label} registrada.')),
+    );
   }
 
   void _showActivityPicker(BuildContext context) {
@@ -80,19 +88,29 @@ class CompanyDetailScreen extends StatelessWidget {
                 ListTile(
                   leading: const Icon(Icons.directions_walk_rounded),
                   title: const Text('Visité la empresa'),
-                  onTap: () =>
-                      _recordActivity(sheetContext, ActivityType.visit),
+                  subtitle: const Text('Guarda resultado, nota y siguiente paso'),
+                  onTap: () {
+                    Navigator.of(sheetContext).pop();
+                    _openActivityEntry(context, ActivityType.visit);
+                  },
                 ),
                 ListTile(
                   leading: const Icon(Icons.call_outlined),
                   title: const Text('Realicé una llamada'),
-                  onTap: () => _recordActivity(sheetContext, ActivityType.call),
+                  subtitle: const Text('Registra qué pasó y cómo continuar'),
+                  onTap: () {
+                    Navigator.of(sheetContext).pop();
+                    _openActivityEntry(context, ActivityType.call);
+                  },
                 ),
                 ListTile(
                   leading: const Icon(Icons.send_outlined),
                   title: const Text('Envié información comercial'),
-                  onTap: () =>
-                      _recordActivity(sheetContext, ActivityType.information),
+                  subtitle: const Text('Deja trazabilidad del seguimiento'),
+                  onTap: () {
+                    Navigator.of(sheetContext).pop();
+                    _openActivityEntry(context, ActivityType.information);
+                  },
                 ),
               ],
             ),
