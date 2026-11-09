@@ -1,0 +1,42 @@
+name: deep-geocode-osm
+on:
+  push:
+    branches: [geocode-deep-20261109]
+    paths:
+      - ".github/workflows/deep-geocode-osm.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  geocode:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install parser
+        run: python -m pip install --disable-pip-version-check osmium rapidfuzz
+      - name: Download current Peru OSM extract
+        run: |
+          curl -L --fail --retry 4 --retry-delay 5 \
+            -o /tmp/peru-latest.osm.pbf \
+            https://download.geofabrik.de/south-america/peru-latest.osm.pbf
+          ls -lh /tmp/peru-latest.osm.pbf
+      - name: Deep geocode
+        run: |
+          python tool/geocode_osm_offline.py \
+            --input assets/data/companies.production.json \
+            --pbf /tmp/peru-latest.osm.pbf \
+            --output /tmp/companies.deep-geocoded.json \
+            --report /tmp/deep-geocode-report.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: deep-geocode-osm
+          path: |
+            /tmp/companies.deep-geocoded.json
+            /tmp/deep-geocode-report.json
+          retention-days: 1
