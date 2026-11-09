@@ -1,6 +1,13 @@
 # Contrato de datos canónico
 
-Cada cuenta exportada a Nexo debe cumplir:
+Nexo conserva dos capas:
+
+1. `companies.production.json`: cuenta comercial canónica.
+2. `companies.geolocation.overlay.json`: coordenadas y evidencia geográfica auditadas por RUC.
+
+El repositorio las combina en memoria al cargar la app.
+
+## Cuenta comercial
 
 ```json
 {
@@ -8,30 +15,43 @@ Cada cuenta exportada a Nexo debe cumplir:
   "ruc": "string",
   "name": "string",
   "sector": "string",
-  "activity": "string",
-  "opportunity_reason": "string",
-  "suggested_next_step": "string",
-  "address": "string",
+  "score": 0,
+  "fiscal_address": "string",
+  "contact": {
+    "name": null,
+    "role": null,
+    "phone": null,
+    "email": null
+  }
+}
+```
+
+## Overlay geográfico
+
+```json
+{
+  "ruc": "string",
   "latitude": -12.0,
   "longitude": -77.0,
-  "location_confidence": "confirmed | fiscal_only | uncertain",
-  "internal_potential": 0.0,
-  "aurora_products": [],
-  "sigma_products": [],
-  "contact": {"name": null, "role": null, "phone": null, "email": null},
+  "precision": "string",
+  "location_quality": "exact_address | address_reference | interpolated_address | street_reference | district_reference",
+  "location_confidence": "high | medium | low | very_low",
+  "navigation_eligible": true,
+  "nearby_ranking_eligible": true,
+  "map_display_eligible": true,
+  "geocoding_status": "string",
   "source": "string",
-  "source_updated_at": "ISO-8601",
-  "management_status": "string | null"
+  "validation": "string"
 }
 ```
 
 ## Reglas
 
-- El dataset maestro propio es la fuente canónica.
-- Google Maps/Places no descubre prospectos.
-- Solo confirmed y fiscal_only entran al mapa por defecto.
-- uncertain debe sanearse antes de competir geográficamente.
-- Los contactos vacíos permanecen vacíos.
-- internal_potential está entre 0 y 1, es interno y nunca se muestra como score al vendedor.
-- Las sugerencias Aurora/Sigma son hipótesis comerciales, no especificaciones técnicas de un proyecto concreto.
-- source y source_updated_at son obligatorios.
+- Deben existir exactamente 1,907 RUC únicos en ambas capas.
+- Todo RUC debe tener coordenadas válidas.
+- `exact_address` y `address_reference` pueden habilitar navegación si la auditoría lo autoriza.
+- `interpolated_address` puede aportar a cercanía con penalización, pero no se presenta como puerta exacta.
+- `street_reference` y `district_reference` son referencias visuales, no destinos de navegación.
+- Google Maps no descubre cuentas. Solo sirve como fallback externo de búsqueda para cuentas ya existentes.
+- El resultado de Maps no se guarda automáticamente como coordenada verificada.
+- Los scores internos ordenan la experiencia, pero no se muestran numéricamente al vendedor.
