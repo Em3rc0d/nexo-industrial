@@ -41,32 +41,47 @@ class CompanyRankingService {
             company.point,
           );
 
-          final proximity = company.nearbyRankingEligible
-              ? 1 / (1 + (distanceKm / 2))
+          final proximity = company.canUseDistanceForRanking
+              ? (1 / (1 + (distanceKm / 2))) * company.distanceEvidenceWeight
               : 0.0;
-          final evidence = switch (company.locationConfidence) {
-            LocationConfidence.confirmed => 1.0,
-            LocationConfidence.fiscalOnly => 0.72,
-            LocationConfidence.districtReference => 0.15,
-            LocationConfidence.uncertain => 0.05,
+
+          final evidence = switch (company.locationQuality) {
+            LocationQuality.exactAddress => 1.0,
+            LocationQuality.addressReference => 0.92,
+            LocationQuality.interpolatedAddress => 0.58,
+            LocationQuality.streetReference => 0.20,
+            LocationQuality.districtReference => 0.08,
           };
 
-          final score = company.nearbyRankingEligible
-              ? (company.internalPotential * 0.55) +
-                    (proximity * 0.35) +
+          final score = company.canUseDistanceForRanking
+              ? (company.internalPotential * 0.58) +
+                    (proximity * 0.32) +
                     (evidence * 0.10)
-              : (company.internalPotential * 0.90) + (evidence * 0.10);
+              : (company.internalPotential * 0.92) + (evidence * 0.08);
 
           return RankedCompany(score, company: company, distanceKm: distanceKm);
         })
         .toList();
 
     ranked.sort((a, b) {
-      if (a.company.nearbyRankingEligible != b.company.nearbyRankingEligible) {
-        return a.company.nearbyRankingEligible ? -1 : 1;
+      if (a.company.canUseDistanceForRanking !=
+          b.company.canUseDistanceForRanking) {
+        return a.company.canUseDistanceForRanking ? -1 : 1;
       }
+
+      final qualityComparison = b.company.distanceEvidenceWeight.compareTo(
+        a.company.distanceEvidenceWeight,
+      );
+
+      if (qualityComparison != 0 &&
+          (a.company.internalPotential - b.company.internalPotential).abs() <
+              0.08) {
+        return qualityComparison;
+      }
+
       return b._score.compareTo(a._score);
     });
+
     return ranked;
   }
 
