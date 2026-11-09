@@ -165,8 +165,14 @@ class _MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
     final candidates = _candidates();
-    final featured = candidates.take(3).toList(growable: false);
-    final regular = candidates.skip(3).toList(growable: false);
+    final featured = candidates
+        .where((item) => item.company.nearbyRankingEligible)
+        .take(3)
+        .toList(growable: false);
+    final featuredIds = featured.map((item) => item.company.id).toSet();
+    final regular = candidates
+        .where((item) => !featuredIds.contains(item.company.id))
+        .toList(growable: false);
 
     final regularMarkers = regular
         .map(
@@ -642,7 +648,11 @@ class _NearbyOpportunities extends StatelessWidget {
           children: [
             Expanded(
               child: Text(
-                'Oportunidades cerca de ti',
+                candidates.any(
+                  (item) => item.company.nearbyRankingEligible,
+                )
+                    ? 'Oportunidades cerca de ti'
+                    : 'Oportunidades en esta zona',
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.w800,
                     ),
