@@ -12,25 +12,32 @@ permissions:
 jobs:
   geocode:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Install parser
-        run: python -m pip install --disable-pip-version-check osmium rapidfuzz
-      - name: Download current Peru OSM extract
+      - name: Install tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq osmium-tool
+          python -m pip install --disable-pip-version-check osmium rapidfuzz
+      - name: Download and filter current Peru OSM extract
         run: |
           curl -L --fail --retry 4 --retry-delay 5 \
             -o /tmp/peru-latest.osm.pbf \
             https://download.geofabrik.de/south-america/peru-latest.osm.pbf
-          ls -lh /tmp/peru-latest.osm.pbf
+          osmium tags-filter /tmp/peru-latest.osm.pbf \
+            nwr/addr:housenumber nwr/name nwr/operator nwr/brand w/highway \
+            -o /tmp/peru-relevant.osm.pbf
+          ls -lh /tmp/peru-latest.osm.pbf /tmp/peru-relevant.osm.pbf
+          rm /tmp/peru-latest.osm.pbf
       - name: Deep geocode
         run: |
           python tool/geocode_osm_offline.py \
             --input assets/data/companies.production.json \
-            --pbf /tmp/peru-latest.osm.pbf \
+            --pbf /tmp/peru-relevant.osm.pbf \
             --output /tmp/companies.deep-geocoded.json \
             --report /tmp/deep-geocode-report.json
       - uses: actions/upload-artifact@v4
