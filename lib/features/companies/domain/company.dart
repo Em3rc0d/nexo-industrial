@@ -1,18 +1,39 @@
 import 'package:latlong2/latlong.dart';
 
+enum LocationQuality {
+  exactAddress,
+  addressReference,
+  interpolatedAddress,
+  streetReference,
+  districtReference;
+
+  static LocationQuality fromJson(String? value) {
+    return switch (value) {
+      'exact_address' => LocationQuality.exactAddress,
+      'address_reference' => LocationQuality.addressReference,
+      'interpolated_address' => LocationQuality.interpolatedAddress,
+      'street_reference' => LocationQuality.streetReference,
+      'district_reference' => LocationQuality.districtReference,
+      'address_geocoded' => LocationQuality.exactAddress,
+      _ => LocationQuality.districtReference,
+    };
+  }
+}
+
 enum LocationConfidence {
-  confirmed,
-  fiscalOnly,
-  districtReference,
-  uncertain;
+  high,
+  medium,
+  low,
+  veryLow;
 
   static LocationConfidence fromJson(String? value) {
     return switch (value) {
-      'confirmed' => LocationConfidence.confirmed,
-      'fiscal_only' => LocationConfidence.fiscalOnly,
-      'address_geocoded' => LocationConfidence.fiscalOnly,
-      'district_reference' => LocationConfidence.districtReference,
-      _ => LocationConfidence.uncertain,
+      'high' || 'confirmed' || 'fiscal_only' || 'address_geocoded' =>
+        LocationConfidence.high,
+      'medium' => LocationConfidence.medium,
+      'low' => LocationConfidence.low,
+      'very_low' || 'district_reference' => LocationConfidence.veryLow,
+      _ => LocationConfidence.veryLow,
     };
   }
 }
@@ -55,6 +76,7 @@ class Company {
     required this.address,
     required this.latitude,
     required this.longitude,
+    required this.locationQuality,
     required this.locationConfidence,
     required this.internalPotential,
     required this.auroraProducts,
@@ -80,6 +102,7 @@ class Company {
   final String address;
   final double latitude;
   final double longitude;
+  final LocationQuality locationQuality;
   final LocationConfidence locationConfidence;
 
   /// Solo ranking interno. Nunca mostrar el número al vendedor.
@@ -106,8 +129,24 @@ class Company {
       longitude <= 180;
 
   bool get hasReliableCoordinates =>
-      locationConfidence == LocationConfidence.confirmed ||
-      locationConfidence == LocationConfidence.fiscalOnly;
+      locationQuality == LocationQuality.exactAddress ||
+      locationQuality == LocationQuality.addressReference;
+
+  /// Una interpolación puede aportar cercanía, pero nunca con el mismo peso que
+  /// una puerta verificada. Calle y distrito son solo referencias visuales.
+  bool get canUseDistanceForRanking =>
+      nearbyRankingEligible ||
+      locationQuality == LocationQuality.exactAddress ||
+      locationQuality == LocationQuality.addressReference ||
+      locationQuality == LocationQuality.interpolatedAddress;
+
+  double get distanceEvidenceWeight => switch (locationQuality) {
+    LocationQuality.exactAddress => 1.0,
+    LocationQuality.addressReference => 0.95,
+    LocationQuality.interpolatedAddress => 0.55,
+    LocationQuality.streetReference => 0.0,
+    LocationQuality.districtReference => 0.0,
+  };
 
   String get googleMapsSearchQuery {
     final parts = <String>[
@@ -151,13 +190,25 @@ class Company {
   String get locationActionLabel =>
       navigationEligible ? 'Cómo llegar' : 'Buscar en Maps';
 
-  String get locationLabel => switch (locationConfidence) {
-    LocationConfidence.confirmed => 'Central documentada',
-    LocationConfidence.fiscalOnly => 'Domicilio fiscal · confirmar central',
-    LocationConfidence.districtReference =>
+  String get locationLabel => switch (locationQuality) {
+    LocationQuality.exactAddress =>
+      'Dirección precisa · confirmar sede operativa',
+    LocationQuality.addressReference =>
+      'Dirección verificada · confirmar sede operativa',
+    LocationQuality.interpolatedAddress =>
+      'Dirección aproximada · validar antes de visitar',
+    LocationQuality.streetReference =>
+      'Referencia de calle · búsqueda en Maps disponible',
+    LocationQuality.districtReference =>
       'Referencia distrital · búsqueda en Maps disponible',
-    LocationConfidence.uncertain =>
-      'Ubicación aproximada · búsqueda en Maps disponible',
+  };
+
+  String get compactLocationLabel => switch (locationQuality) {
+    LocationQuality.exactAddress => 'Precisa',
+    LocationQuality.addressReference => 'Dirección',
+    LocationQuality.interpolatedAddress => 'Aprox.',
+    LocationQuality.streetReference => 'Calle',
+    LocationQuality.districtReference => 'Distrital',
   };
 
   factory Company.fromJson(Map<String, dynamic> json) {
@@ -182,6 +233,13 @@ class Company {
               ].whereType<String>().join(', '))
         : (json['address'] as String);
 
+    final qualityRaw = isProductionShape
+        ? (geography['location_quality'] ?? geography['precision']) as String?
+        : json['location_quality'] as String?;
+    final confidenceRaw = isProductionShape
+        ? (geography['location_confidence'] ?? geography['precision']) as String?
+        : json['location_confidence'] as String?;
+
     return Company(
       id: json['id'].toString(),
       ruc: json['ruc'].toString(),
@@ -198,11 +256,8 @@ class Company {
       address: address,
       latitude: latitude,
       longitude: longitude,
-      locationConfidence: LocationConfidence.fromJson(
-        isProductionShape
-            ? geography['precision'] as String?
-            : json['location_confidence'] as String?,
-      ),
+      locationQuality: LocationQuality.fromJson(qualityRaw),
+      locationConfidence: LocationConfidence.fromJson(confidenceRaw),
       internalPotential: json['internal_potential'] != null
           ? (json['internal_potential'] as num).toDouble()
           : ((json['score'] as num?)?.toDouble() ?? 0) / 100,
@@ -247,8 +302,8 @@ class Company {
           (json['management_status'] as String?) ??
           (isProductionShape
               ? (geography['navigation_eligible'] == true
-                    ? 'Domicilio fiscal geocodificado · confirmar central'
-                    : 'Referencia distrital · búsqueda en Maps disponible')
+                    ? 'Dirección georreferenciada · confirmar sede operativa'
+                    : 'Ubicación aproximada · validar antes de visitar')
               : null),
     );
   }
