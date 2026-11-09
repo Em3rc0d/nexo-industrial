@@ -1,41 +1,43 @@
-# Nexo Industrial: continuación en Work
+# Nexo Industrial — handoff MVP 1.0
 
-## Estado verificable
+## Estado
 
-- Flutter 3.47.9 / Dart 3.13.7; aplicación Android local-first.
-- Versión 0.1.1+2.
-- Asset real: `assets/data/companies.production.json`, 1,907 RUC únicos.
-- 1,907 domicilios fiscales SUNAT (2026-11-09).
-- 274 ubicaciones aptas para cercanía/navegación; 1,633 pendientes.
-- Las pendientes no deben habilitar rutas ni distancias de visita.
-- Las ubicaciones utilizables son domicilios fiscales, no sedes operativas verificadas.
+- Flutter local-first.
+- Versión `1.0.0+3`.
+- 1,907 cuentas / 1,907 RUC.
+- 1,907/1,907 con coordenadas.
+- 370 con navegación directa.
+- Overlay geográfico auditado separado del dataset comercial.
+- Fallback gratuito a Google Maps URLs para ubicaciones aproximadas.
+- Actividad SQLite con resultado, nota, estado, siguiente paso y seguimiento.
+- Filtros comerciales ligeros.
+- Sin backend obligatorio.
 
-## Construcción
+## Flujo
 
-Instalar Flutter, Android SDK y JDK completo (`javac` obligatorio).
-Ejecutar `bash tool/bootstrap_android.sh` si falta Android; luego:
+Mapa → oportunidad → ficha → contacto/visita → registrar resultado → siguiente paso.
+
+## Build
 
 ```bash
+bash tool/bootstrap_android.sh
 flutter pub get
 flutter analyze
 flutter test
 flutter build apk --release
 ```
 
-En entornos automatizados, establecer `CI=true` y `BOT=true` para evitar la
-sonda de metadatos Azure de Flutter. No acceder a metadatos de infraestructura.
-En entornos de poca memoria, usar un trabajador Gradle, heap 768 MB y metaspace
-768 MB. No subir proxies locales, `local.properties`, SDKs ni claves a GitHub.
+No usar GitHub Actions para compilar APK.
 
-## Datos
+## Validaciones antes de distribuir
 
-Consultar `GEOLOCATION.md` y `GEOLOCATION_RESULT.json`. Reusar caché de las
-consultas puntuales; no repetir lotes Nominatim sin verificar su política.
-Nunca promover un centroide por completar un contador. Resolver los pendientes
-con evidencia adicional o confirmación en campo.
-
-## Producto
-
-Mapa → oportunidad → ficha → contacto/visita → registro explícito.
-No generar agenda, llamadas ni gestiones automáticamente. No usar Google Places
-para descubrir prospectos. No usar GitHub Actions para compilar el APK.
+- permisos de ubicación aceptados/denegados;
+- seguimiento al desplazarse;
+- búsqueda por empresa/RUC;
+- clustering;
+- filtros;
+- persistencia SQLite tras reinicio;
+- migración de BD desde versión 1;
+- navegación exacta;
+- fallback “Buscar en Maps”;
+- rendimiento con 1,907 cuentas.
