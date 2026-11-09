@@ -292,14 +292,23 @@ class CompanyDetailScreen extends StatelessWidget {
               ),
               const SizedBox(width: 10),
               Expanded(
-                child: OutlinedButton.icon(
-                  onPressed: () => _openLocation(context),
-                  icon: Icon(
-                    company.navigationEligible
-                        ? Icons.directions_outlined
-                        : Icons.search_rounded,
+                child: Tooltip(
+                  message: company.navigationEligible
+                      ? 'Abrir navegación en Google Maps'
+                      : 'Buscar esta empresa en Google Maps',
+                  child: OutlinedButton.icon(
+                    onPressed: () => _openLocation(context),
+                    icon: Icon(
+                      company.navigationEligible
+                          ? Icons.directions_outlined
+                          : Icons.search_rounded,
+                    ),
+                    label: Text(
+                      company.locationActionLabel,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
-                  label: Text(company.locationActionLabel),
                 ),
               ),
             ],
