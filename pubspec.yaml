@@ -1,7 +1,7 @@
 name: nexo_industrial
 description: Radar comercial geografico para prospeccion industrial en campo.
 publish_to: "none"
-version: 0.1.1+2
+version: 1.0.0+3
 
 environment:
   sdk: ">=3.12.0 <4.0.0"
@@ -25,3 +25,4 @@ flutter:
   uses-material-design: true
   assets:
     - assets/data/companies.production.json
+    - assets/data/companies.geolocation.overlay.json
