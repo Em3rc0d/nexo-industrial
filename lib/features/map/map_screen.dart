@@ -686,8 +686,10 @@ class _NearbyOpportunities extends StatelessWidget {
                 style: const TextStyle(fontWeight: FontWeight.w700),
               ),
               subtitle: Text(
-                '${item.distanceKm.toStringAsFixed(1)} km · '
-                '${item.company.activity}',
+                item.company.nearbyRankingEligible
+                    ? '${item.distanceKm.toStringAsFixed(1)} km · '
+                        '${item.company.activity}'
+                    : '${item.company.activity} · referencia distrital',
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
