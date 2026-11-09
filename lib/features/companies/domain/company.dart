@@ -149,14 +149,15 @@ class Company {
   );
 
   String get locationActionLabel =>
-      navigationEligible ? 'Cómo llegar' : 'Buscar en Google Maps';
+      navigationEligible ? 'Cómo llegar' : 'Buscar en Maps';
 
   String get locationLabel => switch (locationConfidence) {
     LocationConfidence.confirmed => 'Central documentada',
     LocationConfidence.fiscalOnly => 'Domicilio fiscal · confirmar central',
     LocationConfidence.districtReference =>
-      'Referencia distrital · ubicación exacta pendiente',
-    LocationConfidence.uncertain => 'Ubicación por confirmar',
+      'Referencia distrital · búsqueda en Maps disponible',
+    LocationConfidence.uncertain =>
+      'Ubicación aproximada · búsqueda en Maps disponible',
   };
 
   factory Company.fromJson(Map<String, dynamic> json) {
@@ -247,7 +248,7 @@ class Company {
           (isProductionShape
               ? (geography['navigation_eligible'] == true
                     ? 'Domicilio fiscal geocodificado · confirmar central'
-                    : 'Referencia distrital · ubicación exacta pendiente')
+                    : 'Referencia distrital · búsqueda en Maps disponible')
               : null),
     );
   }
