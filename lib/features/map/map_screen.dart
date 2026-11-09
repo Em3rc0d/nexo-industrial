@@ -141,11 +141,11 @@ class _MapScreenState extends State<MapScreen> {
   }
 
   Color _markerColor(Company company) => switch (company.locationQuality) {
-    LocationQuality.exactAddress || LocationQuality.addressReference =>
-      NexoColors.mint,
+    LocationQuality.exactAddress => NexoColors.mint,
+    LocationQuality.addressReference => NexoColors.mint,
     LocationQuality.interpolatedAddress => NexoColors.blue,
-    LocationQuality.streetReference || LocationQuality.districtReference =>
-      NexoColors.muted,
+    LocationQuality.streetReference => NexoColors.muted,
+    LocationQuality.districtReference => NexoColors.muted,
   };
 
   void _openCompany(Company company) {
