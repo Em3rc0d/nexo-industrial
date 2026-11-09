@@ -21,6 +21,24 @@ Se conservan dirección original, ubigeo, fecha, fuente y referencia distrital.
 Solo `address_geocoded` validado o ubicaciones verificadas expresamente pueden
 habilitar `nearby_ranking_eligible` y `navigation_eligible`.
 
+## Fallback en Google Maps
+
+Cuando `navigation_eligible=false`, la app no navega hacia el centro distrital.
+En su lugar abre una búsqueda externa mediante Google Maps URLs con esta
+composición:
+
+```text
+razón social + domicilio fiscal + distrito + provincia + departamento + Perú
+```
+
+La búsqueda usa `https://www.google.com/maps/search/?api=1&query=...` y se
+construye con `Uri` para codificar correctamente espacios y caracteres
+especiales. No requiere Google Maps SDK ni una API key dentro de Nexo.
+
+El resultado de Google Maps es solo asistencia al vendedor. Nexo no captura ni
+promueve automáticamente la coordenada devuelta como ubicación verificada; para
+eso sigue aplicando el proceso de auditoría geográfica del dataset.
+
 ## Validación de resultados
 
 El geocoder exige:
