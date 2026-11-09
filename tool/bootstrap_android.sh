@@ -27,13 +27,20 @@ import sys
 path = Path(sys.argv[1])
 text = path.read_text()
 
-permissions = """    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+permissions = """    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 """
 
-if "ACCESS_FINE_LOCATION" not in text:
+if "android.permission.INTERNET" not in text:
     marker = "<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\">"
     text = text.replace(marker, marker + "\n" + permissions)
+elif "ACCESS_FINE_LOCATION" not in text:
+    marker = "<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\">"
+    location_permissions = """    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+"""
+    text = text.replace(marker, marker + "\n" + location_permissions)
 
 path.write_text(text)
 PY
