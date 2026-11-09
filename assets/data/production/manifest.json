@@ -2,69 +2,9 @@
   "dataset": "Nexo Industrial production georeference",
   "total_accounts": 1907,
   "generated_at": "2026-11-09",
+  "file": "../companies.production.json",
   "precision": "district_reference",
   "nearby_ranking_eligible": false,
   "navigation_eligible": false,
-  "files": [
-    {
-      "file": "accounts_0001_0200.json",
-      "count": 200,
-      "from": 1,
-      "to": 200
-    },
-    {
-      "file": "accounts_0201_0400.json",
-      "count": 200,
-      "from": 201,
-      "to": 400
-    },
-    {
-      "file": "accounts_0401_0600.json",
-      "count": 200,
-      "from": 401,
-      "to": 600
-    },
-    {
-      "file": "accounts_0601_0800.json",
-      "count": 200,
-      "from": 601,
-      "to": 800
-    },
-    {
-      "file": "accounts_0801_1000.json",
-      "count": 200,
-      "from": 801,
-      "to": 1000
-    },
-    {
-      "file": "accounts_1001_1200.json",
-      "count": 200,
-      "from": 1001,
-      "to": 1200
-    },
-    {
-      "file": "accounts_1201_1400.json",
-      "count": 200,
-      "from": 1201,
-      "to": 1400
-    },
-    {
-      "file": "accounts_1401_1600.json",
-      "count": 200,
-      "from": 1401,
-      "to": 1600
-    },
-    {
-      "file": "accounts_1601_1800.json",
-      "count": 200,
-      "from": 1601,
-      "to": 1800
-    },
-    {
-      "file": "accounts_1801_1907.json",
-      "count": 107,
-      "from": 1801,
-      "to": 1907
-    }
-  ]
+  "note": "Las 1,907 cuentas tienen referencia territorial. No tratar el centro distrital como sede exacta."
 }

@@ -6,7 +6,7 @@ import '../domain/company.dart';
 
 class AssetCompanyRepository {
   const AssetCompanyRepository({
-    this.assetPath = 'assets/data/companies.demo.json',
+    this.assetPath = 'assets/data/companies.production.json',
   });
 
   final String assetPath;
@@ -17,7 +17,7 @@ class AssetCompanyRepository {
 
     return decoded
         .map((item) => Company.fromJson(item as Map<String, dynamic>))
-        .where((company) => company.hasReliableCoordinates)
+        .where((company) => company.hasMapCoordinates)
         .toList(growable: false);
   }
 }

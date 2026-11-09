@@ -3,12 +3,14 @@ import 'package:latlong2/latlong.dart';
 enum LocationConfidence {
   confirmed,
   fiscalOnly,
+  districtReference,
   uncertain;
 
   static LocationConfidence fromJson(String? value) {
     return switch (value) {
       'confirmed' => LocationConfidence.confirmed,
       'fiscal_only' => LocationConfidence.fiscalOnly,
+      'district_reference' => LocationConfidence.districtReference,
       _ => LocationConfidence.uncertain,
     };
   }
@@ -64,6 +66,8 @@ class Company {
     required this.contact,
     required this.source,
     required this.sourceUpdatedAt,
+    required this.nearbyRankingEligible,
+    required this.navigationEligible,
     this.managementStatus,
   });
 
@@ -87,35 +91,74 @@ class Company {
   final CompanyContact contact;
   final String source;
   final DateTime sourceUpdatedAt;
+  final bool nearbyRankingEligible;
+  final bool navigationEligible;
   final String? managementStatus;
 
   LatLng get point => LatLng(latitude, longitude);
 
+  bool get hasMapCoordinates =>
+      latitude >= -90 &&
+      latitude <= 90 &&
+      longitude >= -180 &&
+      longitude <= 180;
+
   bool get hasReliableCoordinates =>
-      locationConfidence != LocationConfidence.uncertain;
+      locationConfidence == LocationConfidence.confirmed ||
+      locationConfidence == LocationConfidence.fiscalOnly;
 
   String get locationLabel => switch (locationConfidence) {
         LocationConfidence.confirmed => 'Central documentada',
         LocationConfidence.fiscalOnly =>
           'Domicilio fiscal · confirmar central',
+        LocationConfidence.districtReference =>
+          'Referencia distrital · ubicación exacta pendiente',
         LocationConfidence.uncertain => 'Ubicación por confirmar',
       };
 
   factory Company.fromJson(Map<String, dynamic> json) {
+    final geography = json['geography'] as Map<String, dynamic>?;
+    final isProductionShape = geography != null;
+
+    final latitude = isProductionShape
+        ? (geography['latitude'] as num).toDouble()
+        : (json['latitude'] as num).toDouble();
+    final longitude = isProductionShape
+        ? (geography['longitude'] as num).toDouble()
+        : (json['longitude'] as num).toDouble();
+
+    final sector = (json['sector'] as String?) ?? 'Industrial';
+    final address = isProductionShape
+        ? ((json['address_hq_verified'] as String?) ??
+            [
+              geography['district'],
+              geography['province'],
+              geography['department'],
+            ].whereType<String>().join(', '))
+        : (json['address'] as String);
+
     return Company(
-      id: json['id'] as String,
-      ruc: json['ruc'] as String,
+      id: json['id'].toString(),
+      ruc: json['ruc'].toString(),
       name: json['name'] as String,
-      sector: json['sector'] as String,
-      activity: json['activity'] as String,
-      opportunityReason: json['opportunity_reason'] as String,
-      suggestedNextStep: json['suggested_next_step'] as String,
-      address: json['address'] as String,
-      latitude: (json['latitude'] as num).toDouble(),
-      longitude: (json['longitude'] as num).toDouble(),
-      locationConfidence:
-          LocationConfidence.fromJson(json['location_confidence'] as String?),
-      internalPotential: (json['internal_potential'] as num).toDouble(),
+      sector: sector,
+      activity: (json['activity'] as String?) ?? sector,
+      opportunityReason: (json['opportunity_reason'] as String?) ??
+          'Cuenta priorizada para prospección industrial en el sector $sector. '
+              'Validar necesidad, volumen, aplicación y proceso de compra antes de cotizar.',
+      suggestedNextStep: (json['suggested_next_step'] as String?) ??
+          'Validar la ubicación operativa y contactar a compras, abastecimiento o mantenimiento.',
+      address: address,
+      latitude: latitude,
+      longitude: longitude,
+      locationConfidence: LocationConfidence.fromJson(
+        isProductionShape
+            ? geography['precision'] as String?
+            : json['location_confidence'] as String?,
+      ),
+      internalPotential: json['internal_potential'] != null
+          ? (json['internal_potential'] as num).toDouble()
+          : ((json['score'] as num?)?.toDouble() ?? 0) / 100,
       auroraProducts: List<String>.from(
         json['aurora_products'] as List<dynamic>? ?? const [],
       ),
@@ -125,9 +168,22 @@ class Company {
       contact: CompanyContact.fromJson(
         json['contact'] as Map<String, dynamic>?,
       ),
-      source: json['source'] as String,
-      sourceUpdatedAt: DateTime.parse(json['source_updated_at'] as String),
-      managementStatus: json['management_status'] as String?,
+      source: isProductionShape
+          ? (geography['source'] as String? ?? 'Dataset maestro Nexo')
+          : (json['source'] as String),
+      sourceUpdatedAt: json['source_updated_at'] != null
+          ? DateTime.parse(json['source_updated_at'] as String)
+          : DateTime(2026, 11, 9),
+      nearbyRankingEligible: isProductionShape
+          ? (geography['nearby_ranking_eligible'] as bool? ?? false)
+          : true,
+      navigationEligible: isProductionShape
+          ? (geography['navigation_eligible'] as bool? ?? false)
+          : true,
+      managementStatus: (json['management_status'] as String?) ??
+          (isProductionShape
+              ? 'Referencia distrital · ubicación exacta pendiente'
+              : null),
     );
   }
 }
