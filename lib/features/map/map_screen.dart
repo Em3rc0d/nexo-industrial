@@ -166,7 +166,7 @@ class _MapScreenState extends State<MapScreen> {
   Widget build(BuildContext context) {
     final candidates = _candidates();
     final featured = candidates
-        .where((item) => item.company.nearbyRankingEligible)
+        .where((item) => item.company.canUseDistanceForRanking)
         .take(3)
         .toList(growable: false);
     final featuredIds = featured.map((item) => item.company.id).toSet();
@@ -635,7 +635,7 @@ class _NearbyOpportunities extends StatelessWidget {
           children: [
             Expanded(
               child: Text(
-                candidates.any((item) => item.company.nearbyRankingEligible)
+                candidates.any((item) => item.company.canUseDistanceForRanking)
                     ? 'Oportunidades cerca de ti'
                     : 'Oportunidades en esta zona',
                 style: Theme.of(
@@ -678,10 +678,10 @@ class _NearbyOpportunities extends StatelessWidget {
                 style: const TextStyle(fontWeight: FontWeight.w700),
               ),
               subtitle: Text(
-                item.company.nearbyRankingEligible
-                    ? '${item.distanceKm.toStringAsFixed(1)} km · '
+                item.company.canUseDistanceForRanking
+                    ? '${item.company.locationQuality == LocationQuality.interpolatedAddress ? '≈ ' : ''}${item.distanceKm.toStringAsFixed(1)} km · '
                           '${item.company.activity}'
-                    : '${item.company.activity} · referencia distrital',
+                    : '${item.company.activity} · ${item.company.compactLocationLabel.toLowerCase()}',
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
