@@ -1,33 +1,32 @@
 {
   "dataset": "Nexo Industrial",
-  "file": "../companies.production.json",
+  "base_file": "../companies.production.json",
+  "geolocation_overlay": "../companies.geolocation.overlay.json",
   "total_accounts": 1907,
   "unique_rucs": 1907,
   "fiscal_addresses": 1907,
-  "address_geocoded": 274,
-  "pending_exact_location": 1633,
-  "municipal_added": 89,
-  "municipal_overlap": 30,
-  "municipal_conflicts_not_promoted": [
-    "20608496859"
-  ],
-  "statuses": {
-    "no_address_level_match": 965,
-    "automatic_address_match": 155,
-    "manual_review_ambiguous": 21,
-    "manual_review_no_street_number": 646,
-    "municipal_address_match": 119,
-    "manual_review_source_conflict": 1
+  "coordinate_coverage": 1907,
+  "coordinate_coverage_percent": 100.0,
+  "navigation_eligible": 370,
+  "location_quality": {
+    "exact_address": 334,
+    "address_reference": 36,
+    "interpolated_address": 137,
+    "street_reference": 551,
+    "district_reference": 849
   },
-  "audited_at": "2026-11-09T19:06:06.064817+00:00",
-  "sunat_archive": {
-    "matched": 1907,
-    "missing": [],
-    "source": "https://www2.sunat.gob.pe/padron_reducido_ruc.zip",
-    "as_of": "2026-11-09",
-    "archive_sha256": "ec3acedd7cf56128b161b4b4bfe284ea2c88857de9477ff5d058af768e60a5f4"
+  "location_confidence": {
+    "high": 351,
+    "medium": 156,
+    "low": 551,
+    "very_low": 849
   },
-  "scope": "1,907 fiscal addresses matched; exact location remains unresolved where evidence is insufficient.",
-  "numbered_accounts_evaluated": 1261,
-  "distinct_cached_queries": 1178
+  "audited_at": "2026-11-09",
+  "scope": "1,907 cuentas con coordenadas; solo 370 habilitan navegación directa. Las restantes conservan precisión explícita y fallback de búsqueda en Google Maps.",
+  "rules": {
+    "exact_navigation": "Solo evidencia de dirección defendible habilita navegación.",
+    "interpolated": "Puede influir en cercanía con penalización; se presenta como aproximada.",
+    "street_district": "Referencia visual, sin navegación directa ni cercanía exacta.",
+    "google_maps_fallback": "Abre búsqueda externa por razón social + domicilio fiscal; no promueve automáticamente coordenadas."
+  }
 }
