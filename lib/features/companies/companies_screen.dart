@@ -25,18 +25,15 @@ class _CompaniesScreenState extends State<CompaniesScreen> {
   @override
   Widget build(BuildContext context) {
     final query = _query.trim().toLowerCase();
-    final companies = widget.companies
-        .where((company) {
-          if (query.isEmpty) return true;
-          return company.name.toLowerCase().contains(query) ||
-              company.ruc.toLowerCase().contains(query) ||
-              company.activity.toLowerCase().contains(query) ||
-              company.sector.toLowerCase().contains(query);
-        })
-        .toList()
-      ..sort(
-        (a, b) => b.internalPotential.compareTo(a.internalPotential),
-      );
+    final companies =
+        widget.companies.where((company) {
+            if (query.isEmpty) return true;
+            return company.name.toLowerCase().contains(query) ||
+                company.ruc.toLowerCase().contains(query) ||
+                company.activity.toLowerCase().contains(query) ||
+                company.sector.toLowerCase().contains(query);
+          }).toList()
+          ..sort((a, b) => b.internalPotential.compareTo(a.internalPotential));
 
     return SafeArea(
       child: Column(
@@ -51,8 +48,8 @@ class _CompaniesScreenState extends State<CompaniesScreen> {
                 Text(
                   'Cuentas',
                   style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                        fontWeight: FontWeight.w900,
-                      ),
+                    fontWeight: FontWeight.w900,
+                  ),
                 ),
                 const SizedBox(height: 4),
                 const Text(
@@ -74,7 +71,7 @@ class _CompaniesScreenState extends State<CompaniesScreen> {
             child: ListView.separated(
               padding: const EdgeInsets.all(16),
               itemCount: companies.length,
-              separatorBuilder: (_, __) => const SizedBox(height: 10),
+              separatorBuilder: (_, _) => const SizedBox(height: 10),
               itemBuilder: (context, index) {
                 final company = companies[index];
 

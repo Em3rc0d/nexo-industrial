@@ -189,10 +189,7 @@ class _MapScreenState extends State<MapScreen> {
                   shape: BoxShape.circle,
                   border: Border.all(color: Colors.white, width: 3),
                   boxShadow: const [
-                    BoxShadow(
-                      color: Color(0x22000000),
-                      blurRadius: 8,
-                    ),
+                    BoxShadow(color: Color(0x22000000), blurRadius: 8),
                   ],
                 ),
                 child: const Icon(
@@ -219,9 +216,7 @@ class _MapScreenState extends State<MapScreen> {
                 Icons.location_on,
                 color: NexoColors.orange,
                 size: 48,
-                shadows: [
-                  Shadow(color: Color(0x44000000), blurRadius: 6),
-                ],
+                shadows: [Shadow(color: Color(0x44000000), blurRadius: 6)],
               ),
             ),
           ),
@@ -267,10 +262,7 @@ class _MapScreenState extends State<MapScreen> {
                       shape: BoxShape.circle,
                       border: Border.all(color: Colors.white, width: 3),
                       boxShadow: const [
-                        BoxShadow(
-                          color: Color(0x25000000),
-                          blurRadius: 10,
-                        ),
+                        BoxShadow(color: Color(0x25000000), blurRadius: 10),
                       ],
                     ),
                     child: Text(
@@ -298,10 +290,7 @@ class _MapScreenState extends State<MapScreen> {
                         shape: BoxShape.circle,
                         border: Border.all(color: Colors.white, width: 4),
                         boxShadow: const [
-                          BoxShadow(
-                            color: Color(0x33000000),
-                            blurRadius: 8,
-                          ),
+                          BoxShadow(color: Color(0x33000000), blurRadius: 8),
                         ],
                       ),
                     ),
@@ -316,7 +305,7 @@ class _MapScreenState extends State<MapScreen> {
             _query = value;
             _selected = null;
           }),
-          onListTap: () => _openNearbyList(_ranked().take(100).toList()),
+          onListTap: () => _openNearbyList(_candidates()),
         ),
         if (_exploring)
           Positioned(
@@ -347,7 +336,7 @@ class _MapScreenState extends State<MapScreen> {
           selected: _selected,
           onCloseSelected: () => setState(() => _selected = null),
           onOpenCompany: _openCompany,
-          onOpenList: () => _openNearbyList(_ranked().take(100).toList()),
+          onOpenList: () => _openNearbyList(_candidates()),
         ),
       ],
     );
@@ -387,6 +376,7 @@ class _MapHeader extends StatelessWidget {
             ],
           ),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               Row(
                 children: [
@@ -405,10 +395,7 @@ class _MapHeader extends StatelessWidget {
                   IconButton(
                     onPressed: onListTap,
                     tooltip: 'Ver empresas cercanas',
-                    icon: const Icon(
-                      Icons.tune_rounded,
-                      color: Colors.white,
-                    ),
+                    icon: const Icon(Icons.tune_rounded, color: Colors.white),
                   ),
                 ],
               ),
@@ -576,9 +563,9 @@ class _SelectedCompanyPreview extends StatelessWidget {
             Expanded(
               child: Text(
                 company.name,
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w800,
-                    ),
+                style: Theme.of(
+                  context,
+                ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
               ),
             ),
             IconButton(
@@ -648,20 +635,15 @@ class _NearbyOpportunities extends StatelessWidget {
           children: [
             Expanded(
               child: Text(
-                candidates.any(
-                  (item) => item.company.nearbyRankingEligible,
-                )
+                candidates.any((item) => item.company.nearbyRankingEligible)
                     ? 'Oportunidades cerca de ti'
                     : 'Oportunidades en esta zona',
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w800,
-                    ),
+                style: Theme.of(
+                  context,
+                ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w800),
               ),
             ),
-            TextButton(
-              onPressed: onOpenList,
-              child: const Text('Ver lista'),
-            ),
+            TextButton(onPressed: onOpenList, child: const Text('Ver lista')),
           ],
         ),
         if (candidates.isEmpty)
@@ -698,7 +680,7 @@ class _NearbyOpportunities extends StatelessWidget {
               subtitle: Text(
                 item.company.nearbyRankingEligible
                     ? '${item.distanceKm.toStringAsFixed(1)} km · '
-                        '${item.company.activity}'
+                          '${item.company.activity}'
                     : '${item.company.activity} · referencia distrital',
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,

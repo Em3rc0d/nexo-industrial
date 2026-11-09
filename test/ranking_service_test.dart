@@ -13,6 +13,7 @@ void main() {
     required double latitude,
     required double longitude,
     required double potential,
+    bool precise = true,
   }) {
     return Company(
       id: id,
@@ -25,15 +26,17 @@ void main() {
       address: 'Lima',
       latitude: latitude,
       longitude: longitude,
-      locationConfidence: LocationConfidence.confirmed,
+      locationConfidence: precise
+          ? LocationConfidence.confirmed
+          : LocationConfidence.districtReference,
       internalPotential: potential,
       auroraProducts: const [],
       sigmaProducts: const [],
       contact: const CompanyContact(),
       source: 'test',
       sourceUpdatedAt: DateTime(2026, 11, 9),
-      nearbyRankingEligible: true,
-      navigationEligible: true,
+      nearbyRankingEligible: precise,
+      navigationEligible: precise,
     );
   }
 
@@ -58,6 +61,28 @@ void main() {
 
     expect(result.first.company.id, '1');
     expect(result.first.distanceKm, lessThan(result.last.distanceKm));
+  });
+
+  test('a precise local account precedes a district centroid', () {
+    final approximate = company(
+      id: 'district',
+      name: 'District',
+      latitude: -12.10,
+      longitude: -77.03,
+      potential: 1.0,
+      precise: false,
+    );
+    final precise = company(
+      id: 'address',
+      name: 'Address',
+      latitude: -12.101,
+      longitude: -77.031,
+      potential: 0.5,
+    );
+    expect(
+      service.rank([approximate, precise], anchor).first.company.id,
+      'address',
+    );
   });
 
   test('la búsqueda filtra por nombre', () {

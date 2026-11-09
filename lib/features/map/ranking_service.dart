@@ -3,11 +3,11 @@ import 'package:latlong2/latlong.dart';
 import '../companies/domain/company.dart';
 
 class RankedCompany {
-  const RankedCompany({
+  const RankedCompany(
+    this._score, {
     required this.company,
     required this.distanceKm,
-    required double score,
-  }) : _score = score;
+  });
 
   final Company company;
   final double distanceKm;
@@ -53,19 +53,20 @@ class CompanyRankingService {
 
           final score = company.nearbyRankingEligible
               ? (company.internalPotential * 0.55) +
-                  (proximity * 0.35) +
-                  (evidence * 0.10)
+                    (proximity * 0.35) +
+                    (evidence * 0.10)
               : (company.internalPotential * 0.90) + (evidence * 0.10);
 
-          return RankedCompany(
-            company: company,
-            distanceKm: distanceKm,
-            score: score,
-          );
+          return RankedCompany(score, company: company, distanceKm: distanceKm);
         })
         .toList();
 
-    ranked.sort((a, b) => b._score.compareTo(a._score));
+    ranked.sort((a, b) {
+      if (a.company.nearbyRankingEligible != b.company.nearbyRankingEligible) {
+        return a.company.nearbyRankingEligible ? -1 : 1;
+      }
+      return b._score.compareTo(a._score);
+    });
     return ranked;
   }
 

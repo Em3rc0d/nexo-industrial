@@ -42,18 +42,15 @@ class CompanyDetailScreen extends StatelessWidget {
     }
   }
 
-  Future<void> _recordActivity(
-    BuildContext context,
-    ActivityType type,
-  ) async {
+  Future<void> _recordActivity(BuildContext context, ActivityType type) async {
     await activityStore.record(company, type);
 
     if (!context.mounted) return;
 
     Navigator.of(context).pop();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('${type.label} registrada.')),
-    );
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text('${type.label} registrada.')));
   }
 
   void _showActivityPicker(BuildContext context) {
@@ -69,9 +66,9 @@ class CompanyDetailScreen extends StatelessWidget {
               children: [
                 Text(
                   'Registrar gestión',
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        fontWeight: FontWeight.w900,
-                      ),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w900),
                 ),
                 const SizedBox(height: 8),
                 ListTile(
@@ -83,8 +80,7 @@ class CompanyDetailScreen extends StatelessWidget {
                 ListTile(
                   leading: const Icon(Icons.call_outlined),
                   title: const Text('Realicé una llamada'),
-                  onTap: () =>
-                      _recordActivity(sheetContext, ActivityType.call),
+                  onTap: () => _recordActivity(sheetContext, ActivityType.call),
                 ),
                 ListTile(
                   leading: const Icon(Icons.send_outlined),
@@ -139,8 +135,8 @@ class CompanyDetailScreen extends StatelessWidget {
                     Text(
                       company.name,
                       style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                            fontWeight: FontWeight.w900,
-                          ),
+                        fontWeight: FontWeight.w900,
+                      ),
                     ),
                     const SizedBox(height: 3),
                     Text(
@@ -261,12 +257,9 @@ class CompanyDetailScreen extends StatelessWidget {
           ),
           const SizedBox(height: 14),
           Text(
-            'Fuente: ${company.source} · Actualizado: '
+            'Fuente ubicación: ${company.source} · Procesado: '
             '${_dateLabel(company.sourceUpdatedAt)}',
-            style: const TextStyle(
-              color: NexoColors.muted,
-              fontSize: 12,
-            ),
+            style: const TextStyle(color: NexoColors.muted, fontSize: 12),
           ),
         ],
       ),
@@ -288,9 +281,7 @@ class CompanyDetailScreen extends StatelessWidget {
                   icon: Icon(
                     hasPhone ? Icons.call_rounded : Icons.add_task_rounded,
                   ),
-                  label: Text(
-                    hasPhone ? 'Llamar' : 'Registrar gestión',
-                  ),
+                  label: Text(hasPhone ? 'Llamar' : 'Registrar gestión'),
                 ),
               ),
               const SizedBox(width: 10),

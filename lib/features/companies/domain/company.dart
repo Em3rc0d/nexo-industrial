@@ -10,6 +10,7 @@ enum LocationConfidence {
     return switch (value) {
       'confirmed' => LocationConfidence.confirmed,
       'fiscal_only' => LocationConfidence.fiscalOnly,
+      'address_geocoded' => LocationConfidence.fiscalOnly,
       'district_reference' => LocationConfidence.districtReference,
       _ => LocationConfidence.uncertain,
     };
@@ -17,12 +18,7 @@ enum LocationConfidence {
 }
 
 class CompanyContact {
-  const CompanyContact({
-    this.name,
-    this.role,
-    this.phone,
-    this.email,
-  });
+  const CompanyContact({this.name, this.role, this.phone, this.email});
 
   final String? name;
   final String? role;
@@ -108,13 +104,12 @@ class Company {
       locationConfidence == LocationConfidence.fiscalOnly;
 
   String get locationLabel => switch (locationConfidence) {
-        LocationConfidence.confirmed => 'Central documentada',
-        LocationConfidence.fiscalOnly =>
-          'Domicilio fiscal · confirmar central',
-        LocationConfidence.districtReference =>
-          'Referencia distrital · ubicación exacta pendiente',
-        LocationConfidence.uncertain => 'Ubicación por confirmar',
-      };
+    LocationConfidence.confirmed => 'Central documentada',
+    LocationConfidence.fiscalOnly => 'Domicilio fiscal · confirmar central',
+    LocationConfidence.districtReference =>
+      'Referencia distrital · ubicación exacta pendiente',
+    LocationConfidence.uncertain => 'Ubicación por confirmar',
+  };
 
   factory Company.fromJson(Map<String, dynamic> json) {
     final geography = json['geography'] as Map<String, dynamic>?;
@@ -129,12 +124,13 @@ class Company {
 
     final sector = (json['sector'] as String?) ?? 'Industrial';
     final address = isProductionShape
-        ? ((json['address_hq_verified'] as String?) ??
-            [
-              geography['district'],
-              geography['province'],
-              geography['department'],
-            ].whereType<String>().join(', '))
+        ? ((json['fiscal_address'] as String?) ??
+              (json['address_hq_verified'] as String?) ??
+              [
+                geography['district'],
+                geography['province'],
+                geography['department'],
+              ].whereType<String>().join(', '))
         : (json['address'] as String);
 
     return Company(
@@ -143,10 +139,12 @@ class Company {
       name: json['name'] as String,
       sector: sector,
       activity: (json['activity'] as String?) ?? sector,
-      opportunityReason: (json['opportunity_reason'] as String?) ??
+      opportunityReason:
+          (json['opportunity_reason'] as String?) ??
           'Cuenta priorizada para prospección industrial en el sector $sector. '
               'Validar necesidad, volumen, aplicación y proceso de compra antes de cotizar.',
-      suggestedNextStep: (json['suggested_next_step'] as String?) ??
+      suggestedNextStep:
+          (json['suggested_next_step'] as String?) ??
           'Validar la ubicación operativa y contactar a compras, abastecimiento o mantenimiento.',
       address: address,
       latitude: latitude,
@@ -173,16 +171,26 @@ class Company {
           : (json['source'] as String),
       sourceUpdatedAt: json['source_updated_at'] != null
           ? DateTime.parse(json['source_updated_at'] as String)
-          : DateTime(2026, 11, 9),
+          : DateTime.tryParse(
+                  (geography?['geocoded_at'] ??
+                              geography?['geocoding_checked_at'] ??
+                              json['fiscal_address_as_of'])
+                          as String? ??
+                      '',
+                ) ??
+                DateTime(2026, 11, 9),
       nearbyRankingEligible: isProductionShape
           ? (geography['nearby_ranking_eligible'] as bool? ?? false)
           : true,
       navigationEligible: isProductionShape
           ? (geography['navigation_eligible'] as bool? ?? false)
           : true,
-      managementStatus: (json['management_status'] as String?) ??
+      managementStatus:
+          (json['management_status'] as String?) ??
           (isProductionShape
-              ? 'Referencia distrital · ubicación exacta pendiente'
+              ? (geography['navigation_eligible'] == true
+                    ? 'Domicilio fiscal geocodificado · confirmar central'
+                    : 'Referencia distrital · ubicación exacta pendiente')
               : null),
     );
   }

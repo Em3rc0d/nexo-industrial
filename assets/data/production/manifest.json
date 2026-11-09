@@ -1,10 +1,33 @@
 {
-  "dataset": "Nexo Industrial production georeference",
-  "total_accounts": 1907,
-  "generated_at": "2026-11-09",
+  "dataset": "Nexo Industrial",
   "file": "../companies.production.json",
-  "precision": "district_reference",
-  "nearby_ranking_eligible": false,
-  "navigation_eligible": false,
-  "note": "Las 1,907 cuentas tienen referencia territorial. No tratar el centro distrital como sede exacta."
+  "total_accounts": 1907,
+  "unique_rucs": 1907,
+  "fiscal_addresses": 1907,
+  "address_geocoded": 274,
+  "pending_exact_location": 1633,
+  "municipal_added": 89,
+  "municipal_overlap": 30,
+  "municipal_conflicts_not_promoted": [
+    "20608496859"
+  ],
+  "statuses": {
+    "no_address_level_match": 965,
+    "automatic_address_match": 155,
+    "manual_review_ambiguous": 21,
+    "manual_review_no_street_number": 646,
+    "municipal_address_match": 119,
+    "manual_review_source_conflict": 1
+  },
+  "audited_at": "2026-11-09T19:06:06.064817+00:00",
+  "sunat_archive": {
+    "matched": 1907,
+    "missing": [],
+    "source": "https://www2.sunat.gob.pe/padron_reducido_ruc.zip",
+    "as_of": "2026-11-09",
+    "archive_sha256": "ec3acedd7cf56128b161b4b4bfe284ea2c88857de9477ff5d058af768e60a5f4"
+  },
+  "scope": "1,907 fiscal addresses matched; exact location remains unresolved where evidence is insufficient.",
+  "numbered_accounts_evaluated": 1261,
+  "distinct_cached_queries": 1178
 }

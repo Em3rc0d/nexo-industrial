@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Explicit build automation avoids Flutter probing instance metadata.
+export CI=true
+export BOT=true
+
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 TMP_DIR="$(mktemp -d)"
 GENERATED="$TMP_DIR/nexo_generated"
@@ -42,6 +46,7 @@ elif "ACCESS_FINE_LOCATION" not in text:
 """
     text = text.replace(marker, marker + "\n" + location_permissions)
 
+text = text.replace('android:label="nexo_industrial"', 'android:label="Nexo Industrial"')
 path.write_text(text)
 PY
 

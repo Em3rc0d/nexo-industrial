@@ -16,3 +16,8 @@ android/key.properties
 *.iml
 .DS_Store
 Thumbs.db
+
+# One-time geocoding work products
+__pycache__/
+*.pyc
+.cache/

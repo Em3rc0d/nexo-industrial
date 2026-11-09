@@ -36,15 +36,22 @@ La aplicación abre en el mapa y responde:
 - sqflite 2.4.5
 - url_launcher 6.3.3
 
-## Datos
+## Datos y geolocalización
 
-El repositorio incluye el dataset de producción consolidado en:
+Asset canónico: `assets/data/companies.production.json`.
 
-```
-assets/data/companies.production.json
-```
+Resultado del procesamiento del 9 de noviembre de 2026:
 
-Contiene 1,907 cuentas. La georreferencia actual es territorial/distrital; no debe interpretarse como puerta, planta o central exacta hasta completar el pipeline de `docs/GEOLOCATION.md`.
+- **1,907 cuentas y RUC únicos**, con domicilio fiscal del padrón oficial SUNAT.
+- **274 ubicaciones utilizables**: coincidencia de número/calle/distrito en OSM o catastro municipal.
+- **1,633 ubicaciones exactas pendientes**. Conservan referencia distrital y motivo; no habilitan navegación.
+- Un conflicto entre fuentes quedó pendiente, sin aprobar una ubicación arbitraria.
+
+Un domicilio fiscal geocodificado no demuestra que sea una planta o sede que atienda visitas.
+El mapa prioriza las ubicaciones utilizables antes que los centroides distritales.
+
+Evidencia y ejecución: [docs/GEOLOCATION.md](docs/GEOLOCATION.md).
+Conteos auditados: [docs/GEOLOCATION_RESULT.json](docs/GEOLOCATION_RESULT.json).
 
 ## Construir Android
 

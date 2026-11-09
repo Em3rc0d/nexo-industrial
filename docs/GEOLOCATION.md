@@ -1,103 +1,97 @@
-# Geolocalización de las 1,907 cuentas
+# Geolocalización de cuentas
 
-## Dos niveles distintos
+## Datos y evidencia
 
-Nexo no debe confundir cobertura territorial con una sede exacta.
+El archivo canónico es `assets/data/companies.production.json` (1,907 RUC únicos).
+Los domicilios se cruzan por RUC con el padrón reducido oficial de SUNAT:
+https://www.sunat.gob.pe/descargaPRR/mrc137_padron_reducido.html
 
-### `district_reference`
+El padrón identifica domicilio fiscal. No demuestra que allí opere una planta,
+que se atienda al público ni que esté la persona responsable de compras.
+Se conservan dirección original, ubigeo, fecha, fuente y referencia distrital.
 
-Coordenada administrativa de referencia del distrito/ubigeo.
+## Precisión
 
-Sirve para:
-- cobertura territorial;
-- filtros regionales;
-- clusters amplios;
-- detectar en qué distrito existen cuentas.
+| Estado | Uso |
+| --- | --- |
+| `district_reference` | Solo referencia territorial. Sin distancia de visita ni navegación. |
+| `address_geocoded` | Coincidencia automática de número, calle y distrito. Domicilio fiscal; central por confirmar. |
+| `uncertain` | No apto para navegación ni ranking de cercanía. |
 
-No sirve para:
-- afirmar “está a 350 m”;
-- ordenar oportunidades a pie;
-- “Cómo llegar”;
-- presentar el punto como planta, central o puerta.
+Solo `address_geocoded` validado o ubicaciones verificadas expresamente pueden
+habilitar `nearby_ranking_eligible` y `navigation_eligible`.
 
-### `address_geocoded`
+## Validación de resultados
 
-Coordenada obtenida a partir del domicilio fiscal y validada contra el
-distrito/provincia/departamento esperado.
+El geocoder exige:
 
-Puede habilitar:
-- distancia;
-- ranking “cerca de ti”;
-- navegación.
+1. Resultado a nivel de dirección (no centroide de calle/distrito).
+2. Número de puerta coincidente; admite ceros iniciales equivalentes.
+3. Calle coincidente y distrito correspondiente al ubigeo fiscal.
+4. País Perú, coordenadas válidas y coherencia territorial.
+5. Coincidencia única. Si hay varios negocios en el mismo número, solo se
+   prefiere la huella del edificio cuando contiene todos esos resultados.
 
-Aun así, domicilio fiscal **no equivale necesariamente a planta o sede comercial**.
-Las cuentas críticas deben validarse antes de una visita.
+El resultado conserva identificador OSM, dirección devuelta, fecha de proceso,
+fuente y regla de validación. No se trata como verificación en campo.
+Los resultados ambiguos, sin número o sin cobertura quedan pendientes.
 
-## Pipeline
-
-El dataset comercial real NO debe subirse a este repositorio público.
-
-1. Partir del maestro privado con los 1,907 RUC.
-2. Asignar referencia distrital/ubigeo a todas las cuentas.
-3. Enriquecer el domicilio fiscal con OpenRUC:
-   - `GET https://openruc.com/api/ruc/{ruc}`
-   - sin API key;
-   - datos derivados de SUNAT.
-4. Geocodificar el domicilio mediante un proveedor configurable.
-5. Validar que el resultado sea consistente con distrito/provincia/departamento.
-6. Mantener fallback distrital si no existe un match confiable.
-7. Revisar visualmente cuentas de mayor prioridad antes de habilitar navegación.
-
-Script:
+## Ejecución puntual
 
 ```bash
+python -m pip install -r tool/requirements-geocoding.txt
+# Descargar el ZIP oficial desde el enlace de SUNAT y cruzar por RUC.
+python tool/import_sunat_padron.py \
+  --archive /ruta/de/trabajo/padron_reducido_ruc.zip \
+  --input assets/data/companies.production.json \
+  --cache /ruta/de/trabajo/geocoding-cache \
+  --as-of AAAA-MM-DD
 python tool/geocode_accounts.py \
-  --input /ruta/privada/nexo_companies_1907_georef.json \
-  --output /ruta/privada/nexo_companies_1907_address_geocoded.json
+  --input assets/data/companies.production.json \
+  --output /ruta/de/trabajo/companies.geocoded.json \
+  --cache /ruta/de/trabajo/geocoding-cache
+python -m unittest discover -s tool -p 'test_geocode_verified.py'
 ```
 
-Lo anterior enriquece domicilio SUNAT sin llamar un geocoder.
+La caché RUC puede precargarse desde el padrón oficial, evitando consultas
+individuales. Los resultados del geocoder se cachean por consulta y se reusan
+al reanudar. El JSON de salida y su resumen se escriben por lotes de diez.
+Revisar el resumen antes de reemplazar el asset canónico.
 
-## Nominatim público: solo para una corrida deliberada
+## Nominatim
 
-La política oficial de OSMF establece un máximo absoluto de 1 request/segundo,
-User-Agent identificable, una sola máquina/hilo y caché para tareas bulk.
-Además, el servicio público no debe convertirse en dependencia de producción.
+Este pipeline es una tarea puntual sobre la cartera existente; no descubre
+clientes ni integra un servicio de búsqueda genérico en la app.
+Política: https://operations.osmfoundation.org/policies/nominatim/
 
-Política:
-https://operations.osmfoundation.org/policies/nominatim/
+Una sola máquina y un hilo de geocodificación, User-Agent identificable,
+intervalo mínimo 1.15 s entre solicitudes y caché obligatoria. Se detiene ante
+HTTP 403/429. No reintentar repetidamente ni programarlo como tarea recurrente.
+Para uso recurrente debe elegirse una instancia propia o proveedor autorizado.
+Atribución: © OpenStreetMap contributors, ODbL.
 
-Para una corrida puntual:
+## Catastro municipal complementario
+
+Se cruzan solo las direcciones existentes por distrito, código de vía y número.
+Fuentes públicas de descarga interoperable:
+
+- Instituto Catastral de Lima, puertas y ejes de vía (Cercado de Lima):
+  https://www.geoidep.gob.pe/catalogo-nacional-de-servicios-web/servicio-de-descarga-wfs
+- Numeración municipal de Miraflores, publicada en IDEMIL:
+  https://www.idemil.gob.pe/geoportal/rest/services/Hosted/SHP_Municipalidad_de_Miraflores___Lima_08_07_2024/FeatureServer
+
+Para puertas representadas por segmentos cortos, se registra el promedio de sus
+vértices y la extensión medida de la geometría. No se aceptan grupos de geometrías
+con separación superior a 30 m. Las discrepancias mayores a 100 m con OSM quedan
+pendientes, sin navegación. No se deduce una empresa a partir de un dueño de predio.
 
 ```bash
-NEXO_GEOCODER_USER_AGENT="NexoIndustrial/0.1 (internal one-time geocoding)" \
-python tool/geocode_accounts.py \
-  --input /ruta/privada/nexo_companies_1907_georef.json \
-  --output /ruta/privada/nexo_companies_1907_address_geocoded.json \
-  --provider nominatim \
-  --i-accept-osmf-policy
+python tool/audit_geocodes.py --input /ruta/resultado.json \
+  --output /ruta/auditado.json --cache /ruta/geocoding-cache
+python tool/enrich_municipal.py --input /ruta/auditado.json \
+  --output /ruta/final.json --cache /ruta/municipal-cache
 ```
 
-El script:
-- es single-thread;
-- espera al menos 1.1 s entre peticiones;
-- cachea respuestas;
-- nunca repite una query ya cacheada;
-- conserva el fallback distrital si la coincidencia no es consistente.
-
-Para geocodificación recurrente o comercial debe usarse una instancia propia o
-un proveedor cuya política permita ese volumen.
-
-## Gate para APK operativo
-
-No llamar “listo para campo” al dataset hasta cumplir:
-
-- 1,907/1,907 con coordenada territorial: obligatorio;
-- direcciones SUNAT enriquecidas por RUC;
-- geocodificación de dirección para el máximo de cuentas posible;
-- revisión manual de las oportunidades S+/S prioritarias;
-- `nearby_ranking_eligible=true` únicamente cuando la precisión sea suficiente;
-- `navigation_eligible=true` únicamente cuando la ubicación sea defendible.
-
-El mapa puede mostrar referencias territoriales, pero **no calcular cercanía
-peatonal sobre puntos distritales**.
+Resultado de esta corrida: **274 ubicaciones utilizables, 1,633 pendientes**.
+Las 1,907 cuentas tienen domicilio fiscal por RUC. El detalle de estados y fuentes
+está en `GEOLOCATION_RESULT.json`. Esto no equivale a geocodificación exacta al 100%.

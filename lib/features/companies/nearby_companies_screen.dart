@@ -36,8 +36,9 @@ class _NearbyCompaniesScreenState extends State<NearbyCompaniesScreen> {
         }
 
         if (!a.company.nearbyRankingEligible) {
-          return b.company.internalPotential
-              .compareTo(a.company.internalPotential);
+          return b.company.internalPotential.compareTo(
+            a.company.internalPotential,
+          );
         }
 
         return a.distanceKm.compareTo(b.distanceKm);
@@ -80,7 +81,7 @@ class _NearbyCompaniesScreenState extends State<NearbyCompaniesScreen> {
             child: ListView.separated(
               padding: const EdgeInsets.fromLTRB(16, 4, 16, 24),
               itemCount: companies.length,
-              separatorBuilder: (_, __) => const Divider(height: 1),
+              separatorBuilder: (_, _) => const Divider(height: 1),
               itemBuilder: (context, index) {
                 final item = companies[index];
                 final company = item.company;
