@@ -38,13 +38,13 @@ La aplicación abre en el mapa y responde:
 
 ## Datos
 
-El repositorio incluye solo datos de demostración en:
+El repositorio incluye el dataset de producción consolidado en:
 
 ```
-assets/data/companies.demo.json
+assets/data/companies.production.json
 ```
 
-El dataset real debe exportarse al contrato de `docs/DATA_CONTRACT.md`.
+Contiene 1,907 cuentas. La georreferencia actual es territorial/distrital; no debe interpretarse como puerta, planta o central exacta hasta completar el pipeline de `docs/GEOLOCATION.md`.
 
 ## Construir Android
 
