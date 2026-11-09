@@ -3,6 +3,10 @@ import 'package:nexo_industrial/features/companies/domain/company.dart';
 
 void main() {
   Company company({required bool navigationEligible}) {
+    final quality = navigationEligible
+        ? LocationQuality.exactAddress
+        : LocationQuality.districtReference;
+
     return Company(
       id: '1',
       ruc: '20610105620',
@@ -14,9 +18,10 @@ void main() {
       address: 'AV. SANTO TORIBIO NRO 143 INT 4',
       latitude: -12.0977777777778,
       longitude: -77.0272222222222,
+      locationQuality: quality,
       locationConfidence: navigationEligible
-          ? LocationConfidence.fiscalOnly
-          : LocationConfidence.districtReference,
+          ? LocationConfidence.high
+          : LocationConfidence.veryLow,
       internalPotential: 1,
       auroraProducts: const [],
       sigmaProducts: const [],
