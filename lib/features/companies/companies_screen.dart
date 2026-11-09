@@ -109,20 +109,20 @@ class _CompaniesScreenState extends State<CompaniesScreen> {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    DropdownButtonFormField<String?>(
-                      initialValue: sector,
+                    DropdownButtonFormField<String>(
+                      initialValue: sector ?? '__all__',
                       isExpanded: true,
                       decoration: const InputDecoration(
                         labelText: 'Sector',
                         prefixIcon: Icon(Icons.factory_outlined),
                       ),
                       items: [
-                        const DropdownMenuItem<String?>(
-                          value: null,
+                        const DropdownMenuItem<String>(
+                          value: '__all__',
                           child: Text('Todos los sectores'),
                         ),
                         ..._sectors.map(
-                          (value) => DropdownMenuItem<String?>(
+                          (value) => DropdownMenuItem<String>(
                             value: value,
                             child: Text(
                               value,
@@ -132,8 +132,9 @@ class _CompaniesScreenState extends State<CompaniesScreen> {
                           ),
                         ),
                       ],
-                      onChanged: (value) =>
-                          setSheetState(() => sector = value),
+                      onChanged: (value) => setSheetState(
+                        () => sector = value == '__all__' ? null : value,
+                      ),
                     ),
                     const SizedBox(height: 12),
                     DropdownButtonFormField<_LocationFilter>(
