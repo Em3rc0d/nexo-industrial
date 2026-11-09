@@ -1,45 +1,68 @@
-# Arquitectura
+# Arquitectura — Nexo Industrial MVP 1.0
 
 ## Objetivo
 
-Mantener Nexo simple, local-first y desacoplado de proveedores de mapas para el descubrimiento comercial.
+Aplicación local-first para prospección industrial en campo, desacoplada de proveedores de descubrimiento comercial.
 
 ## Capas
 
 ### Domain
-Company representa una cuenta canónica. internalPotential existe solo para ordenar y destacar; no se renderiza como score.
+`Company` representa la cuenta canónica y su evidencia geográfica.
+
+Calidad geográfica:
+- exactAddress;
+- addressReference;
+- interpolatedAddress;
+- streetReference;
+- districtReference.
 
 ### Data
-El MVP carga un JSON demo. La siguiente fuente debe ser el export canónico del dataset maestro sin cambiar la UI.
+Dos assets locales:
+
+- `companies.production.json`: fuente comercial;
+- `companies.geolocation.overlay.json`: auditoría geográfica por RUC.
+
+`AssetCompanyRepository` cruza ambos en memoria.
 
 ### Ranking
-Combina potencial interno, distancia y confianza de ubicación. Es una heurística explicable, no una predicción infalible.
+Combina:
+- potencial interno;
+- cercanía;
+- peso de evidencia.
+
+Solo exacta/referencia/interpolada pueden usar distancia. La interpolación recibe penalización. Calle/distrito no compiten por cercanía.
 
 ### Map
-Mantiene ubicación real, separa seguimiento de exploración, recorta candidatos por radio, clusteriza markers y resalta unas pocas oportunidades.
+`flutter_map` + clustering. El mapa es visualización; no descubre prospectos.
 
 ### Activity
-SQLite on-device. Solo persiste acciones registradas explícitamente.
+SQLite on-device, esquema v2:
+- tipo;
+- resultado;
+- nota;
+- siguiente paso;
+- estado;
+- seguimiento;
+- fecha de creación.
 
-## Escalado a ~1,900 cuentas
+La migración desde v1 conserva actividades existentes.
 
-1,900 registros son manejables para cálculo local, pero no para representación visual directa.
+## Escala
 
-Por eso:
-- el ranking evalúa el dataset;
-- el mapa recorta por radio contextual;
-- se limita el conjunto renderizado;
-- markers normales se clusterizan;
-- solo pocas oportunidades superiores se dibujan individualmente.
+1,907 cuentas son manejables localmente.
 
-Si el dataset crece a decenas de miles, mover el filtrado espacial a SQLite/R-tree.
+Si el dataset crece a decenas de miles:
+- mover filtrado espacial a SQLite;
+- usar R-tree;
+- mantener el dataset maestro como fuente controlada.
 
-## Mapas
+## Servicios externos
 
-El MVP usa flutter_map y tiles de OpenStreetMap para desarrollo. El descubrimiento de clientes nunca depende del mapa.
+- OpenStreetMap: tiles/cartografía.
+- Google Maps URL: navegación o búsqueda externa.
+- No Google Places/Search para descubrir cuentas.
+- Sin backend obligatorio.
 
-Para producción con tráfico significativo, usar una infraestructura de tiles que cumpla la política del proveedor o una alternativa autoalojada.
+## Android
 
-## Sin backend obligatorio
-
-Dataset, ranking, búsqueda e historial local deben funcionar sin backend. Una sincronización futura puede añadirse como capa opcional.
+El directorio Android se genera localmente mediante `tool/bootstrap_android.sh`. El build release no usa GitHub Actions.
