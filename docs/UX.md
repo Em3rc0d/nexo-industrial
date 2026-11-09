@@ -4,55 +4,60 @@
 
 **Radar comercial geográfico.**
 
-La interfaz conduce por:
+Flujo:
 
-**Encontrar → Entender → Actuar → Registrar**
+**Encontrar → Entender → Actuar → Registrar → Continuar**
 
-## Home
+## Home / Mapa
 
-La app abre en **Mapa**.
-
-La cabecera contiene marca, búsqueda y el criterio legible “Priorizar: mayor potencial comercial”.
-
-El mapa muestra:
 - punto azul: usuario;
 - clusters: cuentas del dataset;
 - pin destacado: mejores oportunidades relativas;
-- panel inferior: 5–6 oportunidades relevantes.
+- panel inferior: oportunidades relevantes;
+- búsqueda por empresa/RUC;
+- “Buscar en esta zona” al explorar manualmente.
 
-## Movimiento
+La cámara no vuelve sola mientras el usuario explora.
 
-Al abrir, Nexo intenta seguir la ubicación.
+## Ubicación
 
-Si el usuario arrastra el mapa:
-- deja de recentrarse;
-- aparece “Buscar en esta zona”;
-- la ubicación real sigue visible cuando entra en el viewport.
+Estados visibles:
 
-“Mi ubicación” reactiva el seguimiento.
+- **Precisa**: dirección defendible.
+- **Dirección**: referencia de dirección sólida.
+- **Aprox.**: interpolación; validar antes de visitar.
+- **Calle**: referencia de vía.
+- **Distrital**: referencia territorial.
 
-## Preview
+Para precisión alta:
+- CTA: **Cómo llegar**.
 
-- nombre;
-- calidad de ubicación;
-- por qué interesa;
-- siguiente paso;
-- CTA “Ver ficha comercial”.
+Para precisión insuficiente:
+- CTA: **Buscar en Maps**.
 
-## Estados de ubicación
+Nunca navegar automáticamente a un centroide distrital como si fuera una empresa.
 
-- Central documentada.
-- Domicilio fiscal · confirmar central.
-- Ubicación por confirmar.
+## Cuentas
 
-Nunca presentar un domicilio fiscal como planta o sede operativa confirmada.
+La pantalla permite filtrar sin convertirse en CRM:
+- sector;
+- ubicación;
+- gestión;
+- prioridad alta.
+
+Los scores internos no se muestran.
 
 ## Actividad
 
-La pantalla vacía es intencional: Nexo no inventa tareas. Solo muestra visitas, llamadas o envíos que el usuario registra.
+Una gestión debe dejar contexto útil:
+- resultado;
+- nota;
+- estado;
+- siguiente paso;
+- seguimiento opcional.
+
+No se generan actividades automáticamente.
 
 ## Lenguaje
 
-Evitar CORE, S+, Fit, Buyer Type, DERIVED y PUBLIC_VERIFIED.
-
-Preferir lenguaje comercial directo: compra para terceros, contacto pendiente, productos que podrían interesarle, fuente y fecha.
+Preferir lenguaje comercial directo y verificable. Evitar jerga interna, scores técnicos y afirmaciones de sede/planta cuando la evidencia solo corresponde a domicilio fiscal.
