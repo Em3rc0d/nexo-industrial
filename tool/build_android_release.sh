@@ -7,6 +7,8 @@ export BOT=true
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 
+python3 tool/validate_dataset.py
+
 if ! command -v flutter >/dev/null 2>&1; then
   echo "Flutter no está instalado o no está en PATH." >&2
   exit 1
