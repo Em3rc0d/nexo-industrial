@@ -41,16 +41,21 @@ class CompanyRankingService {
             company.point,
           );
 
-          final proximity = 1 / (1 + (distanceKm / 2));
+          final proximity = company.nearbyRankingEligible
+              ? 1 / (1 + (distanceKm / 2))
+              : 0.0;
           final evidence = switch (company.locationConfidence) {
             LocationConfidence.confirmed => 1.0,
             LocationConfidence.fiscalOnly => 0.72,
-            LocationConfidence.uncertain => 0.25,
+            LocationConfidence.districtReference => 0.15,
+            LocationConfidence.uncertain => 0.05,
           };
 
-          final score = (company.internalPotential * 0.55) +
-              (proximity * 0.35) +
-              (evidence * 0.10);
+          final score = company.nearbyRankingEligible
+              ? (company.internalPotential * 0.55) +
+                  (proximity * 0.35) +
+                  (evidence * 0.10)
+              : (company.internalPotential * 0.90) + (evidence * 0.10);
 
           return RankedCompany(
             company: company,
