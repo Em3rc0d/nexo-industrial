@@ -21,6 +21,13 @@ enum ProspectStatus {
   followUp,
   noOpportunity;
 
+  static ProspectStatus fromName(String? value) {
+    for (final status in values) {
+      if (status.name == value) return status;
+    }
+    return ProspectStatus.contacted;
+  }
+
   String get label => switch (this) {
         ProspectStatus.contacted => 'Contactada',
         ProspectStatus.interested => 'Interesada',
@@ -65,8 +72,7 @@ class CommercialActivity {
       outcome: map['outcome']! as String,
       note: (map['note'] as String?) ?? '',
       nextStep: map['next_step']! as String,
-      status: ProspectStatus.values.where((item) => item.name == rawStatus).firstOrNull ??
-          ProspectStatus.contacted,
+      status: ProspectStatus.fromName(rawStatus),
       createdAt: DateTime.parse(map['created_at']! as String),
       followUpAt: map['follow_up_at'] == null
           ? null
@@ -193,11 +199,3 @@ class ActivityStore extends ChangeNotifier {
   }
 }
 
-extension _FirstOrNull<T> on Iterable<T> {
-  T? get firstOrNull {
-    for (final item in this) {
-      return item;
-    }
-    return null;
-  }
-}
