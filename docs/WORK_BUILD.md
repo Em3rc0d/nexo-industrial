@@ -1,21 +1,30 @@
-# Construcción del APK con ChatGPT Work
+# Construcción Android local
 
 ## Requisitos
 
-- Flutter estable con Dart 3.12+.
+- Flutter estable compatible con Dart 3.12+.
 - Android SDK.
-- JDK soportado por Flutter.
+- JDK con `javac`.
 
-## Flujo
+## Generar Android
+
+El directorio `android/` se genera localmente para evitar versionar artefactos de plataforma que Flutter puede reconstruir:
 
 ```bash
-git clone https://github.com/Em3rc0d/nexo-industrial.git
-cd nexo-industrial
-
 bash tool/bootstrap_android.sh
-flutter pub get
-flutter analyze
-flutter test
+```
+
+El script:
+
+- genera Android con Flutter;
+- fija nombre visible “Nexo Industrial”;
+- configura permisos de Internet y ubicación;
+- fija package id `pe.nexoindustrial.app`;
+- ejecuta `flutter pub get`, `flutter analyze` y `flutter test`.
+
+## Release
+
+```bash
 flutter build apk --release
 ```
 
@@ -25,23 +34,6 @@ Salida:
 build/app/outputs/flutter-apk/app-release.apk
 ```
 
-## Bootstrap Android
+## Regla
 
-El script genera un proyecto Android temporal usando el Flutter instalado, copia solo android/ y añade permisos de ubicación. El código Dart no se regenera.
-
-## Antes de entregar
-
-- sustituir dataset demo por export canónico;
-- comprobar coordenadas y estados de ubicación;
-- probar permiso de ubicación aceptado/denegado;
-- probar “Buscar en esta zona”;
-- probar clustering con dataset completo;
-- probar persistencia de actividad tras reiniciar;
-- verificar navegación externa;
-- cerrar launcher icon final.
-
-## No hacer
-
-- no usar Google Places/Search para descubrir cuentas;
-- no usar GitHub Actions para compilar APK;
-- no subir keystores o claves.
+No se usa GitHub Actions para compilar el APK. El build final debe realizarse en un entorno local con Flutter + Android SDK disponibles.
