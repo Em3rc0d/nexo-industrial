@@ -43,7 +43,7 @@ void main() {
       uri.queryParameters['query'],
       'STRACON PERÚ S.A., AV. SANTO TORIBIO NRO 143 INT 4, SAN ISIDRO, LIMA, Perú',
     );
-    expect(item.locationActionLabel, 'Buscar en Google Maps');
+    expect(item.locationActionLabel, 'Buscar en Maps');
   });
 
   test('ubicación precisa mantiene navegación por coordenadas', () {
