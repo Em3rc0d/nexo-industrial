@@ -140,6 +140,14 @@ class _MapScreenState extends State<MapScreen> {
     _mapController.move(userLocation, _zoom);
   }
 
+  Color _markerColor(Company company) => switch (company.locationQuality) {
+    LocationQuality.exactAddress || LocationQuality.addressReference =>
+      NexoColors.mint,
+    LocationQuality.interpolatedAddress => NexoColors.blue,
+    LocationQuality.streetReference || LocationQuality.districtReference =>
+      NexoColors.muted,
+  };
+
   void _openCompany(Company company) {
     Navigator.of(context).push(
       MaterialPageRoute<void>(
@@ -166,7 +174,7 @@ class _MapScreenState extends State<MapScreen> {
   Widget build(BuildContext context) {
     final candidates = _candidates();
     final featured = candidates
-        .where((item) => item.company.canUseDistanceForRanking)
+        .where((item) => item.company.hasReliableCoordinates)
         .take(3)
         .toList(growable: false);
     final featuredIds = featured.map((item) => item.company.id).toSet();
@@ -185,7 +193,7 @@ class _MapScreenState extends State<MapScreen> {
               onTap: () => setState(() => _selected = item.company),
               child: Container(
                 decoration: BoxDecoration(
-                  color: NexoColors.mint,
+                  color: _markerColor(item.company),
                   shape: BoxShape.circle,
                   border: Border.all(color: Colors.white, width: 3),
                   boxShadow: const [
