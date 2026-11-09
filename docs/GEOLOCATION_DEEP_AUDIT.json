@@ -1,0 +1,31 @@
+{
+  "dataset": "Nexo Industrial geolocation audit",
+  "date": "2026-11-09",
+  "total_accounts": 1907,
+  "unique_rucs": 1907,
+  "coordinate_coverage": 1907,
+  "coordinate_coverage_percent": 100.0,
+  "address_level_navigation_eligible": 370,
+  "address_level_navigation_percent": 19.4,
+  "location_quality": {
+    "exact_address": 334,
+    "address_reference": 36,
+    "interpolated_address": 137,
+    "street_reference": 551,
+    "district_reference": 849
+  },
+  "confidence": {
+    "high": 351,
+    "medium": 156,
+    "low": 551,
+    "very_low": 849
+  },
+  "audit_rules": {
+    "offline_osm_exact": "House number exact; street similarity >=95; <=10 km from SUNAT district reference.",
+    "company_poi_fuzzy": "129 candidates rejected from automatic promotion.",
+    "low_confidence_osm_address": "22 candidates rejected from exact promotion.",
+    "approximate_points": "Interpolated/street/district references remain non-navigation points.",
+    "interpretation": "100% coordinate coverage is not 100% exact door geocoding."
+  },
+  "working_branch": "geocode-deep-20261109"
+}
