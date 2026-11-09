@@ -65,8 +65,8 @@ class _HomeShellState extends State<HomeShell> {
                 label: 'Mapa',
               ),
               NavigationDestination(
-                icon: Icon(Icons.notifications_none_rounded),
-                selectedIcon: Icon(Icons.notifications_rounded),
+                icon: Icon(Icons.history_outlined),
+                selectedIcon: Icon(Icons.history_rounded),
                 label: 'Actividad',
               ),
             ],
