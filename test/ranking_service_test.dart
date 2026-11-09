@@ -32,6 +32,8 @@ void main() {
       contact: const CompanyContact(),
       source: 'test',
       sourceUpdatedAt: DateTime(2026, 11, 9),
+      nearbyRankingEligible: true,
+      navigationEligible: true,
     );
   }
 
