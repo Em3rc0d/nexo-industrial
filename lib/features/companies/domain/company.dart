@@ -64,6 +64,9 @@ class Company {
     required this.sourceUpdatedAt,
     required this.nearbyRankingEligible,
     required this.navigationEligible,
+    this.locationDistrict,
+    this.locationProvince,
+    this.locationDepartment,
     this.managementStatus,
   });
 
@@ -89,6 +92,9 @@ class Company {
   final DateTime sourceUpdatedAt;
   final bool nearbyRankingEligible;
   final bool navigationEligible;
+  final String? locationDistrict;
+  final String? locationProvince;
+  final String? locationDepartment;
   final String? managementStatus;
 
   LatLng get point => LatLng(latitude, longitude);
@@ -102,6 +108,48 @@ class Company {
   bool get hasReliableCoordinates =>
       locationConfidence == LocationConfidence.confirmed ||
       locationConfidence == LocationConfidence.fiscalOnly;
+
+  String get googleMapsSearchQuery {
+    final parts = <String>[
+      name,
+      address,
+      if (locationDistrict case final district?) district,
+      if (locationProvince case final province?) province,
+      if (locationDepartment case final department?) department,
+      'Perú',
+    ];
+
+    final unique = <String>[];
+    final seen = <String>{};
+
+    for (final part in parts) {
+      final value = part.trim();
+      if (value.isEmpty) continue;
+
+      final key = value.toUpperCase();
+      if (seen.add(key)) unique.add(value);
+    }
+
+    return unique.join(', ');
+  }
+
+  Uri get googleMapsSearchUri => Uri.https(
+    'www.google.com',
+    '/maps/search/',
+    <String, String>{'api': '1', 'query': googleMapsSearchQuery},
+  );
+
+  Uri get googleMapsDirectionsUri => Uri.https(
+    'www.google.com',
+    '/maps/dir/',
+    <String, String>{
+      'api': '1',
+      'destination': '$latitude,$longitude',
+    },
+  );
+
+  String get locationActionLabel =>
+      navigationEligible ? 'Cómo llegar' : 'Buscar en Google Maps';
 
   String get locationLabel => switch (locationConfidence) {
     LocationConfidence.confirmed => 'Central documentada',
@@ -185,6 +233,15 @@ class Company {
       navigationEligible: isProductionShape
           ? (geography['navigation_eligible'] as bool? ?? false)
           : true,
+      locationDistrict: isProductionShape
+          ? geography['district'] as String?
+          : null,
+      locationProvince: isProductionShape
+          ? geography['province'] as String?
+          : null,
+      locationDepartment: isProductionShape
+          ? geography['department'] as String?
+          : null,
       managementStatus:
           (json['management_status'] as String?) ??
           (isProductionShape
