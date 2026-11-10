@@ -25,4 +25,5 @@ flutter:
   uses-material-design: true
   assets:
     - assets/data/companies.production.json
+    - assets/data/companies.commercial.overlay.json.gz
     - assets/data/companies.geolocation.overlay.json
