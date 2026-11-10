@@ -123,6 +123,7 @@ class CompanyDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final hasPhone = company.contact.phone?.isNotEmpty ?? false;
+    final commercial = company.commercial;
 
     return Scaffold(
       appBar: AppBar(
@@ -168,7 +169,15 @@ class CompanyDetailScreen extends StatelessWidget {
                       style: const TextStyle(color: NexoColors.muted),
                     ),
                     const SizedBox(height: 7),
-                    _StatusPill(label: company.locationLabel),
+                    Wrap(
+                      spacing: 6,
+                      runSpacing: 6,
+                      children: [
+                        _StatusPill(label: company.locationLabel),
+                        if (commercial.priority case final priority?)
+                          _StatusPill(label: 'Prioridad $priority'),
+                      ],
+                    ),
                   ],
                 ),
               ),
@@ -178,42 +187,93 @@ class CompanyDetailScreen extends StatelessWidget {
           _SectionCard(
             icon: Icons.handshake_outlined,
             title: '¿Por qué me conviene contactarla?',
-            child: Text(company.opportunityReason),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(company.opportunityReason),
+                if (commercial.volumeReason case final reason?) ...[
+                  const SizedBox(height: 10),
+                  _LabeledText(label: 'Potencial de volumen', value: reason),
+                ],
+              ],
+            ),
           ),
           const SizedBox(height: 10),
           _SectionCard(
             icon: Icons.inventory_2_outlined,
             title: '¿Qué puedo ofrecerle de Aurora o Sigma?',
+            child: commercial.hasOfferData
+                ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if (commercial.primaryApplication case final application?)
+                        _LabeledText(
+                          label: 'Aplicación',
+                          value: application,
+                        ),
+                      if (commercial.priorityBrand case final brand?) ...[
+                        const SizedBox(height: 10),
+                        _LabeledText(label: 'Marca prioritaria', value: brand),
+                      ],
+                      if (commercial.auroraRecommendation case final aurora?) ...[
+                        const SizedBox(height: 10),
+                        _LabeledText(
+                          label: 'Aurora',
+                          value: aurora,
+                          detail: commercial.auroraFit,
+                        ),
+                      ],
+                      if (commercial.sigmaRecommendation case final sigma?) ...[
+                        const SizedBox(height: 10),
+                        _LabeledText(
+                          label: 'Sigma',
+                          value: sigma,
+                          detail: commercial.sigmaFit,
+                        ),
+                      ],
+                    ],
+                  )
+                : const Text('No hay una recomendación comercial cargada.'),
+          ),
+          const SizedBox(height: 10),
+          _SectionCard(
+            icon: Icons.people_alt_outlined,
+            title: '¿Con quién hablo y cómo lo contacto?',
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                if (company.auroraProducts.isNotEmpty) ...[
+                if (company.contact.hasDirectContact) ...[
+                  if (company.contact.name case final name?)
+                    Text(
+                      name,
+                      style: const TextStyle(fontWeight: FontWeight.w800),
+                    ),
+                  if (company.contact.role case final role?) Text(role),
+                  if (company.contact.phone case final phone?) ...[
+                    const SizedBox(height: 5),
+                    Text(phone),
+                  ],
+                  if (company.contact.email case final email?) Text(email),
+                ] else
                   const Text(
-                    'Aurora',
-                    style: TextStyle(fontWeight: FontWeight.w800),
+                    'No hay una persona o canal directo confirmado en la fuente.',
                   ),
-                  const SizedBox(height: 6),
-                  Wrap(
-                    spacing: 7,
-                    runSpacing: 7,
-                    children: company.auroraProducts
-                        .map((product) => Chip(label: Text(product)))
-                        .toList(),
-                  ),
-                ],
-                if (company.sigmaProducts.isNotEmpty) ...[
+                if (commercial.targetRole1 case final role1?) ...[
                   const SizedBox(height: 12),
-                  const Text(
-                    'Sigma',
-                    style: TextStyle(fontWeight: FontWeight.w800),
-                  ),
-                  const SizedBox(height: 6),
-                  Wrap(
-                    spacing: 7,
-                    runSpacing: 7,
-                    children: company.sigmaProducts
-                        .map((product) => Chip(label: Text(product)))
-                        .toList(),
+                  _LabeledText(label: 'Buscar primero', value: role1),
+                ],
+                if (commercial.targetRole2 case final role2?) ...[
+                  const SizedBox(height: 8),
+                  _LabeledText(label: 'Alternativa', value: role2),
+                ],
+                if (commercial.enrichmentStatus case final status?) ...[
+                  const SizedBox(height: 8),
+                  Text(
+                    status,
+                    style: const TextStyle(
+                      color: NexoColors.muted,
+                      fontSize: 12,
+                    ),
                   ),
                 ],
               ],
@@ -221,27 +281,70 @@ class CompanyDetailScreen extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           _SectionCard(
-            icon: Icons.people_alt_outlined,
-            title: '¿Con quién hablo y cómo lo contacto?',
-            child: company.contact.hasAny
-                ? Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      if (company.contact.name case final name?)
-                        Text(
-                          name,
-                          style: const TextStyle(fontWeight: FontWeight.w800),
-                        ),
-                      if (company.contact.role case final role?) Text(role),
-                      if (company.contact.phone case final phone?) Text(phone),
-                      if (company.contact.email case final email?) Text(email),
-                    ],
-                  )
-                : const Text(
-                    'No hay un contacto directo confirmado. El siguiente paso '
-                    'es identificar o validar al responsable de compras.',
+            icon: Icons.location_on_outlined,
+            title: '¿Dónde está y qué tan precisa es la ubicación?',
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _LabeledText(label: company.addressTypeLabel, value: company.address),
+                const SizedBox(height: 8),
+                Text(
+                  [
+                    company.locationDistrict,
+                    company.locationProvince,
+                    company.locationDepartment,
+                  ].whereType<String>().toSet().join(' · '),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  company.locationLabel,
+                  style: const TextStyle(
+                    color: NexoColors.muted,
+                    fontSize: 12,
                   ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  company.navigationEligible
+                      ? 'Esta cuenta permite navegación directa por coordenadas auditadas.'
+                      : 'La coordenada es referencial. “Buscar en Maps” usa empresa + dirección para ayudarte a validar el punto correcto.',
+                  style: const TextStyle(fontSize: 13),
+                ),
+              ],
+            ),
           ),
+          const SizedBox(height: 10),
+          _SectionCard(
+            icon: Icons.insights_outlined,
+            title: 'Perfil comercial',
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (commercial.buyerType case final value?)
+                  _FieldRow(label: 'Buyer type', value: value),
+                if (commercial.buysForThirdParties case final value?)
+                  _FieldRow(label: 'Compra para terceros', value: value),
+                if (commercial.purchaseFrequency case final value?)
+                  _FieldRow(label: 'Frecuencia', value: value),
+                if (commercial.purchaseModel case final value?)
+                  _FieldRow(label: 'Modelo de compra', value: value),
+                if (commercial.specificationLevel case final value?)
+                  _FieldRow(label: 'Especificación', value: value),
+                if (commercial.priceSensitivity case final value?)
+                  _FieldRow(label: 'Sensibilidad a precio', value: value),
+                if (commercial.workersSunat case final workers?)
+                  _FieldRow(label: 'Trabajadores SUNAT', value: '$workers'),
+              ],
+            ),
+          ),
+          if (commercial.openingScript case final script?) ...[
+            const SizedBox(height: 10),
+            _SectionCard(
+              icon: Icons.forum_outlined,
+              title: 'Guion de apertura sugerido',
+              child: Text(script),
+            ),
+          ],
           const SizedBox(height: 10),
           AnimatedBuilder(
             animation: activityStore,
@@ -306,6 +409,15 @@ class CompanyDetailScreen extends StatelessWidget {
             },
           ),
           const SizedBox(height: 14),
+          Text(
+            'Fuente empresa: ${commercial.companySource ?? 'Dataset maestro'}',
+            style: const TextStyle(color: NexoColors.muted, fontSize: 12),
+          ),
+          if (commercial.contactSource case final contactSource?)
+            Text(
+              'Fuente contacto: $contactSource',
+              style: const TextStyle(color: NexoColors.muted, fontSize: 12),
+            ),
           Text(
             'Fuente ubicación: ${company.source} · Procesado: '
             '${_dateLabel(company.sourceUpdatedAt)}',
@@ -375,6 +487,76 @@ class CompanyDetailScreen extends StatelessWidget {
     final month = local.month.toString().padLeft(2, '0');
     final year = local.year;
     return '$day/$month/$year';
+  }
+}
+
+class _FieldRow extends StatelessWidget {
+  const _FieldRow({required this.label, required this.value});
+
+  final String label;
+  final String value;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 7),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: 120,
+            child: Text(
+              label,
+              style: const TextStyle(
+                color: NexoColors.muted,
+                fontWeight: FontWeight.w700,
+                fontSize: 12,
+              ),
+            ),
+          ),
+          const SizedBox(width: 8),
+          Expanded(child: Text(value)),
+        ],
+      ),
+    );
+  }
+}
+
+class _LabeledText extends StatelessWidget {
+  const _LabeledText({
+    required this.label,
+    required this.value,
+    this.detail,
+  });
+
+  final String label;
+  final String value;
+  final String? detail;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(
+            color: NexoColors.teal,
+            fontWeight: FontWeight.w800,
+            fontSize: 12,
+          ),
+        ),
+        const SizedBox(height: 3),
+        Text(value),
+        if (detail case final detail?) ...[
+          const SizedBox(height: 2),
+          Text(
+            'Fit: $detail',
+            style: const TextStyle(color: NexoColors.muted, fontSize: 12),
+          ),
+        ],
+      ],
+    );
   }
 }
 
