@@ -29,6 +29,17 @@ class CompanyDetailScreen extends StatelessWidget {
     }
   }
 
+  Future<void> _email(BuildContext context, Uri uri) async {
+    if (!await launchUrl(uri, mode: LaunchMode.externalApplication) &&
+        context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('No se pudo abrir la aplicación de correo.'),
+        ),
+      );
+    }
+  }
+
   Future<void> _openLocation(BuildContext context) async {
     final precise = company.navigationEligible;
     final uri = precise
@@ -62,9 +73,9 @@ class CompanyDetailScreen extends StatelessWidget {
 
     if (!context.mounted || !saved) return;
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('${type.label} registrada.')),
-    );
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text('${type.label} registrada.')));
   }
 
   void _showActivityPicker(BuildContext context) {
@@ -88,7 +99,9 @@ class CompanyDetailScreen extends StatelessWidget {
                 ListTile(
                   leading: const Icon(Icons.directions_walk_rounded),
                   title: const Text('Visité la empresa'),
-                  subtitle: const Text('Guarda resultado, nota y siguiente paso'),
+                  subtitle: const Text(
+                    'Guarda resultado, nota y siguiente paso',
+                  ),
                   onTap: () {
                     Navigator.of(sheetContext).pop();
                     _openActivityEntry(context, ActivityType.visit);
@@ -207,15 +220,13 @@ class CompanyDetailScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       if (commercial.primaryApplication case final application?)
-                        _LabeledText(
-                          label: 'Aplicación',
-                          value: application,
-                        ),
+                        _LabeledText(label: 'Aplicación', value: application),
                       if (commercial.priorityBrand case final brand?) ...[
                         const SizedBox(height: 10),
                         _LabeledText(label: 'Marca prioritaria', value: brand),
                       ],
-                      if (commercial.auroraRecommendation case final aurora?) ...[
+                      if (commercial.auroraRecommendation
+                          case final aurora?) ...[
                         const SizedBox(height: 10),
                         _LabeledText(
                           label: 'Aurora',
@@ -253,11 +264,38 @@ class CompanyDetailScreen extends StatelessWidget {
                     const SizedBox(height: 5),
                     Text(phone),
                   ],
-                  if (company.contact.email case final email?) Text(email),
+                  for (final uri in company.contact.emailUris)
+                    TextButton.icon(
+                      onPressed: () => _email(context, uri),
+                      icon: const Icon(Icons.mail_outline_rounded),
+                      label: Text(uri.path),
+                    ),
                 ] else
                   const Text(
-                    'No hay una persona o canal directo confirmado en la fuente.',
+                    'No hay teléfono ni email publicado en los datos cargados.',
                   ),
+                if (company.contact.registryName case final registryName?) ...[
+                  const SizedBox(height: 12),
+                  _LabeledText(
+                    label: 'Referencia de representante',
+                    value: registryName,
+                  ),
+                  if (company.contact.registryRole case final registryRole?)
+                    Text(registryRole),
+                  const SizedBox(height: 4),
+                  const Text(
+                    'Referencia histórica de directorio. Cargo y vigencia por confirmar; no acredita que sea comprador de pintura.',
+                    style: TextStyle(color: NexoColors.muted, fontSize: 12),
+                  ),
+                  if (company.contact.registrySource case final registrySource?)
+                    Text(
+                      registrySource,
+                      style: const TextStyle(
+                        color: NexoColors.muted,
+                        fontSize: 12,
+                      ),
+                    ),
+                ],
                 if (commercial.targetRole1 case final role1?) ...[
                   const SizedBox(height: 12),
                   _LabeledText(label: 'Buscar primero', value: role1),
@@ -286,7 +324,10 @@ class CompanyDetailScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _LabeledText(label: company.addressTypeLabel, value: company.address),
+                _LabeledText(
+                  label: company.addressTypeLabel,
+                  value: company.address,
+                ),
                 const SizedBox(height: 8),
                 Text(
                   [
@@ -298,10 +339,7 @@ class CompanyDetailScreen extends StatelessWidget {
                 const SizedBox(height: 8),
                 Text(
                   company.locationLabel,
-                  style: const TextStyle(
-                    color: NexoColors.muted,
-                    fontSize: 12,
-                  ),
+                  style: const TextStyle(color: NexoColors.muted, fontSize: 12),
                 ),
                 const SizedBox(height: 8),
                 Text(
@@ -523,11 +561,7 @@ class _FieldRow extends StatelessWidget {
 }
 
 class _LabeledText extends StatelessWidget {
-  const _LabeledText({
-    required this.label,
-    required this.value,
-    this.detail,
-  });
+  const _LabeledText({required this.label, required this.value, this.detail});
 
   final String label;
   final String value;

@@ -1,0 +1,52 @@
+{
+  "registry_archive_sha256": "d9f83b08d98a59b3f4bc9eea619d298065255d26ff19e51251979a048a945f25",
+  "registry_origin_commit": "180813cd707a42f0df19ca8ea990bcbf0e516aa4",
+  "registry_origin_path": "transfer/elruc_person_compact.b64",
+  "registry_source_label": "ElRUC · archivo histórico Git 180813c · vigencia y cargo por confirmar",
+  "registry_verification_status": "historical_directory_reference_not_confirmed_buyer",
+  "channel_recoveries": [
+    {
+      "ruc": "20605392661",
+      "name_in_source": "CIM Estructuras",
+      "phone": "+51 907 001 269",
+      "email": "ventas@cimestructuras.pe",
+      "website": "https://cimestructuras.pe/",
+      "source_url": "https://cimestructuras.pe/",
+      "source_file": "directorio_84_prospectos_con_contactos_publicos_2026-11-06.xlsx",
+      "linkage": "unique_normalized_legal_name_and_published_business_identity",
+      "validation": "Published phone/email reconfirmed on the recorded business website during recovery; buyer not confirmed."
+    },
+    {
+      "ruc": "20563693763",
+      "name_in_source": "Arcam Granallados S.A.C.",
+      "phone": "+51 998 239 111",
+      "email": "comercial@arcamgranallados.com.pe",
+      "website": "https://arcamgranallados.com.pe/",
+      "source_url": "https://arcamgranallados.com.pe/nosotros/",
+      "source_file": "directorio_84_prospectos_con_contactos_publicos_2026-11-06.xlsx",
+      "linkage": "unique_normalized_legal_name_and_published_business_identity",
+      "validation": "Published phone/email reconfirmed on the recorded business website during recovery; buyer not confirmed."
+    },
+    {
+      "ruc": "20546883699",
+      "name_in_source": "Tecnotal S.A.",
+      "phone": "(01) 226 1166",
+      "email": "comercial@tecnotal.com.pe",
+      "website": "https://tecnotal.com.pe/",
+      "source_url": "https://tecnotal.com.pe/contact/",
+      "source_file": "directorio_84_prospectos_con_contactos_publicos_2026-11-06.xlsx",
+      "linkage": "unique_normalized_legal_name_and_published_business_identity",
+      "validation": "Published phone/email reconfirmed on the recorded business website during recovery; buyer not confirmed."
+    }
+  ],
+  "deferred": [
+    {
+      "ruc": "20122545637",
+      "reason": "Original public URL absent; no automatic promotion from unsourced directory phone."
+    },
+    {
+      "ruc": "20416027758",
+      "reason": "Original public URL absent; no automatic promotion from unsourced directory phone."
+    }
+  ]
+}

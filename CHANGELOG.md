@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.3+6 — 2026-11-10
+
+- Recover 1,907 historical ElRUC representative/role references from Git commit 180813c, joined strictly by RUC and labeled separately from reachable contacts.
+- Recover three missing business phones/emails from the saved 84-prospect directory, with website crosschecks and provenance.
+- Restore total contact coverage to 254 phones / 145 emails / 257 accounts with either channel; this does not mean all 1,907 accounts are reachable.
+- Add separate mailto actions for published email addresses.
+- Add regression checks for historical-reference semantics, email URI extraction and production contact totals (12 Flutter tests pass).
+
 ## 1.0.2+5 — 2026-11-10
 
 - Show every account in the current map viewport, removing the 90-account cap and fixed anchor radius.

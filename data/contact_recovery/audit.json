@@ -1,0 +1,33 @@
+{
+  "accounts": 1907,
+  "before": {
+    "phone": 251,
+    "email": 142,
+    "reachable_phone_or_email": 254,
+    "published_person_name": 11,
+    "registry_reference": 0
+  },
+  "after": {
+    "phone": 254,
+    "email": 145,
+    "reachable_phone_or_email": 257,
+    "published_person_name": 11,
+    "registry_reference": 1907
+  },
+  "registry_archive_sha256": "d9f83b08d98a59b3f4bc9eea619d298065255d26ff19e51251979a048a945f25",
+  "commercial_asset_sha256": "64d783016f6f6165c6a6cda3a7ad76cef6b24a8cdd98a35d8ef896dd38ed489e",
+  "registry_reference_policy": "Historical ElRUC representative/role reference; not a confirmed buyer or confirmed current role. Some representatives are legal entities.",
+  "source_inspection": [
+    "restored snapshot masters and worksheet-derived JSONs",
+    "prior source ZIP assets",
+    "old APK 0.1.1 production asset",
+    "original pasted master input",
+    "historical Git transfer 180813c",
+    "84-prospect directory; 3 sourced channel recoveries, 2 deferred normalized-name matches with no original public URL"
+  ],
+  "revalidated_websites": [
+    "https://cimestructuras.pe/",
+    "https://arcamgranallados.com.pe/nosotros/",
+    "https://tecnotal.com.pe/contact/"
+  ]
+}

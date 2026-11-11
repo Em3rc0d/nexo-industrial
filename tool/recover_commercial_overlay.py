@@ -5,6 +5,7 @@ No new contacts, geographic promotions or commercial claims are inferred.
 import gzip
 import hashlib
 import json
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -66,6 +67,32 @@ def main():
     expected = {str(x["ruc"]) for x in json.loads((ROOT / "assets/data/companies.production.json").read_text())}
     if len(result) != 1907 or len({x["ruc"] for x in result}) != 1907 or {x["ruc"] for x in result} != expected:
         raise ValueError("Commercial recovery must match all 1907 unique production RUCs")
+    recovery = ROOT / "data/contact_recovery"
+    manifest = json.loads((recovery / "manifest.json").read_text())
+    registry_raw = (recovery / "registry_references_180813c.json.gz").read_bytes()
+    if hashlib.sha256(registry_raw).hexdigest() != manifest["registry_archive_sha256"]:
+        raise ValueError("Historical registry archive hash mismatch")
+    registry_rows = json.loads(gzip.decompress(registry_raw))
+    if len(registry_rows) != 1907 or len({x[0] for x in registry_rows}) != 1907 or {x[0] for x in registry_rows} != expected:
+        raise ValueError("Historical registry RUC coverage mismatch")
+    by_ruc = {x["ruc"]: x for x in result}
+    for ruc, description in registry_rows:
+        match = re.fullmatch(r"(.+) \(([^()]+)\)", description)
+        if not match:
+            raise ValueError("Unrecognized historical representative format: " + ruc)
+        by_ruc[ruc]["contact"].update(
+            registry_name=match[1], registry_role=match[2],
+            registry_source=manifest["registry_source_label"],
+            registry_verification_status=manifest["registry_verification_status"],
+        )
+    for row in manifest["channel_recoveries"]:
+        item = by_ruc[row["ruc"]]
+        contact = item["contact"]
+        for field in ["phone", "email"]:
+            if not contact.get(field) and row.get(field):
+                contact[field] = row[field]
+        contact["source"] = row["source_url"]
+        item["contact_source"] = row["source_url"]
     payload = json.dumps(result, ensure_ascii=False, separators=(",", ":")).encode()
     target = ROOT / "assets/data/companies.commercial.overlay.json.gz"
     target.write_bytes(gzip.compress(payload, mtime=0))

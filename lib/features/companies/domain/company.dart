@@ -48,6 +48,9 @@ class CompanyContact {
     this.phone,
     this.email,
     this.source,
+    this.registryName,
+    this.registryRole,
+    this.registrySource,
   });
 
   final String? name;
@@ -56,12 +59,26 @@ class CompanyContact {
   final String? email;
   final String? source;
 
-  bool get hasDirectContact =>
-      (name?.isNotEmpty ?? false) ||
-      (phone?.isNotEmpty ?? false) ||
-      (email?.isNotEmpty ?? false);
+  final String? registryName;
+  final String? registryRole;
+  final String? registrySource;
 
-  bool get hasAny => hasDirectContact || (role?.isNotEmpty ?? false);
+  List<Uri> get emailUris =>
+      RegExp(r'[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}')
+          .allMatches(email ?? '')
+          .map((m) => m.group(0)!)
+          .toSet()
+          .map((value) => Uri(scheme: 'mailto', path: value))
+          .toList(growable: false);
+
+  bool get hasDirectContact =>
+      (phone?.isNotEmpty ?? false) || (email?.isNotEmpty ?? false);
+
+  bool get hasAny =>
+      hasDirectContact ||
+      (name?.isNotEmpty ?? false) ||
+      (role?.isNotEmpty ?? false) ||
+      (registryName?.isNotEmpty ?? false);
 
   factory CompanyContact.fromJson(Map<String, dynamic>? json) {
     if (json == null) return const CompanyContact();
@@ -72,6 +89,9 @@ class CompanyContact {
       phone: json['phone'] as String?,
       email: json['email'] as String?,
       source: json['source'] as String?,
+      registryName: json['registry_name'] as String?,
+      registryRole: json['registry_role'] as String?,
+      registrySource: json['registry_source'] as String?,
     );
   }
 }

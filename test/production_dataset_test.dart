@@ -108,4 +108,30 @@ void main() {
       );
     },
   );
+  test(
+    'recovered registry covers all RUCs without inflating direct channels',
+    () async {
+      final accounts = await const AssetCompanyRepository().loadCompanies();
+      expect(
+        accounts.where((c) => c.contact.registryName?.isNotEmpty == true),
+        hasLength(1907),
+      );
+      expect(
+        accounts.where((c) => c.contact.phone?.isNotEmpty == true),
+        hasLength(254),
+      );
+      expect(
+        accounts.where((c) => c.contact.emailUris.isNotEmpty),
+        hasLength(145),
+      );
+      expect(accounts.where((c) => c.contact.hasDirectContact), hasLength(257));
+      final stracon = accounts.singleWhere((c) => c.ruc == '20610105620');
+      expect(stracon.contact.registryName, 'Tamayo Ortega John Edwin');
+      expect(stracon.contact.registrySource, contains('180813c'));
+      expect(
+        accounts.singleWhere((c) => c.ruc == '20563693763').contact.email,
+        'comercial@arcamgranallados.com.pe',
+      );
+    },
+  );
 }
