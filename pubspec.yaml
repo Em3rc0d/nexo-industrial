@@ -27,3 +27,4 @@ flutter:
     - assets/data/companies.production.json
     - assets/data/companies.commercial.overlay.json.gz
     - assets/data/companies.geolocation.overlay.json
+    - data/people_enrichment/2026-11-11_mining_people.json
