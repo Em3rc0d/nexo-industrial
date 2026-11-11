@@ -65,17 +65,28 @@
       "rejected_or_pending": 0,
       "with_phone": 1,
       "with_email": 2
+    },
+    {
+      "path": "data/contact_enrichment/2026-11-11_construplan_mincotrall_akd.json",
+      "reviewed": 3,
+      "accepted_with_any": 2,
+      "accepted_web_only": 0,
+      "rejected_or_pending": 0,
+      "with_phone": 2,
+      "with_email": 2,
+      "already_present_in_baseline": 1,
+      "note": "AK Drilling International RUC 20470234599 already had EXACT same local telephone and group email in compressed commercial baseline; Construplan and Mincotrall are net new"
     }
   ],
   "combined_if_rebuilt_and_verified": {
-    "with_phone": 289,
-    "with_email": 172,
-    "with_phone_or_email": 295,
-    "with_phone_email_or_reviewed_page": 300,
-    "without_phone_or_email": 1612
+    "with_phone": 291,
+    "with_email": 174,
+    "with_phone_or_email": 297,
+    "with_phone_email_or_reviewed_page": 302,
+    "without_phone_or_email": 1610
   },
-  "total_reviewed_all_batches": 69,
-  "total_new_any_contact_all_batches": 38,
+  "total_reviewed_all_batches": 72,
+  "total_new_any_contact_all_batches": 40,
   "total_new_web_only_all_batches": 5,
   "total_reviewed_without_promoted_channel_all_batches": 25,
   "count_scope": "by unique RUC, not distinct phone number or email string. Source batches may include group-wide channels and aliases. The after-rebuild values are projections only; not current production/app coverage.",
@@ -93,7 +104,9 @@
     "New CMH public contact does not alter published coverage until deduplication and rebuild",
     "2026-11-11 Paita phone and customer-service email are commercial/customer channels, NOT a supplier procurement contact",
     "Paltarumi general public info email is not an invitation or known demand for industrial coatings",
-    "All seven contact research batches have disjoint accepted RUC records; 44 accepted unique RUC; any unique additional coverage estimates need deterministic asset rebuild"
+    "All seven contact research batches have disjoint accepted RUC records; 44 accepted unique RUC; any unique additional coverage estimates need deterministic asset rebuild",
+    "Eight contact research batches have 47 accepted RUC with no duplicate in accepted rows; AKD and CMH have contact channels already in production and do not count as newly covered",
+    "2026 PDAC Construplan business-development manager's published email is not the office purchasing contact; phone/email not delivery-tested"
   ],
   "research_only_additional_public_contact": {
     "ruc": "20136150473",
@@ -122,5 +135,12 @@
     "forms_submitted": 0,
     "registrations": 0,
     "linkedin_requests": 0
+  },
+  "baseline_asset_akd_check": {
+    "ruc": "20470234599",
+    "phone": "+51 1 251 3380",
+    "email": "global@akdint.com",
+    "contact_page": "https://www.akdint.com/contactanos/",
+    "found_both_in_existing_commercial_overlay": true
   }
 }
