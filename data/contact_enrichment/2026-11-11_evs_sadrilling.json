@@ -1,0 +1,71 @@
+{
+  "scope": "2026-11-11 public corporate contact research for two previously uncovered RUCs and documented rejected leads; READ-ONLY, never contact anyone",
+  "reviewed_on": "2026-11-11",
+  "records": [
+    {
+      "ruc": "20539424743",
+      "phone": "+51 1 704 8970",
+      "email": "elmer.sotasor@evs.com.pe",
+      "website": "https://evs.com.pe/",
+      "contact_page": "https://evs.com.pe/contacto/",
+      "source_url": "https://evs.com.pe/contacto/",
+      "identity_source": "https://www.facturalo.pe/empresas/evs-contratistas-mineros-sac-20539424743",
+      "linkage": "Official EVS business site identifies Calle Guadalupe 555, Ate and its mining-contractor business; RUC 20539424743 appears with legal EVS CONTRATISTAS MINEROS S.A.C. and address Guadalupe 555 in public SUNAT-derived data.",
+      "channel_purpose": "general_corporate_not_procurement",
+      "source_type": "official_business_site_plus_sunat_ruc_identity",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "additional_phones": [
+        "+51 992 054 737 (public EVS corporate mobile)"
+      ],
+      "notes": "The official contact page body lists +51 1 7240747 but the same site's common footer and homepage repeatedly list +51 1 7048970. Only repeated corporate footer line promoted; discrepancy retained. elmer.sotasor@evs.com.pe is publicly offered as the business general contact, not a verified paint-purchasing department. Recruiting addresses excluded; no email or call performed."
+    },
+    {
+      "ruc": "20536925245",
+      "phone": null,
+      "email": "consultas@sadrilling.com",
+      "website": "https://www.sadrilling.com/",
+      "contact_page": "https://www.sadrilling.com/contactos",
+      "source_url": "https://www.sadrilling.com/contactos",
+      "identity_source": "https://ww1.sunat.gob.pe/descarga/AgentRet/AgenRet312.html",
+      "linkage": "Official company contact page names South American Drilling S.A.C. and Piura Sánchez Cerro 234 address; SUNAT retention-agent listing states legal South American Drilling S.A.C. RUC 20536925245.",
+      "channel_purpose": "general_corporate_not_procurement",
+      "source_type": "official_business_site_plus_sunat_ruc_identity",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "notes": "Official business website publishes general consultas email but not a direct purchases contact or public phone. No supplier intent is inferred; no outbound contact."
+    }
+  ],
+  "reviews": [
+    {
+      "ruc": "20392776975",
+      "name": "Minera Shouxin Perú S.A.",
+      "outcome": "recruitment_privacy_email_rejected",
+      "source_url": "https://minera-shouxin.pandape.computrabajo.com/Privacy/Cookies",
+      "reason": "The only discovered named email wchavez@shouxin.com.pe is published in recruitment applicant-privacy context; do not treat as paint supplier or corporate purchases address."
+    },
+    {
+      "ruc": "20323791415",
+      "name": "Administración de Proyectos Mineros y Civiles S.R.L.",
+      "outcome": "old_invoice_phone_and_hotmail_rejected",
+      "source_url": "https://imaginaticsperu.com/archivos/20323791415/PRINCIPAL/facturas/20323791415-01-F004-3.pdf",
+      "reason": "A 2019 invoice includes phone numbers and a third-party-style personal Hotmail address; not sufficient evidence of a currently reachable corporate supplier channel."
+    },
+    {
+      "ruc": "20565643496",
+      "name": "Global Fuel S.A.",
+      "outcome": "ruc_identity_only_no_published_business_contact",
+      "source_url": "https://www.rnp.gob.pe/Constancia/RNP_Constancia/default_Todos.asp?RUC=20565643496",
+      "reason": "Government provider registry verifies RUC, but gives no public phone or email suitable for corporate prospecting. No inference."
+    }
+  ],
+  "outreach_performed": false,
+  "explicit_actions": {
+    "emails_sent": 0,
+    "calls_made": 0,
+    "messages_sent": 0,
+    "forms_submitted": 0,
+    "linkedin_requests": 0,
+    "registrations": 0
+  }
+}
