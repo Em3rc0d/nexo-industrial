@@ -60,6 +60,21 @@
     "Publicly published channels, not live delivery or buyer verification",
     "2025 mining-directory personnel contacts are historical professional references, not current verified buyer contacts",
     "Shared group switchboards must remain explicitly labeled as group-wide",
-    "No new companies added; only existing RUCs enriched"
-  ]
+    "No new companies added; only existing RUCs enriched",
+    "New CMH public contact does not alter published coverage until deduplication and rebuild"
+  ],
+  "research_only_additional_public_contact": {
+    "ruc": "20136150473",
+    "source_batch": "data/contact_enrichment/2026-11-11_cmh_public_contact.json",
+    "scope": "Official general business channels and CMH/eBIZ supplier registration page",
+    "already_counted_in_metrics": "unknown_until_rebuild",
+    "outreach_performed": false
+  },
+  "people_reference_progress": {
+    "profile_count": 33,
+    "company_rucs_with_profiles": 21,
+    "new_batch": "data/people_enrichment/2026-11-11_readonly_pass3.json",
+    "applied_to_source_json": true,
+    "applied_to_installed_apk": false
+  }
 }
