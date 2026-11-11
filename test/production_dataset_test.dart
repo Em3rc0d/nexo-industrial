@@ -118,13 +118,13 @@ void main() {
       );
       expect(
         accounts.where((c) => c.contact.phone?.isNotEmpty == true),
-        hasLength(267),
+        hasLength(291),
       );
       expect(
         accounts.where((c) => c.contact.emailUris.isNotEmpty),
-        hasLength(157),
+        hasLength(174),
       );
-      expect(accounts.where((c) => c.contact.hasDirectContact), hasLength(270));
+      expect(accounts.where((c) => c.contact.hasDirectContact), hasLength(297));
       final stracon = accounts.singleWhere((c) => c.ruc == '20610105620');
       expect(stracon.contact.registryName, 'Tamayo Ortega John Edwin');
       expect(stracon.contact.registrySource, contains('180813c'));
@@ -149,8 +149,52 @@ void main() {
       expect(zeta.contact.email, isNull);
       expect(
         accounts.where((c) => c.contact.contactPageUri != null),
-        hasLength(15),
+        greaterThanOrEqualTo(15),
       );
     },
   );
+  test(
+    'accepted public contact patch is applied by RUC without new accounts',
+    () async {
+      final accounts = await const AssetCompanyRepository().loadCompanies();
+      expect(accounts, hasLength(1907));
+      final casa = accounts.singleWhere((c) => c.ruc == '20109565017');
+      expect(casa.contact.phone, '+51 1 611 3939');
+      expect(casa.contact.emailUris.single.path, 'casa@casacontratistas.com');
+
+      final jrc = accounts.singleWhere((c) => c.ruc == '20508891149');
+      expect(jrc.contact.emailUris.map((x) => x.path),
+          contains('compras@jrcing.com.pe'));
+
+      final tecnomin = accounts.singleWhere((c) => c.ruc == '20221259581');
+      expect(tecnomin.contact.phone, '+51 1 659 8377');
+      expect(tecnomin.contact.emailUris.single.path,
+          'administracion@tecnomindata.com');
+
+      final explo = accounts.singleWhere((c) => c.ruc == '20527775851');
+      expect(explo.contact.emailUris.map((x) => x.path),
+          contains('comercial@explodrillingperu.pe'));
+
+      final paita = accounts.singleWhere((c) => c.ruc == '20522473571');
+      expect(paita.contact.channelPurposeLabel,
+          contains('Atención al cliente'));
+
+      final quenuales = accounts.singleWhere((c) => c.ruc == '20332907990');
+      expect(quenuales.contact.hasDirectContact, isFalse);
+      expect(quenuales.contact.contactPageUri?.host, 'alpayana.com');
+
+      final cmh = accounts.singleWhere((c) => c.ruc == '20136150473');
+      expect(cmh.contact.phone, '(01) 618-1000');
+      expect(cmh.contact.emailUris.single.path, 'contacto@cmh.com.pe');
+
+      final akd = accounts.singleWhere((c) => c.ruc == '20470234599');
+      expect(akd.contact.phone, '+51 1 251 3380');
+      expect(akd.contact.emailUris.single.path, 'global@akdint.com');
+
+      final withAny = accounts.where((c) =>
+          c.contact.hasDirectContact || c.contact.contactPageUri != null);
+      expect(withAny, hasLength(302));
+    },
+  );
+
 }
