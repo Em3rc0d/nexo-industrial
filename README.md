@@ -112,10 +112,12 @@ Estos cambios corresponden al código/datos de 1.0.4+7. La APK 1.0.3+6 entregada
 
 ## Personas clave — piloto 11/11/2026 (código, APK pendiente)
 
-La ficha de quince empresas del master incorpora **25 referencias profesionales públicas** de compras, logística y abastecimiento. La fuente única es `data/people_enrichment/2026-11-11_mining_people.json`, enlazada por RUC. Incluye LinkedIn, evidencia, estado temporal y advertencias cuando no se confirma el cargo vigente. Ninguna identidad se suma como teléfono/email directo. Hay **0 números individuales verificados**; se conserva **1 correo laboral público dirigido a proveedores** con vigencia pendiente de reconfirmación. No se añade al contador de contacto directo de la empresa.
+La ficha de veintiuna empresas del master incorpora **33 referencias profesionales públicas** de compras, logística y abastecimiento. La fuente de producción es `data/people_enrichment/2026-11-11_mining_people.json`, enlazada por RUC. Incluye LinkedIn, evidencia, estado temporal y advertencias cuando no se confirma el cargo vigente. Ninguna identidad se suma como teléfono/email directo. Hay **0 números individuales verificados**; se conserva **1 correo laboral público dirigido a proveedores** con vigencia pendiente de reconfirmación. No se añade al contador de contacto directo de la empresa.
 
 El campo `workers_sunat` del perfil comercial y cualquier recuento de perfiles de LinkedIn representan conceptos distintos; un perfil no acredita nómina vigente ni teléfono.
 
 La investigación de teléfonos/emails empresariales en otros tres lotes permanece en etapa previa al rebuild: **290 con algún canal proyectados**, frente a **270 en el asset comercial productivo aplicado**. No se presentan como cifras ya compiladas.
+
+Se documenta una investigación pasiva adicional de CMH, Catalina Huanca, Raura, SFP, Las Bambas y Ares sin enviar emails, mensajes, conexiones, llamadas ni formularios. El sitio oficial de CMH publica portal eBIZ de proveedores: `https://ebiz.pe/proveedores-cmh/`; su teléfono/email quedaron como descubrimiento staged, no como aumento comprobado de cobertura productiva.
 
 Ver `docs/PEOPLE_ENRICHMENT_2026-11-11.md` y `docs/CONTACT_ENRICHMENT_2026-11-11.md`. Se requiere `flutter analyze`, `flutter test` y compilación local antes de otra APK.
