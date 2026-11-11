@@ -124,8 +124,8 @@ Ver `docs/PEOPLE_ENRICHMENT_2026-11-11.md` y `docs/CONTACT_ENRICHMENT_2026-11-11
 
 ## Avance de investigación de contactos — 11/11/2026 (NO aplicado a APK)
 
-Hay 7 lotes de investigación pública guardados en `data/contact_enrichment/`, incluido el último sobre Tecnomin Data, Explo Drilling, SEA, Los Quenuales, OREX, TPE Paita y Paltarumi. Se revisaron **69 RUC**; **38** tienen nuevos teléfonos/emails publicados y **5** adicionales únicamente página o portal oficial, mientras **1** (CMH) ya tenía ambos canales en el asset base. Los 25 restantes no tuvieron nuevos canales promocionables.
+Hay 8 lotes de investigación pública guardados en `data/contact_enrichment/`, incluido el último sobre Tecnomin Data, Explo Drilling, SEA, Los Quenuales, OREX, TPE Paita y Paltarumi. Se revisaron **72 RUC**; **40** ganaron canales telefónicos o emails públicos, **5** aportaron únicamente página/portal oficial; **2** (CMH y AK Drilling) ya tenían ambos canales y 25 no tuvieron nuevos canales promocionables.
 
-**El asset/manifest productivo permanece en 267 RUC con teléfono, 157 con email y 270 con cualquiera.** Con los lotes pendientes de reconstrucción, la cobertura **proyectada, no validada en la APK**, es de **289** con teléfono, **172** con email, **295** con alguno de ambos y **300** incluyendo portales; restarían **1,612** RUC sin teléfono/email.
+**El asset/manifest productivo permanece en 267 RUC con teléfono, 157 con email y 270 con cualquiera.** Con los lotes pendientes de reconstrucción, la cobertura **proyectada, no validada en la APK**, es de **291** con teléfono, **174** con email, **297** con alguno de ambos y **302** incluyendo portales; restarían **1,610** RUC sin teléfono/email.
 
 Detalle, evidencias, política de exclusiones y gate de reconstrucción: `docs/CONTACT_ENRICHMENT_2026-11-11.md` y `data/contact_enrichment/staged_status_2026-11-11.json`. No se ha llamado, escrito, enviado formulario ni solicitado conexión a ningún prospecto.
