@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.4+7 — 2026-11-11 (People overlay in source; no new APK)
+
+- Found 11 distinct public professional references across 7 existing RUCs, focused on purchasing, procurement, logistics and supplier relations. Provenance and role recency retained.
+- Added `data/people_enrichment/2026-11-11_mining_people.json` to Flutter bundled assets and a separate People panel inside the business details view, with safe LinkedIn/source links.
+- Kept 2 Minsur historical references explicitly historical. No private telephone numbers or guessed personal emails, no inflated direct-company-contact counts.
+- Added `test/public_professionals_test.dart` for join integrity, safe URLs, historical flags and unchanged phone/email counts.
+- **Validation gate pending:** Flutter SDK unavailable in the active runtime; code changes have not passed Flutter analysis, Flutter tests or an Android device smoke test. APK remains unchanged.
+
 ## 1.0.4+7 — 2026-11-11 (source/data; APK pending)
 
 - Review first 24 high-priority pending accounts in Callao/Lima Sur: publish phone/email for 13 and business contact pages for 2 more; keep 9 pending corroboration.
