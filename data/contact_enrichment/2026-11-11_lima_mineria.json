@@ -1,0 +1,196 @@
+{
+  "scope": "Second pass from current pending RUC queue; Lima mining, construction and energy; no new accounts",
+  "reviewed_on": "2026-11-11",
+  "records": [
+    {
+      "ruc": "20109565017",
+      "phone": "+51 1 611 3939",
+      "email": "casa@casacontratistas.com",
+      "website": "https://www.casacontratistas.com/",
+      "contact_page": "https://www.casacontratistas.com/contactanos",
+      "source_url": "https://www.casacontratistas.com/contactanos",
+      "linkage": "Official contact page explicitly identifies Construcción y Administración S.A. and RUC 20109565017 with Santiago de Surco office",
+      "channel_purpose": "general_corporate",
+      "source_type": "official_company_site",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "notes": "Form and general company mailbox; no verified purchasing officer."
+    },
+    {
+      "ruc": "20508891149",
+      "phone": "+51 1 630 1500",
+      "email": "compras@jrcing.com.pe; info@jrcing.com.pe",
+      "website": "https://jrc.com.pe/",
+      "contact_page": "https://jrc.com.pe/contacto-jrc/",
+      "source_url": "https://jrc.com.pe/contacto-jrc/",
+      "email_source_url": "https://es.linkedin.com/posts/jrc-ingenier-a-y-construcci-n-sac_jrc-abre-su-convocatoria-para-nuevos-proveedores-activity-7465798023684554752-WPpP",
+      "linkage": "RUC 20508891149 official business JRC Ingeniería y Construcción, published address Av. Jorge Basadre 233 Of 601 consistent with SUNAT and contact page",
+      "channel_purpose": "supplier_registration_and_general",
+      "source_type": "official_company_site_and_official_company_social_publication",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "notes": "JRC corporate publication specifically invites new suppliers to complete registration and confirm via compras@jrcing.com.pe. Not evidence of current paint procurement; inbox not delivery-tested."
+    },
+    {
+      "ruc": "20383045267",
+      "phone": "+51 1 416 7000",
+      "email": null,
+      "website": "https://www.volcan.com.pe/",
+      "contact_page": "https://www.volcan.com.pe/",
+      "source_url": "https://www.smv.gob.pe/SIMV/Bp_LisDatosGenerales?data=5C0A8F2117B11429C190026CC756&op=bq1",
+      "linkage": "SMV entry explicitly identifies Volcan Compañía Minera S.A.A., public corporate switchboard and address Av. Manuel Olguin 375",
+      "channel_purpose": "corporate_switchboard",
+      "source_type": "government_corporate_registry",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "notes": "Group central office; do not treat as direct purchasing line. No ethics, investor-relations or privacy mailbox promoted."
+    },
+    {
+      "ruc": "20100136741",
+      "phone": "+51 1 215 8330",
+      "email": null,
+      "website": "https://www.minsur.com/",
+      "contact_page": "https://portaldeproveedores.minsur.com/",
+      "source_url": "https://www.minsur.com/blockchain/index.html",
+      "identity_source": "https://datacloud.pe/empresa/20100136741",
+      "linkage": "Minsur company website has Jr. Lorenzo Bernini 149 San Borja matching RUC record; separate supplier onboarding portal official",
+      "channel_purpose": "corporate_switchboard_and_supplier_portal",
+      "source_type": "official_company_site",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "notes": "Phone is corporate/general, portal registers potential suppliers; not a guarantee of approval or active purchasing requirements."
+    },
+    {
+      "ruc": "20192779333",
+      "phone": "+51 1 317 2000",
+      "email": null,
+      "website": "https://www.hochschildmining.com/",
+      "contact_page": "https://www.hochschildmining.com/es/contactos/",
+      "source_url": "https://www.hochschildmining.com/es/contactos/",
+      "linkage": "Hochschild Peru contact specifically names Compañia Minera Ares SAC and Calle La Colonia 180, matching fiscal record RUC 20192779333",
+      "channel_purpose": "corporate_switchboard",
+      "source_type": "official_group_company_site",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "notes": "Peru office line, not buyer/direct purchasing phone; London IR contacts excluded."
+    },
+    {
+      "ruc": "20602670130",
+      "phone": null,
+      "email": "atencionalcliente@gmisac.com.pe",
+      "website": "https://www.gmisac.com.pe/",
+      "contact_page": "https://www.gmisac.com.pe/contacto/",
+      "source_url": "https://www.gmisac.com.pe/contacto/",
+      "identity_source": "https://elruc.pe/ruc/20602670130-gestion-minera-integral-s-a-c",
+      "linkage": "Official GMI Gestión Minera Integral company contact with published domain, legal name linked by SUNAT RUC listing",
+      "channel_purpose": "general_customer_contact_and_supplier_portal",
+      "source_type": "official_company_site",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "notes": "General attention mailbox, not proven procurement; corporate site also links a supplier portal through top navigation."
+    },
+    {
+      "ruc": "20100366747",
+      "phone": "+51 1 617 1717",
+      "email": "consultas@llamagas.com.pe",
+      "website": "https://www.llamagas.com.pe/",
+      "contact_page": "https://www.llamagas.com.pe/contacto-distribuidor/",
+      "source_url": "https://www.llamagas.com.pe/contacto-distribuidor/",
+      "linkage": "Official page footer explicitly identifies Llamagas S.A. and RUC 20100366747",
+      "channel_purpose": "general_customer_support",
+      "source_type": "official_company_site",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "notes": "General GLP customer/distributor enquiries, not a procurement inbox. Distributor signup form is for retail partners and is not treated as supplier purchasing form."
+    },
+    {
+      "ruc": "20100056802",
+      "phone": "+51 1 200 5000",
+      "email": null,
+      "website": "https://www.condestable.com/",
+      "contact_page": "https://simposio-xv.simposio.pe/plano-del-centro-de-negocios/",
+      "source_url": "https://simposio-xv.simposio.pe/plano-del-centro-de-negocios/",
+      "identity_source": "https://rucperu.com/compania-minera-condestable-sa/",
+      "linkage": "Minera Condestable named at industry meeting with corporate phone and extension; published San Surco address and RUC linked in tax listing",
+      "channel_purpose": "industry_event_company_representative",
+      "source_type": "industry_event_directory",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "notes": "Conference business listing +51 1 200 5000 ext 107; contact use limited to that event's published listing. Not buyer and current operation of extension not tested."
+    },
+    {
+      "ruc": "20514608041",
+      "phone": "+51 1 416 7000",
+      "email": null,
+      "website": "https://www.volcan.com.pe/",
+      "contact_page": "https://www.volcan.com.pe/es/operaciones/",
+      "source_url": "https://www.smv.gob.pe/SIMV/Bp_LisDatosGenerales?data=5C0A8F2117B11429C190026CC756&op=bq1",
+      "identity_source": "https://elruc.pe/ruc/20514608041-compania-minera-chungar-s-a-c",
+      "linkage": "Compañía Minera Chungar SAC, RUC 20514608041, belongs to Volcan operating group; both fiscal corporate address and published parent switchboard tie to Av. Manuel Olguin 375",
+      "channel_purpose": "shared_group_switchboard_not_direct_subsidiary",
+      "source_type": "official_group_site_plus_government_registry",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "notes": "SHARED group number, not a verified Chungar-specific line. Group number also appears for Volcan; no duplicate corporate entity or implied buyer contact."
+    },
+    {
+      "ruc": "20114915026",
+      "phone": null,
+      "email": null,
+      "website": "https://www.glencoreperu.pe/",
+      "contact_page": "https://www.glencoreperu.pe/proveedores",
+      "source_url": "https://www.glencoreperu.pe/proveedores",
+      "identity_source": "https://www.glencoreperu.pe/operaciones/division-cobre/antapaccay/quienes-somos",
+      "linkage": "Official Glencore Peru suppliers page specifically includes Antapaccay; legal company name matched to RUC 20114915026 via official SUNAT register",
+      "channel_purpose": "supplier_portal",
+      "source_type": "official_group_company_site",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "notes": "Web portal only; no phone/email promoted. Excludes community grievances and recruitment emails."
+    }
+  ],
+  "reviews": [
+    {
+      "ruc": "20332907990",
+      "status": "candidate_requires_revalidation",
+      "source_url": "https://telefono.pe/empresa-minera-los-quenuales-sa/",
+      "notes": "Directory 01 2177070 with exact RUC; second industry directory also lists it but historical/glencore office. No recent company-site publication of switchboard; not promoted.",
+      "reviewed_on": "2026-11-11"
+    },
+    {
+      "ruc": "20125959483",
+      "status": "candidate_requires_revalidation",
+      "source_url": "https://www.peruyello.com/company/32417/Minera_Laytaruma",
+      "notes": "Directories publish 01 2190680; 2018 industry newsletter minlayta@laytaruma.com.pe is historical. No direct current official company confirmation; neither promoted.",
+      "reviewed_on": "2026-11-11"
+    },
+    {
+      "ruc": "20100114934",
+      "status": "not_verified",
+      "source_url": "https://ubicania.com/empresas/administracion-de-empresas-s-a-c_id_3C1C274E44587C2D",
+      "notes": "Masked office/cell numbers only; quotations address company but no assured current unmasked business channel.",
+      "reviewed_on": "2026-11-11"
+    },
+    {
+      "ruc": "20604269009",
+      "status": "not_verified",
+      "source_url": "https://www.rnp.gob.pe/constancia/rnp_constancia/default_Todos.asp?RUC=20604269009",
+      "notes": "RNP confirms CCECC Peru branch, but other surfaced contact references had malformed addresses and were not corroborated by company website.",
+      "reviewed_on": "2026-11-11"
+    },
+    {
+      "ruc": "20489332621",
+      "status": "identity_requires_followup",
+      "source_url": "https://datacloud.pe/empresa/20489332621",
+      "notes": "Public listings disagree on legal form SAC/EIRL while using same RUC and historical COPSEM names. Masked contact not promoted.",
+      "reviewed_on": "2026-11-11"
+    },
+    {
+      "ruc": "20565643496",
+      "status": "not_verified",
+      "source_url": "https://compuempresa.com/info/global-fuel-sociedad-anonima-D5DBFFC781642FA4",
+      "notes": "Registered Global Fuel SA; available directory numbers and email are masked; no clear official published channel found.",
+      "reviewed_on": "2026-11-11"
+    }
+  ]
+}
