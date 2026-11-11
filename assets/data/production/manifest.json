@@ -33,17 +33,17 @@
   "contact_coverage": {
     "as_of": "2026-11-11",
     "accounts": 1907,
-    "with_phone": 291,
-    "with_email": 174,
-    "with_phone_or_email": 297,
-    "with_phone_email_or_reviewed_contact_page": 302,
-    "without_phone_or_email": 1610,
+    "with_phone": 292,
+    "with_email": 176,
+    "with_phone_or_email": 299,
+    "with_phone_email_or_reviewed_contact_page": 304,
+    "without_phone_or_email": 1608,
     "historical_representative_references": 1907,
     "people_profiles": 33,
     "companies_with_people_profiles": 21,
-    "unique_incremental_patch_rucs": 31,
-    "contact_research_batches": 8,
-    "note": "Effective Flutter source-side merge of unchanged compressed base + approved 31-RUC JSON patch. Counts are test expectations/audited research, NOT Android runtime or delivered email verification. Flutter analysis, unit tests and local APK build pending."
+    "unique_incremental_patch_rucs": 33,
+    "contact_research_batches": 9,
+    "note": "Effective code-source merge: original gzip + 33 approved public-contact RUC patch. Exact counts audited separately, not yet Flutter analyzed or delivered in Android APK; no outreach."
   },
   "base_commercial_contact_coverage": {
     "as_of": "2026-11-11",
@@ -59,5 +59,5 @@
   },
   "contact_patch": "assets/data/companies.contact.patch.json",
   "contact_patch_applied_to_source": true,
-  "build_status": "SOURCE_UPDATED_FLUTTER_VALIDATION_AND_APK_PENDING"
+  "build_status": "SOURCE_INTEGRATED_299_CONTACT_RUC_PY_AUDIT_PENDING_FLUTTER_APK_PENDING"
 }
