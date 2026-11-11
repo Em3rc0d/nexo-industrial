@@ -1,0 +1,24 @@
+{
+  "scope": "Public business contact discovered while researching supplier professionals, existing master account only (RUC 20136150473), strictly read-only",
+  "records": [
+    {
+      "ruc": "20136150473",
+      "phone": "+51 1 618 1000",
+      "email": "contacto@cmh.com.pe",
+      "website": "https://cmh.com.pe/",
+      "contact_page": "https://cmh.com.pe/contactenos/",
+      "supplier_portal": "https://ebiz.pe/proveedores-cmh/",
+      "source_url": "https://cmh.com.pe/contactenos/",
+      "supplier_portal_source_url": "https://ebiz.pe/proveedores-cmh/",
+      "linkage": "Official CMH business contact page states Consorcio Minero Horizonte and Jr. Crane 102, San Borja, matching RUC 20136150473 registry address. The public site uses S.A. in footer while registry records S.C.R.L.; treat as common corporate brand / office, not proof that distinct legal forms are interchangeable.",
+      "channel_purpose": "general_corporate_and_supplier_registration",
+      "source_type": "official_company_site_and_linked_supplier_platform",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "notes": "Official supplier page says registration for non-suppliers and offers B2M operations for existing suppliers. eBIZ helpdesk phone/WhatsApp/email are platform support, not CMH purchase contacts, and are intentionally excluded. No signup, form submission, call or email undertaken."
+    }
+  ],
+  "reviews": [],
+  "outreach_performed": false,
+  "coverage_note": "Do not increment coverage totals until compare with pre-existing contact record and rebuild audited overlay; this RUC may already have a channel."
+}
