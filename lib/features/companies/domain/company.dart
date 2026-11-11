@@ -173,7 +173,41 @@ class CompanyContact {
     'quotations' => 'Cotizaciones',
     'general_contact_form' => 'Formulario empresarial',
     'group_business_contact_form' => 'Contacto empresarial del grupo',
-    'general_corporate' || 'general' => 'Contacto general',
+    'general_corporate' || 'general' ||
+    'general_corporate_not_procurement' ||
+    'general_office' ||
+    'operations_office_not_purchasing' =>
+      'Contacto general; no es una línea directa de compras',
+    'corporate_switchboard' ||
+    'shared_group_switchboard_not_direct_subsidiary' ||
+    'group_supplier_support_and_shared_parent_switchboard' =>
+      'Central del grupo; no acredita contacto con el comprador',
+    'supplier_portal' ||
+    'supplier_portal_parent_group_for_specific_mining_entity' ||
+    'corporate_switchboard_and_supplier_portal' =>
+      'Portal de proveedores (registro no realizado)',
+    'supplier_registration_and_general' ||
+    'general_corporate_and_supplier_registration' =>
+      'Canal de proveedores y contacto general',
+    'purchasing_public_request_and_general' =>
+      'Correo de compras publicado en convocatoria',
+    'general_customer_contact_and_supplier_portal' =>
+      'Atención general y portal de proveedores',
+    'commercial_customer_service_not_procurement' ||
+    'general_customer_support' =>
+      'Atención al cliente; no es contacto de compras',
+    'general_corporate_administration_and_contact_form' =>
+      'Administración y formulario general',
+    'main_office_and_public_business_development_NOT_procurement' =>
+      'Desarrollo de negocios; no es contacto de compras',
+    'industry_event_company_representative' =>
+      'Representación en evento profesional',
+    'latin_america_office_and_global_general_mail' =>
+      'Oficina regional y correo general',
+    'general_email_published_2025' =>
+      'Correo de directorio 2025; vigencia sin confirmar',
+    'official_company_contact_page_address_only' =>
+      'Página empresarial sin teléfono ni email',
     _ => null,
   };
 
