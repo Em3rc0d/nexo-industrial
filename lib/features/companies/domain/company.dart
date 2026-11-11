@@ -42,6 +42,7 @@ enum LocationConfidence {
 }
 
 /// Professional identity from public sources. Never counted as a direct phone/email.
+/// Public professional references by RUC; not equivalent to a company phone/email.
 class ProfessionalContact {
   const ProfessionalContact({
     required this.name,
@@ -52,6 +53,8 @@ class ProfessionalContact {
     this.linkedinUrl,
     this.evidenceUrl,
     this.confidence,
+    this.associationScope,
+    this.workEmail,
   });
 
   final String name;
@@ -62,6 +65,8 @@ class ProfessionalContact {
   final String? linkedinUrl;
   final String? evidenceUrl;
   final String? confidence;
+  final String? associationScope;
+  final String? workEmail;
 
   bool get isHistorical => status == 'historical_role_needs_reconfirmation';
 
@@ -75,6 +80,15 @@ class ProfessionalContact {
     'historical_role_needs_reconfirmation' =>
       'Referencia histórica; vigencia por confirmar',
     _ => 'Fuente profesional por confirmar',
+  };
+
+  String? get associationLabel => switch (associationScope) {
+    'parent_group_not_specific_subsidiary' =>
+      'Pertenece al grupo empresarial; no se confirmó vínculo directo con esta filial.',
+    'direct_company_current_function_unconfirmed' =>
+      'Vinculación empresarial identificada; función actual de compras no confirmada.',
+    'direct_mine_unit' => 'Referencia asociada a esta unidad minera.',
+    _ => null,
   };
 
   Uri? get linkedinUri {
@@ -93,6 +107,15 @@ class ProfessionalContact {
         : null;
   }
 
+  Uri? get workEmailUri {
+    final value = (workEmail ?? '').trim();
+    if (!RegExp(r'^[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}$')
+        .hasMatch(value)) {
+      return null;
+    }
+    return Uri(scheme: 'mailto', path: value);
+  }
+
   factory ProfessionalContact.fromJson(Map<String, dynamic> json) =>
       ProfessionalContact(
         name: json['name'] as String,
@@ -103,6 +126,8 @@ class ProfessionalContact {
         linkedinUrl: json['linkedin_url'] as String?,
         evidenceUrl: json['evidence_url'] as String?,
         confidence: json['confidence'] as String?,
+        associationScope: json['association_scope'] as String?,
+        workEmail: json['work_email'] as String?,
       );
 }
 
