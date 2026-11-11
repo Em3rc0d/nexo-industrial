@@ -2,10 +2,12 @@
 
 ## 1.0.4+7 — 2026-11-11 (People overlay in source; no new APK)
 
-- Found 25 distinct public professional references across 15 existing RUCs, focused on purchasing, procurement, logistics and supplier relations. Provenance and role recency retained.
+- Found 33 distinct public professional references across 21 existing RUCs, focused on purchasing, procurement, logistics and supplier relations. Provenance and role recency retained.
 - Added `data/people_enrichment/2026-11-11_mining_people.json` to Flutter bundled assets and a separate People panel inside the business details view, with safe LinkedIn/source links.
 - Kept historical references explicitly historical and separated 2 corporate-group contacts from specific subsidiaries. One previous public supplier-facing professional email preserved with revalidation warning; no private phone numbers or guessed emails, no inflated direct-company-contact counts.
-- Extended `test/public_professionals_test.dart` for join integrity, 25 profiles/15 RUC, safe URLs, group association, historical flags, purpose-limited professional email and unchanged company phone/email counts.
+- Extended `test/public_professionals_test.dart` for join integrity, 33 profiles/21 RUC, safe URLs, group association, historical flags, purpose-limited professional email and unchanged company phone/email counts.
+- Added read-only public CMH company contacts and its B2M/eBIZ supplier registration page as a staged discovery (no forms submitted and no production contact coverage assertion).
+- No emails, calls, LinkedIn messages, connection requests, WhatsApp messages, vendor registrations or forms submitted.
 - **Validation gate pending:** Flutter SDK unavailable in the active runtime; code changes have not passed Flutter analysis, Flutter tests or an Android device smoke test. APK remains unchanged.
 
 ## 1.0.4+7 — 2026-11-11 (source/data; APK pending)
