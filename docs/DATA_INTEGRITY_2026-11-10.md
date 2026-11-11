@@ -27,4 +27,19 @@ La auditoría buscaba `SHA256SUMS.txt` en el directorio padre del contenido extr
 
 Producción mantiene **370** coordenadas habilitadas para navegación directa y **1,537** búsquedas por dirección. Las 1,907 cuentas tienen domicilio fiscal. El parche de 19 contiene 7 promociones propuestas y 12 fallbacks; las propuestas no se aplicaron en esta reparación. El resultado histórico de 1,895 coordenadas no queda certificado.
 
-La prueba Flutter de producción se amplió para cubrir la presencia de información comercial y la construcción de URLs de navegación/búsqueda para las 1,907 cuentas. No se ejecutó: este entorno no tiene Flutter/Dart instalado. No se certifica una APK ni se verificó que Google Maps resuelva físicamente cada consulta.
+## Verificación Flutter ejecutada
+
+Se instaló Flutter **3.47.9 stable** con Dart **3.13.7**, desde el archivo oficial cuyo SHA-256 es `25ed8c3c29d51a7353f2a944310b478af8214920639524b19c50a19e6c044c5a`. Las dependencias se resolvieron sin modificar `pubspec.lock`.
+
+Los fixtures de dos pruebas antiguas no proporcionaban los campos obligatorios `commercial`, `fiscalAddress` y `verifiedHqAddress`; se corrigieron. No se modificó el constructor para ocultar esos errores.
+
+Comandos ejecutados con `CI=true BOT=true FLUTTER_SUPPRESS_ANALYTICS=true`:
+
+- `flutter analyze --no-pub`: **sin incidencias**.
+- `flutter test --no-pub`: **7/7 pruebas aprobadas**. Incluye carga del repositorio real de assets, 1,907 RUC únicos, coordenadas válidas, datos comerciales y URLs de navegación/búsqueda para cada cuenta; además de ranking y ambos modos Maps.
+- `python3 tool/test_geocode_verified.py`: **11/11 pruebas aprobadas**.
+- Comprobación adicional: las 1,907 URLs Maps del master restaurado tienen estructura HTTPS, host, api y query válidos.
+
+Los scripts de build ya activaban CI/BOT; ahora también desactivan explícitamente la telemetría. El primer arranque sin CI fue bloqueado por la consulta automática de detección de Azure. Se revisó `bot_detector.dart` del SDK y se usó el modo CI que evita esa consulta.
+
+No se compiló ni certificó una APK en esta verificación, no se probó en un dispositivo Android y no se verificó que Google Maps resuelva físicamente cada consulta. Los tests no acreditan nuevas coordenadas reales.

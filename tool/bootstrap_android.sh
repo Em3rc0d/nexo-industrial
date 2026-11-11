@@ -3,6 +3,7 @@ set -euo pipefail
 
 export CI=true
 export BOT=true
+export FLUTTER_SUPPRESS_ANALYTICS=true
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 TMP_DIR="$(mktemp -d)"
