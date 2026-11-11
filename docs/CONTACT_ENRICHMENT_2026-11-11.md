@@ -140,3 +140,15 @@ Los ocho lotes aceptados están representados por el **asset comprimido previo**
 `pubspec.yaml` empaqueta ambos assets, `test/production_dataset_test.dart` y `test/public_professionals_test.dart` incorporan expectativas de **291** teléfonos, **174** correos, **297** con algún canal y **302** incluyendo web/portal. `assets/data/production/manifest.json` conserva `base_commercial_contact_coverage` con 270 y define `contact_coverage` del merge con 297 esperados.
 
 Un auditor reproducible solo local, sin conexión de red ni contacto a terceros: `python3 tool/validate_contact_patch.py`. Revisa integridad de 1,907 cuentas, 31 filas del parche, 46 RUC aceptados entre ocho lotes, 33 personas públicas y cifras finales. **El auditor todavía no se ha ejecutado contra un clon local en esta sesión.** No hay Flutter/Dart instalado aquí, de modo que tampoco hay `flutter analyze`, `flutter test`, compilación ni APK nueva. El próximo gate sigue siendo verificar localmente y compilar sin GitHub Actions. 
+
+## Ronda final — EVS + South American Drilling (11/11/2026)
+
+Se agregó el lote `data/contact_enrichment/2026-11-11_evs_sadrilling.json`: **2 RUC aceptados de cuentas antes sin canal y 3 revisiones rechazadas**, sin contactar a nadie.
+
+- **EVS Contratistas Mineros S.A.C. (20539424743)**: `+51 1 704 8970` y `elmer.sotasor@evs.com.pe` desde el pie de página del sitio corporativo `https://evs.com.pe/contacto/`. El mismo sitio también muestra `+51 1 7240747` en el cuerpo de la página: se conservó la discrepancia y se seleccionó únicamente el número repetido en el pie y portada. No es número directo de compras.
+- **South American Drilling S.A.C. (20536925245)**: `consultas@sadrilling.com` en la página `https://www.sadrilling.com/contactos`, identidad RUC confirmada con registro SUNAT. No se atribuyó un teléfono no publicado ni un cargo de comprador al email general.
+- No se promovieron email de privacidad de postulantes de Shouxin, datos de una factura del 2019 de otra cuenta ni una cuenta Global Fuel sin teléfono/email empresarial público corroborable.
+
+El parche Flutter offline pasó de **31 a 33 RUC aceptados** y mantiene 1,907 cuentas sin modificaciones geográficas. El archivo `assets/data/production/manifest.json`, tests y el auditor `tool/validate_contact_patch.py` ya esperan **292 teléfonos, 176 emails, 299 empresas con ambos o alguno de estos canales y 304 incluyendo página/portal**. Baseline comprimido intacto: 267/157/270/272. Hay **77 RUC revisados** en nueve lotes: 48 filas aceptadas por RUC sin duplicados, 29 revisiones sin promoción; 33 del parche incremental y 15 en el primer lote incluido en gzip.
+
+**Control de calidad:** la fusión de los 31 primeros del parche se comprobó directamente contra los 1,907 RUC del asset comprimido, obteniendo 297 empresas con teléfono/email. Los dos registros EVS y South American Drilling se añadieron posteriormente; las cifras de 299/304 son las expectativas actualizadas, pendientes de ejecutar el auditor local/Flutter antes de tratarlas como resultados probados de APK. No se envió ninguna comunicación a empresas o personas.
