@@ -2,6 +2,8 @@
 """Read-only, reproducible Nexo geolocation integrity audit (stdlib only)."""
 import collections
 import hashlib
+import gzip
+import math
 import json
 import pathlib
 import subprocess
@@ -40,8 +42,8 @@ def main():
         else:
             print("PASS archive SHA-256")
     else:
-        print("NOT TESTED archive restoration (run with --restore)")
-    restored = SNAP / "restored"
+        errors.append("Snapshot archive unavailable; run with --restore")
+    restored = SNAP / "restored" / "nexo_snapshot_2026-11-10"
     sums = restored / "SHA256SUMS.txt"
     if sums.exists():
         for line in sums.read_text().splitlines():
@@ -52,7 +54,7 @@ def main():
         if not errors:
             print("PASS restored snapshot member hashes")
     else:
-        print("NOT TESTED restored member hashes")
+        errors.append("Restored member hashes unavailable; run with --restore")
     companies = records(load(DATA / "companies.production.json"))
     overlay = records(load(DATA / "companies.geolocation.overlay.json"))
     company_ids = [ruc(x) for x in companies]
@@ -61,11 +63,19 @@ def main():
         errors.append("Commercial dataset must contain exactly 1907 unique nonempty RUC")
     if len(overlay) != 1907 or len(set(overlay_ids)) != 1907 or set(company_ids) != set(overlay_ids):
         errors.append("Geolocation overlay must match exactly 1907 unique commercial RUC")
+    commercial = records(json.loads(gzip.decompress((DATA / "companies.commercial.overlay.json.gz").read_bytes())))
+    commercial_ids = [ruc(x) for x in commercial]
+    if len(commercial_ids) != 1907 or len(set(commercial_ids)) != 1907 or set(commercial_ids) != set(company_ids):
+        errors.append("Commercial overlay must match all 1907 unique production RUCs")
+    for x in companies:
+        if not x.get("name") or not str(x.get("fiscal_address") or "").strip():
+            errors.append("Missing company name or fiscal search address: " + ruc(x))
+    print("Checked commercial overlay coverage and 1907 fiscal search addresses")
     direct = [x for x in overlay if x.get("navigation_eligible") is True]
     print(f"Commercial accounts: {len(companies)}; overlay: {len(overlay)}; direct navigation: {len(direct)}; textual fallback: {len(overlay)-len(direct)}")
     for x in direct:
         lat, lon = x.get("latitude"), x.get("longitude")
-        if not (isinstance(lat, (int,float)) and isinstance(lon, (int,float)) and -90 <= lat <= 90 and -180 <= lon <= 180):
+        if not (isinstance(lat, (int,float)) and isinstance(lon, (int,float)) and math.isfinite(lat) and math.isfinite(lon) and -90 <= lat <= 90 and -180 <= lon <= 180):
             errors.append("Invalid direct navigation coordinate for RUC " + ruc(x))
     patch = load(PATCH)
     rows = patch["records"]
@@ -75,6 +85,8 @@ def main():
         errors.append("Patch must have 19 records: 7 promotions and 12 fallback")
     if len({ruc(x) for x in rows}) != len(rows):
         errors.append("Patch contains duplicate RUC")
+    if not {ruc(x) for x in rows}.issubset(set(company_ids)):
+        errors.append("Patch contains RUCs absent from production")
     print(f"Patch: {len(promoted)} promotions, {len(fallback)} address queries")
     print("NOTE: 1895/1907 is NOT certified unless 1895 defensible direct coordinates exist in the production overlay.")
     if errors:

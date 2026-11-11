@@ -21,3 +21,7 @@ Thumbs.db
 __pycache__/
 *.pyc
 .cache/
+
+# Reproducible snapshot restoration output
+data/snapshots/*/restored/
+data/snapshots/*/*.tar.gz

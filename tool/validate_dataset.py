@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import json
+import gzip
 import math
 from collections import Counter
 from pathlib import Path
@@ -19,6 +20,16 @@ EXPECTED_QUALITY = {
 
 
 def main() -> None:
+    # Check the assets actually required by Flutter before any build.
+    pubspec = (ROOT / "pubspec.yaml").read_text(encoding="utf-8")
+    for line in pubspec.splitlines():
+        asset = line.strip()
+        if asset.startswith("- assets/"):
+            path = ROOT / asset[2:]
+            assert path.is_file(), f"Missing declared Flutter asset: {path}"
+    commercial = json.loads(gzip.decompress((ROOT / "assets/data/companies.commercial.overlay.json.gz").read_bytes()))
+    commercial_ids = [str(item["ruc"]) for item in commercial]
+    assert len(commercial_ids) == EXPECTED_TOTAL and len(set(commercial_ids)) == EXPECTED_TOTAL, "Commercial overlay coverage or duplicate RUC"
     base = json.loads(BASE.read_text(encoding="utf-8"))
     overlay = json.loads(OVERLAY.read_text(encoding="utf-8"))
 
@@ -34,6 +45,8 @@ def main() -> None:
     assert len(set(overlay_rucs)) == EXPECTED_TOTAL, "RUC duplicado en overlay"
     assert set(base_rucs) == set(overlay_rucs), "RUCs base/overlay no coinciden"
 
+    assert set(commercial_ids) == set(base_rucs), "Commercial RUCs do not match base"
+    assert all(str(row.get("name") or "").strip() and str(row.get("fiscal_address") or "").strip() for row in base), "Missing name or fiscal address for Maps search"
     quality = Counter()
     navigation = 0
 

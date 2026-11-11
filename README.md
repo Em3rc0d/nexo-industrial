@@ -92,3 +92,12 @@ No se usa GitHub Actions para compilar el APK.
 - `docs/BRANDING.md`
 - `docs/RELEASE_CHECKLIST.md`
 - `CHANGELOG.md`
+
+## Verificación reproducible de datos
+
+```bash
+python3 tool/validate_dataset.py
+python3 tool/audit_geolocation_snapshot.py --restore
+```
+
+La recuperación del asset comercial desde el master guardado está documentada en `docs/DATA_INTEGRITY_2026-11-10.md`. La validación de datos no sustituye `flutter analyze` y `flutter test` antes de compilar.

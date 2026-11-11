@@ -20,6 +20,19 @@ void main() {
       qualities[company.locationQuality] =
           (qualities[company.locationQuality] ?? 0) + 1;
 
+      expect(company.address.trim(), isNotEmpty);
+      expect(company.commercial.hasOfferData, isTrue);
+      final uri = company.navigationEligible
+          ? company.googleMapsDirectionsUri
+          : company.googleMapsSearchUri;
+      expect(uri.scheme, 'https');
+      expect(uri.host, 'www.google.com');
+      expect(uri.queryParameters['api'], '1');
+      if (!company.navigationEligible) {
+        expect(uri.queryParameters['query'], contains(company.name));
+        expect(uri.queryParameters['query'], contains(company.address));
+      }
+
       if (company.navigationEligible) {
         expect(company.hasReliableCoordinates, isTrue);
         expect(company.nearbyRankingEligible, isTrue);
