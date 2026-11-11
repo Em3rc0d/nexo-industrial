@@ -8,6 +8,9 @@
 - Extended `test/public_professionals_test.dart` for join integrity, 33 profiles/21 RUC, safe URLs, group association, historical flags, purpose-limited professional email and unchanged company phone/email counts.
 - Added read-only public CMH company contacts and its B2M/eBIZ supplier registration page as a staged discovery (no forms submitted and no production contact coverage assertion).
 - No emails, calls, LinkedIn messages, connection requests, WhatsApp messages, vendor registrations or forms submitted.
+- Additional passive research: 69 RUC reviewed across 7 public business-contact batches. Net new public contact evidence for 38 RUC by phone/email plus 5 distinct web-only channels; CMH corporate phone/email already existed in baseline. Separate last batches cover Tecnomin Data, Explo Drilling Perú, SEA, Los Quenuales/Alpayana, OREX, TPE Paita, Paltarumi.
+- Projected after rebuilding all seven batches: 289 phones, 172 emails, 295 with either, 300 including web-only; baseline production asset remains 267/157/270/272. **Not APK metrics**.
+- Rejected six outdated/hiring-only numbers/emails from latest contractor review and excluded previously departed commercial manager for TPE Paita. No prospect contacted.
 - **Validation gate pending:** Flutter SDK unavailable in the active runtime; code changes have not passed Flutter analysis, Flutter tests or an Android device smoke test. APK remains unchanged.
 
 ## 1.0.4+7 — 2026-11-11 (source/data; APK pending)
