@@ -113,13 +113,13 @@ Auditoría y cálculos: `data/contact_enrichment/staged_status_2026-11-11.json`.
 
 ## Último corte — Construplan / Mincotrall / AK Drilling (11/11/2026)
 
-Se añadió `data/contact_enrichment/2026-11-11_construplan_mincotrall_akd.json`, sustentado en fuentes empresariales y Cámara de Comercio Canadá-Perú:
+Se añadió `data/contact_enrichment/2026-11-11_construplan_mincotrall_akd.json`, con **dos registros aceptados y una revisión deduplicada** (AKD), sustentados en fuentes empresariales y Cámara de Comercio Canadá-Perú:
 
 - **Construplan (20609408261)**: `+51 1 680 6229` de cámara de comercio con RUC exacto, y `gustavo.pena@construplan.com.pe` publicado en la delegación oficial PDAC 2026 por su **Business Development Manager**. Se conserva en notas que **no es un comprador verificado** de materiales; teléfono personal comercial de directorio solo en campo adicional de evidencia, jamás como teléfono de adquisiciones.
 - **Mincotrall (20390962348)**: `+51 1 480 1658`, `contacto@mincotrall.com.pe`; la web corporativa confirma oficina de Lince, compañía contratista de explotación/desarrollo minero. Exclusión del teléfono de WhatsApp de `/postula/`, específico para reclutamiento.
-- **AK Drilling International (20470234599)**: página corporativa publica `+51 1 251 3380`, `global@akdint.com`. Comprobación del overlay comprimido original: **ambos canales ya estaban**. El correo es del grupo internacional y no una dirección específica de Compras en Perú.
+- **AK Drilling International (20470234599)**: la revisión confirma que su página corporativa publica `+51 1 251 3380`, `global@akdint.com`. Comprobación del overlay comprimido original: **ambos canales ya estaban**. El correo es del grupo internacional y no una dirección específica de Compras en Perú.
 
-El overlay comercial original también fue inspeccionado individualmente: Construplan y Mincotrall no tenían teléfono/email; Paita y Paltarumi tampoco. CMH y AKD ya tenían ambos. Por tanto, entre las **8 tandas del 11/11**, **72 RUC revisados**: **40** aportaron teléfono o email a un RUC que carecía de ambos, **5** aportaron solo web/portal, **2** ya estaban cubiertos (CMH y AKD), y **25** continuaron sin canal promovible. Hay **47 registros aceptados** con RUC únicos en `records` de los ocho lotes.
+El overlay comercial original también fue inspeccionado individualmente: Construplan y Mincotrall no tenían teléfono/email; Paita y Paltarumi tampoco. CMH y AKD ya tenían ambos. Por tanto, entre las **8 tandas del 11/11**, **72 RUC revisados**: **40** aportaron teléfono o email a un RUC que carecía de ambos, **5** aportaron solo web/portal, **2** ya estaban cubiertos (CMH y AKD), y **25** continuaron sin canal promovible. Hay **46 registros aceptados únicos** entre los ocho lotes, más **26 revisiones** (25 casos sin canal promovible y AKD ya incorporada en el primer lote). No hay RUC duplicados entre las filas aceptadas.
 
 | Cobertura | Asset anterior (comprobado) | Proyección con todas las tandas (SIN reconstruir) |
 |---|---:|---:|
