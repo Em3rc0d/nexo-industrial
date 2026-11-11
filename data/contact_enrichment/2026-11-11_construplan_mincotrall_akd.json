@@ -1,0 +1,64 @@
+{
+  "scope": "High-priority RUC pending queue: two mining services contractors and one international drilling company, all checked with official 2026 or current corporate sources; no outreach",
+  "reviewed_on": "2026-11-11",
+  "records": [
+    {
+      "ruc": "20609408261",
+      "phone": "+51 1 680 6229",
+      "email": "gustavo.pena@construplan.com.pe",
+      "website": "https://www.construplan.com.mx/",
+      "contact_page": "https://canadaperu.org/partner/construplan",
+      "source_url": "https://canadaperu.org/partner/construplan",
+      "email_source_url": "https://canadaperu.org/sites/default/files/pdac/2026-02/Directorio%20PDAC%202026_0.pdf",
+      "linkage": "Canada–Peru Chamber 2026 partner profile states the complete RUC 20609408261, exact legal name Grupo Construcciones Planificadas S.A. de C.V. Sucursal Perú and address Av Manuel Olguín 373 Of 604; PDAC 2026 directory names Gustavo Peña Montoya as Business Development Manager with published work contact.",
+      "channel_purpose": "main_office_and_public_business_development_NOT_procurement",
+      "source_type": "canada_peru_business_chamber_2026_and_PDAC_2026_public_directory",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "additional_phones": [
+        "+51 982 799 835 (Gustavo Peña Montoya, 2026 publicly designated business-development mobile, NOT procurement)"
+      ],
+      "notes": "Professional phone/email intentionally published in 2026 B2B PDAC delegation directory, not private discovery. Role is selling/developing business, not industrial paint purchasing, so prospect fit for supplier contact must be independently established. Never assume recipient is purchasing officer. No message/call."
+    },
+    {
+      "ruc": "20390962348",
+      "phone": "+51 1 480 1658",
+      "email": "contacto@mincotrall.com.pe",
+      "website": "https://mincotrall.com.pe/",
+      "contact_page": "https://mincotrall.com.pe/contactanos/",
+      "source_url": "https://mincotrall.com.pe/contactanos/",
+      "identity_source": "https://telefono.pe/mincotrall-srl/",
+      "linkage": "Current official Mincotrall contact page lists Av General Cesar Canevaro 116 Of 1304 Lince, phone and email. Legal company Minera Construcción y Transporte La Libertad S.R.L. = Mincotrall; separate directory explicitly binds this legal company to RUC 20390962348; historic directory address is former Ate location and is not promoted.",
+      "channel_purpose": "general_corporate",
+      "source_type": "official_company_website_and_RUC_identity_directory",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "notes": "Do not use contact numbers on POSTULA recruitment page as business/paint procurement channels. Corporate phone/email is general; no buyer identified and no contact initiated."
+    },
+    {
+      "ruc": "20470234599",
+      "phone": "+51 1 251 3380",
+      "email": "global@akdint.com",
+      "website": "https://www.akdint.com/",
+      "contact_page": "https://www.akdint.com/contactanos/",
+      "source_url": "https://www.akdint.com/contactanos/",
+      "identity_source": "https://canadaperu.org/partner/akd-international",
+      "linkage": "Official AKD International site explicitly lists Perú entity AK Drilling International S.A., Calle Perseo Mz J Lote 12 Urb La Campiña Chorrillos, office phone and group email. Canada–Peru Chamber partner directory states exact RUC 20470234599, same legal entity and office.",
+      "channel_purpose": "global_group_general_email_and_local_peru_office_switchboard",
+      "source_type": "official_company_website_and_business_chamber_RUC",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "notes": "global@akdint.com is shared across multiple international offices, not the Peru purchases department. reclutamiento@akdint.com was excluded as recruitment-only. No outreach."
+    }
+  ],
+  "reviews": [],
+  "outreach_performed": false,
+  "explicit_actions": {
+    "calls": 0,
+    "emails_sent": 0,
+    "messages": 0,
+    "forms": 0,
+    "registrations": 0
+  },
+  "caveat": "Research batch only; production APK and commercial overlay still unchanged."
+}
