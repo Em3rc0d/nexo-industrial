@@ -117,7 +117,7 @@ La ficha de veintiuna empresas del master incorpora **33 referencias profesional
 
 El campo `workers_sunat` del perfil comercial y cualquier recuento de perfiles de LinkedIn representan conceptos distintos; un perfil no acredita nómina vigente ni teléfono.
 
-La investigación aceptada ya se incorpora al código mediante un parche comercial de 31 RUC. El asset comprimido sigue con 270 empresas con teléfono/email, pero el cargador Flutter aplica un parche que eleva la expectativa de cobertura a **297**. No es una APK nueva ni una ejecución comprobada de Flutter.
+La investigación aceptada ya se incorpora al código mediante un parche comercial de 33 RUC. El asset comprimido sigue con 270 empresas con teléfono/email, pero el cargador Flutter aplica un parche que eleva la expectativa de cobertura a **299**. No es una APK nueva ni una ejecución comprobada de Flutter.
 
 Se documenta una investigación pasiva adicional de CMH, Catalina Huanca, Raura, SFP, Las Bambas y Ares sin enviar emails, mensajes, conexiones, llamadas ni formularios. El sitio oficial de CMH publica portal eBIZ de proveedores: `https://ebiz.pe/proveedores-cmh/`; su teléfono/email quedaron como descubrimiento staged, no como aumento comprobado de cobertura productiva.
 
@@ -125,8 +125,8 @@ Ver `docs/PEOPLE_ENRICHMENT_2026-11-11.md` y `docs/CONTACT_ENRICHMENT_2026-11-11
 
 ## Contactos integrados en fuente — 11/11/2026 (APK pendiente)
 
-Hay 8 lotes de investigación pública guardados en `data/contact_enrichment/`, incluidos los lotes de Tecnomin Data, Explo Drilling, SEA, Los Quenuales, OREX, TPE Paita, Paltarumi, Construplan y Mincotrall, con AKD deduplicado por ya constar en la cobertura base. Se revisaron **72 RUC**; **40** ganaron canales telefónicos o emails públicos, **5** aportaron únicamente página/portal oficial; **2** (CMH y AK Drilling) ya tenían ambos canales y 25 no tuvieron nuevos canales promocionables.
+Hay 9 lotes de investigación pública guardados en `data/contact_enrichment/`, incluidos los lotes de Tecnomin Data, Explo Drilling, SEA, Los Quenuales, OREX, TPE Paita, Paltarumi, Construplan, Mincotrall, EVS y South American Drilling, con AKD deduplicado por ya constar en la cobertura base. Se revisaron **77 RUC**; **42** ganaron canales telefónicos o emails públicos, **5** aportaron únicamente página/portal oficial; **2** (CMH y AK Drilling) ya tenían ambos canales y 28 quedaron sin nuevo canal promocionable.
 
-**El asset comercial comprimido conserva 267 RUC con teléfono, 157 con email y 270 con cualquiera.** El código Flutter ahora aplica `assets/data/companies.contact.patch.json` (31 RUC) durante la carga, con expectativa de **291** con teléfono, **174** con email, **297** con alguno de ambos y **302** incluyendo páginas/portales; restarían **1,610** RUC sin teléfono/email. El manifiesto diferencia ambos cortes. **Sin Flutter ejecutado ni APK nueva**.
+**El asset comercial comprimido conserva 267 RUC con teléfono, 157 con email y 270 con cualquiera.** El código Flutter ahora aplica `assets/data/companies.contact.patch.json` (33 RUC) durante la carga, con expectativa de **292** con teléfono, **176** con email, **299** con alguno de ambos y **304** incluyendo páginas/portales; restarían **1,608** RUC sin teléfono/email. El manifiesto diferencia ambos cortes. **Sin Flutter ejecutado ni APK nueva**.
 
 Detalle, evidencias, política de exclusiones y gate de reconstrucción: `docs/CONTACT_ENRICHMENT_2026-11-11.md` y `data/contact_enrichment/staged_status_2026-11-11.json`. No se ha llamado, escrito, enviado formulario ni solicitado conexión a ningún prospecto.
