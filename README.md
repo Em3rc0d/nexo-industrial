@@ -109,3 +109,13 @@ La recuperación del asset comercial desde el master guardado está documentada 
 Primer bloque: 24 cuentas prioritarias de Callao/Lima Sur revisadas; 13 nuevos canales por cuenta, 2 páginas empresariales y 9 casos que requieren corroboración. Fuentes, fechas y propósito se conservan en `data/contact_enrichment/2026-11-11_callao_sur.json`; el progreso y la cola de 1,637 RUC pendientes están en el mismo directorio. Detalle en `docs/CONTACT_ENRICHMENT_2026-11-11.md`.
 
 Estos cambios corresponden al código/datos de 1.0.4+7. La APK 1.0.3+6 entregada anteriormente no incluye este lote.
+
+## Personas clave — piloto 11/11/2026 (código, APK pendiente)
+
+La ficha de siete empresas del master incorpora **11 referencias profesionales públicas** de compras, logística y abastecimiento. La fuente única es `data/people_enrichment/2026-11-11_mining_people.json`, enlazada por RUC. Incluye LinkedIn, evidencia, estado temporal y advertencias cuando no se confirma el cargo vigente. Ninguna identidad se suma como teléfono/email directo. Hay **0 números telefónicos individuales y 0 correos personales/laborales directos verificados** en este piloto.
+
+El campo `workers_sunat` del perfil comercial y cualquier recuento de perfiles de LinkedIn representan conceptos distintos; un perfil no acredita nómina vigente ni teléfono.
+
+La investigación de teléfonos/emails empresariales en otros tres lotes permanece en etapa previa al rebuild: **290 con algún canal proyectados**, frente a **270 en el asset comercial productivo aplicado**. No se presentan como cifras ya compiladas.
+
+Ver `docs/PEOPLE_ENRICHMENT_2026-11-11.md` y `docs/CONTACT_ENRICHMENT_2026-11-11.md`. Se requiere `flutter analyze`, `flutter test` y compilación local antes de otra APK.
