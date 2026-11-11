@@ -1,0 +1,49 @@
+{
+  "scope": "Publicly published business contacts for existing Nexo Industrial RUC; no calls/emails/messages/forms",
+  "reviewed_on": "2026-11-11",
+  "records": [
+    {
+      "ruc": "20522473571",
+      "phone": "+51 956 362 790",
+      "email": "customer.service@euroandino.com.pe",
+      "website": "https://www.puertopaita.com/",
+      "contact_page": "https://www.puertopaita.com/comunicados/comunicado-n002-2026-gg-tp/",
+      "source_url": "https://www.puertopaita.com/comunicados/comunicado-n002-2026-gg-tp/",
+      "identity_source": "https://ww1.sunat.gob.pe/descarga/AgentRet/AgenRet331.html",
+      "linkage": "Corporate TPE Paita public statement 26 Feb 2026 explicitly names Terminales Portuarios Euroandinos Paita S.A. and the commercial channel; current SUNAT corporate register maps the exact same legal name to RUC 20522473571.",
+      "channel_purpose": "commercial_customer_service_not_procurement",
+      "source_type": "official_corporate_2026_announcement_and_sunat",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "additional_phones": [
+        "+51 73 285670 (official general terminal office; corroborated in historic maritime/government filings)"
+      ],
+      "notes": "The 2026 announcement expressly states Franklin Urteaga Medina departed from commercial role; do not list as incumbent. Customer service channel is business-to-customer and NOT verified supplier purchasing route. reclamos@euroandino.com.pe complaints and control.accesos@euroandino.com.pe access permits are excluded. No outreach."
+    },
+    {
+      "ruc": "20548379840",
+      "phone": null,
+      "email": "info@paltarumi.com.pe",
+      "website": "https://www.paltarumi.com/",
+      "contact_page": "https://www.paltarumi.com/",
+      "source_url": "https://www.paltarumi.com/",
+      "identity_source": "https://www.gob.pe/institucion/regionlima-diresa/normas-legales/7195772-526-2025-grl-grds-diresa-lima-dg",
+      "linkage": "Company site explicitly identifies Paltarumi S.A.C. as a mineral gold processing plant; 2025 official resolution confirms RUC 20548379840 and industrial facility in Paramonga.",
+      "channel_purpose": "general_corporate_not_procurement",
+      "source_type": "official_company_site_and_regional_government_company_identity",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "notes": "The company's public email is general, not purchasing. Site talks about purchasing traceable gold ore which is unrelated to confirmed purchases of paints. No phone was published on the relevant official page and no contact was initiated."
+    }
+  ],
+  "reviews": [],
+  "outreach_performed": false,
+  "explicit_actions": {
+    "calls": 0,
+    "emails_sent": 0,
+    "messages_sent": 0,
+    "forms_submitted": 0,
+    "registrations": 0
+  },
+  "caveat": "These company business channels remain in an evidence batch until commercial overlay is rebuilt and validated. Current installed APK does not have them."
+}
