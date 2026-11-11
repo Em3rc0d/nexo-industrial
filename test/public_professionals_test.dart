@@ -94,14 +94,14 @@ void main() {
       () async {
     final companies = await const AssetCompanyRepository().loadCompanies();
     // Phone/email counts include the RUC contact patch, not the people overlay.
-    expect(companies.where((c) => c.contact.hasDirectContact), hasLength(297));
+    expect(companies.where((c) => c.contact.hasDirectContact), hasLength(299));
     expect(
       companies.where((c) => c.contact.phone?.isNotEmpty == true),
-      hasLength(291),
+      hasLength(292),
     );
     expect(
       companies.where((c) => c.contact.emailUris.isNotEmpty),
-      hasLength(174),
+      hasLength(176),
     );
   });
 }
