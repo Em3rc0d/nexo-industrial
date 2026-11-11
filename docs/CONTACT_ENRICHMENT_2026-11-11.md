@@ -80,3 +80,33 @@ Se guardó `data/contact_enrichment/2026-11-11_mineria_proveedores_grupos.json`:
 **Corte FINAL DE INVESTIGACIÓN de esta sesión (no aplicado aún al asset):** 55 RUC revisados en los cuatro lotes del día; 33 con nuevo teléfono o email, 3 adicionales solo con portal/formulario y 19 pendientes de corroboración. Si y solo si la reconstrucción resulta correcta, serían **285 con teléfono, 167 con email, 290 con cualquiera, 293 incluyendo formularios**, frente a **1,617 sin teléfono ni email** de 1,907 cuentas. Números de centrales corporativas compartidas por filiales se cuentan por RUC, no como líneas telefónicas distintas.
 
 El conteo auditado de los tres lotes agregados se encuentra en `data/contact_enrichment/staged_status_2026-11-11.json`. Cualquier dato anterior del capítulo se refiere al avance parcial del 11/11; estos totales finales **son únicamente proyección de investigación** y **no** reemplazan los totales que muestra la APK ni el manifest productivo. Para actualizar la aplicación es imprescindible el gate de reconstrucción y pruebas mencionado arriba.
+
+## Ampliación pasiva — contratistas, plantas mineras y terminal portuario (11/11/2026)
+
+Se guardaron dos lotes nuevos SIN contacto con ningún prospecto:
+
+- `data/contact_enrichment/2026-11-11_contratistas_directos_y_portales.json` — 11 RUC revisados: **3** con nuevo teléfono Y email (Tecnomin Data 20221259581, Explo Drilling Perú 20527775851 y Servicios Energéticos Ambientales/SEA 20525998577), **2** solo con página/portal oficial (Minera Los Quenuales 20332907990 → portal de proveedores Alpayana; Minera OREX 20602044239 → web de contacto), y **6** otros revisados sin promover canales inseguros/antiguos o exclusividad de reclutamiento.
+- `data/contact_enrichment/2026-11-11_paita_y_paltarumi.json` — **2** RUC adicionales con canal publicado: TPE Paita 20522473571 (comunicado oficial del 26/02/2026: +51 956 362 790 y customer.service@euroandino.com.pe, ATENCIÓN AL CLIENTE/comercial, NO compras de suministros) y Paltarumi 20548379840 (info@paltarumi.com.pe, general, sin teléfono corroborado).
+- `data/contact_enrichment/2026-11-11_cmh_public_contact.json` — CMH 20136150473, evidencia de portal eBIZ y teléfono/email corporativo; **no incrementa** cobertura porque el asset vigente ya contenía tanto teléfono como correo exactos.
+
+Fuentes oficiales, vínculo por identidad/RUC, propósito de canal, discrepancias y nivel de vigencia están en cada registro individual. En el primer lote nuevo, una dirección de Tecnomin Data salió del directorio de proveedores IIMP 2026; hay discrepancias en el número del predio entre web y directorio. En SEA, el sitio muestra `contacto@sea.pe` en inicio/pie y otro dominio en el cuerpo: únicamente el correo `.pe` corroborado se promovió. Los Queñuales tiene ahora portal de proveedores de Alpayana (adquirente desde 2022); se excluyeron directorios telefónicos de la propiedad anterior. OREX conserva solamente página de contacto; no se usó correo de terceros de órdenes de compra.
+
+Para Paita se documenta explícitamente que **Franklin Urteaga Medina dejó de trabajar allí** en febrero de 2026; no se presenta como contacto actual. Se excluyeron correos de reclamos y permisos de acceso porque no son compras.
+
+### Cobertura conciliada: investigación, NO APK
+
+De **1,907 RUC** del master, tras todos los siete lotes del 11/11:
+
+| Métrica | Aplicado al asset vigente | Proyección al reconstruir y validar |
+|---|---:|---:|
+| Cuentas con teléfono | 267 | **289** |
+| Cuentas con email | 157 | **172** |
+| Cuentas con teléfono o email | 270 | **295** |
+| Cuentas con teléfono, email o página/portal revisado | 272 | **300** |
+| Cuentas sin teléfono ni email | 1,637 | **1,612** |
+
+**69 RUC revisados**, 44 filas aceptadas en 7 lotes (sin RUC duplicado en `records`), de las cuales 38 aportaron un nuevo teléfono/email a RUC antes sin canal, 5 aportaron solo portal/página, y 1 ya tenía ambos canales (CMH); otros 25 quedaron sin promoción de canal. Los porcentajes no representan correos entregados, líneas atendidas ni compradores confirmados.
+
+Auditoría y cálculos: `data/contact_enrichment/staged_status_2026-11-11.json`. La reconstrucción por `tool/recover_commercial_overlay.py` y la actualización de manifest/test quedan **pendientes**. Los contadores `progress.json` históricos corresponden al primer corte de 24 RUC y no deben confundirse con la última proyección. No se compila APK en este corte.
+
+**Actividad de comunicación cero:** sin llamadas, emails, WhatsApp, DM, conexiones LinkedIn, formularios ni registros de proveedores. Todo fue consulta de webs públicas y escritura de evidencia al GitHub del proyecto.
