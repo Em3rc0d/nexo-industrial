@@ -83,6 +83,7 @@ No se usa GitHub Actions para compilar el APK.
 - `docs/ARCHITECTURE.md`
 - `docs/DATA_CONTRACT.md`
 - `docs/GEOLOCATION.md`
+- `docs/GEOLOCATION_RECOVERY_2026-11-10.md`
 - `docs/WORK_BUILD.md`
 - `docs/BRANDING.md`
 - `docs/RELEASE_CHECKLIST.md`
