@@ -87,3 +87,30 @@ Se detectó **un correo profesional autodeclarado para recibir portafolios y pre
 **Estado de build:** commits guardados en `main`, pero no se ejecutó `flutter analyze`/`flutter test` ni se generó APK en este corte porque Flutter/Dart no están instalados en el entorno de ejecución actual. No se declara cobertura de 25 perfiles en ninguna APK instalada hasta reconstrucción local y pruebas.
 
 **Limitación de negocio:** un perfil de compras no equivale a un canal directo operativo ni a una intención de compra de recubrimientos Aurora/Sigma. Los cargos de mantenimiento pueden servir para identificar prescriptores técnicos y los de compras para descubrir el proceso de homologación y cotización.
+
+## Tercera tanda — investigación pública exclusivamente pasiva (11/11/2026)
+
+Se incorporaron **8 referencias profesionales** de **6 RUC no cubiertos antes** al archivo de datos que consume Flutter, pasando de 25 personas / 15 RUC a **33 personas / 21 RUC**. Fuente de auditoría aislada: `data/people_enrichment/2026-11-11_readonly_pass3.json`; fuente integrada: `data/people_enrichment/2026-11-11_mining_people.json`.
+
+| RUC | Empresa existente | Referencias |
+|---|---|---|
+| 20136150473 | Consorcio Minero Horizonte | Miguel Ponce Beoutis, jefe corporativo de Desarrollo de Proveedores, y Wendy Vanessa Ramirez Souza, equipo de Desarrollo de Proveedores (ambos autodeclarados 2026) |
+| 20509551767 | Catalina Huanca | Oscar Urcia, Head de Procurement/Supply Chain según SUPPLYMIN 2026, y David Macedo, jefe de Compras según MINDER 2025 (cargo hoy pendiente de reconfirmar) |
+| 20100163552 | Minera Raura | Miriam Ramos Charri, representante en encuentro de proveedores 2026; cargo específico y autoridad decisora por confirmar |
+| 20514165972 | SFP Drilling | Alex La Rosa Egoavil, perfil público con experiencia en Supply Chain/Compras, puesto exacto sin comprobar |
+| 20538428524 | Las Bambas | Hector Janampa, rol profesional de Supply autodeclarado en 2026, sin jefatura concreta afirmada |
+| 20192779333 | Compañía Minera Ares / Hochschild Perú | Sebastian Baldeon, practicante de Procurement/Logística según publicación de incorporación 2026, **no decisor** y enlace individual provisional |
+
+Los seis RUC pertenecen a las 1,907 referencias del master verificadas por archivo histórico (no se crearon cuentas). Se rechazó presentar a **Luis Felipe Bellido Calmet** como contacto vigente de Raura debido a publicación reciente en que comunica su salida. Se revisaron sin promover como compradores a Liseth Marycielo Sanchez Paucar (AKD, comercio exterior sin función de compra demostrada) y Carlos Noriega (RAMPERU, asesoría legal; no inferir titularidad del correo de proveedores por coincidencia de apellido).
+
+### Hallazgo corporativo complementario
+
+Consorcio Minero Horizonte publica en `https://cmh.com.pe/contactenos/` teléfono **+51 1 618 1000** y correo **contacto@cmh.com.pe**; el enlace oficial lleva al portal `https://ebiz.pe/proveedores-cmh/`, que explica el alta para nuevos proveedores y operaciones B2M para proveedores activos. Registro de evidencia: `data/contact_enrichment/2026-11-11_cmh_public_contact.json`. El portal eBIZ no se utilizó para registrarse ni contactar a nadie, y sus teléfonos de soporte **no** se atribuyen a compras de CMH. El sitio corporativo muestra una denominación societaria distinta a la del RUC, por lo que se conserva la discrepancia y se coteja la misma dirección de Jr. Crane 102. No aumentar cobertura telefónica/email hasta contrastar con asset previo y reconstruir.
+
+### Garantía de no contacto
+
+Solo se consultaron páginas y publicaciones públicas. **0 emails enviados; 0 mensajes de LinkedIn, WhatsApp o redes; 0 solicitudes de conexión; 0 llamadas; 0 formularios enviados; 0 registros de proveedor**. Los correos en fuentes de reclutamiento se descartaron. No se hizo scraping autenticado ni se recolectaron números personales.
+
+### Estado de implementación
+
+Se actualizó el asset JSON integrado de Flutter, las pruebas de conteo (33 perfiles, 21 RUC), el lote nuevo, la auditoría y las notas de alcance. No se ejecutaron pruebas Dart/Flutter ni se generó APK en esta sesión: el entorno actual no tiene Flutter ni Dart. La APK instalada conserva sus datos anteriores; los lotes públicos nuevos permanecen en repositorio hasta el gate de build y validación.
