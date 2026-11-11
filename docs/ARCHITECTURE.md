@@ -17,12 +17,15 @@ Calidad geográfica:
 - districtReference.
 
 ### Data
-Dos assets locales:
+Cinco assets locales:
 
-- `companies.production.json`: fuente comercial;
-- `companies.geolocation.overlay.json`: auditoría geográfica por RUC.
+- `companies.production.json`: única lista canónica de 1,907 cuentas;
+- `companies.geolocation.overlay.json`: auditoría geográfica por RUC;
+- `companies.commercial.overlay.json.gz`: datos comerciales y contactos base;
+- `companies.contact.patch.json`: contactos publicados adicionales, aceptados por RUC y sin sobrescribir canales existentes;
+- `data/people_enrichment/2026-11-11_mining_people.json`: referencias profesionales públicas independientes.
 
-`AssetCompanyRepository` cruza ambos en memoria.
+`AssetCompanyRepository` cruza las capas en memoria. El parche contiene solo RUC ya existentes: el teléfono/email base tiene precedencia. Los contactos corporativos no se mezclan con perfiles personales, y no hay tráfico de red al abrir la app salvo los servicios opcionales de mapas existentes.
 
 ### Ranking
 Combina:
