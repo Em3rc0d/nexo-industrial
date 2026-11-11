@@ -1,0 +1,81 @@
+{
+  "scope": "Fourth review of RUCs already in pending queue: mining group central offices and supplier processes, without deriving subsidiaries' direct contacts from shared parent channels",
+  "reviewed_on": "2026-11-11",
+  "records": [
+    {
+      "ruc": "20100163552",
+      "phone": "+51 1 215 8330",
+      "email": "operaciones@raura.com.pe",
+      "website": "https://raura.com.pe/",
+      "contact_page": "https://raura.com.pe/",
+      "source_url": "https://raura.com.pe/",
+      "linkage": "Official Compañía Minera Raura site identifies the legal company and publishes San Borja Jr. Lorenzo Bernini 149 Of 501-A office, switchboard and operations mailbox; RUC 20100163552 matches SUNAT",
+      "channel_purpose": "operations_office_not_purchasing",
+      "source_type": "official_company_site",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "additional_phones": [
+        "+51 1 215 8330 anexo 5301"
+      ],
+      "notes": "Same main switchboard prefix as Minsur corporate group, but Raura uses its published office extension; mailbox is operations, not procurement."
+    },
+    {
+      "ruc": "20510704291",
+      "phone": "+51 1 616 6060",
+      "email": "info@fmcmail.com",
+      "website": "https://fortunamining.com/",
+      "contact_page": "https://fortunamining.com/contact/",
+      "source_url": "https://fortunamining.com/contact/",
+      "linkage": "Fortuna official page explicitly names Caylloma Mine as Minera Bateas SAC and Peru office Av Jorge Chavez 154 Piso 5 Miraflores, matching SUNAT RUC 20510704291 address",
+      "channel_purpose": "latin_america_office_and_global_general_mail",
+      "source_type": "official_parent_company_site",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "additional_phones": [
+        "+51 1 616 6060 anexo 0"
+      ],
+      "notes": "Email is Fortuna global shared public mailbox, not Bateas buyer. Peru office central switchboard published by group. Recruiter and investor relations channel not promoted."
+    },
+    {
+      "ruc": "20492744833",
+      "phone": "+51 1 710 5500",
+      "email": "gestaodefornecedores@nexaresources.com",
+      "website": "https://www.nexaresources.com/",
+      "contact_page": "https://www.nexaresources.com/es/proveedores/",
+      "source_url": "https://www.nexaresources.com/es/proveedores/",
+      "phone_source_url": "https://www.nexaresources.com/es/contacto/",
+      "identity_source": "https://ri.nexaresources.com/operations/el-porvenir/",
+      "linkage": "Nexa official operations lists El Porvenir mine in Peru; RUC 20492744833 is Nexa Resources El Porvenir SAC. Shared parent supplier support mailbox and Peru corporate switchboard, not local mine direct contacts",
+      "channel_purpose": "group_supplier_support_and_shared_parent_switchboard",
+      "source_type": "official_parent_company_site",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "notes": "Suppliers must use corporate EzProc/Coupa pre-registration and approval; no direct mine buyer/paint demand asserted. commerciale_latam/sales Peru is for selling Nexa products, so not used as buying contact."
+    },
+    {
+      "ruc": "20538848060",
+      "phone": "+51 1 416 7000",
+      "email": null,
+      "website": "https://www.volcan.com.pe/",
+      "contact_page": "https://www.volcan.com.pe/",
+      "source_url": "https://www.smv.gob.pe/SIMV/Bp_LisDatosGenerales?data=5C0A8F2117B11429C190026CC756&op=bq1",
+      "identity_source": "https://www.datosperu.org/empresa-empresa-administradora-cerro-sac-20538848060.php",
+      "linkage": "Empresa Administradora Cerro SAC RUC 20538848060 has fiscal address Av Manuel Olguin 375 matching corporate Volcan group office; parent documents identify subsidiary; Volcan public parent switchboard 4167000",
+      "channel_purpose": "shared_group_switchboard_not_direct_subsidiary",
+      "source_type": "government_registry_plus_parent_corporate_site",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "notes": "Same corporate switchboard as Volcan and Chungar. Treat as group-level referral only, never as separately verified direct purchasing number."
+    }
+  ],
+  "reviews": [
+    {
+      "ruc": "20205467603",
+      "status": "restricted_purpose_channel_only",
+      "source_url": "https://zijinlaarena.pe/oip/",
+      "identity_source": "https://www.datosperu.org/empresa-la-arena-sa-20205467603.php",
+      "reviewed_on": "2026-11-11",
+      "notes": "Zijin La Arena publishes +51 913014973 solely for local community permanent information office; also ethics reporting and named logistics staff at a 2025 event. No business procurement phone/email found, so excluded from direct commercial channels."
+    }
+  ]
+}
