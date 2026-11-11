@@ -41,6 +41,71 @@ enum LocationConfidence {
   }
 }
 
+/// Professional identity from public sources. Never counted as a direct phone/email.
+class ProfessionalContact {
+  const ProfessionalContact({
+    required this.name,
+    required this.role,
+    required this.status,
+    required this.reviewedOn,
+    this.department,
+    this.linkedinUrl,
+    this.evidenceUrl,
+    this.confidence,
+  });
+
+  final String name;
+  final String role;
+  final String status;
+  final String reviewedOn;
+  final String? department;
+  final String? linkedinUrl;
+  final String? evidenceUrl;
+  final String? confidence;
+
+  bool get isHistorical => status == 'historical_role_needs_reconfirmation';
+
+  String get verificationLabel => switch (status) {
+    '2026_corporate_confirmed' => 'Cargo publicado por la empresa en 2026',
+    '2026_industry_event_confirmed' =>
+      'Cargo citado en un evento profesional de 2026',
+    '2026_self_reported' => 'Función autodeclarada en 2026',
+    'public_profile_2026_affiliation' =>
+      'Perfil público, cargo exacto por confirmar',
+    'historical_role_needs_reconfirmation' =>
+      'Referencia histórica; vigencia por confirmar',
+    _ => 'Fuente profesional por confirmar',
+  };
+
+  Uri? get linkedinUri {
+    final uri = Uri.tryParse(linkedinUrl ?? '');
+    if (uri == null || uri.scheme != 'https') return null;
+    if (uri.host != 'linkedin.com' && !uri.host.endsWith('.linkedin.com')) {
+      return null;
+    }
+    return uri;
+  }
+
+  Uri? get evidenceUri {
+    final uri = Uri.tryParse(evidenceUrl ?? '');
+    return uri != null && uri.scheme == 'https' && uri.host.isNotEmpty
+        ? uri
+        : null;
+  }
+
+  factory ProfessionalContact.fromJson(Map<String, dynamic> json) =>
+      ProfessionalContact(
+        name: json['name'] as String,
+        role: json['role'] as String,
+        status: json['status'] as String,
+        reviewedOn: json['reviewed_on'] as String,
+        department: json['department'] as String?,
+        linkedinUrl: json['linkedin_url'] as String?,
+        evidenceUrl: json['evidence_url'] as String?,
+        confidence: json['confidence'] as String?,
+      );
+}
+
 class CompanyContact {
   const CompanyContact({
     this.name,
@@ -264,6 +329,7 @@ class Company {
     this.locationProvince,
     this.locationDepartment,
     this.managementStatus,
+    this.people = const [],
   });
 
   final String id;
@@ -288,6 +354,7 @@ class Company {
   final List<String> sigmaProducts;
   final CompanyContact contact;
   final CommercialProfile commercial;
+  final List<ProfessionalContact> people;
   final String source;
   final DateTime sourceUpdatedAt;
   final bool nearbyRankingEligible;
@@ -505,6 +572,10 @@ class Company {
       ),
       contact: contact,
       commercial: commercial,
+      people: (json['people'] as List<dynamic>? ?? const [])
+          .map((row) => ProfessionalContact.fromJson(
+              Map<String, dynamic>.from(row as Map)))
+          .toList(growable: false),
       source: isProductionShape
           ? (geography['source'] as String? ?? 'Dataset maestro Nexo')
           : (json['source'] as String),
