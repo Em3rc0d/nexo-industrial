@@ -93,15 +93,15 @@ void main() {
   test('professional identities never inflate direct phone/email coverage',
       () async {
     final companies = await const AssetCompanyRepository().loadCompanies();
-    // Same commercial overlay as the previous release: people are separate.
-    expect(companies.where((c) => c.contact.hasDirectContact), hasLength(270));
+    // Phone/email counts include the RUC contact patch, not the people overlay.
+    expect(companies.where((c) => c.contact.hasDirectContact), hasLength(297));
     expect(
       companies.where((c) => c.contact.phone?.isNotEmpty == true),
-      hasLength(267),
+      hasLength(291),
     );
     expect(
       companies.where((c) => c.contact.emailUris.isNotEmpty),
-      hasLength(157),
+      hasLength(174),
     );
   });
 }
