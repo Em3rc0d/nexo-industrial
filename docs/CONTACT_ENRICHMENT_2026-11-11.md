@@ -72,3 +72,11 @@ Destacados del nuevo trabajo:
 4. No enviar emails, formularios ni mensajes automáticamente. No elevar correo de reclutamiento/denuncias, números enmascarados ni representantes históricos a canales comerciales.
 
 El barrido se basó exclusivamente en RUC existentes de la cola; se preservaron fuentes, finalidad, notas de vínculo por RUC y fecha de revisión. Los registros aceptados significan **canal publicado**, no entrega de correo comprobada ni titular de compras identificado.
+
+## Cuarto bloque adicional y cierre del corte de investigación
+
+Se guardó `data/contact_enrichment/2026-11-11_mineria_proveedores_grupos.json`: cuatro RUC adicionales con teléfono (+4) y tres con email (+3) entre Raura, Minera Bateas, Nexa El Porvenir y Empresa Administradora Cerro. Un caso La Arena mantiene solamente un canal comunitario no comercial, por lo que no se promocionó a teléfono/email de ventas.
+
+**Corte FINAL DE INVESTIGACIÓN de esta sesión (no aplicado aún al asset):** 55 RUC revisados en los cuatro lotes del día; 33 con nuevo teléfono o email, 3 adicionales solo con portal/formulario y 19 pendientes de corroboración. Si y solo si la reconstrucción resulta correcta, serían **285 con teléfono, 167 con email, 290 con cualquiera, 293 incluyendo formularios**, frente a **1,617 sin teléfono ni email** de 1,907 cuentas. Números de centrales corporativas compartidas por filiales se cuentan por RUC, no como líneas telefónicas distintas.
+
+El conteo auditado de los tres lotes agregados se encuentra en `data/contact_enrichment/staged_status_2026-11-11.json`. Cualquier dato anterior del capítulo se refiere al avance parcial del 11/11; estos totales finales **son únicamente proyección de investigación** y **no** reemplazan los totales que muestra la APK ni el manifest productivo. Para actualizar la aplicación es imprescindible el gate de reconstrucción y pruebas mencionado arriba.
