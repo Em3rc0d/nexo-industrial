@@ -28,13 +28,13 @@ void main() {
     expect(unsafe.verificationLabel, contains('histórica'));
   });
 
-  test('11 public professionals join 7 unique existing master RUCs', () async {
+  test('25 public professionals join 15 unique existing master RUCs', () async {
     final companies = await const AssetCompanyRepository().loadCompanies();
     expect(companies, hasLength(1907));
     final withPeople = companies.where((c) => c.people.isNotEmpty).toList();
-    expect(withPeople, hasLength(7));
-    expect(withPeople.expand((c) => c.people), hasLength(11));
-    expect(withPeople.map((c) => c.ruc).toSet(), hasLength(7));
+    expect(withPeople, hasLength(15));
+    expect(withPeople.expand((c) => c.people), hasLength(25));
+    expect(withPeople.map((c) => c.ruc).toSet(), hasLength(15));
     expect(
       withPeople.every((c) => c.people.every((p) =>
           p.name.isNotEmpty && p.role.isNotEmpty && p.evidenceUri != null)),
@@ -48,6 +48,30 @@ void main() {
     expect(sotrami.people, hasLength(2));
     final minsur = companies.singleWhere((c) => c.ruc == '20100136741');
     expect(minsur.people.every((p) => p.isHistorical), isTrue);
+  });
+
+  test('published supplier email is separate and parent roles are explicit',
+      () async {
+    final companies = await const AssetCompanyRepository().loadCompanies();
+    final veta = companies.singleWhere((c) => c.ruc == '20536126440');
+    final victor = veta.people.singleWhere((p) => p.name == 'Víctor Arias Manchego');
+    expect(victor.isHistorical, isTrue);
+    expect(victor.workEmailUri?.scheme, 'mailto');
+    expect(victor.workEmailUri?.path, 'victor.arias@vetadorada.pe');
+
+    final nexa = companies.singleWhere((c) => c.ruc == '20492744833');
+    final miguel = nexa.people.singleWhere((p) => p.name == 'Miguel Aguirre');
+    expect(miguel.associationLabel, contains('grupo empresarial'));
+    expect(miguel.workEmailUri, isNull);
+
+    const unsafe = ProfessionalContact(
+      name: 'Test',
+      role: 'Test',
+      status: '2026_self_reported',
+      reviewedOn: '2026-11-11',
+      workEmail: 'bad@@example.org',
+    );
+    expect(unsafe.workEmailUri, isNull);
   });
 
   test('professional identities never inflate direct phone/email coverage',
