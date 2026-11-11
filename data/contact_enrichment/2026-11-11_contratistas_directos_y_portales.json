@@ -1,0 +1,146 @@
+{
+  "scope": "Research-only contact enrichment from the 1,637-RUC pending queue; independently linked RUC and company sources; no new accounts or communications",
+  "reviewed_on": "2026-11-11",
+  "records": [
+    {
+      "ruc": "20221259581",
+      "phone": "+51 1 659 8377",
+      "email": "administracion@tecnomindata.com",
+      "website": "https://www.tecnomindata.com/",
+      "contact_page": "https://www.tecnomindata.com/contact/",
+      "source_url": "https://www.tecnomindata.com/contact/",
+      "email_source_url": "https://iimp.org.pe/brochure/guia/proveedores/2026/209/",
+      "identity_source": "https://www.rnp.gob.pe/Constancia/RNP_Constancia/default_Todos.asp?RUC=20221259581",
+      "linkage": "Official Tecnomin Data contact site lists Pueblo Libre Av. José María Egusquiza 944, plus Pasco Yanacancha office; RUC 20221259581 appears by legal name in 2026 IIMP business listing and government provider registry.",
+      "channel_purpose": "general_corporate_administration_and_contact_form",
+      "source_type": "official_company_website_and_2026_IIMP_supplier_directory",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "additional_phones": [
+        "+51 1 237 8958 anexo 101",
+        "+51 1 659 8377 anexo 101",
+        "+51 63 422590 (Pasco)"
+      ],
+      "notes": "administracion@tecnomindata.com is publicly printed in IIMP 2026 directory, not necessarily a buyer mailbox. The company page has conflicting Egusquiza 499 vs 944 at one place, so 944 corroborated with header and guide; public customer-service form not submitted. No procurement officer claimed."
+    },
+    {
+      "ruc": "20527775851",
+      "phone": "+51 958 545 971",
+      "email": "explo@explodrillingperu.pe; comercial@explodrillingperu.pe; guido.ccorahua@explodrillingperu.pe",
+      "website": "https://explodrillingperu.pe/",
+      "contact_page": "https://explodrillingperu.pe/contacto/",
+      "source_url": "https://explodrillingperu.pe/contacto/",
+      "identity_source": "https://www.universidadperu.com/empresas/explo-drilling-peru-sociedad-comercial-de-responsabilidad-limitada.php",
+      "linkage": "Official drilling company contact address Las Acacias Mz I Lote 7 Santa María de Huachipa matches SUNAT public entity EXPLO DRILLING PERU S.C.R.L RUC 20527775851. Official page publishes both general and commercial channel and one specifically named corporate work email.",
+      "channel_purpose": "commercial_and_general",
+      "source_type": "official_company_website_and_RUC_identity_directory",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "additional_phones": [
+        "+51 961 949 326 (comercial, sitio oficial)",
+        "+51 958 545 942 (correo corporativo nominal, sitio oficial)",
+        "+51 54 464101 (Arequipa, verificar prefijo)"
+      ],
+      "notes": "No contact performed. Commercial department mailbox and telephone are published by the company on its site. Work email guido.ccorahua is published on the business contact page; do not assert procurement role or delivery-tested operability. Website uses mixed phone formatting (01 054), normalize Arequipa as local 054 only with caveat."
+    },
+    {
+      "ruc": "20525998577",
+      "phone": "+51 1 492 6638",
+      "email": "contacto@sea.pe",
+      "website": "https://sea-peru.com/",
+      "contact_page": "https://sea-peru.com/contacto/",
+      "source_url": "https://sea-peru.com/contacto/",
+      "identity_source": "https://consultaderuc.pe/ruc/20525998577-servicios-energeticos-ambientales-srl-sea-srl",
+      "linkage": "Legal entity RUC 20525998577 named Servicios Energéticos Ambientales SEA S.R.L.; public company site includes both listed operating sites Avenida Bolognesi El Alto/Talara and Néstor Gambetta Callao matching 2026 SUNAT annex list. Site's office Javier Prado Este 6210 is historical address as confirmed by government 2022 record, while current 2026 fiscal address is Victor Andrés Belaúnde 280 in San Isidro.",
+      "channel_purpose": "general_corporate",
+      "source_type": "official_company_website_and_government_registry_identity",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "notes": "Official contact page is internally inconsistent: body says contacto@sea.com, footer and official homepage say contacto@sea.pe. Promote footer/homepage .pe email only and retain discrepancy. Office address on site may be outdated; no claim headquarters is still Javier Prado. Not a direct purchaser contact. No form sent."
+    },
+    {
+      "ruc": "20332907990",
+      "phone": null,
+      "email": null,
+      "website": "https://alpayana.com/",
+      "contact_page": "https://alpayana.com/portal-proveedores/",
+      "source_url": "https://alpayana.com/portal-proveedores/",
+      "identity_source": "https://alpayana.com/nosotros/",
+      "linkage": "Official Alpayana portal explicitly lists UM Yauliacu and UM Iscaycruz as Empresa Minera Los Quenuales S.A.C.; Alpayana reports acquiring all Los Quenuales shares in December 2022. RUC 20332907990 matches Los Quenuales name.",
+      "channel_purpose": "supplier_portal_parent_group_for_specific_mining_entity",
+      "source_type": "official_parent_group_supplier_portal",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "notes": "No phone/email promoted: old Glencore-era contact directories reflect previous ownership and should not be treated as current buying channel. Alpayana supplier portal official for this specific subsidiary and units. Not visited authenticated area or registered."
+    },
+    {
+      "ruc": "20602044239",
+      "phone": null,
+      "email": null,
+      "website": "https://www.mineraorex.pe/",
+      "contact_page": "https://www.mineraorex.pe/contactanos/",
+      "source_url": "https://www.mineraorex.pe/contactanos/",
+      "identity_source": "https://www.datosperu.org/empresa-minera-orex-sac-20602044239.php",
+      "linkage": "Official Minera OREX public contact site publishes fiscal office Paseo de la República 5809 Miraflores, precisely matching RUC 20602044239 legal business registry address.",
+      "channel_purpose": "official_company_contact_page_address_only",
+      "source_type": "official_company_website_and_RUC_identity_registry",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "notes": "Official public contact page has office/camp coordinates and comments area, but no public phone or email. Do not transpose a different company supplier's number or email found in old uploaded purchase orders; no form sent."
+    }
+  ],
+  "reviews": [
+    {
+      "ruc": "20489332621",
+      "name": "COPSEM S.A.C.",
+      "outcome": "historical_phone_not_promoted",
+      "source_url": "https://telefono.pe/copsem-eirl/",
+      "reason": "RUC matches but director listing uses old incompatible legal-form EIRL and former address Jr Huáscar 2020 versus 2026 SAC Av Afranio Mello Franco 780. Phone +51 1 462 4074 not sufficiently supported as current. Corporate site copsem.com.pe unavailable through accessible sources; no verified contemporary purchasing channel."
+    },
+    {
+      "ruc": "20125959483",
+      "name": "Minera Laytaruma S.A.",
+      "outcome": "historical_phone_email_not_promoted",
+      "source_url": "https://www.energiminas.com/wp-content/uploads/2018/11/Energiminas-53.pdf",
+      "reason": "Old 2017-2018 mining directories report +51 1 219 0680 and recepcionlima@laytaruma.com.pe, but no current official corporate confirmation. Recruitment-only mail from 2026 excluded. Do not count historical channel as newly reachable."
+    },
+    {
+      "ruc": "20498680144",
+      "name": "Minera Aurífera Cuatro de Enero (MACDESA)",
+      "outcome": "website_researched_no_specific_business_contact",
+      "source_url": "https://macdesa.pe/",
+      "reason": "Official corporate page identifies this exact company and welcomes suppliers but accessible site text lacks explicit public phone, email or verified dedicated supplier form. Old 4461004 number in a historical directory not promoted."
+    },
+    {
+      "ruc": "20604269009",
+      "name": "China Civil Engineering Construction Corp Peru",
+      "outcome": "recruiting_and_licitation_cv_only_excluded",
+      "source_url": "https://pe.linkedin.com/company/china-civil-engineering-construction-corporation-sucursal-del-per%C3%BA",
+      "reason": "Corporate posts show selection/recruitment and licitaciones mailbox used to collect applicant CVs, not proven supplier purchase channel. No commercial email inferred."
+    },
+    {
+      "ruc": "20565643496",
+      "name": "Global Fuel S.A.",
+      "outcome": "no_current_public_contact",
+      "source_url": "https://datacloud.pe/empresa/20565643496",
+      "reason": "RUC identity and business operations found, but no validated corporate email or full phone in public official sources; masked directory values not promoted."
+    },
+    {
+      "ruc": "20600977661",
+      "name": "China Railway Tunnel Group Peru",
+      "outcome": "recruitment_only_excluded",
+      "source_url": "https://pe.linkedin.com/company/china-railway-tunnel-group-co-ltd-sucursal-del-per%C3%BA",
+      "reason": "reclutamiento@crtg.cn is for CVs only; not promoted to paint suppliers. Former 2024 phone from unverified uploaded report not promoted."
+    }
+  ],
+  "outreach_performed": false,
+  "explicit_actions": {
+    "emails_sent": 0,
+    "messages_sent": 0,
+    "calls": 0,
+    "forms_submitted": 0,
+    "linkedin_requests": 0,
+    "registrations": 0
+  },
+  "caveat": "Enrichment source record is staged; app and production counters only change after deterministic rebuild, asset validation and new APK."
+}
