@@ -1,5 +1,5 @@
 {
-  "scope": "High-priority RUC pending queue: two mining services contractors and one international drilling company, all checked with official 2026 or current corporate sources; no outreach",
+  "scope": "Two new company channels (Construplan and Mincotrall) plus AK Drilling deduplicated as already in first batch",
   "reviewed_on": "2026-11-11",
   "records": [
     {
@@ -34,24 +34,18 @@
       "reviewed_on": "2026-11-11",
       "status": "published_channel_not_contacted",
       "notes": "Do not use contact numbers on POSTULA recruitment page as business/paint procurement channels. Corporate phone/email is general; no buyer identified and no contact initiated."
-    },
-    {
-      "ruc": "20470234599",
-      "phone": "+51 1 251 3380",
-      "email": "global@akdint.com",
-      "website": "https://www.akdint.com/",
-      "contact_page": "https://www.akdint.com/contactanos/",
-      "source_url": "https://www.akdint.com/contactanos/",
-      "identity_source": "https://canadaperu.org/partner/akd-international",
-      "linkage": "Official AKD International site explicitly lists Perú entity AK Drilling International S.A., Calle Perseo Mz J Lote 12 Urb La Campiña Chorrillos, office phone and group email. Canada–Peru Chamber partner directory states exact RUC 20470234599, same legal entity and office.",
-      "channel_purpose": "global_group_general_email_and_local_peru_office_switchboard",
-      "source_type": "official_company_website_and_business_chamber_RUC",
-      "reviewed_on": "2026-11-11",
-      "status": "published_channel_not_contacted",
-      "notes": "global@akdint.com is shared across multiple international offices, not the Peru purchases department. reclutamiento@akdint.com was excluded as recruitment-only. No outreach."
     }
   ],
-  "reviews": [],
+  "reviews": [
+    {
+      "ruc": "20470234599",
+      "name": "AK Drilling International S.A.",
+      "outcome": "already_present_in_first_accepted_batch_no_second_promotion",
+      "source_url": "https://www.akdint.com/contactanos/",
+      "identity_source": "https://canadaperu.org/partner/akd-international",
+      "reason": "Already appears in 2026-11-11_callao_sur.json with exact same official Peru corporate +51 1 251 3380 and shared global@akdint.com. Confirmed in baseline commercial asset, so duplicate accepted row removed. No new phone/email credit or outreach."
+    }
+  ],
   "outreach_performed": false,
   "explicit_actions": {
     "calls": 0,
@@ -60,5 +54,5 @@
     "forms": 0,
     "registrations": 0
   },
-  "caveat": "Research batch only; production APK and commercial overlay still unchanged."
+  "caveat": "Only the two accepted RUC lacking existing phone/email are promoted in this research batch. AKD review documents duplication and does not add a new accepted RUC. No APK update."
 }
