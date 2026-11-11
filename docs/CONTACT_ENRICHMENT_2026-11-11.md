@@ -44,3 +44,31 @@ La implementación se prepara como 1.0.4+7. La APK 1.0.3+6 ya entregada no conti
 Flutter 3.47.9 / Dart 3.13.7, con CI/BOT y telemetría desactivada. `flutter analyze --no-pub`: sin incidencias. `flutter test --no-pub`: 14/14 aprobadas. El validador de datos y la auditoría de snapshot pasan. La reconstrucción repetida del overlay es byte a byte idéntica; los 15 RUC aceptados están presentes y no se aplican los 9 casos pendientes. La prueba nueva comprueba el formulario sin teléfono/email de IOLSA, la finalidad de proveedores de RAMPERU y la exclusión del email de premios de Zeta Gas.
 
 No se compiló una nueva APK en este corte ni se probó la interacción en dispositivo. La prioridad de esta entrega es dejar el enriquecimiento guardado en el master y Git antes de otro build.
+
+## Ampliación de investigación del 11/11/2026 (lotes segundo y tercero)
+
+Se agregaron los lotes de **investigación**, sin modificar aún el `assets/data/companies.commercial.overlay.json.gz` ni regenerar APK:
+
+- `data/contact_enrichment/2026-11-11_lima_mineria.json`: 10 RUC con registros aceptados (8 con teléfono, 4 con email, 9 con cualquiera, 1 con portal exclusivo), 6 revisiones sin promoción.
+- `data/contact_enrichment/2026-11-11_mineria_y_servicios.json`: 7 RUC con registros aceptados (6 con teléfono, 3 con email, 7 con cualquiera), 3 revisiones sin promoción.
+
+**Cobertura proyectada, condicionada a reconstrucción y validación del asset:** 1,907 cuentas, 281 con teléfono (267+14), 164 con email (157+7), 286 con teléfono o email (270+16), y 289 con teléfono, email o formulario/página revisada (272+17). Quedarían **1,621** sin teléfono ni email. Ninguno de estos incrementos se debe informar como cobertura efectiva de la APK 1.0.3+6 o del asset comercial actual hasta verificar la reconstrucción.
+
+**50 cuentas revisadas acumuladas** (24 primera tanda + 16 segunda + 10 tercera): 29 nuevas con teléfono y/o correo, 3 adicionales con formulario/portal sin esos dos datos, 18 restantes en revisión o pendientes de corroboración. Al contar canales por RUC, números compartidos de grupo se registran como `shared_group_switchboard_not_direct_subsidiary`; NO implican contacto individual/directo ni compradores comprobados.
+
+Destacados del nuevo trabajo:
+- JRC: `compras@jrcing.com.pe`, invitación pública empresarial a proveedores (no implica necesidad actual de pintura).
+- Minera Sotrami: `compras1@sotrami.com.pe` en publicación pública de compra de equipos, además del canal general.
+- Minsur y Antapaccay: portales oficiales de proveedores, no pedidos de cotización comprobados.
+- Miski Mayo: `contacto@miskimayo.com` y una referencia de responsable de suministros publicada en directorio marzo 2025; cargo y operatividad al 2026 no corroborados.
+- Pan American Silver Huarón y Shahuindo: solo central compartida del grupo; no líneas independientes del comprador.
+- Shouxin: solo se hallaron canales de denuncias/reclutamiento, rechazados como contactos comerciales.
+
+### Gate para incorporar al producto
+
+1. Reconstruir overlay con `python3 tool/recover_commercial_overlay.py` y verificar 1,907 RUC únicos, 281 teléfonos, 164 correos y 286 cuentas con cualquiera (si no han cambiado otras fuentes).
+2. Actualizar aserciones de cobertura en `test/production_dataset_test.dart` (actualmente esperan los totales anteriores) y manifest `assets/data/production/manifest.json` **solo después** de validar los resultados reales.
+3. Ejecutar `python3 tool/validate_dataset.py`, `flutter analyze --no-pub`, `flutter test --no-pub`; comprobar reconstrucción determinista y persistir el asset comprimido, manifest y pruebas en el mismo commit. La app instalada requiere nueva compilación para consumir los datos.
+4. No enviar emails, formularios ni mensajes automáticamente. No elevar correo de reclutamiento/denuncias, números enmascarados ni representantes históricos a canales comerciales.
+
+El barrido se basó exclusivamente en RUC existentes de la cola; se preservaron fuentes, finalidad, notas de vínculo por RUC y fecha de revisión. Los registros aceptados significan **canal publicado**, no entrega de correo comprobada ni titular de compras identificado.
