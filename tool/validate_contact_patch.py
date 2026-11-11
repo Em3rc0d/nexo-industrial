@@ -69,7 +69,7 @@ def main() -> None:
 
     for row in patch["records"]:
         ruc = str(row["ruc"])
-        assert re.fullmatch(r"\\d{11}", ruc), ruc
+        assert re.fullmatch("[0-9]{11}", ruc), ruc
         assert ruc in base_rucs and ruc not in seen, ruc
         seen.add(ruc)
         assert row["status"] == "published_channel_not_contacted"
