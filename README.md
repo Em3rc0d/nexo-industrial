@@ -98,6 +98,7 @@ No se usa GitHub Actions para compilar el APK.
 ```bash
 python3 tool/validate_dataset.py
 python3 tool/audit_geolocation_snapshot.py --restore
+python3 tool/validate_contact_patch.py
 ```
 
 La recuperación del asset comercial desde el master guardado está documentada en `docs/DATA_INTEGRITY_2026-11-10.md`. La validación de datos no sustituye `flutter analyze` y `flutter test` antes de compilar.
@@ -116,16 +117,16 @@ La ficha de veintiuna empresas del master incorpora **33 referencias profesional
 
 El campo `workers_sunat` del perfil comercial y cualquier recuento de perfiles de LinkedIn representan conceptos distintos; un perfil no acredita nómina vigente ni teléfono.
 
-La investigación de teléfonos/emails empresariales en otros tres lotes permanece en etapa previa al rebuild: **290 con algún canal proyectados**, frente a **270 en el asset comercial productivo aplicado**. No se presentan como cifras ya compiladas.
+La investigación aceptada ya se incorpora al código mediante un parche comercial de 31 RUC. El asset comprimido sigue con 270 empresas con teléfono/email, pero el cargador Flutter aplica un parche que eleva la expectativa de cobertura a **297**. No es una APK nueva ni una ejecución comprobada de Flutter.
 
 Se documenta una investigación pasiva adicional de CMH, Catalina Huanca, Raura, SFP, Las Bambas y Ares sin enviar emails, mensajes, conexiones, llamadas ni formularios. El sitio oficial de CMH publica portal eBIZ de proveedores: `https://ebiz.pe/proveedores-cmh/`; su teléfono/email quedaron como descubrimiento staged, no como aumento comprobado de cobertura productiva.
 
 Ver `docs/PEOPLE_ENRICHMENT_2026-11-11.md` y `docs/CONTACT_ENRICHMENT_2026-11-11.md`. Se requiere `flutter analyze`, `flutter test` y compilación local antes de otra APK.
 
-## Avance de investigación de contactos — 11/11/2026 (NO aplicado a APK)
+## Contactos integrados en fuente — 11/11/2026 (APK pendiente)
 
 Hay 8 lotes de investigación pública guardados en `data/contact_enrichment/`, incluidos los lotes de Tecnomin Data, Explo Drilling, SEA, Los Quenuales, OREX, TPE Paita, Paltarumi, Construplan y Mincotrall, con AKD deduplicado por ya constar en la cobertura base. Se revisaron **72 RUC**; **40** ganaron canales telefónicos o emails públicos, **5** aportaron únicamente página/portal oficial; **2** (CMH y AK Drilling) ya tenían ambos canales y 25 no tuvieron nuevos canales promocionables.
 
-**El asset/manifest productivo permanece en 267 RUC con teléfono, 157 con email y 270 con cualquiera.** Con los lotes pendientes de reconstrucción, la cobertura **proyectada, no validada en la APK**, es de **291** con teléfono, **174** con email, **297** con alguno de ambos y **302** incluyendo portales; restarían **1,610** RUC sin teléfono/email.
+**El asset comercial comprimido conserva 267 RUC con teléfono, 157 con email y 270 con cualquiera.** El código Flutter ahora aplica `assets/data/companies.contact.patch.json` (31 RUC) durante la carga, con expectativa de **291** con teléfono, **174** con email, **297** con alguno de ambos y **302** incluyendo páginas/portales; restarían **1,610** RUC sin teléfono/email. El manifiesto diferencia ambos cortes. **Sin Flutter ejecutado ni APK nueva**.
 
 Detalle, evidencias, política de exclusiones y gate de reconstrucción: `docs/CONTACT_ENRICHMENT_2026-11-11.md` y `data/contact_enrichment/staged_status_2026-11-11.json`. No se ha llamado, escrito, enviado formulario ni solicitado conexión a ningún prospecto.
