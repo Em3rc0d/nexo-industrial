@@ -9,8 +9,9 @@
 - Added read-only public CMH company contacts and its B2M/eBIZ supplier registration page as a staged discovery (no forms submitted and no production contact coverage assertion).
 - No emails, calls, LinkedIn messages, connection requests, WhatsApp messages, vendor registrations or forms submitted.
 - Additional passive research: 72 RUC reviewed across 8 public business-contact batches. Net new phone/email for 40 RUC and five web-only channels; CMH and AKD business contact details already existed in baseline. Separate last batches cover Tecnomin Data, Explo Drilling Perú, SEA, Los Quenuales/Alpayana, OREX, TPE Paita, Paltarumi, Construplan and Mincotrall, while AKD contributed provenance only.
-- Projected after rebuilding all eight batches: 291 phones, 174 emails, 297 with either, 302 including web-only; baseline production asset remains 267/157/270/272. **Not APK metrics**.
+- Integrated the 31 approved not-yet-applied RUC as `assets/data/companies.contact.patch.json`; Flutter `AssetCompanyRepository` merges it onto the immutable base gzip by exact RUC. Source-effective expected coverage is 291 phones, 174 emails, 297 with either, 302 including web-only. Base gzip stays 267/157/270/272. **Not yet measured in a new APK**.
 - Rejected six outdated/hiring-only numbers/emails from latest contractor review and excluded previously departed commercial manager for TPE Paita. No prospect contacted.
+- Added read-only `tool/validate_contact_patch.py` and expanded Flutter test fixtures for the merged 1,907-RUC runtime coverage; manifest separates base and patched effective source.
 - **Validation gate pending:** Flutter SDK unavailable in the active runtime; code changes have not passed Flutter analysis, Flutter tests or an Android device smoke test. APK remains unchanged.
 
 ## 1.0.4+7 — 2026-11-11 (source/data; APK pending)
