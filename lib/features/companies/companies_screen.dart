@@ -45,40 +45,35 @@ class _CompaniesScreenState extends State<CompaniesScreen> {
   List<Company> _filteredCompanies() {
     final query = _query.trim().toLowerCase();
 
-    final companies = widget.companies.where((company) {
-      if (query.isNotEmpty &&
-          !company.name.toLowerCase().contains(query) &&
-          !company.ruc.toLowerCase().contains(query) &&
-          !company.activity.toLowerCase().contains(query) &&
-          !company.sector.toLowerCase().contains(query)) {
-        return false;
-      }
+    final companies =
+        widget.companies.where((company) {
+            if (!company.matchesQuery(query)) return false;
 
-      if (_sector != null && company.sector != _sector) return false;
+            if (_sector != null && company.sector != _sector) return false;
 
-      if (_locationFilter == _LocationFilter.reliable &&
-          !company.hasReliableCoordinates) {
-        return false;
-      }
+            if (_locationFilter == _LocationFilter.reliable &&
+                !company.hasReliableCoordinates) {
+              return false;
+            }
 
-      if (_locationFilter == _LocationFilter.approximate &&
-          company.hasReliableCoordinates) {
-        return false;
-      }
+            if (_locationFilter == _LocationFilter.approximate &&
+                company.hasReliableCoordinates) {
+              return false;
+            }
 
-      final managed = widget.activityStore.hasActivity(company.id);
-      if (_managementFilter == _ManagementFilter.unmanaged && managed) {
-        return false;
-      }
-      if (_managementFilter == _ManagementFilter.managed && !managed) {
-        return false;
-      }
+            final managed = widget.activityStore.hasActivity(company.id);
+            if (_managementFilter == _ManagementFilter.unmanaged && managed) {
+              return false;
+            }
+            if (_managementFilter == _ManagementFilter.managed && !managed) {
+              return false;
+            }
 
-      if (_onlyPriority && company.internalPotential < 0.75) return false;
+            if (_onlyPriority && company.internalPotential < 0.75) return false;
 
-      return true;
-    }).toList()
-      ..sort((a, b) => b.internalPotential.compareTo(a.internalPotential));
+            return true;
+          }).toList()
+          ..sort((a, b) => b.internalPotential.compareTo(a.internalPotential));
 
     return companies;
   }
@@ -267,9 +262,7 @@ class _CompaniesScreenState extends State<CompaniesScreen> {
                         Expanded(
                           child: Text(
                             'Cuentas',
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineSmall
+                            style: Theme.of(context).textTheme.headlineSmall
                                 ?.copyWith(fontWeight: FontWeight.w900),
                           ),
                         ),
@@ -293,7 +286,7 @@ class _CompaniesScreenState extends State<CompaniesScreen> {
                     TextField(
                       onChanged: (value) => setState(() => _query = value),
                       decoration: const InputDecoration(
-                        hintText: 'Buscar empresa, RUC, sector o actividad',
+                        hintText: 'Empresa, RUC, distrito o sector',
                         prefixIcon: Icon(Icons.search_rounded),
                       ),
                     ),
@@ -315,8 +308,7 @@ class _CompaniesScreenState extends State<CompaniesScreen> {
                     : ListView.separated(
                         padding: const EdgeInsets.all(16),
                         itemCount: companies.length,
-                        separatorBuilder: (_, _) =>
-                            const SizedBox(height: 10),
+                        separatorBuilder: (_, _) => const SizedBox(height: 10),
                         itemBuilder: (context, index) {
                           final company = companies[index];
                           final latest = widget.activityStore.latestFor(

@@ -40,7 +40,8 @@ class _MapScreenState extends State<MapScreen> {
   LatLng? _userLocation;
   double _zoom = 13.4;
   bool _followUser = true;
-  bool _exploring = false;
+  LatLngBounds? _visibleBounds;
+  Timer? _searchDebounce;
   bool _locationUnavailable = false;
   String _query = '';
   Company? _selected;
@@ -54,6 +55,8 @@ class _MapScreenState extends State<MapScreen> {
   @override
   void dispose() {
     _positionSubscription?.cancel();
+    _searchDebounce?.cancel();
+    _mapController.dispose();
     super.dispose();
   }
 
@@ -100,24 +103,33 @@ class _MapScreenState extends State<MapScreen> {
     });
   }
 
-  List<RankedCompany> _ranked() =>
-      _ranking.rank(widget.companies, _anchor, query: _query);
-
   List<RankedCompany> _candidates() {
-    final radius = _ranking.radiusForZoom(_zoom);
-
-    return _ranked()
-        .where((item) => item.distanceKm <= radius)
-        .take(90)
-        .toList(growable: false);
+    final bounds = _visibleBounds;
+    if (bounds == null) return const [];
+    return _ranking.rankVisible(widget.companies, bounds, query: _query);
   }
 
-  void _searchCurrentMapCenter() {
+  void _searchCompanies(String value) {
     setState(() {
-      _anchor = _mapController.camera.center;
-      _exploring = false;
-      _followUser = false;
+      _query = value;
       _selected = null;
+    });
+    _searchDebounce?.cancel();
+    if (value.trim().isEmpty) return;
+    _searchDebounce = Timer(const Duration(milliseconds: 350), () {
+      if (!mounted) return;
+      final matches = _ranking.rank(widget.companies, _anchor, query: value);
+      if (matches.isEmpty) return;
+      _followUser = false;
+      _mapController.fitCamera(
+        CameraFit.bounds(
+          bounds: LatLngBounds.fromPoints(
+            matches.map((x) => x.company.point).toList(),
+          ),
+          padding: const EdgeInsets.fromLTRB(30, 30, 30, 180),
+          maxZoom: 15,
+        ),
+      );
     });
   }
 
@@ -132,7 +144,6 @@ class _MapScreenState extends State<MapScreen> {
     setState(() {
       _anchor = userLocation;
       _followUser = true;
-      _exploring = false;
       _selected = null;
       _zoom = 14;
     });
@@ -173,16 +184,7 @@ class _MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
     final candidates = _candidates();
-    final featured = candidates
-        .where((item) => item.company.hasReliableCoordinates)
-        .take(3)
-        .toList(growable: false);
-    final featuredIds = featured.map((item) => item.company.id).toSet();
-    final regular = candidates
-        .where((item) => !featuredIds.contains(item.company.id))
-        .toList(growable: false);
-
-    final regularMarkers = regular
+    final regularMarkers = candidates
         .map(
           (item) => Marker(
             key: ValueKey(item.company.id),
@@ -211,141 +213,121 @@ class _MapScreenState extends State<MapScreen> {
         )
         .toList(growable: false);
 
-    final featuredMarkers = featured
-        .map(
-          (item) => Marker(
-            key: ValueKey('featured-${item.company.id}'),
-            point: item.company.point,
-            width: 48,
-            height: 54,
-            child: GestureDetector(
-              onTap: () => setState(() => _selected = item.company),
-              child: const Icon(
-                Icons.location_on,
-                color: NexoColors.orange,
-                size: 48,
-                shadows: [Shadow(color: Color(0x44000000), blurRadius: 6)],
-              ),
-            ),
-          ),
-        )
-        .toList(growable: false);
-
-    return Stack(
+    return Column(
       children: [
-        FlutterMap(
-          mapController: _mapController,
-          options: MapOptions(
-            initialCenter: _fallback,
-            initialZoom: _zoom,
-            minZoom: 5,
-            maxZoom: 19,
-            onPositionChanged: (camera, hasGesture) {
-              _zoom = camera.zoom;
-
-              if (hasGesture && !_exploring) {
-                setState(() {
-                  _exploring = true;
-                  _followUser = false;
-                  _selected = null;
-                });
-              }
-            },
-          ),
-          children: [
-            TileLayer(
-              urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-              userAgentPackageName: 'pe.nexoindustrial.app',
-            ),
-            MarkerClusterLayerWidget(
-              options: MarkerClusterLayerOptions(
-                maxClusterRadius: 54,
-                size: const Size(46, 46),
-                markers: regularMarkers,
-                builder: (context, markers) {
-                  return Container(
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: NexoColors.mint,
-                      shape: BoxShape.circle,
-                      border: Border.all(color: Colors.white, width: 3),
-                      boxShadow: const [
-                        BoxShadow(color: Color(0x25000000), blurRadius: 10),
-                      ],
-                    ),
-                    child: Text(
-                      '${markers.length}',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
-            MarkerLayer(markers: featuredMarkers),
-            if (_userLocation != null)
-              MarkerLayer(
-                markers: [
-                  Marker(
-                    point: _userLocation!,
-                    width: 28,
-                    height: 28,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: NexoColors.blue,
-                        shape: BoxShape.circle,
-                        border: Border.all(color: Colors.white, width: 4),
-                        boxShadow: const [
-                          BoxShadow(color: Color(0x33000000), blurRadius: 8),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-          ],
-        ),
         _MapHeader(
           locationUnavailable: _locationUnavailable,
-          onQueryChanged: (value) => setState(() {
-            _query = value;
-            _selected = null;
-          }),
+          onQueryChanged: _searchCompanies,
           onListTap: () => _openNearbyList(_candidates()),
           onRetryLocation: _startLocation,
+          visibleCount: candidates.length,
+          totalCount: widget.companies.length,
         ),
-        if (_exploring)
-          Positioned(
-            top: 162,
-            left: 0,
-            right: 0,
-            child: Center(
-              child: FilledButton.icon(
-                onPressed: _searchCurrentMapCenter,
-                icon: const Icon(Icons.search_rounded, size: 18),
-                label: const Text('Buscar en esta zona'),
+        Expanded(
+          child: Stack(
+            children: [
+              FlutterMap(
+                mapController: _mapController,
+                options: MapOptions(
+                  initialCenter: _fallback,
+                  initialZoom: _zoom,
+                  minZoom: 5,
+                  maxZoom: 19,
+                  onMapReady: () => setState(() {
+                    _visibleBounds = _mapController.camera.visibleBounds;
+                  }),
+                  onPositionChanged: (camera, hasGesture) {
+                    setState(() {
+                      _zoom = camera.zoom;
+                      _visibleBounds = camera.visibleBounds;
+                      if (hasGesture) {
+                        _followUser = false;
+                        _selected = null;
+                      }
+                    });
+                  },
+                ),
+                children: [
+                  TileLayer(
+                    urlTemplate:
+                        'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                    userAgentPackageName: 'pe.nexoindustrial.app',
+                  ),
+                  MarkerClusterLayerWidget(
+                    options: MarkerClusterLayerOptions(
+                      maxClusterRadius: 54,
+                      size: const Size(46, 46),
+                      markers: regularMarkers,
+                      builder: (context, markers) {
+                        return Container(
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: NexoColors.mint,
+                            shape: BoxShape.circle,
+                            border: Border.all(color: Colors.white, width: 3),
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Color(0x25000000),
+                                blurRadius: 10,
+                              ),
+                            ],
+                          ),
+                          child: Text(
+                            '${markers.length}',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  if (_userLocation != null)
+                    MarkerLayer(
+                      markers: [
+                        Marker(
+                          point: _userLocation!,
+                          width: 28,
+                          height: 28,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: NexoColors.blue,
+                              shape: BoxShape.circle,
+                              border: Border.all(color: Colors.white, width: 4),
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: Color(0x33000000),
+                                  blurRadius: 8,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                ],
               ),
-            ),
+              Positioned(
+                right: 16,
+                bottom: 180,
+                child: FloatingActionButton.small(
+                  heroTag: 'my-location',
+                  onPressed: _returnToUser,
+                  backgroundColor: Colors.white,
+                  foregroundColor: NexoColors.navy,
+                  child: const Icon(Icons.my_location_rounded),
+                ),
+              ),
+              _OpportunitySheet(
+                candidates: candidates.take(6).toList(growable: false),
+                selected: _selected,
+                onCloseSelected: () => setState(() => _selected = null),
+                onOpenCompany: _openCompany,
+                onOpenList: () => _openNearbyList(_candidates()),
+              ),
+            ],
           ),
-        Positioned(
-          right: 16,
-          bottom: 180,
-          child: FloatingActionButton.small(
-            heroTag: 'my-location',
-            onPressed: _returnToUser,
-            backgroundColor: Colors.white,
-            foregroundColor: NexoColors.navy,
-            child: const Icon(Icons.my_location_rounded),
-          ),
-        ),
-        _OpportunitySheet(
-          candidates: candidates.take(6).toList(growable: false),
-          selected: _selected,
-          onCloseSelected: () => setState(() => _selected = null),
-          onOpenCompany: _openCompany,
-          onOpenList: () => _openNearbyList(_candidates()),
         ),
       ],
     );
@@ -358,9 +340,13 @@ class _MapHeader extends StatelessWidget {
     required this.onQueryChanged,
     required this.onListTap,
     required this.onRetryLocation,
+    required this.visibleCount,
+    required this.totalCount,
   });
 
   final bool locationUnavailable;
+  final int visibleCount;
+  final int totalCount;
   final ValueChanged<String> onQueryChanged;
   final VoidCallback onListTap;
   final VoidCallback onRetryLocation;
@@ -370,9 +356,9 @@ class _MapHeader extends StatelessWidget {
     return SafeArea(
       bottom: false,
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(14, 10, 14, 0),
+        padding: const EdgeInsets.fromLTRB(12, 4, 12, 8),
         child: Container(
-          padding: const EdgeInsets.fromLTRB(14, 12, 14, 14),
+          padding: const EdgeInsets.fromLTRB(12, 6, 12, 8),
           decoration: BoxDecoration(
             gradient: const LinearGradient(
               colors: [NexoColors.navy, NexoColors.teal],
@@ -398,7 +384,7 @@ class _MapHeader extends StatelessWidget {
                       'Nexo Industrial',
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 20,
+                        fontSize: 18,
                         fontWeight: FontWeight.w800,
                       ),
                     ),
@@ -414,7 +400,7 @@ class _MapHeader extends StatelessWidget {
               TextField(
                 onChanged: onQueryChanged,
                 decoration: const InputDecoration(
-                  hintText: 'Buscar empresa o RUC',
+                  hintText: 'Empresa, RUC o distrito',
                   prefixIcon: Icon(Icons.search_rounded),
                   isDense: true,
                 ),
@@ -422,7 +408,12 @@ class _MapHeader extends StatelessWidget {
               const SizedBox(height: 10),
               Row(
                 children: [
-                  const Expanded(child: _PriorityChip()),
+                  Expanded(
+                    child: Text(
+                      '$visibleCount en esta zona · $totalCount cuentas',
+                      style: const TextStyle(color: Colors.white, fontSize: 12),
+                    ),
+                  ),
                   if (locationUnavailable) ...[
                     const SizedBox(width: 8),
                     IconButton(
@@ -439,38 +430,6 @@ class _MapHeader extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class _PriorityChip extends StatelessWidget {
-  const _PriorityChip();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 9),
-      decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.12),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: const Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(Icons.auto_awesome_rounded, color: Colors.white, size: 17),
-          SizedBox(width: 7),
-          Flexible(
-            child: Text(
-              'Priorizar: mayor potencial comercial',
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }
@@ -646,9 +605,7 @@ class _NearbyOpportunities extends StatelessWidget {
           children: [
             Expanded(
               child: Text(
-                candidates.any((item) => item.company.canUseDistanceForRanking)
-                    ? 'Oportunidades cerca de ti'
-                    : 'Oportunidades en esta zona',
+                'Empresas en esta zona',
                 style: Theme.of(
                   context,
                 ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w800),
@@ -661,7 +618,7 @@ class _NearbyOpportunities extends StatelessWidget {
           const Padding(
             padding: EdgeInsets.symmetric(vertical: 24),
             child: Text(
-              'No hay cuentas confiables en esta zona con los filtros actuales.',
+              'No hay cuentas en el área visible con esta búsqueda. Desplaza el mapa o busca otra empresa o distrito.',
               style: TextStyle(color: NexoColors.muted),
             ),
           )

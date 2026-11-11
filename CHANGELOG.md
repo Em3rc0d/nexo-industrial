@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.2+5 — 2026-11-10
+
+- Show every account in the current map viewport, removing the 90-account cap and fixed anchor radius.
+- Search districts/provinces globally, with accent-insensitive matching, and frame map results.
+- Separate header from map, cluster all company markers and show area/total counts.
+- Verify Callao and southern coverage against the production dataset (9 Flutter tests pass).
+- Rebuild release locally and verify identical production assets; geographic quality remains 370 direct / 1,537 address searches.
+
 ## 1.0.1+4 — 2026-11-10
 
 - Restored the required commercial overlay for all 1,907 accounts from the hash-verified snapshot master.

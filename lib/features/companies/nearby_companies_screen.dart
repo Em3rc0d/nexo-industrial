@@ -49,7 +49,7 @@ class _NearbyCompaniesScreenState extends State<NearbyCompaniesScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Empresas cercanas',
+          'Empresas en esta zona',
           style: TextStyle(fontWeight: FontWeight.w800),
         ),
       ),

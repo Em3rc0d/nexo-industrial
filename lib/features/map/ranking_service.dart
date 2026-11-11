@@ -1,4 +1,5 @@
 import 'package:latlong2/latlong.dart';
+import 'package:flutter_map/flutter_map.dart';
 
 import '../companies/domain/company.dart';
 
@@ -22,18 +23,10 @@ class CompanyRankingService {
     LatLng anchor, {
     String query = '',
   }) {
-    final normalizedQuery = query.trim().toLowerCase();
     const distance = Distance();
 
     final ranked = companies
-        .where((company) {
-          if (normalizedQuery.isEmpty) return true;
-
-          return company.name.toLowerCase().contains(normalizedQuery) ||
-              company.ruc.toLowerCase().contains(normalizedQuery) ||
-              company.sector.toLowerCase().contains(normalizedQuery) ||
-              company.activity.toLowerCase().contains(normalizedQuery);
-        })
+        .where((company) => company.matchesQuery(query))
         .map((company) {
           final distanceKm = distance.as(
             LengthUnit.Kilometer,
@@ -85,11 +78,15 @@ class CompanyRankingService {
     return ranked;
   }
 
-  double radiusForZoom(double zoom) {
-    if (zoom >= 16) return 1.5;
-    if (zoom >= 14) return 3.5;
-    if (zoom >= 12) return 7;
-    if (zoom >= 10) return 14;
-    return 24;
-  }
+  /// Display every account in the viewport. Ranking orders; it never hides
+  /// geographic coverage behind a radius or a top-N commercial cutoff.
+  List<RankedCompany> rankVisible(
+    List<Company> companies,
+    LatLngBounds bounds, {
+    String query = '',
+  }) => rank(
+    companies.where((company) => bounds.contains(company.point)).toList(),
+    bounds.center,
+    query: query,
+  );
 }

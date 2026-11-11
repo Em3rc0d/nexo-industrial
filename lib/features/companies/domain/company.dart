@@ -249,6 +249,37 @@ class Company {
   final String? locationDepartment;
   final String? managementStatus;
 
+  bool matchesQuery(String query) {
+    String normalize(String value) {
+      var result = value.trim().toLowerCase();
+      const accents = {
+        'á': 'a',
+        'é': 'e',
+        'í': 'i',
+        'ó': 'o',
+        'ú': 'u',
+        'ü': 'u',
+      };
+      for (final entry in accents.entries) {
+        result = result.replaceAll(entry.key, entry.value);
+      }
+      return result;
+    }
+
+    final term = normalize(query);
+    if (term.isEmpty) return true;
+    return [
+      name,
+      ruc,
+      sector,
+      activity,
+      address,
+      locationDistrict ?? '',
+      locationProvince ?? '',
+      locationDepartment ?? '',
+    ].any((value) => normalize(value).contains(term));
+  }
+
   LatLng get point => LatLng(latitude, longitude);
 
   bool get hasMapCoordinates =>
@@ -308,17 +339,15 @@ class Company {
   Uri get googleMapsDirectionsUri => Uri.https(
     'www.google.com',
     '/maps/dir/',
-    <String, String>{
-      'api': '1',
-      'destination': '$latitude,$longitude',
-    },
+    <String, String>{'api': '1', 'destination': '$latitude,$longitude'},
   );
 
   String get locationActionLabel =>
       navigationEligible ? 'Cómo llegar' : 'Buscar en Maps';
 
-  String get addressTypeLabel =>
-      verifiedHqAddress?.isNotEmpty == true ? 'HQ verificada' : 'Domicilio fiscal';
+  String get addressTypeLabel => verifiedHqAddress?.isNotEmpty == true
+      ? 'HQ verificada'
+      : 'Domicilio fiscal';
 
   String get locationLabel => switch (locationQuality) {
     LocationQuality.exactAddress =>
@@ -373,7 +402,8 @@ class Company {
         ? (geography['location_quality'] ?? geography['precision']) as String?
         : json['location_quality'] as String?;
     final confidenceRaw = isProductionShape
-        ? (geography['location_confidence'] ?? geography['precision']) as String?
+        ? (geography['location_confidence'] ?? geography['precision'])
+              as String?
         : json['location_confidence'] as String?;
 
     final contactJson =
@@ -415,10 +445,10 @@ class Company {
       internalPotential: json['internal_potential'] != null
           ? (json['internal_potential'] as num).toDouble()
           : ((commercialJson?['score'] ?? json['score']) as num?)?.toDouble() !=
-                    null
-                ? ((commercialJson?['score'] ?? json['score']) as num).toDouble() /
-                      100
-                : 0,
+                null
+          ? ((commercialJson?['score'] ?? json['score']) as num).toDouble() /
+                100
+          : 0,
       auroraProducts: List<String>.from(
         json['aurora_products'] as List<dynamic>? ?? const [],
       ),
