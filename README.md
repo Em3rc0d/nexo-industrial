@@ -121,3 +121,11 @@ La investigación de teléfonos/emails empresariales en otros tres lotes permane
 Se documenta una investigación pasiva adicional de CMH, Catalina Huanca, Raura, SFP, Las Bambas y Ares sin enviar emails, mensajes, conexiones, llamadas ni formularios. El sitio oficial de CMH publica portal eBIZ de proveedores: `https://ebiz.pe/proveedores-cmh/`; su teléfono/email quedaron como descubrimiento staged, no como aumento comprobado de cobertura productiva.
 
 Ver `docs/PEOPLE_ENRICHMENT_2026-11-11.md` y `docs/CONTACT_ENRICHMENT_2026-11-11.md`. Se requiere `flutter analyze`, `flutter test` y compilación local antes de otra APK.
+
+## Avance de investigación de contactos — 11/11/2026 (NO aplicado a APK)
+
+Hay 7 lotes de investigación pública guardados en `data/contact_enrichment/`, incluido el último sobre Tecnomin Data, Explo Drilling, SEA, Los Quenuales, OREX, TPE Paita y Paltarumi. Se revisaron **69 RUC**; **38** tienen nuevos teléfonos/emails publicados y **5** adicionales únicamente página o portal oficial, mientras **1** (CMH) ya tenía ambos canales en el asset base. Los 25 restantes no tuvieron nuevos canales promocionables.
+
+**El asset/manifest productivo permanece en 267 RUC con teléfono, 157 con email y 270 con cualquiera.** Con los lotes pendientes de reconstrucción, la cobertura **proyectada, no validada en la APK**, es de **289** con teléfono, **172** con email, **295** con alguno de ambos y **300** incluyendo portales; restarían **1,612** RUC sin teléfono/email.
+
+Detalle, evidencias, política de exclusiones y gate de reconstrucción: `docs/CONTACT_ENRICHMENT_2026-11-11.md` y `data/contact_enrichment/staged_status_2026-11-11.json`. No se ha llamado, escrito, enviado formulario ni solicitado conexión a ningún prospecto.
