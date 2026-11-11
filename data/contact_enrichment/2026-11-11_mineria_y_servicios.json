@@ -1,0 +1,149 @@
+{
+  "scope": "Third review from the existing 1637 RUC pending queue; mining and energy service contractors, matched by legal identity and/or group operation, no new accounts",
+  "reviewed_on": "2026-11-11",
+  "records": [
+    {
+      "ruc": "20600020022",
+      "phone": "+51 1 615 4900",
+      "email": null,
+      "website": "https://kolpa.com.pe/",
+      "contact_page": "https://kolpa.com.pe/contacto",
+      "source_url": "https://kolpa.com.pe/contacto",
+      "identity_source": "https://kolpa.com.pe/",
+      "linkage": "Official Compañía Minera Kolpa contact publishes Lima office Calle Independencia 452 Miraflores; name matches RUC 20600020022",
+      "channel_purpose": "general_office",
+      "source_type": "official_company_site",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "notes": "Website lists recruitment/logistics/legal email fields as web-obfuscated; no guessed email. Contact page is not a supplier application."
+    },
+    {
+      "ruc": "20258699239",
+      "phone": "+51 1 500 8900",
+      "email": "compras1@sotrami.com.pe; contacto@sotrami.com.pe",
+      "website": "https://www.minerasotrami.com.pe/",
+      "contact_page": "https://www.minerasotrami.com.pe/formulario-2/",
+      "source_url": "https://www.minerasotrami.com.pe/formulario-2/",
+      "email_source_url": "https://pe.linkedin.com/in/luis-enrique-z%C3%A1rate-t%C3%A1cunan-965136164",
+      "identity_source": "https://ww1.sunat.gob.pe/descarga/AgentRet/AgenRet232.html",
+      "linkage": "Official Minera Sotrami S.A. site publishes phone/general email; public procurement employee post explicitly states RUC 20258699239 and requests quotations to compras1@sotrami.com.pe",
+      "channel_purpose": "purchasing_public_request_and_general",
+      "source_type": "official_company_site_and_public_procurement_employee_post",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "notes": "Compras address published by employee in equipment rental sourcing post; suitability for paint inquiries and current procurement vacancy not confirmed. Recruitment email excluded."
+    },
+    {
+      "ruc": "20504898173",
+      "phone": "+51 1 201 6870",
+      "email": "sepconperu@sepcon.net",
+      "website": "https://sepcon.net/",
+      "contact_page": "https://sepcon.net/contactanos/",
+      "source_url": "https://sepcon.net/contactanos/",
+      "identity_source": "https://www.datosperu.org/empresa-servicios-petroleros-y-construcciones-sepcon-sac-20504898173.php",
+      "linkage": "Official SEPCON Peru contact address Av. San Borja Norte 445 matches 20504898173 SUNAT fiscal address and business identity",
+      "channel_purpose": "general_corporate",
+      "source_type": "official_company_site",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "notes": "Peru general commercial contact, not direct buyer or purchaser. Regional subsidiary mailboxes excluded."
+    },
+    {
+      "ruc": "20536126440",
+      "phone": "+51 1 650 0300",
+      "email": null,
+      "website": "https://www.vetadorada.pe/",
+      "contact_page": "https://www.vetadorada.pe/",
+      "source_url": "https://www.vetadorada.pe/",
+      "identity_source": "https://canadaperu.org/partner/minera-veta-dorada-sac",
+      "linkage": "Official Veta Dorada site shows same San Isidro business address and phone as Canada-Peru chamber RUC 20536126440 profile",
+      "channel_purpose": "corporate_switchboard",
+      "source_type": "official_site_plus_business_chamber",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "notes": "Chamber provides extension 178; general phone published, purchasing role not corroborated.",
+      "additional_phones": [
+        "+51 1 650 0300 anexo 178"
+      ]
+    },
+    {
+      "ruc": "20506285314",
+      "phone": null,
+      "email": "contacto@miskimayo.com",
+      "website": "https://www.miskimayo.com/",
+      "contact_page": "https://www.miskimayo.com/",
+      "source_url": "https://energiminas.com/wp-content/uploads/2025/03/energiminas-117-directorio-2025-2.pdf",
+      "identity_source": "https://www.miskimayo.com/",
+      "linkage": "2025 industry corporate directory explicitly identifies Miski Mayo mining entity and Calle Dionisio Derteano 184 office 301 San Isidro; public RUC 20506285314 matches legal Compañía Minera Miski Mayo S.R.L.",
+      "channel_purpose": "general_email_published_2025",
+      "source_type": "mining_industry_directory_2025",
+      "source_published": "2025-03",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "notes": "Industry directory dated March 2025, not revalidated through current official company site. Source also publishes named supply manager; preserve as historical professional reference rather than unqualified/current buyer.",
+      "historical_professional_contacts": [
+        {
+          "name": "Napoleón Ruiz Torrejón",
+          "role": "Gerente de Suministros y Almacén",
+          "email": "napoleon.ruiz@miskimayo.com",
+          "phone": "+51 989 246 432",
+          "source_published": "2025-03",
+          "verification_status": "role_and_reachability_unconfirmed_2026"
+        }
+      ]
+    },
+    {
+      "ruc": "20546191541",
+      "phone": "+51 1 618 9700",
+      "email": null,
+      "website": "https://panamericansilver.com/",
+      "contact_page": "https://panamericansilver.com/es/about/contact/",
+      "source_url": "https://panamericansilver.com/es/about/contact/",
+      "identity_source": "https://panamericansilver.com/es/operations/silver-segment/huaron/",
+      "linkage": "Official Pan American Silver site identifies Huaron as its mine and publishes Peru group office phone; RUC 20546191541 is Pan American Silver Huaron S.A. fiscal address Av La Floresta 497 San Borja",
+      "channel_purpose": "shared_group_switchboard_not_direct_subsidiary",
+      "source_type": "official_group_site_plus_sunat_identity",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "notes": "Parent group's Peru switchboard, not direct Huaron buyer number or confirmation of procurement."
+    },
+    {
+      "ruc": "20505792042",
+      "phone": "+51 1 618 9700",
+      "email": null,
+      "website": "https://panamericansilver.com/",
+      "contact_page": "https://panamericansilver.com/es/about/contact/",
+      "source_url": "https://panamericansilver.com/es/about/contact/",
+      "identity_source": "https://panamericansilver.com/es/operations/gold-segment/shahuindo/",
+      "linkage": "Pan American Silver official operations site claims Shahuindo gold mine and same group phone; RUC 20505792042 legal Shahuindo SAC and San Borja address linked in public SUNAT listings",
+      "channel_purpose": "shared_group_switchboard_not_direct_subsidiary",
+      "source_type": "official_group_site_plus_sunat_identity",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "notes": "Parent group's Peru switchboard, not a Shahuindo-specific line or confirmed procurement. Same group phone also appears for Huaron; separate RUC rows remain distinct."
+    }
+  ],
+  "reviews": [
+    {
+      "ruc": "20392776975",
+      "status": "restricted_purpose_channel_only",
+      "source_url": "https://www.shouxin.com.pe/relacionesComunitarias.php",
+      "reviewed_on": "2026-11-11",
+      "notes": "Company domain shows canaldedenuncias@shouxin.com.pe only for community/ethics complaints; recruiting/privacy email appears elsewhere. Do not promote to corporate or purchasing contact."
+    },
+    {
+      "ruc": "20502765206",
+      "status": "not_found_in_sources_reviewed",
+      "source_url": "https://www.google.com/search?q=%2220502765206%22+Minera+Tauro+contacto",
+      "reviewed_on": "2026-11-11",
+      "notes": "No independent official public business contact confirmed in inspected search results; not promoted."
+    },
+    {
+      "ruc": "20548379840",
+      "status": "no_public_contact_confirmed",
+      "source_url": "https://elruc.pe/ruc/20548379840-paltarumi-sociedad-anonima-cerrada-paltarumi-s-a-c",
+      "reviewed_on": "2026-11-11",
+      "notes": "RUC and facility verified from SUNAT/gov sources, but no unambiguous official public business phone or email surfaced; not promoted."
+    }
+  ]
+}
