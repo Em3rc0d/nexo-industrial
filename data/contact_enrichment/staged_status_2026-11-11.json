@@ -1,0 +1,65 @@
+{
+  "as_of": "2026-11-11",
+  "stage": "research_committed_not_rebuilt_into_production_asset_or_apk",
+  "master_account_count": 1907,
+  "baseline_applied_asset": {
+    "with_phone": 267,
+    "with_email": 157,
+    "with_phone_or_email": 270,
+    "with_phone_email_or_reviewed_page": 272,
+    "without_phone_or_email": 1637
+  },
+  "additional_research_batches": [
+    {
+      "path": "data/contact_enrichment/2026-11-11_lima_mineria.json",
+      "reviewed": 16,
+      "accepted_with_any": 9,
+      "accepted_web_only": 1,
+      "rejected_or_pending": 6,
+      "with_phone": 8,
+      "with_email": 4
+    },
+    {
+      "path": "data/contact_enrichment/2026-11-11_mineria_y_servicios.json",
+      "reviewed": 10,
+      "accepted_with_any": 7,
+      "accepted_web_only": 0,
+      "rejected_or_pending": 3,
+      "with_phone": 6,
+      "with_email": 3
+    },
+    {
+      "path": "data/contact_enrichment/2026-11-11_mineria_proveedores_grupos.json",
+      "reviewed": 5,
+      "accepted_with_any": 4,
+      "accepted_web_only": 0,
+      "rejected_or_pending": 1,
+      "with_phone": 4,
+      "with_email": 3
+    }
+  ],
+  "combined_if_rebuilt_and_verified": {
+    "with_phone": 285,
+    "with_email": 167,
+    "with_phone_or_email": 290,
+    "with_phone_email_or_reviewed_page": 293,
+    "without_phone_or_email": 1617
+  },
+  "total_reviewed_all_batches": 55,
+  "total_new_any_contact_all_batches": 33,
+  "total_new_web_only_all_batches": 3,
+  "total_reviewed_without_promoted_channel_all_batches": 19,
+  "count_scope": "by unique RUC, not unique phone numbers; group switchboards can recur on multiple distinct existing subsidiaries",
+  "required_next_actions": [
+    "regenerate commercial overlay with tool/recover_commercial_overlay.py",
+    "validate result and expected RUC counts",
+    "update production manifest and tests against audited built asset",
+    "run flutter analyze, test and build before asserting APK coverage"
+  ],
+  "caveats": [
+    "Publicly published channels, not live delivery or buyer verification",
+    "2025 mining-directory personnel contacts are historical professional references, not current verified buyer contacts",
+    "Shared group switchboards must remain explicitly labeled as group-wide",
+    "No new companies added; only existing RUCs enriched"
+  ]
+}
