@@ -41,6 +41,10 @@ Estado del 9 de noviembre de 2026:
 
 El 100% de cobertura geográfica no equivale a 100% de puertas exactas.
 
+Snapshot completo de recuperación (masters, XLSX, checkpoints, auditorías y patches):
+
+`data/snapshots/2026-11-10/MANIFEST.md`
+
 ## Stack
 
 - Flutter 3.47+ / Dart 3.12+
