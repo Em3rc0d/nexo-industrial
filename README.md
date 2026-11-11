@@ -112,7 +112,7 @@ Estos cambios corresponden al código/datos de 1.0.4+7. La APK 1.0.3+6 entregada
 
 ## Personas clave — piloto 11/11/2026 (código, APK pendiente)
 
-La ficha de siete empresas del master incorpora **11 referencias profesionales públicas** de compras, logística y abastecimiento. La fuente única es `data/people_enrichment/2026-11-11_mining_people.json`, enlazada por RUC. Incluye LinkedIn, evidencia, estado temporal y advertencias cuando no se confirma el cargo vigente. Ninguna identidad se suma como teléfono/email directo. Hay **0 números telefónicos individuales y 0 correos personales/laborales directos verificados** en este piloto.
+La ficha de quince empresas del master incorpora **25 referencias profesionales públicas** de compras, logística y abastecimiento. La fuente única es `data/people_enrichment/2026-11-11_mining_people.json`, enlazada por RUC. Incluye LinkedIn, evidencia, estado temporal y advertencias cuando no se confirma el cargo vigente. Ninguna identidad se suma como teléfono/email directo. Hay **0 números individuales verificados**; se conserva **1 correo laboral público dirigido a proveedores** con vigencia pendiente de reconfirmación. No se añade al contador de contacto directo de la empresa.
 
 El campo `workers_sunat` del perfil comercial y cualquier recuento de perfiles de LinkedIn representan conceptos distintos; un perfil no acredita nómina vigente ni teléfono.
 
