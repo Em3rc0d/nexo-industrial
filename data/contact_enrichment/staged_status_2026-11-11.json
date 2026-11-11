@@ -36,20 +36,49 @@
       "rejected_or_pending": 1,
       "with_phone": 4,
       "with_email": 3
+    },
+    {
+      "path": "data/contact_enrichment/2026-11-11_cmh_public_contact.json",
+      "reviewed": 1,
+      "accepted_with_any": 0,
+      "accepted_web_only": 0,
+      "rejected_or_pending": 0,
+      "with_phone": 0,
+      "with_email": 0,
+      "already_present_in_baseline": 1,
+      "note": "Official CMH contact evidence only; baseline commercial overlay ALREADY has both phone and email for this RUC"
+    },
+    {
+      "path": "data/contact_enrichment/2026-11-11_contratistas_directos_y_portales.json",
+      "reviewed": 11,
+      "accepted_with_any": 3,
+      "accepted_web_only": 2,
+      "rejected_or_pending": 6,
+      "with_phone": 3,
+      "with_email": 3
+    },
+    {
+      "path": "data/contact_enrichment/2026-11-11_paita_y_paltarumi.json",
+      "reviewed": 2,
+      "accepted_with_any": 2,
+      "accepted_web_only": 0,
+      "rejected_or_pending": 0,
+      "with_phone": 1,
+      "with_email": 2
     }
   ],
   "combined_if_rebuilt_and_verified": {
-    "with_phone": 285,
-    "with_email": 167,
-    "with_phone_or_email": 290,
-    "with_phone_email_or_reviewed_page": 293,
-    "without_phone_or_email": 1617
+    "with_phone": 289,
+    "with_email": 172,
+    "with_phone_or_email": 295,
+    "with_phone_email_or_reviewed_page": 300,
+    "without_phone_or_email": 1612
   },
-  "total_reviewed_all_batches": 55,
-  "total_new_any_contact_all_batches": 33,
-  "total_new_web_only_all_batches": 3,
-  "total_reviewed_without_promoted_channel_all_batches": 19,
-  "count_scope": "by unique RUC, not unique phone numbers; group switchboards can recur on multiple distinct existing subsidiaries",
+  "total_reviewed_all_batches": 69,
+  "total_new_any_contact_all_batches": 38,
+  "total_new_web_only_all_batches": 5,
+  "total_reviewed_without_promoted_channel_all_batches": 25,
+  "count_scope": "by unique RUC, not distinct phone number or email string. Source batches may include group-wide channels and aliases. The after-rebuild values are projections only; not current production/app coverage.",
   "required_next_actions": [
     "regenerate commercial overlay with tool/recover_commercial_overlay.py",
     "validate result and expected RUC counts",
@@ -61,13 +90,16 @@
     "2025 mining-directory personnel contacts are historical professional references, not current verified buyer contacts",
     "Shared group switchboards must remain explicitly labeled as group-wide",
     "No new companies added; only existing RUCs enriched",
-    "New CMH public contact does not alter published coverage until deduplication and rebuild"
+    "New CMH public contact does not alter published coverage until deduplication and rebuild",
+    "2026-11-11 Paita phone and customer-service email are commercial/customer channels, NOT a supplier procurement contact",
+    "Paltarumi general public info email is not an invitation or known demand for industrial coatings",
+    "All seven contact research batches have disjoint accepted RUC records; 44 accepted unique RUC; any unique additional coverage estimates need deterministic asset rebuild"
   ],
   "research_only_additional_public_contact": {
     "ruc": "20136150473",
     "source_batch": "data/contact_enrichment/2026-11-11_cmh_public_contact.json",
     "scope": "Official general business channels and CMH/eBIZ supplier registration page",
-    "already_counted_in_metrics": "unknown_until_rebuild",
+    "already_counted_in_metrics": "verified_already_both_phone_and_email_present_in_base_asset",
     "outreach_performed": false
   },
   "people_reference_progress": {
@@ -76,5 +108,19 @@
     "new_batch": "data/people_enrichment/2026-11-11_readonly_pass3.json",
     "applied_to_source_json": true,
     "applied_to_installed_apk": false
+  },
+  "baseline_asset_cmh_check": {
+    "ruc": "20136150473",
+    "phone": "(01) 618-1000",
+    "email": "contacto@cmh.com.pe",
+    "found_both_in_existing_commercial_overlay": true
+  },
+  "outreach_performed": {
+    "emails_sent": 0,
+    "messages_sent": 0,
+    "calls_made": 0,
+    "forms_submitted": 0,
+    "registrations": 0,
+    "linkedin_requests": 0
   }
 }
