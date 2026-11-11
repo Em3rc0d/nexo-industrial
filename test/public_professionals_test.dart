@@ -28,13 +28,13 @@ void main() {
     expect(unsafe.verificationLabel, contains('histórica'));
   });
 
-  test('25 public professionals join 15 unique existing master RUCs', () async {
+  test('33 public professionals join 21 unique existing master RUCs', () async {
     final companies = await const AssetCompanyRepository().loadCompanies();
     expect(companies, hasLength(1907));
     final withPeople = companies.where((c) => c.people.isNotEmpty).toList();
-    expect(withPeople, hasLength(15));
-    expect(withPeople.expand((c) => c.people), hasLength(25));
-    expect(withPeople.map((c) => c.ruc).toSet(), hasLength(15));
+    expect(withPeople, hasLength(21));
+    expect(withPeople.expand((c) => c.people), hasLength(33));
+    expect(withPeople.map((c) => c.ruc).toSet(), hasLength(21));
     expect(
       withPeople.every((c) => c.people.every((p) =>
           p.name.isNotEmpty && p.role.isNotEmpty && p.evidenceUri != null)),
@@ -46,6 +46,22 @@ void main() {
     expect(volcan.people.any((p) => p.name == 'Pieri Maguiña'), isTrue);
     final sotrami = companies.singleWhere((c) => c.ruc == '20258699239');
     expect(sotrami.people, hasLength(2));
+    final cmh = companies.singleWhere((c) => c.ruc == '20136150473');
+    expect(cmh.people, hasLength(2));
+    expect(
+      cmh.people.any((p) => p.name == 'Wendy Vanessa Ramirez Souza'),
+      isTrue,
+    );
+    final catalina = companies.singleWhere((c) => c.ruc == '20509551767');
+    expect(catalina.people, hasLength(2));
+    expect(
+      catalina.people
+          .singleWhere((p) => p.name == 'David Macedo')
+          .isHistorical,
+      isTrue,
+    );
+    final bambas = companies.singleWhere((c) => c.ruc == '20538428524');
+    expect(bambas.people.single.name, 'Hector Janampa');
     final minsur = companies.singleWhere((c) => c.ruc == '20100136741');
     expect(minsur.people.every((p) => p.isHistorical), isTrue);
   });
