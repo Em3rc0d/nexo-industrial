@@ -6,7 +6,7 @@
   "unique_rucs": 1907,
   "fiscal_addresses": 1907,
   "coordinate_coverage": 1907,
-  "coordinate_coverage_percent": 100.0,
+  "coordinate_coverage_percent": 100,
   "navigation_eligible": 370,
   "location_quality": {
     "exact_address": 334,
@@ -33,6 +33,21 @@
   "contact_coverage": {
     "as_of": "2026-11-11",
     "accounts": 1907,
+    "with_phone": 291,
+    "with_email": 174,
+    "with_phone_or_email": 297,
+    "with_phone_email_or_reviewed_contact_page": 302,
+    "without_phone_or_email": 1610,
+    "historical_representative_references": 1907,
+    "people_profiles": 33,
+    "companies_with_people_profiles": 21,
+    "unique_incremental_patch_rucs": 31,
+    "contact_research_batches": 8,
+    "note": "Effective Flutter source-side merge of unchanged compressed base + approved 31-RUC JSON patch. Counts are test expectations/audited research, NOT Android runtime or delivered email verification. Flutter analysis, unit tests and local APK build pending."
+  },
+  "base_commercial_contact_coverage": {
+    "as_of": "2026-11-11",
+    "accounts": 1907,
     "with_phone": 267,
     "with_email": 157,
     "with_phone_or_email": 270,
@@ -40,6 +55,9 @@
     "without_phone_or_email": 1637,
     "historical_representative_references": 1907,
     "new_reviewed_contact_pages": 15,
-    "note": "Published business channels, not delivery/call or buyer verification. Web-only pages and historical representatives are counted separately."
-  }
+    "note": "Coverage inside immutable compressed commercial base only. Does NOT include incremental public contact patch."
+  },
+  "contact_patch": "assets/data/companies.contact.patch.json",
+  "contact_patch_applied_to_source": true,
+  "build_status": "SOURCE_UPDATED_FLUTTER_VALIDATION_AND_APK_PENDING"
 }
