@@ -2,10 +2,10 @@
 
 ## 1.0.4+7 — 2026-11-11 (People overlay in source; no new APK)
 
-- Found 11 distinct public professional references across 7 existing RUCs, focused on purchasing, procurement, logistics and supplier relations. Provenance and role recency retained.
+- Found 25 distinct public professional references across 15 existing RUCs, focused on purchasing, procurement, logistics and supplier relations. Provenance and role recency retained.
 - Added `data/people_enrichment/2026-11-11_mining_people.json` to Flutter bundled assets and a separate People panel inside the business details view, with safe LinkedIn/source links.
-- Kept 2 Minsur historical references explicitly historical. No private telephone numbers or guessed personal emails, no inflated direct-company-contact counts.
-- Added `test/public_professionals_test.dart` for join integrity, safe URLs, historical flags and unchanged phone/email counts.
+- Kept historical references explicitly historical and separated 2 corporate-group contacts from specific subsidiaries. One previous public supplier-facing professional email preserved with revalidation warning; no private phone numbers or guessed emails, no inflated direct-company-contact counts.
+- Extended `test/public_professionals_test.dart` for join integrity, 25 profiles/15 RUC, safe URLs, group association, historical flags, purpose-limited professional email and unchanged company phone/email counts.
 - **Validation gate pending:** Flutter SDK unavailable in the active runtime; code changes have not passed Flutter analysis, Flutter tests or an Android device smoke test. APK remains unchanged.
 
 ## 1.0.4+7 — 2026-11-11 (source/data; APK pending)
