@@ -53,6 +53,17 @@ class CompanyDetailScreen extends StatelessWidget {
     }
   }
 
+  Future<void> _openProfessionalUrl(BuildContext context, Uri uri) async {
+    if (!await launchUrl(uri, mode: LaunchMode.externalApplication) &&
+        context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('No se pudo abrir el enlace profesional.'),
+        ),
+      );
+    }
+  }
+
   Future<void> _openLocation(BuildContext context) async {
     final precise = company.navigationEligible;
     final uri = precise
@@ -353,6 +364,68 @@ class CompanyDetailScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 10),
+          if (company.people.isNotEmpty) ...[
+            _SectionCard(
+              icon: Icons.badge_outlined,
+              title: 'Personas clave · fuentes públicas',
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Perfiles profesionales vinculados al RUC. No equivalen '
+                    'a teléfonos o correos directos ni prueban poder de compra.',
+                    style: TextStyle(color: NexoColors.muted, fontSize: 12),
+                  ),
+                  for (final person in company.people) ...[
+                    const SizedBox(height: 12),
+                    Text(
+                      person.name,
+                      style: const TextStyle(fontWeight: FontWeight.w800),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(person.role),
+                    const SizedBox(height: 4),
+                    Text(
+                      person.verificationLabel,
+                      style: TextStyle(
+                        color: person.isHistorical
+                            ? Colors.orange.shade800
+                            : NexoColors.muted,
+                        fontSize: 12,
+                      ),
+                    ),
+                    Text(
+                      'Revisado: ${person.reviewedOn}',
+                      style: const TextStyle(
+                        color: NexoColors.muted,
+                        fontSize: 12,
+                      ),
+                    ),
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 4,
+                      children: [
+                        if (person.linkedinUri case final uri?)
+                          TextButton.icon(
+                            onPressed: () => _openProfessionalUrl(context, uri),
+                            icon: const Icon(Icons.open_in_new_rounded, size: 16),
+                            label: const Text('LinkedIn'),
+                          ),
+                        if (person.evidenceUri case final evidenceUri?)
+                          TextButton.icon(
+                            onPressed: () =>
+                                _openProfessionalUrl(context, evidenceUri),
+                            icon: const Icon(Icons.fact_check_outlined, size: 16),
+                            label: const Text('Fuente'),
+                          ),
+                      ],
+                    ),
+                  ],
+                ],
+              ),
+            ),
+            const SizedBox(height: 10),
+          ],
           _SectionCard(
             icon: Icons.location_on_outlined,
             title: '¿Dónde está y qué tan precisa es la ubicación?',
