@@ -2,7 +2,7 @@
   "schema_version": 1,
   "as_of": "2026-11-11",
   "base_asset": "assets/data/companies.commercial.overlay.json.gz",
-  "note": "Incremental source-level commercial contact patch. Only RUC already in commercial overlay are eligible; base phone and email never overwritten. Read-only research, no outreach.",
+  "note": "33 deduplicated accepted incremental RUC updates, read-only public contact research. Base 15 approved first-batch RUC remain in original gzip and never overwritten.",
   "records": [
     {
       "ruc": "20109565017",
@@ -533,6 +533,41 @@
       "status": "published_channel_not_contacted",
       "notes": "Do not use contact numbers on POSTULA recruitment page as business/paint procurement channels. Corporate phone/email is general; no buyer identified and no contact initiated.",
       "source_batch": "data/contact_enrichment/2026-11-11_construplan_mincotrall_akd.json"
+    },
+    {
+      "ruc": "20539424743",
+      "phone": "+51 1 704 8970",
+      "email": "elmer.sotasor@evs.com.pe",
+      "website": "https://evs.com.pe/",
+      "contact_page": "https://evs.com.pe/contacto/",
+      "source_url": "https://evs.com.pe/contacto/",
+      "identity_source": "https://www.facturalo.pe/empresas/evs-contratistas-mineros-sac-20539424743",
+      "linkage": "Official EVS business site identifies Calle Guadalupe 555, Ate and its mining-contractor business; RUC 20539424743 appears with legal EVS CONTRATISTAS MINEROS S.A.C. and address Guadalupe 555 in public SUNAT-derived data.",
+      "channel_purpose": "general_corporate_not_procurement",
+      "source_type": "official_business_site_plus_sunat_ruc_identity",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "additional_phones": [
+        "+51 992 054 737 (public EVS corporate mobile)"
+      ],
+      "notes": "The official contact page body lists +51 1 7240747 but the same site's common footer and homepage repeatedly list +51 1 7048970. Only repeated corporate footer line promoted; discrepancy retained. elmer.sotasor@evs.com.pe is publicly offered as the business general contact, not a verified paint-purchasing department. Recruiting addresses excluded; no email or call performed.",
+      "source_batch": "data/contact_enrichment/2026-11-11_evs_sadrilling.json"
+    },
+    {
+      "ruc": "20536925245",
+      "phone": null,
+      "email": "consultas@sadrilling.com",
+      "website": "https://www.sadrilling.com/",
+      "contact_page": "https://www.sadrilling.com/contactos",
+      "source_url": "https://www.sadrilling.com/contactos",
+      "identity_source": "https://ww1.sunat.gob.pe/descarga/AgentRet/AgenRet312.html",
+      "linkage": "Official company contact page names South American Drilling S.A.C. and Piura Sánchez Cerro 234 address; SUNAT retention-agent listing states legal South American Drilling S.A.C. RUC 20536925245.",
+      "channel_purpose": "general_corporate_not_procurement",
+      "source_type": "official_business_site_plus_sunat_ruc_identity",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "notes": "Official business website publishes general consultas email but not a direct purchases contact or public phone. No supplier intent is inferred; no outbound contact.",
+      "source_batch": "data/contact_enrichment/2026-11-11_evs_sadrilling.json"
     }
   ]
 }
