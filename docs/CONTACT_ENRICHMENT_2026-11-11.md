@@ -132,3 +132,11 @@ El overlay comercial original también fue inspeccionado individualmente: Constr
 Las cifras anteriores del documento corresponden a cortes parciales anteriores; **este último corte sustituye sus proyecciones**, no el conteo real que tiene la APK. La fuente autoritativa del corte de investigación es `data/contact_enrichment/staged_status_2026-11-11.json`.
 
 **Sigue prohibido enviar mensajes, correos, llamadas, solicitudes LinkedIn, formularios o registros de proveedores.** No se ha hecho ninguna de esas acciones. No se ha reconstruido el asset comercial, ejecutado Flutter ni compilado APK.
+
+## Integración de fuente — parche comercial offline, sin nueva APK (11/11/2026)
+
+Los ocho lotes aceptados están representados por el **asset comprimido previo** (15 RUC de Callao/Sur ya aplicados) y el nuevo **parche comercial incremental** `assets/data/companies.contact.patch.json` (31 RUC de los lotes posteriores, disjuntos del primer lote). El cargador de Flutter une ambos en memoria por RUC, rellena solo teléfonos/emails vacíos y preserva los originales, incorpora la fuente y el propósito del canal, y rechaza RUC desconocidos, duplicados o fuentes inválidas. La integración no crea nuevas cuentas ni cambia geolocalizaciones.
+
+`pubspec.yaml` empaqueta ambos assets, `test/production_dataset_test.dart` y `test/public_professionals_test.dart` incorporan expectativas de **291** teléfonos, **174** correos, **297** con algún canal y **302** incluyendo web/portal. `assets/data/production/manifest.json` conserva `base_commercial_contact_coverage` con 270 y define `contact_coverage` del merge con 297 esperados.
+
+Un auditor reproducible solo local, sin conexión de red ni contacto a terceros: `python3 tool/validate_contact_patch.py`. Revisa integridad de 1,907 cuentas, 31 filas del parche, 46 RUC aceptados entre ocho lotes, 33 personas públicas y cifras finales. **El auditor todavía no se ha ejecutado contra un clon local en esta sesión.** No hay Flutter/Dart instalado aquí, de modo que tampoco hay `flutter analyze`, `flutter test`, compilación ni APK nueva. El próximo gate sigue siendo verificar localmente y compilar sin GitHub Actions. 
