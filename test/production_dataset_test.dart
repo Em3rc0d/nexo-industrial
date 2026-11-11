@@ -118,13 +118,13 @@ void main() {
       );
       expect(
         accounts.where((c) => c.contact.phone?.isNotEmpty == true),
-        hasLength(291),
+        hasLength(292),
       );
       expect(
         accounts.where((c) => c.contact.emailUris.isNotEmpty),
-        hasLength(174),
+        hasLength(176),
       );
-      expect(accounts.where((c) => c.contact.hasDirectContact), hasLength(297));
+      expect(accounts.where((c) => c.contact.hasDirectContact), hasLength(299));
       final stracon = accounts.singleWhere((c) => c.ruc == '20610105620');
       expect(stracon.contact.registryName, 'Tamayo Ortega John Edwin');
       expect(stracon.contact.registrySource, contains('180813c'));
@@ -191,9 +191,17 @@ void main() {
       expect(akd.contact.phone, '+51 1 251 3380');
       expect(akd.contact.emailUris.single.path, 'global@akdint.com');
 
+      final evs = accounts.singleWhere((c) => c.ruc == '20539424743');
+      expect(evs.contact.phone, '+51 1 704 8970');
+      expect(evs.contact.emailUris.single.path,
+          'elmer.sotasor@evs.com.pe');
+      final sad = accounts.singleWhere((c) => c.ruc == '20536925245');
+      expect(sad.contact.phone, isNull);
+      expect(sad.contact.emailUris.single.path, 'consultas@sadrilling.com');
+
       final withAny = accounts.where((c) =>
           c.contact.hasDirectContact || c.contact.contactPageUri != null);
-      expect(withAny, hasLength(302));
+      expect(withAny, hasLength(304));
     },
   );
 
