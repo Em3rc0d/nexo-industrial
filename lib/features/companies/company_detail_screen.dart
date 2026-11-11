@@ -394,6 +394,27 @@ class CompanyDetailScreen extends StatelessWidget {
                         fontSize: 12,
                       ),
                     ),
+                    if (person.associationLabel case final relation?) ...[
+                      const SizedBox(height: 4),
+                      Text(
+                        relation,
+                        style: const TextStyle(
+                          color: NexoColors.muted,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
+                    if (person.workEmailUri != null) ...[
+                      const SizedBox(height: 4),
+                      const Text(
+                        'Correo publicado para recibir propuestas de proveedores. '
+                        'Su vigencia no ha sido confirmada.',
+                        style: TextStyle(
+                          color: NexoColors.muted,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
                     Text(
                       'Revisado: ${person.reviewedOn}',
                       style: const TextStyle(
@@ -405,6 +426,12 @@ class CompanyDetailScreen extends StatelessWidget {
                       spacing: 8,
                       runSpacing: 4,
                       children: [
+                        if (person.workEmailUri case final workUri?)
+                          TextButton.icon(
+                            onPressed: () => _email(context, workUri),
+                            icon: const Icon(Icons.mail_outline_rounded, size: 16),
+                            label: Text(workUri.path),
+                          ),
                         if (person.linkedinUri case final uri?)
                           TextButton.icon(
                             onPressed: () => _openProfessionalUrl(context, uri),
