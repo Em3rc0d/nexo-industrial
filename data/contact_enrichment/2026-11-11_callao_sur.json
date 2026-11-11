@@ -1,0 +1,301 @@
+{
+  "scope": "Existing master accounts only; Callao and Lima Sur, descending score",
+  "records": [
+    {
+      "ruc": "20100146895",
+      "phone": "+51 1 614 2121",
+      "email": "comercial@iesa.com.pe; contacto@iesa.com.pe",
+      "website": "https://www.iesa.com.pe/",
+      "contact_page": "https://www.iesa.com.pe/contactenos/contacto/",
+      "source_url": "https://www.iesa.com.pe/contactenos/contacto/",
+      "linkage": "IESA mining services; published central address Av. Los Insurgentes 1075 La Perla matches company territory; company branded contact page",
+      "channel_purpose": "commercial_and_general",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "source_type": "official_company_site"
+    },
+    {
+      "ruc": "20262254268",
+      "phone": "+51 1 614 0707",
+      "email": null,
+      "website": "https://zetagas.com.pe/",
+      "contact_page": "https://zetagas.com.pe/contacto/",
+      "source_url": "https://zetagas.com.pe/contacto/",
+      "identity_source": "https://zetagas.com.pe/nosotros/",
+      "linkage": "Official about page identifies Peru operator as Zeta Gas Andino S.A.; Ventanilla address",
+      "channel_purpose": "office_switchboard",
+      "notes": "Published zetapremia mailbox is a customer rewards channel; not promoted as purchasing/procurement contact. Privacy/legal mailboxes excluded.",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "source_type": "official_company_site"
+    },
+    {
+      "ruc": "20470234599",
+      "phone": "+51 1 251 3380",
+      "email": "global@akdint.com",
+      "website": "https://www.akdint.com/",
+      "contact_page": "https://www.akdint.com/contactanos/",
+      "source_url": "https://www.akdint.com/contactanos/",
+      "linkage": "Official Peru block explicitly names AK Drilling International S.A., Chorrillos; Peru phone retained, foreign phones excluded",
+      "channel_purpose": "general_corporate",
+      "notes": "Email is the group-wide mailbox published in the Peru office block, not an identified local buyer.",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "source_type": "official_company_site"
+    },
+    {
+      "ruc": "20514165972",
+      "phone": "+51 1 500 4607",
+      "email": "info@sfpdrilling.com",
+      "website": "https://www.sfpdrilling.com/",
+      "contact_page": "https://www.sfpdrilling.com/contacto.html",
+      "source_url": "https://www.sfpdrilling.com/contacto.html",
+      "identity_source": "https://www.sfpdrilling.com/nosotros.html",
+      "linkage": "Official company about page names SFP DRILLING S.A.C.; official contact page",
+      "channel_purpose": "general",
+      "notes": "Published headquarters now shown in Santiago de Surco; fiscal district remains Chorrillos. No geographic modification.",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "source_type": "official_company_site"
+    },
+    {
+      "ruc": "20516377047",
+      "phone": "+51 1 254 8304",
+      "email": "contacto@onlinksac.com",
+      "website": "https://onlinksac.com/",
+      "contact_page": "https://onlinksac.com/contacto/",
+      "source_url": "https://onlinksac.com/contacto/",
+      "linkage": "Official Onlink S.A.C. name, drilling services and Chorrillos office",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "source_type": "official_company_site",
+      "channel_purpose": "general"
+    },
+    {
+      "ruc": "20507312277",
+      "phone": "+51 1 626 9999",
+      "email": "contacto@costagas.com",
+      "website": "https://costagas.com.pe/",
+      "contact_page": "https://costagas.com.pe/contacto/",
+      "source_url": "https://costagas.com.pe/contacto/",
+      "linkage": "Official Lima contact block names Mega Gas S.A.C. and Jr. Los Gallos Mz E Lt 13, same fiscal address; terms explicitly identify RUC 20507312277",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "source_type": "official_company_site",
+      "channel_purpose": "general",
+      "email_source_url": "https://costagas.com.pe/terminos/",
+      "identity_source": "https://costagas.com.pe/terminos/",
+      "notes": "Email also serves privacy requests but is separately published under CENTRO DE ATENCIÓN. Not presented as purchasing department."
+    },
+    {
+      "ruc": "20547035381",
+      "phone": null,
+      "email": null,
+      "website": "https://iolsa.pe/",
+      "contact_page": "https://iolsa.pe/",
+      "source_url": "https://iolsa.pe/",
+      "linkage": "Brand IOLSA identified as Innovación y Operaciones Logísticas S.A. in company privacy policy",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "source_type": "official_company_site",
+      "channel_purpose": "general_contact_form",
+      "identity_source": "https://iolsa.pe/politicas-de-privacidad-contacto-iolsa/",
+      "notes": "Public contact form exists; no readable phone/email confirmed. Form not submitted or delivery-tested."
+    },
+    {
+      "ruc": "20548179832",
+      "phone": "+51 1 361 6908",
+      "email": "cotizaciones@fluimec.com",
+      "website": "https://fluimec.com/",
+      "contact_page": "https://fluimec.com/contactanos/",
+      "source_url": "https://fluimec.com/contactanos/",
+      "linkage": "Master explicitly aliases FLUID MECHANICS COMPANY / FLUIMEC; official equipment PDF uses same former Los Rosales de Oquendo Mz A Lt 01 address as fiscal record",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "source_type": "official_company_site",
+      "channel_purpose": "quotations",
+      "identity_source": "https://fluimec.com/wp-content/uploads/2024/08/FICHA_TECNICA-PACKSACK-FL-50.pdf",
+      "additional_phones": [
+        "+51 996 133 881"
+      ],
+      "notes": "Foreign office numbers excluded. Published quote mailbox, not a confirmed buyer."
+    },
+    {
+      "ruc": "20299214584",
+      "phone": "+51 1 451 0113",
+      "email": "inoxider@prodermet.com",
+      "website": "https://prodermet.com/",
+      "contact_page": "https://prodermet.com/",
+      "source_url": "https://prodermet.com/",
+      "linkage": "Official about page spells Productos Derivados del Metal S.R.L. - PRODERMET; published Av Enrique Meiggs 347 matches fiscal master",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "source_type": "official_company_site",
+      "channel_purpose": "general",
+      "identity_source": "https://prodermet.com/nuestra-empresa",
+      "additional_phones": [
+        "+51 1 562 0987"
+      ]
+    },
+    {
+      "ruc": "20519383994",
+      "phone": "+51 960 257 431",
+      "email": "oficina@corpfung.com; cfung@corpfung.com",
+      "website": "https://corpfung.com/",
+      "contact_page": "https://corpfung.com/maintenance.html",
+      "source_url": "https://corpfung.com/maintenance.html",
+      "linkage": "Official Corp Fung S.A.C. page, naval activity and Callao office",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "source_type": "official_company_site",
+      "channel_purpose": "general",
+      "notes": "Main site in maintenance; temporary page explicitly publishes channels. No inference from staff recruitment mailboxes."
+    },
+    {
+      "ruc": "20379120181",
+      "phone": "+51 1 429 0225",
+      "email": "ventas@troytradingint.com.pe",
+      "website": "https://www.troytradingint.com.pe/",
+      "contact_page": "https://www.troytradingint.com.pe/troy.html",
+      "source_url": "https://www.troytradingint.com.pe/troy.html",
+      "linkage": "Official Troy Trading International company page, machinery business and Callao office",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "source_type": "official_company_site",
+      "channel_purpose": "sales",
+      "additional_phones": [
+        "+51 998 663 569"
+      ]
+    },
+    {
+      "ruc": "20525376738",
+      "phone": "+51 959 613 027",
+      "email": "cnoriega@ramperu.pe",
+      "website": "https://ramperu.pe/",
+      "contact_page": "https://pe.linkedin.com/company/ramperu-s-a-c-l-perforaci%C3%B3n-diamantina",
+      "source_url": "https://pe.linkedin.com/company/ramperu-s-a-c-l-perforaci%C3%B3n-diamantina",
+      "linkage": "Company page links official ramperu.pe domain, Chorrillos drilling business; company post invites supplier presentations to exact mailbox",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "source_type": "official_company_social_publication",
+      "channel_purpose": "supplier_presentations",
+      "notes": "Post invites suppliers of drilling steel/bits, pipes, PPE and operating supplies. It does not confirm a current paint requirement; do not infer mailbox owner full name from address."
+    },
+    {
+      "ruc": "20551433073",
+      "phone": "+51 998 303 494",
+      "email": "info@sniveyasociados.com",
+      "website": "https://www.sniveyasociados.com/",
+      "contact_page": "https://www.sniveyasociados.com/empresa.html",
+      "source_url": "https://www.sniveyasociados.com/empresa.html",
+      "linkage": "Official site explicitly names Snive & Asociados SAC; workshop Los Saires de Oquendo Mz B Lt 15 matches master; independent UPN thesis identifies RUC 20551433073",
+      "identity_source": "https://repositorio.upn.edu.pe/backend/api/core/bitstreams/99a1e56a-ba1d-4546-afec-1412bfd337bf/content",
+      "additional_phones": [
+        "+51 959 283 008"
+      ],
+      "notes": "Template-like 98 756 321 01 excluded; main business phone and footer used.",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "source_type": "official_company_site",
+      "channel_purpose": "general"
+    },
+    {
+      "ruc": "20290488274",
+      "phone": "+51 1 295 1055",
+      "email": "ventas@maquisur.pe",
+      "website": "https://www.maquisur.pe/",
+      "contact_page": "https://www.maquisur.pe/",
+      "source_url": "https://www.maquisur.pe/",
+      "linkage": "Official homepage explicitly names MAQUINARIA INDUSTRIAL DEL SUR EIRL; about page describes founding in Villa El Salvador",
+      "identity_source": "https://www.maquisur.pe/nosotros/",
+      "additional_phones": [
+        "+51 998 275 723"
+      ],
+      "notes": "Current published office in VMT; master fiscal location not changed.",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "source_type": "official_company_site",
+      "channel_purpose": "general"
+    },
+    {
+      "ruc": "20516556561",
+      "phone": null,
+      "email": null,
+      "website": "https://limagas.com/",
+      "contact_page": "https://limagas.com/",
+      "source_url": "https://limagas.com/",
+      "identity_source": "https://limagas.com/file/terminos_condiciones.pdf",
+      "linkage": "Group site explicitly covers Lima Gas SA and Limagas Natural Peru SA; natural-gas business section and Lurin GN plant published",
+      "channel_purpose": "group_business_contact_form",
+      "notes": "Shared group business enquiry page, not confirmed local procurement. Household/emergency numbers and unrelated GLP sales mailboxes excluded.",
+      "reviewed_on": "2026-11-11",
+      "status": "published_channel_not_contacted",
+      "source_type": "official_company_site"
+    }
+  ],
+  "reviews": [
+    {
+      "ruc": "20606447192",
+      "status": "not_found_in_sources_reviewed",
+      "source_url": "https://engimin.com/20606447192_cia-minera-casma-sac.html",
+      "notes": "Directory explicitly has no contact; similar Sol de Casma is a different legal name and was not merged.",
+      "reviewed_on": "2026-11-11"
+    },
+    {
+      "ruc": "20516511975",
+      "status": "identity_requires_followup",
+      "source_url": "https://compuempresa.com/marca/vitagas-D054759D9331ED21",
+      "notes": "Multiple commercial brands Chaski Gas/Vita Gas/New Gas. No unambiguous current corporate channel promoted.",
+      "reviewed_on": "2026-11-11"
+    },
+    {
+      "ruc": "20601313414",
+      "status": "not_found_in_sources_reviewed",
+      "source_url": "https://www.datosperu.org/empresa-h-chamba-asociados-sac-20601313414.php",
+      "notes": "RUC/identity confirmed; no public business channel found in reviewed results.",
+      "reviewed_on": "2026-11-11"
+    },
+    {
+      "ruc": "20256597676",
+      "status": "candidate_requires_revalidation",
+      "source_url": "https://www.universidadperu.com/empresas/desarrollo-indust-metalurgico-sa.php",
+      "notes": "RUC-specific directory lists legacy numbers with mixed user reports; official deimetsa.com not accessible. Masked email not inferred.",
+      "reviewed_on": "2026-11-11"
+    },
+    {
+      "ruc": "20265745017",
+      "status": "candidate_requires_revalidation",
+      "source_url": "https://www.deperu.com/comercios/empresas-manufactureras/sertesa-1370563",
+      "notes": "Directory phone tied to former Tacna Norte address; current fiscal record changed to Cusco 955. Not promoted before corroboration.",
+      "reviewed_on": "2026-11-11"
+    },
+    {
+      "ruc": "20382042116",
+      "status": "candidate_requires_revalidation",
+      "source_url": "https://www.deperu.com/comercios/minerales-y-derivados/nov-national-oilwell-varco-975037",
+      "notes": "RUC-specific directory lists San Isidro office and legacy phone; not conflated with current Callao fiscal location or global NOV office.",
+      "reviewed_on": "2026-11-11"
+    },
+    {
+      "ruc": "20390552361",
+      "status": "candidate_requires_revalidation",
+      "source_url": "https://www.deperu.com/comercios/arquitectura-inmobiliarias-e-ingenieria-de-la-construccion/aistec-servicios-generales-srl-894350",
+      "notes": "Published directory number 01 2852812 requires current source corroboration; no email visible.",
+      "reviewed_on": "2026-11-11"
+    },
+    {
+      "ruc": "20414724567",
+      "status": "not_found_in_sources_reviewed",
+      "source_url": "https://elruc.pe/ruc/20414724567-cia-de-mant-y-serv-mec-imp-y-exp-eirl",
+      "notes": "Alias CIAMASER identified. Only registry and old directories found; no sufficiently corroborated channel.",
+      "reviewed_on": "2026-11-11"
+    },
+    {
+      "ruc": "20522067076",
+      "status": "source_access_limited",
+      "source_url": "https://www.deperu.com/comercios/varios/reparaciones-navales-emanuel-eirl-1155990",
+      "notes": "Directory access returned 403; readable registry pages did not supply a channel. No guessed mailbox.",
+      "reviewed_on": "2026-11-11"
+    }
+  ]
+}

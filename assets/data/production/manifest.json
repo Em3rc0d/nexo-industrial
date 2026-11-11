@@ -28,5 +28,18 @@
     "interpolated": "Puede influir en cercanía con penalización; se presenta como aproximada.",
     "street_district": "Referencia visual, sin navegación directa ni cercanía exacta.",
     "google_maps_fallback": "Abre búsqueda externa por razón social + domicilio fiscal; no promueve automáticamente coordenadas."
+  },
+  "commercial_overlay": "../companies.commercial.overlay.json.gz",
+  "contact_coverage": {
+    "as_of": "2026-11-11",
+    "accounts": 1907,
+    "with_phone": 267,
+    "with_email": 157,
+    "with_phone_or_email": 270,
+    "with_phone_email_or_reviewed_contact_page": 272,
+    "without_phone_or_email": 1637,
+    "historical_representative_references": 1907,
+    "new_reviewed_contact_pages": 15,
+    "note": "Published business channels, not delivery/call or buyer verification. Web-only pages and historical representatives are counted separately."
   }
 }

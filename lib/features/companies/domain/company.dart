@@ -51,6 +51,9 @@ class CompanyContact {
     this.registryName,
     this.registryRole,
     this.registrySource,
+    this.contactPage,
+    this.reviewedOn,
+    this.channelPurpose,
   });
 
   final String? name;
@@ -62,6 +65,27 @@ class CompanyContact {
   final String? registryName;
   final String? registryRole;
   final String? registrySource;
+  final String? contactPage;
+  final String? reviewedOn;
+  final String? channelPurpose;
+
+  Uri? get contactPageUri {
+    final uri = Uri.tryParse(contactPage ?? '');
+    return uri != null && uri.scheme == 'https' && uri.host.isNotEmpty
+        ? uri
+        : null;
+  }
+
+  String? get channelPurposeLabel => switch (channelPurpose) {
+    'supplier_presentations' => 'Recepción de presentaciones de proveedores',
+    'office_switchboard' => 'Central de oficinas',
+    'sales' || 'commercial_and_general' => 'Contacto comercial',
+    'quotations' => 'Cotizaciones',
+    'general_contact_form' => 'Formulario empresarial',
+    'group_business_contact_form' => 'Contacto empresarial del grupo',
+    'general_corporate' || 'general' => 'Contacto general',
+    _ => null,
+  };
 
   List<Uri> get emailUris =>
       RegExp(r'[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}')
@@ -78,7 +102,8 @@ class CompanyContact {
       hasDirectContact ||
       (name?.isNotEmpty ?? false) ||
       (role?.isNotEmpty ?? false) ||
-      (registryName?.isNotEmpty ?? false);
+      (registryName?.isNotEmpty ?? false) ||
+      contactPageUri != null;
 
   factory CompanyContact.fromJson(Map<String, dynamic>? json) {
     if (json == null) return const CompanyContact();
@@ -92,6 +117,9 @@ class CompanyContact {
       registryName: json['registry_name'] as String?,
       registryRole: json['registry_role'] as String?,
       registrySource: json['registry_source'] as String?,
+      contactPage: json['contact_page'] as String?,
+      reviewedOn: json['reviewed_on'] as String?,
+      channelPurpose: json['channel_purpose'] as String?,
     );
   }
 }

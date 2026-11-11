@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.4+7 — 2026-11-11 (source/data; APK pending)
+
+- Review first 24 high-priority pending accounts in Callao/Lima Sur: publish phone/email for 13 and business contact pages for 2 more; keep 9 pending corroboration.
+- Increase master coverage to 267 phones, 157 emails, 270 accounts with either and 272 including reviewed web-only pages.
+- Preserve source, review date, channel purpose and identity linkage by RUC; queue remaining 1,637 accounts without phone/email.
+- Add contact-page actions and channel-purpose labels to the account detail.
+- Flutter analysis clean; all 14 Flutter tests pass. No APK generated for this source/data checkpoint.
+
 ## 1.0.3+6 — 2026-11-10
 
 - Recover 1,907 historical ElRUC representative/role references from Git commit 180813c, joined strictly by RUC and labeled separately from reachable contacts.

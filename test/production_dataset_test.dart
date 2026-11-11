@@ -118,19 +118,38 @@ void main() {
       );
       expect(
         accounts.where((c) => c.contact.phone?.isNotEmpty == true),
-        hasLength(254),
+        hasLength(267),
       );
       expect(
         accounts.where((c) => c.contact.emailUris.isNotEmpty),
-        hasLength(145),
+        hasLength(157),
       );
-      expect(accounts.where((c) => c.contact.hasDirectContact), hasLength(257));
+      expect(accounts.where((c) => c.contact.hasDirectContact), hasLength(270));
       final stracon = accounts.singleWhere((c) => c.ruc == '20610105620');
       expect(stracon.contact.registryName, 'Tamayo Ortega John Edwin');
       expect(stracon.contact.registrySource, contains('180813c'));
       expect(
         accounts.singleWhere((c) => c.ruc == '20563693763').contact.email,
         'comercial@arcamgranallados.com.pe',
+      );
+    },
+  );
+  test(
+    'new Callao/south channels keep web-only and supplier purposes explicit',
+    () async {
+      final accounts = await const AssetCompanyRepository().loadCompanies();
+      final iolsa = accounts.singleWhere((c) => c.ruc == '20547035381');
+      expect(iolsa.contact.hasDirectContact, isFalse);
+      expect(iolsa.contact.contactPageUri?.host, 'iolsa.pe');
+      final ramperu = accounts.singleWhere((c) => c.ruc == '20525376738');
+      expect(ramperu.contact.channelPurpose, 'supplier_presentations');
+      expect(ramperu.contact.emailUris.single.path, 'cnoriega@ramperu.pe');
+      final zeta = accounts.singleWhere((c) => c.ruc == '20262254268');
+      expect(zeta.contact.phone, '+51 1 614 0707');
+      expect(zeta.contact.email, isNull);
+      expect(
+        accounts.where((c) => c.contact.contactPageUri != null),
+        hasLength(15),
       );
     },
   );

@@ -101,3 +101,11 @@ python3 tool/audit_geolocation_snapshot.py --restore
 ```
 
 La recuperación del asset comercial desde el master guardado está documentada en `docs/DATA_INTEGRITY_2026-11-10.md`. La validación de datos no sustituye `flutter analyze` y `flutter test` antes de compilar.
+
+## Contactos — corte 11/11/2026
+
+1,907 cuentas; 267 con teléfono, 157 con email y 270 con alguno de esos dos canales. Hay 2 cuentas adicionales con página/formulario revisado, sin teléfono/email promovido. Las 1,907 referencias históricas de representante/cargo no equivalen a contactos directos.
+
+Primer bloque: 24 cuentas prioritarias de Callao/Lima Sur revisadas; 13 nuevos canales por cuenta, 2 páginas empresariales y 9 casos que requieren corroboración. Fuentes, fechas y propósito se conservan en `data/contact_enrichment/2026-11-11_callao_sur.json`; el progreso y la cola de 1,637 RUC pendientes están en el mismo directorio. Detalle en `docs/CONTACT_ENRICHMENT_2026-11-11.md`.
+
+Estos cambios corresponden al código/datos de 1.0.4+7. La APK 1.0.3+6 entregada anteriormente no incluye este lote.

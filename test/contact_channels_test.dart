@@ -33,4 +33,14 @@ void main() {
       );
     },
   );
+  test('web channel does not imply email and unsafe links cannot launch', () {
+    const contact = CompanyContact(contactPage: 'https://example.org/contact');
+    expect(contact.hasAny, isTrue);
+    expect(contact.hasDirectContact, isFalse);
+    expect(contact.contactPageUri?.host, 'example.org');
+    expect(
+      const CompanyContact(contactPage: 'javascript:alert(1)').contactPageUri,
+      isNull,
+    );
+  });
 }

@@ -1,0 +1,20 @@
+{
+  "reviewed": 24,
+  "new_phone_or_email_accounts": 13,
+  "new_web_only_accounts": 2,
+  "pending_revalidation": 9,
+  "before": {
+    "phone": 254,
+    "email": 145,
+    "phone_or_email": 257
+  },
+  "after": {
+    "phone": 267,
+    "email": 157,
+    "phone_or_email": 270,
+    "phone_email_or_confirmed_page": 272
+  },
+  "commercial_sha256": "4b9fb93a2d7116fa07fce35d2fe5c6b7278a10785427031b989f1ae28181a7a1",
+  "source_batch": "2026-11-11_callao_sur.json",
+  "method": "Existing RUC accounts only. Published business channels; no inferred mailboxes. No messages sent and no forms submitted."
+}

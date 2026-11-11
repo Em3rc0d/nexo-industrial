@@ -93,6 +93,28 @@ def main():
                 contact[field] = row[field]
         contact["source"] = row["source_url"]
         item["contact_source"] = row["source_url"]
+    for batch_path in sorted((ROOT / "data/contact_enrichment").glob("20*.json")):
+        batch = json.loads(batch_path.read_text())
+        seen = set()
+        for row in batch["records"]:
+            ruc = row["ruc"]
+            if ruc not in by_ruc or ruc in seen:
+                raise ValueError("Unknown or duplicate enrichment RUC: " + ruc)
+            seen.add(ruc)
+            if row.get("status") != "published_channel_not_contacted" or not row.get("source_url", "").startswith("https://"):
+                raise ValueError("Enrichment record missing accepted status or source: " + ruc)
+            item = by_ruc[ruc]
+            contact = item["contact"]
+            for field in ["phone", "email"]:
+                if row.get(field) and not contact.get(field):
+                    contact[field] = row[field]
+            for field in ["website", "contact_page", "reviewed_on", "channel_purpose", "source_type", "notes", "additional_phones"]:
+                if row.get(field):
+                    contact[field] = row[field]
+            sources = list(dict.fromkeys([row["source_url"]] + ([row["email_source_url"]] if row.get("email_source_url") else [])))
+            sources = list(dict.fromkeys(([contact["source"]] if contact.get("source") else []) + sources))
+            contact["source"] = " | ".join(sources)
+            item["contact_source"] = contact["source"]
     payload = json.dumps(result, ensure_ascii=False, separators=(",", ":")).encode()
     target = ROOT / "assets/data/companies.commercial.overlay.json.gz"
     target.write_bytes(gzip.compress(payload, mtime=0))

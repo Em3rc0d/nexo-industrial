@@ -40,6 +40,19 @@ class CompanyDetailScreen extends StatelessWidget {
     }
   }
 
+  Future<void> _openContactPage(BuildContext context) async {
+    final uri = company.contact.contactPageUri;
+    if (uri == null) return;
+    if (!await launchUrl(uri, mode: LaunchMode.externalApplication) &&
+        context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('No se pudo abrir la página de contacto.'),
+        ),
+      );
+    }
+  }
+
   Future<void> _openLocation(BuildContext context) async {
     final precise = company.navigationEligible;
     final uri = precise
@@ -273,6 +286,28 @@ class CompanyDetailScreen extends StatelessWidget {
                 ] else
                   const Text(
                     'No hay teléfono ni email publicado en los datos cargados.',
+                  ),
+                if (company.contact.channelPurposeLabel
+                    case final purpose?) ...[
+                  const SizedBox(height: 8),
+                  Text(
+                    purpose,
+                    style: const TextStyle(fontWeight: FontWeight.w600),
+                  ),
+                ],
+                if (company.contact.contactPageUri != null)
+                  OutlinedButton.icon(
+                    onPressed: () => _openContactPage(context),
+                    icon: const Icon(Icons.open_in_new_rounded),
+                    label: const Text('Abrir página de contacto'),
+                  ),
+                if (company.contact.reviewedOn case final reviewedOn?)
+                  Text(
+                    'Fuente consultada: $reviewedOn',
+                    style: const TextStyle(
+                      color: NexoColors.muted,
+                      fontSize: 12,
+                    ),
                   ),
                 if (company.contact.registryName case final registryName?) ...[
                   const SizedBox(height: 12),
