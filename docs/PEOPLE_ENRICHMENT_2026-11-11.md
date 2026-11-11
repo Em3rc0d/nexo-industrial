@@ -24,7 +24,7 @@ Fuente canónica: `data/people_enrichment/2026-11-11_mining_people.json`. Cada r
 | 20508891149 | JRC | Abbie Shirley Fernández Rivera (compras estratégicas, perfil público) |
 | 20258699239 | Sotrami | Luis Enrique Zárate Tácunan, José Martín García Alcántara (ambos publican acciones de adquisición, cargo formal por confirmar) |
 | 20600020022 | Kolpa | Manuel Grieve Marín (gerente de Logística, fuente de evento 2026) |
-| 20510704291 | Minera Bateas | Yanina Delgado (gerente de Logística, confirmación corporativa 2026), Adán Abanto Romero (supervisor de Compras, confirmado por publicación corporativa; sin perfil LinkedIn individual encontrado) |
+| 20510704291 | Minera Bateas | Yanina Delgado (gerente de Logística, confirmación corporativa 2026), Adán Abanto Romero (supervisor de Compras, confirmado por publicación corporativa; perfil LinkedIn hallado en el grupo Fortuna Mining) |
 | 20100056802 | Condestable | Luis Garro (vicepresidente de Cadena de Suministros, conferencia profesional 2026) |
 | 20100136741 | Minsur | Ralph Alosilla-Velazco y Mario Obando (roles publicados en conferencia 2023, vigencia pendiente) |
 
@@ -45,7 +45,7 @@ La razón social/RUC proviene exclusivamente de la cartera Nexo; el vínculo pro
 - Un email de compras publicado en un post se registra como **buzón de área** y nunca se atribuye a una persona sin evidencia.
 - Se excluyen teléfonos personales, WhatsApp privados, correos deducidos por patrón, scraping masivo de LinkedIn, contactos de reclutamiento y datos obtenidos bajo autenticación restringida.
 - LinkedIn puede indicar tamaño estimado de empresa o cantidad de perfiles asociados; **no** equivale a trabajadores SUNAT, nómina activa ni teléfonos verificables.
-- La cantidad de trabajadores ya tiene campo separado `workers_sunat` en `CommercialProfile`, sin inferirlo de LinkedIn.
+- La cantidad de trabajadores ya tiene campo separado `workers_sunat` en `CommercialProfile`, sin inferirlo de LinkedIn. La auditoría directa del asset comercial del 11/11/2026 halló **1,907/1,907 filas con valor numérico**, de ellas **1,904 positivas y 3 con valor 0**. La cifra no certifica vigencia de nómina ni indica cantidad de contactos.
 - Las 1,907 referencias de representantes históricos no son estos 11 perfiles y no entran en los indicadores de contactos profesionales actuales.
 - Esta es una **integración de código y datos**, no un APK ni una validación ejecutada en Android.
 
@@ -54,3 +54,7 @@ La razón social/RUC proviene exclusivamente de la cartera Nexo; el vínculo pro
 El repositorio no garantiza Flutter SDK ni Android SDK en todos los entornos. Antes de anunciar una APK: `flutter analyze --no-pub`, `flutter test --no-pub`, `python3 tool/validate_dataset.py`, compilar y verificar en dispositivo la ficha de los siete RUC indicados y una empresa sin personas. No ejecutar GitHub Actions para compilar.
 
 **Estado al 11/11/2026:** cambios guardados en `main`; pruebas añadidas pero **no ejecutadas** en este corte (Flutter no disponible en el runner actual).
+
+## Aclaraciones de afiliación
+
+El perfil profesional de Luis Garro aparece bajo **Southern Peaks Mining**; aunque fuentes de eventos de 2026 lo relacionan con la cadena de suministro de Condestable, su afiliación al RUC de Condestable debe corroborarse después de cambios societarios. La nota del registro deja explícita esta incertidumbre. El perfil de Adán Abanto aparece bajo **Fortuna Mining Corp.** (grupo de Bateas), lo que no equivale por sí mismo a un teléfono o correo de la filial.
