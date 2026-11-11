@@ -64,7 +64,7 @@ def main() -> None:
     # No new accounts. An immutable base copy is intentionally preserved.
     merged = {str(row["ruc"]): dict(row, contact=dict(row["contact"])) for row in original}
     base_metrics = contact_metrics(original)
-    assert len(patch["records"]) == 31, len(patch["records"])
+    assert len(patch["records"]) == 33, len(patch["records"])
     seen = set()
 
     for row in patch["records"]:
@@ -97,11 +97,11 @@ def main() -> None:
         assert batch.get("outreach_performed", False) is False, file
         accepted.extend(batch.get("records", []))
         reviews.extend(batch.get("reviews", []))
-    assert len(batches) == 8, len(batches)
-    assert len(accepted) == 46, len(accepted)
-    assert len({x["ruc"] for x in accepted}) == 46
-    assert len(reviews) == 26
-    assert len(accepted) + len(reviews) == 72
+    assert len(batches) == 9, len(batches)
+    assert len(accepted) == 48, len(accepted)
+    assert len({x["ruc"] for x in accepted}) == 48
+    assert len(reviews) == 29
+    assert len(accepted) + len(reviews) == 77
     assert len(people["records"]) == 33
     assert len({str(x["ruc"]) for x in people["records"]}) == 21
     assert {str(x["ruc"]) for x in people["records"]}.issubset(master_rucs)
@@ -115,11 +115,11 @@ def main() -> None:
         "without_phone_or_email": 1637,
     }
     expected_effective = {
-        "with_phone": 291,
-        "with_email": 174,
-        "with_phone_or_email": 297,
-        "with_phone_email_or_reviewed_contact_page": 302,
-        "without_phone_or_email": 1610,
+        "with_phone": 292,
+        "with_email": 176,
+        "with_phone_or_email": 299,
+        "with_phone_email_or_reviewed_contact_page": 304,
+        "without_phone_or_email": 1608,
     }
     assert base_metrics == expected_base, (base_metrics, expected_base)
     assert effective == expected_effective, (effective, expected_effective)
@@ -135,7 +135,7 @@ def main() -> None:
         assert merged[ruc]["contact"]["phone"] == old[ruc]["contact"]["phone"]
         assert merged[ruc]["contact"]["email"] == old[ruc]["contact"]["email"]
 
-    print("OK: 1,907 unique RUC; 31 patched; 46 accepted research RUC;")
+    print("OK: 1,907 unique RUC; 33 patched; 48 accepted research RUC;")
     print("    33 public people across 21 RUC; no communications performed.")
     print("Base:", base_metrics)
     print("Effective-source projection:", effective)
