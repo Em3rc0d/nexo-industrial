@@ -1,0 +1,653 @@
+{
+  "meta": {
+    "project": "Nexo Industrial",
+    "generated_date": "2026-11-10",
+    "records_reviewed": 19,
+    "reconstruction_warning": "El archivo temporal que contenía exactamente los 19 rechazados del barrido 1888/1907 no quedó persistido. Este conjunto de 19 fue reconstruido desde el master disponible y revisado individualmente. No se inventaron coordenadas para forzar el 100%.",
+    "promoted_to_defensible_numeric_coordinate": 7,
+    "remaining_address_query_only": 12,
+    "conditional_direct_coordinate_total_if_reconstructed_set_matches_original": 1895,
+    "conditional_direct_coordinate_percentage": 99.3707,
+    "operational_navigation_total": 1907,
+    "operational_navigation_percentage": 100.0,
+    "precision_policy": "EXACT_ADDRESS/OPERATIONAL_SITE/OPERATIONAL_PLANT y SAME_BUILDING pueden usar navegación por coordenada con la precisión explícita. ADDRESS_QUERY_ONLY debe abrir Maps por empresa + domicilio SUNAT + distrito/provincia."
+  },
+  "records": [
+    {
+      "RUC": "20601010128",
+      "empresa": "BM1 OBRAS & SERVICIOS INDUSTRIALES S.A.C",
+      "direccion_base": "---- UBIC. RUR. PREDIO MARISOL SEC. ZONA ARTEAGA",
+      "distrito": "Túpac Amaru Inca",
+      "provincia": "PISCO",
+      "coordenada_previa_referencia": {
+        "lat": -13.7133333333333,
+        "lon": -76.1483333333333
+      },
+      "revision": {
+        "status": "ADDRESS_ESTATE_ANCHOR",
+        "confidence": "MEDIUM_HIGH",
+        "strict_exact_company_coordinates": false,
+        "evidence": "SUNAT ubica el domicilio en Predio Marisol, sector Zona Arteaga. Existe un punto cartográfico de otra empresa en la misma dirección rural/sector, útil como ancla de predio pero no como pin de BM1.",
+        "anchor_place_id": "ChIJr97z3vZnEJER8lEB7RhxpT4"
+      },
+      "maps_search_query": "BM1 OBRAS & SERVICIOS INDUSTRIALES S.A.C ---- UBIC. RUR. PREDIO MARISOL SEC. ZONA ARTEAGA Túpac Amaru Inca PISCO Perú",
+      "maps_search_url": "https://www.google.com/maps/search/?api=1&query=BM1%20OBRAS%20%26%20SERVICIOS%20INDUSTRIALES%20S.A.C%20----%20UBIC.%20RUR.%20PREDIO%20MARISOL%20SEC.%20ZONA%20ARTEAGA%20T%C3%BApac%20Amaru%20Inca%20PISCO%20Per%C3%BA",
+      "safe_for_maps_search": true,
+      "safe_to_label_coordinates_as_exact_company_pin": false,
+      "resolution_2026_11_10": {
+        "proposed_lat": null,
+        "proposed_lon": null,
+        "precision": "ADDRESS_QUERY_ONLY",
+        "confidence": "MEDIUM_HIGH",
+        "promote_direct_coordinate": false,
+        "navigation_mode_recommended": "ADDRESS_QUERY",
+        "evidence_summary": "SUNAT ubica el domicilio en Predio Marisol, sector Zona Arteaga. Existe un punto cartográfico de otra empresa en la misma dirección rural/sector, útil como ancla de predio pero no como pin de BM1.",
+        "source_url": null,
+        "is_fiscal_hq": true
+      }
+    },
+    {
+      "RUC": "20109346722",
+      "empresa": "CIFARMA S.A.C.",
+      "direccion_base": "---- AMPLIACION ZAMACOLA LATER ASC. PARQUE INDUSTRIAL RIO SEC",
+      "distrito": "Cerro Colorado",
+      "provincia": "AREQUIPA",
+      "coordenada_previa_referencia": {
+        "lat": -16.3763888888889,
+        "lon": -71.5608333333333
+      },
+      "revision": {
+        "status": "INDUSTRIAL_ZONE_ANCHOR",
+        "confidence": "MEDIUM",
+        "strict_exact_company_coordinates": false,
+        "evidence": "Domicilio fiscal en Parque Industrial Río Seco / Ampliación Zamácola. Se confirmó cartográficamente la zona industrial, pero no una puerta inequívoca de CIFARMA.",
+        "anchor_place_id": "ChIJlc-mCP03QpERdT4vE1F6Hsg"
+      },
+      "maps_search_query": "CIFARMA S.A.C. ---- AMPLIACION ZAMACOLA LATER ASC. PARQUE INDUSTRIAL RIO SEC Cerro Colorado AREQUIPA Perú",
+      "maps_search_url": "https://www.google.com/maps/search/?api=1&query=CIFARMA%20S.A.C.%20----%20AMPLIACION%20ZAMACOLA%20LATER%20ASC.%20PARQUE%20INDUSTRIAL%20RIO%20SEC%20Cerro%20Colorado%20AREQUIPA%20Per%C3%BA",
+      "safe_for_maps_search": true,
+      "safe_to_label_coordinates_as_exact_company_pin": false,
+      "resolution_2026_11_10": {
+        "proposed_lat": null,
+        "proposed_lon": null,
+        "precision": "ADDRESS_QUERY_ONLY",
+        "confidence": "MEDIUM",
+        "promote_direct_coordinate": false,
+        "navigation_mode_recommended": "ADDRESS_QUERY",
+        "evidence_summary": "Domicilio fiscal en Parque Industrial Río Seco / Ampliación Zamácola. Se confirmó cartográficamente la zona industrial, pero no una puerta inequívoca de CIFARMA.",
+        "source_url": null,
+        "is_fiscal_hq": true
+      }
+    },
+    {
+      "RUC": "20610089136",
+      "empresa": "ARA FOODS INDUSTRY S.A.C.",
+      "direccion_base": "---- C HEREDIA NRO 641",
+      "distrito": "Jesús María",
+      "provincia": "LIMA",
+      "coordenada_previa_referencia": {
+        "lat": -12.0755555555556,
+        "lon": -77.0433333333333
+      },
+      "revision": {
+        "status": "NUMBERED_ADDRESS_CONFIRMED",
+        "confidence": "HIGH_ADDRESS_ONLY",
+        "strict_exact_company_coordinates": false,
+        "evidence": "Domicilio fiscal C. Heredia 641, Jesús María confirmado por fuentes RUC; existen puntos vecinos en la misma cuadra, pero no se halló ficha cartográfica inequívoca para el N.º 641."
+      },
+      "maps_search_query": "ARA FOODS INDUSTRY S.A.C. ---- C HEREDIA NRO 641 Jesús María LIMA Perú",
+      "maps_search_url": "https://www.google.com/maps/search/?api=1&query=ARA%20FOODS%20INDUSTRY%20S.A.C.%20----%20C%20HEREDIA%20NRO%20641%20Jes%C3%BAs%20Mar%C3%ADa%20LIMA%20Per%C3%BA",
+      "safe_for_maps_search": true,
+      "safe_to_label_coordinates_as_exact_company_pin": false,
+      "resolution_2026_11_10": {
+        "proposed_lat": -9.489272324797254,
+        "proposed_lon": -78.27290425709667,
+        "precision": "OPERATIONAL_PLANT",
+        "confidence": "HIGH",
+        "promote_direct_coordinate": true,
+        "navigation_mode_recommended": "COORDINATE_DIRECT",
+        "evidence_summary": "ARA FOODS: la Autoridad Nacional del Agua ubica el pozo/planta industrial en Panamericana Norte Km 373, sector Carrizal, Casma, con UTM WGS84 17L E 799440 / N 8949879. Coordenada convertida a WGS84.",
+        "source_url": "https://www.ana.gob.pe/sites/default/files/normatividad/files/15-RD-0130-2025-05.pdf",
+        "is_fiscal_hq": false
+      }
+    },
+    {
+      "RUC": "20605659871",
+      "empresa": "CHARI E.M. S.A.C.",
+      "direccion_base": "---- CERRO NEGRO NRO 141 URB. SAN IGNACIO DE MONTERRICO",
+      "distrito": "Santiago de Surco",
+      "provincia": "LIMA",
+      "coordenada_previa_referencia": {
+        "lat": -12.145,
+        "lon": -77.005
+      },
+      "revision": {
+        "status": "NUMBERED_ADDRESS_WITH_STREET_ANCHOR",
+        "confidence": "MEDIUM_HIGH",
+        "strict_exact_company_coordinates": false,
+        "evidence": "Cerro Negro 141, Urb. San Ignacio de Monterrico confirmado; se halló un punto cartográfico en Cerro Negro 178 que valida calle/urbanización, no la puerta 141."
+      },
+      "maps_search_query": "CHARI E.M. S.A.C. ---- CERRO NEGRO NRO 141 URB. SAN IGNACIO DE MONTERRICO Santiago de Surco LIMA Perú",
+      "maps_search_url": "https://www.google.com/maps/search/?api=1&query=CHARI%20E.M.%20S.A.C.%20----%20CERRO%20NEGRO%20NRO%20141%20URB.%20SAN%20IGNACIO%20DE%20MONTERRICO%20Santiago%20de%20Surco%20LIMA%20Per%C3%BA",
+      "safe_for_maps_search": true,
+      "safe_to_label_coordinates_as_exact_company_pin": false,
+      "resolution_2026_11_10": {
+        "proposed_lat": null,
+        "proposed_lon": null,
+        "precision": "ADDRESS_QUERY_ONLY",
+        "confidence": "MEDIUM_HIGH",
+        "promote_direct_coordinate": false,
+        "navigation_mode_recommended": "ADDRESS_QUERY",
+        "evidence_summary": "Cerro Negro 141, Urb. San Ignacio de Monterrico confirmado; se halló un punto cartográfico en Cerro Negro 178 que valida calle/urbanización, no la puerta 141.",
+        "source_url": null,
+        "is_fiscal_hq": true
+      }
+    },
+    {
+      "RUC": "20613835581",
+      "empresa": "CONSORCIO CONSERVIAL SELVA",
+      "direccion_base": "---- LA CAMPIÑA NRO 186 URB. URB LAS PRADERAS",
+      "distrito": "La Banda de Shilcayo",
+      "provincia": "SAN MARTIN",
+      "coordenada_previa_referencia": {
+        "lat": -6.502557133333333,
+        "lon": -76.34973910000001
+      },
+      "revision": {
+        "status": "EXACT_ADDRESS_CONFIRMED_RELATED_ORG",
+        "confidence": "HIGH_ADDRESS_ONLY",
+        "strict_exact_company_coordinates": false,
+        "evidence": "Jr. La Campiña 186, Urb. Las Praderas, La Banda de Shilcayo coincide exactamente con dirección publicada por Corporación Mayo, vinculada al consorcio. La dirección queda fuertemente validada; no se obtuvo un pin numérico independiente del consorcio.",
+        "evidence_urls": [
+          "https://corporacionmayo.com/contacto/"
+        ]
+      },
+      "maps_search_query": "CONSORCIO CONSERVIAL SELVA ---- LA CAMPIÑA NRO 186 URB. URB LAS PRADERAS La Banda de Shilcayo SAN MARTIN Perú",
+      "maps_search_url": "https://www.google.com/maps/search/?api=1&query=CONSORCIO%20CONSERVIAL%20SELVA%20----%20LA%20CAMPI%C3%91A%20NRO%20186%20URB.%20URB%20LAS%20PRADERAS%20La%20Banda%20de%20Shilcayo%20SAN%20MARTIN%20Per%C3%BA",
+      "safe_for_maps_search": true,
+      "safe_to_label_coordinates_as_exact_company_pin": false,
+      "resolution_2026_11_10": {
+        "proposed_lat": -6.503333,
+        "proposed_lon": -76.351389,
+        "precision": "EXACT_ADDRESS",
+        "confidence": "HIGH",
+        "promote_direct_coordinate": true,
+        "navigation_mode_recommended": "COORDINATE_DIRECT",
+        "evidence_summary": "CONSORCIO CONSERVIAL SELVA: domicilio La Campiña 186, Urb. Las Praderas validado y anclado cartográficamente al mismo inmueble.",
+        "source_url": "https://corporacionmayo.com/contacto/",
+        "is_fiscal_hq": true
+      }
+    },
+    {
+      "RUC": "20605896571",
+      "empresa": "DIFESMIN INGENIERIA Y CONSTRUCCION S.A.C.",
+      "direccion_base": "---- EDIFICIO NRO 31 DPTO 501 APV. JORGE CHAVEZ",
+      "distrito": "Santiago de Surco",
+      "provincia": "LIMA",
+      "coordenada_previa_referencia": {
+        "lat": -12.145,
+        "lon": -77.005
+      },
+      "revision": {
+        "status": "SUNAT_ADDRESS_CONFIRMED_NO_PIN",
+        "confidence": "HIGH_ADDRESS_ONLY",
+        "strict_exact_company_coordinates": false,
+        "evidence": "Edificio N.º 31 Dpto. 501, APV Jorge Chávez, Santiago de Surco confirmado por fuentes SUNAT/RUC. No apareció una ficha cartográfica inequívoca del edificio.",
+        "evidence_urls": [
+          "https://www.datosperu.org/empresa-difesmin-ingenieria-y-construccion-sac-difesmin-sac-20605896571.php",
+          "https://elruc.pe/ruc/20605896571-difesmin-ingenieria-y-construccion-s-a-c-difesmin-s-a-c"
+        ]
+      },
+      "maps_search_query": "DIFESMIN INGENIERIA Y CONSTRUCCION S.A.C. ---- EDIFICIO NRO 31 DPTO 501 APV. JORGE CHAVEZ Santiago de Surco LIMA Perú",
+      "maps_search_url": "https://www.google.com/maps/search/?api=1&query=DIFESMIN%20INGENIERIA%20Y%20CONSTRUCCION%20S.A.C.%20----%20EDIFICIO%20NRO%2031%20DPTO%20501%20APV.%20JORGE%20CHAVEZ%20Santiago%20de%20Surco%20LIMA%20Per%C3%BA",
+      "safe_for_maps_search": true,
+      "safe_to_label_coordinates_as_exact_company_pin": false,
+      "resolution_2026_11_10": {
+        "proposed_lat": null,
+        "proposed_lon": null,
+        "precision": "ADDRESS_QUERY_ONLY",
+        "confidence": "HIGH_ADDRESS_ONLY",
+        "promote_direct_coordinate": false,
+        "navigation_mode_recommended": "ADDRESS_QUERY",
+        "evidence_summary": "Edificio N.º 31 Dpto. 501, APV Jorge Chávez, Santiago de Surco confirmado por fuentes SUNAT/RUC. No apareció una ficha cartográfica inequívoca del edificio.",
+        "source_url": "https://www.datosperu.org/empresa-difesmin-ingenieria-y-construccion-sac-difesmin-sac-20605896571.php",
+        "is_fiscal_hq": true
+      }
+    },
+    {
+      "RUC": "20604204217",
+      "empresa": "DRILLING SERVICE PERU S.A.C.",
+      "direccion_base": "---- JAVIER PRADO ESTE LOTE REF. DPTO 706 URB. LA RIVERA DE MONTERRICO I",
+      "distrito": "La Molina",
+      "provincia": "LIMA",
+      "coordenada_previa_referencia": {
+        "lat": -12.064454099999999,
+        "lon": -76.93952945000001
+      },
+      "revision": {
+        "status": "STREET_ADDRESS_CONFIRMED_NO_NUMBER",
+        "confidence": "MEDIUM_HIGH",
+        "strict_exact_company_coordinates": false,
+        "evidence": "Javier Prado Este, Dpto. 706, Urb. La Rivera de Monterrico I confirmado por padrón RUC; SUNAT no conserva un número de puerta suficientemente claro para fijar una coordenada exacta.",
+        "evidence_urls": [
+          "https://datahub.drago.pe/empresa/drilling-service-peru-sac",
+          "https://tramitesperu.com/empresas/drilling-service-peru-s-a-c-20604204217/"
+        ]
+      },
+      "maps_search_query": "DRILLING SERVICE PERU S.A.C. ---- JAVIER PRADO ESTE LOTE REF. DPTO 706 URB. LA RIVERA DE MONTERRICO I La Molina LIMA Perú",
+      "maps_search_url": "https://www.google.com/maps/search/?api=1&query=DRILLING%20SERVICE%20PERU%20S.A.C.%20----%20JAVIER%20PRADO%20ESTE%20LOTE%20REF.%20DPTO%20706%20URB.%20LA%20RIVERA%20DE%20MONTERRICO%20I%20La%20Molina%20LIMA%20Per%C3%BA",
+      "safe_for_maps_search": true,
+      "safe_to_label_coordinates_as_exact_company_pin": false,
+      "resolution_2026_11_10": {
+        "proposed_lat": -12.070348,
+        "proposed_lon": -76.95249,
+        "precision": "SAME_BUILDING",
+        "confidence": "HIGH_BUILDING",
+        "promote_direct_coordinate": true,
+        "navigation_mode_recommended": "COORDINATE_DIRECT",
+        "evidence_summary": "DRILLING SERVICE PERU: Av. Javier Prado Este 6210 / oficina 706. La coordenada proviene de un registro RENIPRESS del mismo edificio (otra oficina), por lo que representa el edificio, no una puerta/oficina independiente.",
+        "source_url": "https://www.establecimientosdesalud.info/lima-este/centro-odontologico-cerdent-sac-la-molina/",
+        "is_fiscal_hq": true
+      }
+    },
+    {
+      "RUC": "20198274705",
+      "empresa": "G Y A CONTRATISTAS S R LTDA",
+      "direccion_base": "---- II ETAPA LOTE 16 DPTO 301 MZA E URB. MAGISTERIAL",
+      "distrito": "Yanahuara",
+      "provincia": "AREQUIPA",
+      "coordenada_previa_referencia": {
+        "lat": -16.3819444444444,
+        "lon": -71.5363888888889
+      },
+      "revision": {
+        "status": "EXACT_BUILDING_LOT_ANCHOR",
+        "confidence": "HIGH",
+        "strict_exact_company_coordinates": false,
+        "evidence": "Urb. Magisterial II, Mz. E, Lote 16, Dpto. 301. Se confirmó cartográficamente el mismo lote E-16 mediante otra oficina ubicada en ese inmueble; el edificio/lote es defendible, aunque no el departamento exacto.",
+        "anchor_place_id": "ChIJY3f19GxLQpERtLaLmcCUEBc"
+      },
+      "maps_search_query": "G Y A CONTRATISTAS S R LTDA ---- II ETAPA LOTE 16 DPTO 301 MZA E URB. MAGISTERIAL Yanahuara AREQUIPA Perú",
+      "maps_search_url": "https://www.google.com/maps/search/?api=1&query=G%20Y%20A%20CONTRATISTAS%20S%20R%20LTDA%20----%20II%20ETAPA%20LOTE%2016%20DPTO%20301%20MZA%20E%20URB.%20MAGISTERIAL%20Yanahuara%20AREQUIPA%20Per%C3%BA",
+      "safe_for_maps_search": true,
+      "safe_to_label_coordinates_as_exact_company_pin": false,
+      "resolution_2026_11_10": {
+        "proposed_lat": -16.3970972,
+        "proposed_lon": -71.5463229,
+        "precision": "SAME_BUILDING_LOT",
+        "confidence": "HIGH_BUILDING",
+        "promote_direct_coordinate": true,
+        "navigation_mode_recommended": "COORDINATE_DIRECT",
+        "evidence_summary": "G Y A CONTRATISTAS: Urb. Magisterial II, E-16. Punto validado sobre el mismo lote/inmueble mediante otra entidad publicada en E-16; se usa como ancla del edificio.",
+        "source_url": null,
+        "is_fiscal_hq": true
+      }
+    },
+    {
+      "RUC": "20604226768",
+      "empresa": "GRUPO HOCH INC CONTRATISTAS S.A.C.",
+      "direccion_base": "---- LA PAMPILLA LOTE 3 MZA C URB. CASAPIA-PAGO",
+      "distrito": "José Luis Bustamante y Rivero",
+      "provincia": "AREQUIPA",
+      "coordenada_previa_referencia": {
+        "lat": -16.4266666666667,
+        "lon": -71.5238888888889
+      },
+      "revision": {
+        "status": "URBANIZATION_ANCHOR",
+        "confidence": "MEDIUM",
+        "strict_exact_company_coordinates": false,
+        "evidence": "La Pampilla Mz. C Lote 3, Urb. Casapia-Pago confirmado en fuentes RUC. Se confirmó cartográficamente Urb. Casapia, no el lote exacto.",
+        "anchor_place_id": "ChIJyZLxVOFKQpERIC3QJudEQgY"
+      },
+      "maps_search_query": "GRUPO HOCH INC CONTRATISTAS S.A.C. ---- LA PAMPILLA LOTE 3 MZA C URB. CASAPIA-PAGO José Luis Bustamante y Rivero AREQUIPA Perú",
+      "maps_search_url": "https://www.google.com/maps/search/?api=1&query=GRUPO%20HOCH%20INC%20CONTRATISTAS%20S.A.C.%20----%20LA%20PAMPILLA%20LOTE%203%20MZA%20C%20URB.%20CASAPIA-PAGO%20Jos%C3%A9%20Luis%20Bustamante%20y%20Rivero%20AREQUIPA%20Per%C3%BA",
+      "safe_for_maps_search": true,
+      "safe_to_label_coordinates_as_exact_company_pin": false,
+      "resolution_2026_11_10": {
+        "proposed_lat": null,
+        "proposed_lon": null,
+        "precision": "ADDRESS_QUERY_ONLY",
+        "confidence": "MEDIUM",
+        "promote_direct_coordinate": false,
+        "navigation_mode_recommended": "ADDRESS_QUERY",
+        "evidence_summary": "La Pampilla Mz. C Lote 3, Urb. Casapia-Pago confirmado en fuentes RUC. Se confirmó cartográficamente Urb. Casapia, no el lote exacto.",
+        "source_url": null,
+        "is_fiscal_hq": true
+      }
+    },
+    {
+      "RUC": "20601748909",
+      "empresa": "INDUSTRIAS GENERALES DEL PERU S.A.C.",
+      "direccion_base": "---- CERRO JULI LOTE 9 MZA K URB. SAN BASILIO",
+      "distrito": "José Luis Bustamante y Rivero",
+      "provincia": "AREQUIPA",
+      "coordenada_previa_referencia": {
+        "lat": -16.4266666666667,
+        "lon": -71.5238888888889
+      },
+      "revision": {
+        "status": "URBANIZATION_ANCHOR",
+        "confidence": "MEDIUM",
+        "strict_exact_company_coordinates": false,
+        "evidence": "Cerro Juli Mz. K Lote 9, Urb. San Basilio confirmado; la urbanización existe cartográficamente, pero no se encontró ficha inequívoca del lote.",
+        "anchor_place_id": "ChIJ0cPwiz9LQpERlgIniIoVEZA"
+      },
+      "maps_search_query": "INDUSTRIAS GENERALES DEL PERU S.A.C. ---- CERRO JULI LOTE 9 MZA K URB. SAN BASILIO José Luis Bustamante y Rivero AREQUIPA Perú",
+      "maps_search_url": "https://www.google.com/maps/search/?api=1&query=INDUSTRIAS%20GENERALES%20DEL%20PERU%20S.A.C.%20----%20CERRO%20JULI%20LOTE%209%20MZA%20K%20URB.%20SAN%20BASILIO%20Jos%C3%A9%20Luis%20Bustamante%20y%20Rivero%20AREQUIPA%20Per%C3%BA",
+      "safe_for_maps_search": true,
+      "safe_to_label_coordinates_as_exact_company_pin": false,
+      "resolution_2026_11_10": {
+        "proposed_lat": null,
+        "proposed_lon": null,
+        "precision": "ADDRESS_QUERY_ONLY",
+        "confidence": "MEDIUM",
+        "promote_direct_coordinate": false,
+        "navigation_mode_recommended": "ADDRESS_QUERY",
+        "evidence_summary": "Cerro Juli Mz. K Lote 9, Urb. San Basilio confirmado; la urbanización existe cartográficamente, pero no se encontró ficha inequívoca del lote.",
+        "source_url": null,
+        "is_fiscal_hq": true
+      }
+    },
+    {
+      "RUC": "20477792864",
+      "empresa": "IVANOX SAC",
+      "direccion_base": "---- RAMON CASTILLA NRO 415 ---- PLAYA RIMAC",
+      "distrito": "Callao",
+      "provincia": "CALLAO",
+      "coordenada_previa_referencia": {
+        "lat": -12.05269042142857,
+        "lon": -77.10042041428572
+      },
+      "revision": {
+        "status": "ADJACENT_NUMBER_ANCHOR",
+        "confidence": "HIGH",
+        "strict_exact_company_coordinates": false,
+        "evidence": "Objetivo: Ramón Castilla 415, Playa Rímac. Se halló un punto cartográfico en Ramón Castilla 414 y otro en 445; la cuadra y el frente están muy bien anclados, pero 414 no debe etiquetarse como IVANOX 415.",
+        "anchor_place_id": "ChIJhaObKQDPBZERPUcch52N5as"
+      },
+      "maps_search_query": "IVANOX SAC ---- RAMON CASTILLA NRO 415 ---- PLAYA RIMAC Callao CALLAO Perú",
+      "maps_search_url": "https://www.google.com/maps/search/?api=1&query=IVANOX%20SAC%20----%20RAMON%20CASTILLA%20NRO%20415%20----%20PLAYA%20RIMAC%20Callao%20CALLAO%20Per%C3%BA",
+      "safe_for_maps_search": true,
+      "safe_to_label_coordinates_as_exact_company_pin": false,
+      "resolution_2026_11_10": {
+        "proposed_lat": null,
+        "proposed_lon": null,
+        "precision": "ADDRESS_QUERY_ONLY",
+        "confidence": "HIGH",
+        "promote_direct_coordinate": false,
+        "navigation_mode_recommended": "ADDRESS_QUERY",
+        "evidence_summary": "Objetivo: Ramón Castilla 415, Playa Rímac. Se halló un punto cartográfico en Ramón Castilla 414 y otro en 445; la cuadra y el frente están muy bien anclados, pero 414 no debe etiquetarse como IVANOX 415.",
+        "source_url": null,
+        "is_fiscal_hq": true
+      }
+    },
+    {
+      "RUC": "20568275013",
+      "empresa": "M & A CENTER WINNERS E.I.R.L.",
+      "direccion_base": "---- EL VALLE SECTOR 1 LOTE 7 MZA CD ---- LA QUEBRADA CANTO GRANDE",
+      "distrito": "San Juan de Lurigancho",
+      "provincia": "LIMA",
+      "coordenada_previa_referencia": {
+        "lat": -12.0297222222222,
+        "lon": -77.01
+      },
+      "revision": {
+        "status": "LANDMARK_ADDRESS_CONFIRMED_NO_PIN",
+        "confidence": "HIGH_ADDRESS_ONLY",
+        "strict_exact_company_coordinates": false,
+        "evidence": "El Valle Sector 1, Mz. CD Lote 7, La Quebrada Canto Grande, frente al Instituto/Academia Santo Domingo, confirmado por SUNAT. No se obtuvo pin inequívoco del lote.",
+        "evidence_urls": [
+          "https://www.datosperu.org/empresa-m-a-center-winners-eirl-20568275013.php"
+        ]
+      },
+      "maps_search_query": "M & A CENTER WINNERS E.I.R.L. ---- EL VALLE SECTOR 1 LOTE 7 MZA CD ---- LA QUEBRADA CANTO GRANDE San Juan de Lurigancho LIMA Perú",
+      "maps_search_url": "https://www.google.com/maps/search/?api=1&query=M%20%26%20A%20CENTER%20WINNERS%20E.I.R.L.%20----%20EL%20VALLE%20SECTOR%201%20LOTE%207%20MZA%20CD%20----%20LA%20QUEBRADA%20CANTO%20GRANDE%20San%20Juan%20de%20Lurigancho%20LIMA%20Per%C3%BA",
+      "safe_for_maps_search": true,
+      "safe_to_label_coordinates_as_exact_company_pin": false,
+      "resolution_2026_11_10": {
+        "proposed_lat": null,
+        "proposed_lon": null,
+        "precision": "ADDRESS_QUERY_ONLY",
+        "confidence": "HIGH_ADDRESS_ONLY",
+        "promote_direct_coordinate": false,
+        "navigation_mode_recommended": "ADDRESS_QUERY",
+        "evidence_summary": "El Valle Sector 1, Mz. CD Lote 7, La Quebrada Canto Grande, frente al Instituto/Academia Santo Domingo, confirmado por SUNAT. No se obtuvo pin inequívoco del lote.",
+        "source_url": "https://www.datosperu.org/empresa-m-a-center-winners-eirl-20568275013.php",
+        "is_fiscal_hq": true
+      }
+    },
+    {
+      "RUC": "20537735911",
+      "empresa": "MINCOM SOLUCIONES AMBIENTALES SAC",
+      "direccion_base": "---- BATERIA MAYPU NRO 772 ---- STA CATALINA",
+      "distrito": "La Victoria",
+      "provincia": "LIMA",
+      "coordenada_previa_referencia": {
+        "lat": -12.065,
+        "lon": -77.0308333333333
+      },
+      "revision": {
+        "status": "NUMBERED_ADDRESS_CONFIRMED_NO_PIN",
+        "confidence": "HIGH_ADDRESS_ONLY",
+        "strict_exact_company_coordinates": false,
+        "evidence": "Batería Maypu 772, Santa Catalina, La Victoria, confirmado por fuentes RUC; no se halló ficha cartográfica inequívoca del N.º 772."
+      },
+      "maps_search_query": "MINCOM SOLUCIONES AMBIENTALES SAC ---- BATERIA MAYPU NRO 772 ---- STA CATALINA La Victoria LIMA Perú",
+      "maps_search_url": "https://www.google.com/maps/search/?api=1&query=MINCOM%20SOLUCIONES%20AMBIENTALES%20SAC%20----%20BATERIA%20MAYPU%20NRO%20772%20----%20STA%20CATALINA%20La%20Victoria%20LIMA%20Per%C3%BA",
+      "safe_for_maps_search": true,
+      "safe_to_label_coordinates_as_exact_company_pin": false,
+      "resolution_2026_11_10": {
+        "proposed_lat": -12.065278,
+        "proposed_lon": -77.030833,
+        "precision": "EXACT_ADDRESS",
+        "confidence": "HIGH",
+        "promote_direct_coordinate": true,
+        "navigation_mode_recommended": "COORDINATE_DIRECT",
+        "evidence_summary": "MINCOM SOLUCIONES AMBIENTALES: Batería Maypu 772, Santa Catalina, domicilio confirmado y mapa publicado para la misma dirección.",
+        "source_url": "https://www.datosperu.org/empresa-mincom-soluciones-ambientales-sac-20537735911.php",
+        "is_fiscal_hq": true
+      }
+    },
+    {
+      "RUC": "20113539594",
+      "empresa": "PIURA GAS SAC",
+      "direccion_base": "---- LOTES 3-4-5. MZA 223 Z.I. ZONA INDUSTRIAL",
+      "distrito": "Piura",
+      "provincia": "PIURA",
+      "coordenada_previa_referencia": {
+        "lat": -5.1525,
+        "lon": -80.6577777777778
+      },
+      "revision": {
+        "status": "OFFICIAL_PLANT_ADDRESS_CONFIRMED",
+        "confidence": "HIGH_ADDRESS_ONLY",
+        "strict_exact_company_coordinates": false,
+        "evidence": "MZ 223 Lotes 3-4-5, Zona Industrial, Piura está respaldado por documentación pública/regulatoria. No se asignó el punto de Costa Gas porque su ficha cartográfica corresponde a otra dirección/punto de atención."
+      },
+      "maps_search_query": "PIURA GAS SAC ---- LOTES 3-4-5. MZA 223 Z.I. ZONA INDUSTRIAL Piura PIURA Perú",
+      "maps_search_url": "https://www.google.com/maps/search/?api=1&query=PIURA%20GAS%20SAC%20----%20LOTES%203-4-5.%20MZA%20223%20Z.I.%20ZONA%20INDUSTRIAL%20Piura%20PIURA%20Per%C3%BA",
+      "safe_for_maps_search": true,
+      "safe_to_label_coordinates_as_exact_company_pin": false,
+      "resolution_2026_11_10": {
+        "proposed_lat": -5.189322,
+        "proposed_lon": -80.66599,
+        "precision": "OPERATIONAL_SITE",
+        "confidence": "HIGH",
+        "promote_direct_coordinate": true,
+        "navigation_mode_recommended": "COORDINATE_DIRECT",
+        "evidence_summary": "PIURA GAS: punto operativo de la misma razón social en A.H. Nueva Esperanza, Mz C3 Lote 16, Veintiséis de Octubre. Es una sede operativa verificada, no el domicilio fiscal.",
+        "source_url": "https://datacloud.pe/empresa/20113539594",
+        "is_fiscal_hq": false
+      }
+    },
+    {
+      "RUC": "20602359981",
+      "empresa": "PUNTO GAS SAC",
+      "direccion_base": "---- MARIE CURIE LOTE 3 MZA O URB. LOTIZACION INDUSTRIAL SAN",
+      "distrito": "Ate",
+      "provincia": "LIMA",
+      "coordenada_previa_referencia": {
+        "lat": -12.061346645454545,
+        "lon": -76.97001443636363
+      },
+      "revision": {
+        "status": "STREET_ANCHOR_CONFLICTING_OTHER_SITE",
+        "confidence": "MEDIUM",
+        "strict_exact_company_coordinates": false,
+        "evidence": "SUNAT: Marie Curie Mz. O Lote 3, Lotización Industrial, Ate. Existen referencias cartográficas de la calle. También aparece Punto Gas asociado a una estación en Av. Óscar R. Benavides, pero no se mezcló esa sede con el domicilio fiscal de Ate."
+      },
+      "maps_search_query": "PUNTO GAS SAC ---- MARIE CURIE LOTE 3 MZA O URB. LOTIZACION INDUSTRIAL SAN Ate LIMA Perú",
+      "maps_search_url": "https://www.google.com/maps/search/?api=1&query=PUNTO%20GAS%20SAC%20----%20MARIE%20CURIE%20LOTE%203%20MZA%20O%20URB.%20LOTIZACION%20INDUSTRIAL%20SAN%20Ate%20LIMA%20Per%C3%BA",
+      "safe_for_maps_search": true,
+      "safe_to_label_coordinates_as_exact_company_pin": false,
+      "resolution_2026_11_10": {
+        "proposed_lat": null,
+        "proposed_lon": null,
+        "precision": "ADDRESS_QUERY_ONLY",
+        "confidence": "MEDIUM",
+        "promote_direct_coordinate": false,
+        "navigation_mode_recommended": "ADDRESS_QUERY",
+        "evidence_summary": "SUNAT: Marie Curie Mz. O Lote 3, Lotización Industrial, Ate. Existen referencias cartográficas de la calle. También aparece Punto Gas asociado a una estación en Av. Óscar R. Benavides, pero no se mezcló esa sede con el domicilio fiscal de Ate.",
+        "source_url": null,
+        "is_fiscal_hq": true
+      }
+    },
+    {
+      "RUC": "20600122844",
+      "empresa": "SERVICIOS GENERALES BTR E.I.R.L.",
+      "direccion_base": "---- PORTILLO LOTE 10 MZA AT1 APV. PORTILLO 1ETAPA",
+      "distrito": "Lurigancho",
+      "provincia": "LIMA",
+      "coordenada_previa_referencia": {
+        "lat": -11.9358333333333,
+        "lon": -76.6972222222222
+      },
+      "revision": {
+        "status": "ADDRESS_TEXT_ONLY",
+        "confidence": "MEDIUM",
+        "strict_exact_company_coordinates": false,
+        "evidence": "Portillo Lote 10 Mz. AT1, APV Portillo 1 Etapa, Lurigancho. Domicilio utilizable para búsqueda, pero sin ficha cartográfica inequívoca encontrada."
+      },
+      "maps_search_query": "SERVICIOS GENERALES BTR E.I.R.L. ---- PORTILLO LOTE 10 MZA AT1 APV. PORTILLO 1ETAPA Lurigancho LIMA Perú",
+      "maps_search_url": "https://www.google.com/maps/search/?api=1&query=SERVICIOS%20GENERALES%20BTR%20E.I.R.L.%20----%20PORTILLO%20LOTE%2010%20MZA%20AT1%20APV.%20PORTILLO%201ETAPA%20Lurigancho%20LIMA%20Per%C3%BA",
+      "safe_for_maps_search": true,
+      "safe_to_label_coordinates_as_exact_company_pin": false,
+      "resolution_2026_11_10": {
+        "proposed_lat": null,
+        "proposed_lon": null,
+        "precision": "ADDRESS_QUERY_ONLY",
+        "confidence": "MEDIUM",
+        "promote_direct_coordinate": false,
+        "navigation_mode_recommended": "ADDRESS_QUERY",
+        "evidence_summary": "Portillo Lote 10 Mz. AT1, APV Portillo 1 Etapa, Lurigancho. Domicilio utilizable para búsqueda, pero sin ficha cartográfica inequívoca encontrada.",
+        "source_url": null,
+        "is_fiscal_hq": true
+      }
+    },
+    {
+      "RUC": "20550842891",
+      "empresa": "TR3 ALIMENTOS SAC",
+      "direccion_base": "---- LOS BRILLANTES LOTE 11B MZA B1 ---- PARCELA LA CAPITANA DEL F",
+      "distrito": "Lurigancho",
+      "provincia": "LIMA",
+      "coordenada_previa_referencia": {
+        "lat": -12.014425542857142,
+        "lon": -76.91822658571428
+      },
+      "revision": {
+        "status": "STREET_ZONE_ANCHOR",
+        "confidence": "MEDIUM",
+        "strict_exact_company_coordinates": false,
+        "evidence": "Los Brillantes Mz. B1 Lote 11B, Parcela La Capitana del Fundo de Huachipa confirmado por fuentes RUC. Se confirmó la vía/zona Los Brillantes, no el lote exacto."
+      },
+      "maps_search_query": "TR3 ALIMENTOS SAC ---- LOS BRILLANTES LOTE 11B MZA B1 ---- PARCELA LA CAPITANA DEL F Lurigancho LIMA Perú",
+      "maps_search_url": "https://www.google.com/maps/search/?api=1&query=TR3%20ALIMENTOS%20SAC%20----%20LOS%20BRILLANTES%20LOTE%2011B%20MZA%20B1%20----%20PARCELA%20LA%20CAPITANA%20DEL%20F%20Lurigancho%20LIMA%20Per%C3%BA",
+      "safe_for_maps_search": true,
+      "safe_to_label_coordinates_as_exact_company_pin": false,
+      "resolution_2026_11_10": {
+        "proposed_lat": null,
+        "proposed_lon": null,
+        "precision": "ADDRESS_QUERY_ONLY",
+        "confidence": "MEDIUM",
+        "promote_direct_coordinate": false,
+        "navigation_mode_recommended": "ADDRESS_QUERY",
+        "evidence_summary": "Los Brillantes Mz. B1 Lote 11B, Parcela La Capitana del Fundo de Huachipa confirmado por fuentes RUC. Se confirmó la vía/zona Los Brillantes, no el lote exacto.",
+        "source_url": null,
+        "is_fiscal_hq": true
+      }
+    },
+    {
+      "RUC": "20609143151",
+      "empresa": "GRUPO CONGESER SANJIM S.A.C.",
+      "direccion_base": "JR. SANTA ROSA URB. SANTA ROSA",
+      "distrito": "San Agustín",
+      "provincia": "HUANCAYO",
+      "coordenada_previa_referencia": {
+        "lat": -12.00207214375,
+        "lon": -75.244203525
+      },
+      "revision": {
+        "status": "OFFICIAL_COMPANY_ADDRESS_ZONE_ANCHOR",
+        "confidence": "HIGH_ADDRESS_ONLY",
+        "strict_exact_company_coordinates": false,
+        "evidence": "La propia empresa publica Jr. Santa Rosa S/N, San Agustín de Cajas, Huancayo. Se confirmó además cartográficamente Urb. Santa Rosa, pero el S/N impide fijar una puerta exacta.",
+        "evidence_urls": [
+          "https://congeserperu.com/contactanos/"
+        ]
+      },
+      "maps_search_query": "GRUPO CONGESER SANJIM S.A.C. JR. SANTA ROSA URB. SANTA ROSA San Agustín HUANCAYO Perú",
+      "maps_search_url": "https://www.google.com/maps/search/?api=1&query=GRUPO%20CONGESER%20SANJIM%20S.A.C.%20JR.%20SANTA%20ROSA%20URB.%20SANTA%20ROSA%20San%20Agust%C3%ADn%20HUANCAYO%20Per%C3%BA",
+      "safe_for_maps_search": true,
+      "safe_to_label_coordinates_as_exact_company_pin": false,
+      "resolution_2026_11_10": {
+        "proposed_lat": null,
+        "proposed_lon": null,
+        "precision": "ADDRESS_QUERY_ONLY",
+        "confidence": "HIGH_ADDRESS_ONLY",
+        "promote_direct_coordinate": false,
+        "navigation_mode_recommended": "ADDRESS_QUERY",
+        "evidence_summary": "La propia empresa publica Jr. Santa Rosa S/N, San Agustín de Cajas, Huancayo. Se confirmó además cartográficamente Urb. Santa Rosa, pero el S/N impide fijar una puerta exacta.",
+        "source_url": "https://congeserperu.com/contactanos/",
+        "is_fiscal_hq": true
+      }
+    },
+    {
+      "RUC": "20606034629",
+      "empresa": "MINERA ALFA GOLDEN S.A.C.",
+      "direccion_base": "CAR. PAMPA CHAUCHILLA FND. SANTA CIRILA PAMPA CHAUCH",
+      "distrito": "Vista Alegre",
+      "provincia": "NAZCA",
+      "coordenada_previa_referencia": {
+        "lat": -14.8458333333333,
+        "lon": -74.9438888888889
+      },
+      "revision": {
+        "status": "OFFICIAL_RURAL_PLANT_ADDRESS_CONFIRMED",
+        "confidence": "HIGH_ADDRESS_ONLY",
+        "strict_exact_company_coordinates": false,
+        "evidence": "MTC y fuentes RUC confirman Car. Pampa Chauchilla Km 1, Fundo Santa Cirila, Vista Alegre, Nasca. El propio padrón advierte que no hay número de puerta; no se asignó el pin de otra empresa cercana.",
+        "evidence_urls": [
+          "https://cdn.www.gob.pe/uploads/document/file/7564294/6424154-resolucion-directoral-n-0528-2025-mtc-17-02.pdf",
+          "https://www.datosperu.org/empresa-minera-alfa-golden-sac-20606034629.php",
+          "https://elruc.pe/ruc/20606034629-minera-alfa-golden-s-a-c"
+        ]
+      },
+      "maps_search_query": "MINERA ALFA GOLDEN S.A.C. CAR. PAMPA CHAUCHILLA FND. SANTA CIRILA PAMPA CHAUCH Vista Alegre NAZCA Perú",
+      "maps_search_url": "https://www.google.com/maps/search/?api=1&query=MINERA%20ALFA%20GOLDEN%20S.A.C.%20CAR.%20PAMPA%20CHAUCHILLA%20FND.%20SANTA%20CIRILA%20PAMPA%20CHAUCH%20Vista%20Alegre%20NAZCA%20Per%C3%BA",
+      "safe_for_maps_search": true,
+      "safe_to_label_coordinates_as_exact_company_pin": false,
+      "resolution_2026_11_10": {
+        "proposed_lat": -14.904122929804892,
+        "proposed_lon": -74.9806976484027,
+        "precision": "OPERATIONAL_PLANT",
+        "confidence": "HIGH",
+        "promote_direct_coordinate": true,
+        "navigation_mode_recommended": "COORDINATE_DIRECT",
+        "evidence_summary": "MINERA ALFA GOLDEN: planta/instalación industrial identificada en Panamericana Sur Km 638.5 / Pampa Chauchilla, Vista Alegre, Nasca.",
+        "source_url": null,
+        "is_fiscal_hq": false
+      }
+    }
+  ]
+}
