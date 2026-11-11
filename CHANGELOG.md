@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.0.1+4 — 2026-11-10
+
+- Restored the required commercial overlay for all 1,907 accounts from the hash-verified snapshot master.
+- Fixed snapshot member-hash verification and enforced asset/commercial coverage before builds.
+- Updated test fixtures for the current Company contract.
+- Flutter analysis passes; all seven Flutter tests and eleven geocoding tests pass.
+- Local Android build scripts suppress telemetry and report the current pubspec version.
+- Geographic navigation remains 370 direct coordinates and 1,537 address searches; no historical coordinate total is inferred.
+
 ## 1.0.0+3 — 2026-11-09
 
 ### Added

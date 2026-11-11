@@ -159,7 +159,7 @@ echo
 echo "Android listo:"
 echo "  app: Nexo Industrial"
 echo "  package: pe.nexoindustrial.app"
-echo "  version: 1.0.0+3"
+python3 -c 'from pathlib import Path; print(next(line for line in Path("pubspec.yaml").read_text().splitlines() if line.startswith("version:")))'
 echo
 echo "Compila release con:"
 echo "  flutter build apk --release"

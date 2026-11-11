@@ -23,6 +23,10 @@ else
   flutter test
 fi
 
+if [ "${NEXO_LOW_MEMORY_BUILD:-0}" = "1" ]; then
+  python3 tool/configure_android_low_memory.py
+fi
+
 flutter build apk --release
 
 APK="$ROOT/build/app/outputs/flutter-apk/app-release.apk"
