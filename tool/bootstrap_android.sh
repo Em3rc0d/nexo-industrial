@@ -17,7 +17,14 @@ trap cleanup EXIT
 
 cd "$ROOT"
 
+# Existing Android configuration may contain the installation signing identity.
+if [ -d "$ROOT/android" ]; then
+  echo "Android ya existe; se conserva sin regenerar. Ejecuta build_android_release.sh." >&2
+  exit 1
+fi
+
 python3 tool/validate_dataset.py
+python3 tool/validate_contact_patch.py
 
 if ! command -v flutter >/dev/null 2>&1; then
   echo "Flutter no está instalado o no está en PATH." >&2
@@ -32,7 +39,6 @@ flutter create \
   --project-name=nexo_industrial \
   "$GENERATED"
 
-rm -rf "$ROOT/android"
 cp -R "$GENERATED/android" "$ROOT/android"
 
 python3 - "$ROOT" "$PACKAGE_ID" <<'PY'

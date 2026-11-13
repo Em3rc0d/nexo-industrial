@@ -38,3 +38,14 @@
 No etiquetar/distribuir 1.0.0 como APK final hasta que los cuatro checks pendientes de Android estén en verde.
 
 No usar GitHub Actions para compilar el APK.
+
+## Estabilización 13/11/2026
+
+- [x] Reejecutadas auditorías Python de dataset y parche de contactos.
+- [x] Bootstrap protege configuración Android existente.
+- [x] Añadido respaldo/restauración JSON manual en Actividad (código).
+- [ ] Ejecutar tests del respaldo, transacciones y migraciones en Flutter/SQLite.
+- [ ] Verificar copia externa y restauración en Android real.
+- [ ] Recuperar certificado de firma anterior y comprobar actualización sin pérdida.
+
+Detalle y límites: `docs/STABILIZATION_2026-11-13.md`.

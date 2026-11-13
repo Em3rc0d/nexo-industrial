@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/theme/app_theme.dart';
 import 'activity_store.dart';
+import 'activity_backup_dialog.dart';
 
 class ActivityScreen extends StatelessWidget {
   const ActivityScreen({super.key, required this.activityStore});
@@ -29,6 +30,21 @@ class ActivityScreen extends StatelessWidget {
                       'Actividad',
                       style: Theme.of(context).textTheme.headlineSmall
                           ?.copyWith(fontWeight: FontWeight.w900),
+                    ),
+                    Wrap(
+                      spacing: 8,
+                      children: [
+                        TextButton.icon(
+                          onPressed: () => showActivityBackup(context, activityStore, restore: false),
+                          icon: const Icon(Icons.copy_outlined),
+                          label: const Text('Respaldar'),
+                        ),
+                        TextButton.icon(
+                          onPressed: () => showActivityBackup(context, activityStore, restore: true),
+                          icon: const Icon(Icons.restore),
+                          label: const Text('Restaurar'),
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 4),
                     const Text(

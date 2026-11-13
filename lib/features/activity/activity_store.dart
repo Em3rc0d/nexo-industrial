@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../companies/domain/company.dart';
+import 'activity_backup.dart';
 
 enum ActivityType {
   visit,
@@ -183,6 +184,35 @@ class ActivityStore extends ChangeNotifier {
     });
 
     await _reload();
+  }
+
+  Future<String> exportBackup() async {
+    final database = _database;
+    if (database == null) throw StateError('Historial no inicializado.');
+    final rows = await database.query('activities', orderBy: 'id ASC');
+    return ActivityBackup.encode(rows);
+  }
+
+  /// Merge only: never remove or overwrite an existing activity.
+  /// Validate the entire document before writing, then commit atomically.
+  Future<int> restoreBackup(String source) async {
+    final rows = ActivityBackup.decode(source);
+    final database = _database;
+    if (database == null) throw StateError('Historial no inicializado.');
+    final inserted = await database.transaction((transaction) async {
+      final existing = await transaction.query('activities');
+      final seen = existing.map(ActivityBackup.fingerprint).toSet();
+      var count = 0;
+      for (final row in rows) {
+        if (seen.add(ActivityBackup.fingerprint(row))) {
+          await transaction.insert('activities', row);
+          count++;
+        }
+      }
+      return count;
+    });
+    await _reload();
+    return inserted;
   }
 
   Future<void> _reload() async {

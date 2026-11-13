@@ -130,3 +130,14 @@ Hay 9 lotes de investigación pública guardados en `data/contact_enrichment/`, 
 **El asset comercial comprimido conserva 267 RUC con teléfono, 157 con email y 270 con cualquiera.** El código Flutter ahora aplica `assets/data/companies.contact.patch.json` (33 RUC) durante la carga, con expectativa de **292** con teléfono, **176** con email, **299** con alguno de ambos y **304** incluyendo páginas/portales; restarían **1,608** RUC sin teléfono/email. El manifiesto diferencia ambos cortes. **Sin Flutter ejecutado ni APK nueva**.
 
 Detalle, evidencias, política de exclusiones y gate de reconstrucción: `docs/CONTACT_ENRICHMENT_2026-11-11.md` y `data/contact_enrichment/staged_status_2026-11-11.json`. No se ha llamado, escrito, enviado formulario ni solicitado conexión a ningún prospecto.
+
+## Protección de historial — 13/11/2026 (código, pendiente Android)
+
+En Actividad se añaden **Respaldar** y **Restaurar** mediante JSON manual.
+El respaldo debe guardarse fuera de la app; copiarlo al portapapeles no basta.
+La restauración valida y combina sin borrar el historial, omitiendo duplicados
+exactos. Sin envío automático ni backend. Aún requiere pruebas Flutter/Android.
+
+El bootstrap conserva cualquier carpeta Android existente. La firma estable
+y una actualización sobre la APK instalada siguen pendientes de verificación.
+Ver `docs/STABILIZATION_2026-11-13.md`.

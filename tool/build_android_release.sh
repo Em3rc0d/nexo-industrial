@@ -9,6 +9,7 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 
 python3 tool/validate_dataset.py
+python3 tool/validate_contact_patch.py
 
 if ! command -v flutter >/dev/null 2>&1; then
   echo "Flutter no está instalado o no está en PATH." >&2
