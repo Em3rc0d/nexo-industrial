@@ -25,9 +25,13 @@ jobs:
         run: |
           set -euo pipefail
           BASE="3ab3c2868af7cfa75bc8d9e9904925f0c01f5ea7"
-          CHANGED="$(git diff --name-only "$BASE"..HEAD)"
+          CHANGED="$(git diff --name-only "$BASE"..HEAD | sort)"
           echo "$CHANGED"
-          test "$CHANGED" = ".github/workflows/contract000-apk.yml"
+          EXPECTED="$(printf '%s\n' \
+            '.github/workflows/contract000-apk.yml' \
+            'test/production_dataset_test.dart' \
+            'test/public_professionals_test.dart' | sort)"
+          test "$CHANGED" = "$EXPECTED"
 
       - name: Set up Java 17
         uses: actions/setup-java@v4
