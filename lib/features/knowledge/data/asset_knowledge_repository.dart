@@ -106,8 +106,7 @@ class AssetKnowledgeRepository {
               'Audited geographic overlay.',
           metadata: {
             'asset': geolocationOverlayPath,
-            if (_nonEmpty(row['location_quality']) case final value?)
-              'location_quality': value,
+            ..._optionalMetadata('location_quality', row['location_quality']),
           },
         ),
       );
@@ -214,10 +213,8 @@ class AssetKnowledgeRepository {
                 'Published company channel; no outreach performed.',
             metadata: {
               'asset': contactPatchAssetPath,
-              if (_nonEmpty(patch['channel_purpose']) case final value?)
-                'channel_purpose': value,
-              if (_nonEmpty(patch['status']) case final value?)
-                'status': value,
+              ..._optionalMetadata('channel_purpose', patch['channel_purpose']),
+              ..._optionalMetadata('status', patch['status']),
             },
           ),
         );
@@ -342,8 +339,7 @@ class AssetKnowledgeRepository {
             summary: _nonEmpty(row['evidence_summary']),
             metadata: {
               'asset': peopleAssetPath,
-              if (_nonEmpty(row['status']) case final value?)
-                'status': value,
+              ..._optionalMetadata('status', row['status']),
             },
           ),
         );
@@ -386,9 +382,8 @@ class AssetKnowledgeRepository {
           metadata: {
             'display_name': name,
             'organization_ruc': ruc,
-            if (_nonEmpty(row['department']) case final value?)
-              'department': value,
-            if (status.isNotEmpty) 'source_status': status,
+            ..._optionalMetadata('department', row['department']),
+            ..._optionalMetadata('source_status', status),
           },
         ),
       );
@@ -479,4 +474,10 @@ String _slug(String value) {
   return result
       .replaceAll(RegExp(r'[^a-z0-9]+'), '-')
       .replaceAll(RegExp(r'^-+|-+$'), '');
+}
+
+
+Map<String, String> _optionalMetadata(String key, Object? value) {
+  final text = _nonEmpty(value);
+  return text == null ? const {} : {key: text};
 }
