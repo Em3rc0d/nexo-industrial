@@ -10,7 +10,7 @@ La cobertura auditada del 9 de noviembre de 2026 es:
 | --- | ---: | --- |
 | `exact_address` | 334 | Dirección precisa; navegación permitida cuando la auditoría lo autoriza. |
 | `address_reference` | 36 | Referencia de dirección sólida; navegación permitida. |
-| `interpolated_address` | 137 | Punto aproximado por numeración; cercanía penalizada, sin navegación directa. |
+| `interpolated_address` | 137 | Punto aproximado por numeración; en el snapshot actual no participa en cercanía ni navegación directa. |
 | `street_reference` | 551 | Referencia de vía; solo contexto visual. |
 | `district_reference` | 849 | Referencia territorial; solo contexto visual. |
 
@@ -36,14 +36,16 @@ Por eso Nexo diferencia “dirección georreferenciada” de “sede operativa c
 
 ## Ranking
 
-La distancia solo participa cuando la evidencia lo permite:
+La distancia solo participa cuando la auditoría lo autoriza mediante `nearby_ranking_eligible=true`.
+
+`location_quality` describe la calidad de la evidencia y no concede permiso por sí sola. Una vez que una cuenta es elegible, la calidad puede ponderar cuánto pesa esa distancia:
 
 - exacta: peso completo;
 - referencia de dirección: casi completo;
-- interpolada: peso reducido;
-- calle/distrito: no compiten por cercanía.
+- interpolada: peso reducido si una auditoría futura la promueve explícitamente;
+- calle/distrito: peso nulo.
 
-Así se evita que un centroide distrital gane artificialmente frente a una dirección real.
+En el snapshot actual hay **370 cuentas** elegibles para cercanía y las **137 interpolaciones** están explícitamente fuera del nearby ranking. Todas las 1,907 cuentas siguen visibles en mapa y búsqueda.
 
 ## Google Maps fallback
 
