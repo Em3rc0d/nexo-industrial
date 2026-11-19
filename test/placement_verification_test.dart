@@ -47,22 +47,26 @@ void main() {
     );
   }
 
-  test('production placement overlay remains fail-closed with zero accepted records', () async {
+  test('production placement overlay remains fail-closed after reconciliation', () async {
     final result = await const AssetPlacementVerificationRepository().loadSnapshot();
 
     expect(result.verifications, isEmpty);
     expect(result.claims, isEmpty);
     expect(result.evidence, isEmpty);
+    expect(result.snapshot.sites, hasLength(1907));
     expect(result.snapshot.placements, hasLength(1907));
-    expect(result.snapshot.placementsForSite(explominHq), isEmpty);
+    expect(result.snapshot.siteById(explominHq), isNull);
     expect(
-      result.snapshot.gaps.where(
+      result.snapshot.placementsForSite('site:20501523837:reference-1'),
+      hasLength(1),
+    );
+    expect(
+      result.snapshot.gaps.any(
         (gap) =>
             gap.subject.type == KnowledgeSubjectType.site &&
-            gap.subject.id == explominHq &&
-            gap.predicate == 'site.placement',
+            gap.subject.id == explominHq,
       ),
-      hasLength(1),
+      isFalse,
     );
   });
 
