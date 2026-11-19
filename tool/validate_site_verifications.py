@@ -7,6 +7,7 @@ from urllib.parse import urlparse
 ROOT = Path(__file__).resolve().parents[1]
 COMPANIES = ROOT / "assets/data/companies.production.json"
 OVERLAY = ROOT / "assets/data/sites.verified.overlay.json"
+DISCOVERIES = ROOT / "assets/data/sites.discovered.overlay.json"
 
 ALLOWED_DECISIONS = {"operational", "not_operational"}
 ALLOWED_FUNCTIONS = {
@@ -32,6 +33,11 @@ def parse_date(value, field, record_id):
 def main():
     companies = json.loads(COMPANIES.read_text(encoding="utf-8"))
     known_rucs = {str(row["ruc"]) for row in companies}
+    known_site_ids = {f"site:{ruc}:reference-1" for ruc in known_rucs}
+
+    discoveries = json.loads(DISCOVERIES.read_text(encoding="utf-8"))
+    for row in discoveries.get("records", []):
+        known_site_ids.add(str(row.get("site_id", "")).strip())
 
     document = json.loads(OVERLAY.read_text(encoding="utf-8"))
     if document.get("format") != "nexo-industrial-site-verifications":
@@ -62,6 +68,8 @@ def main():
         site_id = str(row.get("site_id", "")).strip()
         if not site_id.startswith(f"site:{ruc}:"):
             fail(f"{record_id}: site_id/RUC mismatch: {site_id}")
+        if site_id not in known_site_ids:
+            fail(f"{record_id}: verification references unknown Site {site_id}")
         if site_id in current_sites:
             fail(f"{record_id}: duplicate current verification for {site_id}")
         current_sites.add(site_id)
