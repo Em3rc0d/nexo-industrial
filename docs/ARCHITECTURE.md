@@ -33,7 +33,7 @@ Combina:
 - cercanía;
 - peso de evidencia.
 
-Solo exacta/referencia/interpolada pueden usar distancia. La interpolación recibe penalización. Calle/distrito no compiten por cercanía.
+`nearby_ranking_eligible` es la autoridad para decidir si una cuenta puede usar distancia. `LocationQuality` no puede anular una inelegibilidad auditada; únicamente pondera la evidencia después del gate. En el snapshot actual las 137 interpolaciones no compiten por cercanía. Calle/distrito tampoco compiten.
 
 ### Map
 `flutter_map` + clustering. El mapa es visualización; no descubre prospectos.
