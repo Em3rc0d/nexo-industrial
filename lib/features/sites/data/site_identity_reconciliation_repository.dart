@@ -207,7 +207,7 @@ class SiteIdentityReconciliationEngine {
             'left_site_id': reconciliation.leftSiteId,
             'right_site_id': reconciliation.rightSiteId,
             'relation': _relationName(reconciliation.relation),
-            if (canonicalSiteId != null) 'canonical_site_id': canonicalSiteId,
+            ..._optionalObject('canonical_site_id', canonicalSiteId),
           }),
           origin: KnowledgeOrigin.derived,
           temporalMode: KnowledgeTemporalMode.current,
@@ -365,4 +365,9 @@ DateTime? _optionalDate(Object? value) {
 Map<String, String> _optionalMetadata(String key, Object? value) {
   final text = _optionalText(value);
   return text == null ? const {} : {key: text};
+}
+
+
+Map<String, Object?> _optionalObject(String key, Object? value) {
+  return value == null ? const {} : {key: value};
 }
