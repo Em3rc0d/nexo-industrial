@@ -466,11 +466,10 @@ class Company {
       locationQuality == LocationQuality.exactAddress ||
       locationQuality == LocationQuality.addressReference;
 
-  bool get canUseDistanceForRanking =>
-      nearbyRankingEligible ||
-      locationQuality == LocationQuality.exactAddress ||
-      locationQuality == LocationQuality.addressReference ||
-      locationQuality == LocationQuality.interpolatedAddress;
+  /// La auditoría geográfica es la única autoridad para decidir si la
+  /// distancia puede influir en el ranking. La calidad describe la evidencia
+  /// y solo pondera su peso después de pasar este gate.
+  bool get canUseDistanceForRanking => nearbyRankingEligible;
 
   double get distanceEvidenceWeight => switch (locationQuality) {
     LocationQuality.exactAddress => 1.0,
