@@ -8,6 +8,7 @@ ROOT = Path(__file__).resolve().parents[1]
 COMPANIES = ROOT / "assets/data/companies.production.json"
 OVERLAY = ROOT / "assets/data/sites.verified.overlay.json"
 DISCOVERIES = ROOT / "assets/data/sites.discovered.overlay.json"
+RECONCILIATIONS = ROOT / "assets/data/site.identity.reconciliation.overlay.json"
 
 ALLOWED_DECISIONS = {"operational", "not_operational"}
 ALLOWED_FUNCTIONS = {
@@ -38,6 +39,15 @@ def main():
     discoveries = json.loads(DISCOVERIES.read_text(encoding="utf-8"))
     for row in discoveries.get("records", []):
         known_site_ids.add(str(row.get("site_id", "")).strip())
+
+    reconciliations = json.loads(RECONCILIATIONS.read_text(encoding="utf-8"))
+    for row in reconciliations.get("records", []):
+        if row.get("relation") == "same_site":
+            left = str(row.get("left_site_id", "")).strip()
+            right = str(row.get("right_site_id", "")).strip()
+            canonical = str(row.get("canonical_site_id", "")).strip()
+            alias = right if canonical == left else left
+            known_site_ids.discard(alias)
 
     document = json.loads(OVERLAY.read_text(encoding="utf-8"))
     if document.get("format") != "nexo-industrial-site-verifications":
