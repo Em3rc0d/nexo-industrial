@@ -1,9 +1,9 @@
-name: Nexo CONTRACT 020 APK
+name: Nexo CONTRACT 021 APK
 
 on:
   push:
     branches:
-      - contract/020-site-placement-foundation
+      - contract/021-operational-site-verification
   workflow_dispatch:
 
 permissions:
@@ -24,18 +24,21 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          BASE="ff71392a182c44c3edcc45521270d13152791e78"
+          BASE="c9fdc1e523d6b27f771c93b9cf0b5335a2f8189f"
           CHANGED="$(git diff --name-only "$BASE"..HEAD | sort)"
           echo "$CHANGED"
           EXPECTED="$(printf '%s\n' \
             '.github/workflows/contract000-apk.yml' \
+            'assets/data/sites.verified.overlay.json' \
             'docs/ARCHITECTURE.md' \
             'docs/DATA_CONTRACT.md' \
-            'docs/contracts/CONTRACT_020_SITE_PLACEMENT.md' \
-            'lib/features/sites/data/asset_site_repository.dart' \
-            'lib/features/sites/domain/site.dart' \
+            'docs/contracts/CONTRACT_021_OPERATIONAL_SITE_VERIFICATION.md' \
+            'lib/features/knowledge/domain/knowledge.dart' \
+            'lib/features/sites/data/operational_site_verification_repository.dart' \
+            'lib/features/sites/domain/site_verification.dart' \
             'pubspec.yaml' \
-            'test/site_placement_test.dart' | sort)"
+            'test/operational_site_verification_test.dart' \
+            'tool/validate_site_verifications.py' | sort)"
           test "$CHANGED" = "$EXPECTED"
 
       - name: Set up Java 17
@@ -67,6 +70,7 @@ jobs:
           set -euo pipefail
           python3 tool/validate_dataset.py
           python3 tool/validate_contact_patch.py
+          python3 tool/validate_site_verifications.py
 
       - name: Bootstrap Android, analyze and test
         shell: bash
@@ -96,28 +100,28 @@ jobs:
           "$APKSIGNER" verify --verbose --print-certs "$APK" | tee dist/apk-signature.txt
           "$AAPT" dump badging "$APK" | head -n 5 | tee dist/apk-badging.txt
           PACKAGE_LINE="$("$AAPT" dump badging "$APK" | head -n 1)"
-          cp "$APK" "dist/nexo-industrial-1.0.7-build10-contract020-actions.apk"
+          cp "$APK" "dist/nexo-industrial-1.0.8-build11-contract021-actions.apk"
           printf '%s\n' \
-            "NEXO INDUSTRIAL - CONTRACT 020 ACTIONS BUILD" \
-            "base_source_commit=ff71392a182c44c3edcc45521270d13152791e78" \
+            "NEXO INDUSTRIAL - CONTRACT 021 ACTIONS BUILD" \
+            "base_source_commit=c9fdc1e523d6b27f771c93b9cf0b5335a2f8189f" \
             "workflow_commit=$GITHUB_SHA" \
-            "version=1.0.7+10" \
-            "apk_file=nexo-industrial-1.0.7-build10-contract020-actions.apk" \
+            "version=1.0.8+11" \
+            "apk_file=nexo-industrial-1.0.8-build11-contract021-actions.apk" \
             "apk_sha256=$SHA256" \
             "apk_size_bytes=$SIZE" \
             "package_badging=$PACKAGE_LINE" \
             "workflow_run_id=$GITHUB_RUN_ID" \
             "workflow_run_attempt=$GITHUB_RUN_ATTEMPT" \
-            "note=CONTRACT 020 candidate. nearby_ranking_eligible is authoritative. Verify signature compatibility before updating an installed APK." \
+            "note=CONTRACT 021 candidate. Operational Site verification is evidence-gated; production overlay begins empty." \
             > dist/NEXO_CONTRACT_000_ACTIONS_RECEIPT.txt
-          sha256sum dist/nexo-industrial-1.0.7-build10-contract020-actions.apk | tee dist/SHA256SUMS.txt
+          sha256sum dist/nexo-industrial-1.0.8-build11-contract021-actions.apk | tee dist/SHA256SUMS.txt
 
       - name: Upload APK evidence bundle
         uses: actions/upload-artifact@v4
         with:
-          name: nexo-contract020-apk-1.0.7-build10
+          name: nexo-contract021-apk-1.0.8-build11
           path: |
-            dist/nexo-industrial-1.0.7-build10-contract020-actions.apk
+            dist/nexo-industrial-1.0.8-build11-contract021-actions.apk
             dist/NEXO_CONTRACT_000_ACTIONS_RECEIPT.txt
             dist/apk-signature.txt
             dist/apk-badging.txt
