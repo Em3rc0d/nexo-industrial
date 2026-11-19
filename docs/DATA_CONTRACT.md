@@ -182,3 +182,32 @@ Production currently contains one discovery:
   de Conchán.
 
 After CONTRACT 023 there are 1,908 Site identities and 1,907 Placements.
+
+
+## Placement Verification overlay (CONTRACT 024)
+
+`assets/data/site.placement.verified.overlay.json` is the only CONTRACT 024
+input allowed to create or replace evidence-backed Site Placements.
+
+Each accepted record requires:
+
+- existing Site ID;
+- latitude/longitude;
+- placement quality;
+- confidence;
+- verification method/date;
+- explicit proximity/navigation permissions;
+- evidence;
+- `supersedes_placement_id` when replacing an existing Placement.
+
+`property_reference` is non-actionable for both proximity ranking and direct
+navigation.
+
+The initial production overlay contains **0 records**. The Explomin pilot found
+an authoritative ANA coordinate (UTM WGS84 Zone 18S: E 287610, N 8646165;
+approximately -12.239774, -76.952451 WGS84), but rejected assignment because
+the evidence does not yet prove which current Nexo Site identity owns that
+coordinate.
+
+The audit is stored in
+`data/site_enrichment/2026-11-19_placement_enrichment_pilot.json`.
