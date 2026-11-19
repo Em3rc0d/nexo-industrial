@@ -17,6 +17,7 @@ enum SiteIdentityBasis {
   verifiedHeadquartersAddress,
   fiscalAddress,
   geographicReference,
+  discoveredEvidence,
 }
 
 enum SiteOperationalStatus {
