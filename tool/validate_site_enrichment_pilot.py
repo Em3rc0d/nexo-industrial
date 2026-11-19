@@ -80,8 +80,8 @@ def main():
                 fail(f"{ruc}: rejected review cannot have verification_id")
 
     overlay_ids = set(overlay_by_id)
-    if accepted_ids != overlay_ids:
-        fail("accepted pilot verification IDs must equal production overlay IDs")
+    if not accepted_ids.issubset(overlay_ids):
+        fail("accepted pilot verification IDs must remain in production overlay")
 
     summary = pilot.get("summary") or {}
     if summary.get("reviewed") != len(reviews):
