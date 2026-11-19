@@ -49,8 +49,11 @@ El repositorio las combina en memoria al cargar la app.
 
 - Deben existir exactamente 1,907 RUC únicos en ambas capas.
 - Todo RUC debe tener coordenadas válidas.
+- `nearby_ranking_eligible` es la única autoridad para permitir que una coordenada influya en el ranking por cercanía.
+- `location_quality` describe la evidencia espacial; no concede elegibilidad por sí sola.
+- `navigation_eligible=true` exige `nearby_ranking_eligible=true` en el dataset productivo actual.
 - `exact_address` y `address_reference` pueden habilitar navegación si la auditoría lo autoriza.
-- `interpolated_address` puede aportar a cercanía con penalización, pero no se presenta como puerta exacta.
+- `interpolated_address` solo puede aportar a cercanía si una auditoría lo autoriza explícitamente; las 137 interpolaciones del snapshot actual tienen `nearby_ranking_eligible=false` y `navigation_eligible=false`.
 - `street_reference` y `district_reference` son referencias visuales, no destinos de navegación.
 - Google Maps no descubre cuentas. Solo sirve como fallback externo de búsqueda para cuentas ya existentes.
 - El resultado de Maps no se guarda automáticamente como coordenada verificada.
