@@ -92,14 +92,14 @@
     },
     {
       "id": "verification:20501523837:explomin-hq-conchan:20261119",
-      "site_id": "site:20501523837:hq-conchan-1",
+      "site_id": "site:20501523837:reference-1",
       "organization_ruc": "20501523837",
       "decision": "operational",
       "site_function": "headquarters",
       "method": "official_source",
       "verified_at": "2026-11-19T00:00:00Z",
       "reviewer": "Nexo CONTRACT 023",
-      "notes": "Explomin's current official contact page identifies this separately discovered Site as its Sede Central. No coordinate placement is asserted by this contract.",
+      "notes": "Explomin's current official contact/privacy material identifies the reconciled canonical Site as Sede Central. CONTRACT 025 maps the former hq-conchan alias into reference-1; no coordinate enrichment is asserted.",
       "evidence": [
         {
           "id": "evidence:site-verification:20501523837:explomin-contact",
