@@ -5,19 +5,20 @@ import 'package:flutter/services.dart';
 import '../../knowledge/domain/knowledge.dart';
 import '../domain/site.dart';
 import '../domain/site_verification.dart';
-import 'asset_site_repository.dart';
+import 'site_discovery_repository.dart';
 
 class AssetOperationalSiteVerificationRepository {
   const AssetOperationalSiteVerificationRepository({
     this.overlayAssetPath = 'assets/data/sites.verified.overlay.json',
-    this.siteRepository = const AssetSiteRepository(),
+    this.siteDiscoveryRepository = const AssetSiteDiscoveryRepository(),
   });
 
   final String overlayAssetPath;
-  final AssetSiteRepository siteRepository;
+  final AssetSiteDiscoveryRepository siteDiscoveryRepository;
 
   Future<SiteVerificationResult> loadSnapshot() async {
-    final baseline = await siteRepository.loadSnapshot();
+    final discovery = await siteDiscoveryRepository.loadSnapshot();
+    final baseline = discovery.snapshot;
     final raw = await rootBundle.loadString(overlayAssetPath);
     final document = Map<String, dynamic>.from(jsonDecode(raw) as Map);
 
