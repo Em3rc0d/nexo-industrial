@@ -27,6 +27,18 @@ Cinco assets locales:
 
 `AssetCompanyRepository` cruza las capas en memoria. El parche contiene solo RUC ya existentes: el teléfono/email base tiene precedencia. Los contactos corporativos no se mezclan con perfiles personales, y no hay tráfico de red al abrir la app salvo los servicios opcionales de mapas existentes.
 
+### Knowledge
+
+CONTRACT 010 introduces a read-only knowledge projection over the existing
+assets. `KnowledgeClaim` is separate from `EvidenceRef`; missing direct
+contact is represented as `KnowledgeGap` rather than false. Epistemic origin
+(authoritative/observed/declared/derived/hypothesis) is independent from
+temporal mode (current/historical/expected/simulated), and known dates are
+preserved without inventing a global stale threshold.
+
+This layer does not replace `Company` or create a second persisted source of
+truth.
+
 ### Ranking
 Combina:
 - potencial interno;
