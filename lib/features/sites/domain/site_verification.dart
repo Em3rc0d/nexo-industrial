@@ -59,12 +59,11 @@ class OperationalSiteVerification {
 
 class SiteVerificationResult {
   SiteVerificationResult({
-    required SiteSnapshot snapshot,
+    required this.snapshot,
     required List<OperationalSiteVerification> verifications,
     required List<KnowledgeClaim> claims,
     required List<EvidenceRef> evidence,
-  })  : snapshot = snapshot,
-        verifications = List.unmodifiable(verifications),
+  })  : verifications = List.unmodifiable(verifications),
         claims = List.unmodifiable(claims),
         evidence = List.unmodifiable(evidence);
 
