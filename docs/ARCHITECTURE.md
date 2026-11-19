@@ -39,6 +39,23 @@ preserved without inventing a global stale threshold.
 This layer does not replace `Company` or create a second persisted source of
 truth.
 
+### Sites / Placement
+
+CONTRACT 020 introduces a read-only spatial domain projection that separates
+`Organization`, `Site` and `Placement`.
+
+Current data creates one deterministic **reference site** per organization only
+as a migration bridge from the legacy one-company/one-point model. The site
+identity is independent from its placement so future organizations may own or
+operate multiple sites and a site may later change placement without changing
+identity.
+
+Current fiscal/HQ/geographic references do **not** prove an operating industrial
+site. Every projected site therefore keeps `operationalStatus=unknown` and an
+explicit `organization.operational_site` knowledge gap. Placement preserves
+the P1 claim/evidence chain, geographic quality, confidence and audited
+navigation/proximity eligibility.
+
 ### Ranking
 Combina:
 - potencial interno;
