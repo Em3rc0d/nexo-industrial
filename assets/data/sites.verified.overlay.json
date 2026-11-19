@@ -89,6 +89,26 @@
           "summary": "Official RESEMIN contact page lists Luis Galvani 356, Ate, Lima as its Peru address."
         }
       ]
+    },
+    {
+      "id": "verification:20501523837:explomin-hq-conchan:20261119",
+      "site_id": "site:20501523837:hq-conchan-1",
+      "organization_ruc": "20501523837",
+      "decision": "operational",
+      "site_function": "headquarters",
+      "method": "official_source",
+      "verified_at": "2026-11-19T00:00:00Z",
+      "reviewer": "Nexo CONTRACT 023",
+      "notes": "Explomin's current official contact page identifies this separately discovered Site as its Sede Central. No coordinate placement is asserted by this contract.",
+      "evidence": [
+        {
+          "id": "evidence:site-verification:20501523837:explomin-contact",
+          "source_type": "url",
+          "locator": "https://explomin.com/es/contacto/",
+          "reviewed_at": "2026-11-19T00:00:00Z",
+          "summary": "Official Explomin contact page identifies Panamericana Sur Km. 22 Huertos de Conchán as Sede Central."
+        }
+      ]
     }
   ]
 }
