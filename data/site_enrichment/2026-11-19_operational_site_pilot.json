@@ -1,0 +1,95 @@
+{
+  "format": "nexo-industrial-operational-site-enrichment-pilot",
+  "version": 1,
+  "as_of": "2026-11-19",
+  "outreach_performed": false,
+  "selection": {
+    "sample_size": 6,
+    "criteria": [
+      "existing Nexo account",
+      "priority S+",
+      "high industrial-coatings relevance",
+      "reference-site evidence potentially verifiable from public sources",
+      "sector diversity where possible"
+    ]
+  },
+  "reviews": [
+    {
+      "ruc": "20100003351",
+      "company_name": "SERVICIOS INDUSTRIALES DE LA MARINA S.A.",
+      "sector": "Astilleros y reparación naval",
+      "reference_site_id": "site:20100003351:reference-1",
+      "outcome": "accepted",
+      "verification_id": "verification:20100003351:sima-callao:20261119",
+      "reason": "Official SIMA source identifies the exact reference address as its principal operating center and explicitly describes shipyard and metal-mechanics operations.",
+      "evidence_urls": [
+        "https://www.sima.com.pe/OperationCenter"
+      ]
+    },
+    {
+      "ruc": "20262254268",
+      "company_name": "ZETA GAS ANDINO S.A.",
+      "sector": "Combustibles, GLP y gas",
+      "reference_site_id": "site:20262254268:reference-1",
+      "outcome": "accepted",
+      "verification_id": "verification:20262254268:zeta-gas-oquendo:20261119",
+      "reason": "Official port-system documentation identifies a private specialized gas terminal administered by Zeta Gas Andino at the same Oquendo / Av. Nestor Gambetta location.",
+      "evidence_urls": [
+        "https://cdn.www.gob.pe/uploads/document/file/471487/Anexo_2_-_FIchas_T%C3%A9cnicas_100_TPs_y_EMBs_Versipin_221019.pdf"
+      ]
+    },
+    {
+      "ruc": "20114915026",
+      "company_name": "COMPAÑIA MINERA ANTAPACCAY S.A.",
+      "sector": "Operadores mineros metálicos",
+      "reference_site_id": "site:20114915026:reference-1",
+      "outcome": "accepted",
+      "verification_id": "verification:20114915026:antapaccay-tintaya:20261119",
+      "reason": "Current official regulatory sources place Antapaccay facilities and the Antapaccay–Tintaya mining operation at Campamento Minero Tintaya / Espinar, matching the reference-site identity.",
+      "evidence_urls": [
+        "https://www.gob.pe/institucion/ipen/normas-legales/8305638-0331-26-ipen-otan",
+        "https://www.gob.pe/institucion/senace/noticias/1395370-cusco-senace-aprobo-la-2da-modificacion-del-estudio-de-impacto-ambiental-detallado-antapaccay"
+      ]
+    },
+    {
+      "ruc": "20100307902",
+      "company_name": "RESEMIN S.A.",
+      "sector": "Maquinaria para minería y construcción",
+      "reference_site_id": "site:20100307902:reference-1",
+      "outcome": "accepted",
+      "verification_id": "verification:20100307902:resemin-ate-office:20261119",
+      "reason": "Current official company contact material confirms the same Luis Galvani 356 address as an active Peru site. Pilot classification is office only; manufacturing at this address is not asserted.",
+      "evidence_urls": [
+        "https://www.resemin.com/contactanos/"
+      ]
+    },
+    {
+      "ruc": "20501523837",
+      "company_name": "EXPLOMIN DEL PERU S.A.C.",
+      "sector": "Servicios para minería",
+      "reference_site_id": "site:20501523837:reference-1",
+      "outcome": "rejected_reference_mismatch",
+      "verification_id": null,
+      "reason": "Explomin's current official site lists Panamericana Sur Km. 22, Huertos de Conchán as Sede Central, while the Nexo reference site is based on the fiscal address Lote 2 Mza B, A.V. Villa El Milagro. CONTRACT 022 does not silently equate or replace those Sites.",
+      "evidence_urls": [
+        "https://explomin.com/es/contacto/"
+      ]
+    },
+    {
+      "ruc": "20329921531",
+      "company_name": "MASTER DRILLING PERU S.A.C.",
+      "sector": "Servicios para minería",
+      "reference_site_id": "site:20329921531:reference-1",
+      "outcome": "rejected_insufficient_primary_evidence",
+      "verification_id": null,
+      "reason": "Current public secondary sources confirm the fiscal address and active company status, but the pilot did not recover sufficiently strong primary evidence proving the reference address is an operating Site with a concrete Site function.",
+      "evidence_urls": []
+    }
+  ],
+  "summary": {
+    "reviewed": 6,
+    "accepted": 4,
+    "rejected": 2,
+    "acceptance_rate": 0.6666666667
+  }
+}
