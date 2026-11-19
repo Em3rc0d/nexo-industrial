@@ -1,9 +1,9 @@
-name: Nexo CONTRACT 001 APK
+name: Nexo CONTRACT 010 APK
 
 on:
   push:
     branches:
-      - contract/001-geographic-ranking-authority
+      - contract/010-trusted-knowledge-foundation
   workflow_dispatch:
 
 permissions:
@@ -24,18 +24,18 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          BASE="934da7b46092c8c5577c070d04113934631aef10"
+          BASE="f3c355f097dda99a7489d5bd876d381bc92cb0be"
           CHANGED="$(git diff --name-only "$BASE"..HEAD | sort)"
           echo "$CHANGED"
           EXPECTED="$(printf '%s\n' \
             '.github/workflows/contract000-apk.yml' \
             'docs/ARCHITECTURE.md' \
             'docs/DATA_CONTRACT.md' \
-            'docs/GEOLOCATION.md' \
-            'lib/features/companies/domain/company.dart' \
+            'docs/contracts/CONTRACT_010_TRUSTED_KNOWLEDGE.md' \
+            'lib/features/knowledge/data/asset_knowledge_repository.dart' \
+            'lib/features/knowledge/domain/knowledge.dart' \
             'pubspec.yaml' \
-            'test/production_dataset_test.dart' \
-            'test/ranking_service_test.dart' | sort)"
+            'test/trusted_knowledge_test.dart' | sort)"
           test "$CHANGED" = "$EXPECTED"
 
       - name: Set up Java 17
@@ -96,28 +96,28 @@ jobs:
           "$APKSIGNER" verify --verbose --print-certs "$APK" | tee dist/apk-signature.txt
           "$AAPT" dump badging "$APK" | head -n 5 | tee dist/apk-badging.txt
           PACKAGE_LINE="$("$AAPT" dump badging "$APK" | head -n 1)"
-          cp "$APK" "dist/nexo-industrial-1.0.5-build8-contract001-actions.apk"
+          cp "$APK" "dist/nexo-industrial-1.0.6-build9-contract010-actions.apk"
           printf '%s\n' \
-            "NEXO INDUSTRIAL - CONTRACT 001 ACTIONS BUILD" \
-            "base_source_commit=934da7b46092c8c5577c070d04113934631aef10" \
+            "NEXO INDUSTRIAL - CONTRACT 010 ACTIONS BUILD" \
+            "base_source_commit=f3c355f097dda99a7489d5bd876d381bc92cb0be" \
             "workflow_commit=$GITHUB_SHA" \
-            "version=1.0.5+8" \
-            "apk_file=nexo-industrial-1.0.5-build8-contract001-actions.apk" \
+            "version=1.0.6+9" \
+            "apk_file=nexo-industrial-1.0.6-build9-contract010-actions.apk" \
             "apk_sha256=$SHA256" \
             "apk_size_bytes=$SIZE" \
             "package_badging=$PACKAGE_LINE" \
             "workflow_run_id=$GITHUB_RUN_ID" \
             "workflow_run_attempt=$GITHUB_RUN_ATTEMPT" \
-            "note=CONTRACT 001 candidate. nearby_ranking_eligible is authoritative. Verify signature compatibility before updating an installed APK." \
+            "note=CONTRACT 010 candidate. nearby_ranking_eligible is authoritative. Verify signature compatibility before updating an installed APK." \
             > dist/NEXO_CONTRACT_000_ACTIONS_RECEIPT.txt
-          sha256sum dist/nexo-industrial-1.0.5-build8-contract001-actions.apk | tee dist/SHA256SUMS.txt
+          sha256sum dist/nexo-industrial-1.0.6-build9-contract010-actions.apk | tee dist/SHA256SUMS.txt
 
       - name: Upload APK evidence bundle
         uses: actions/upload-artifact@v4
         with:
-          name: nexo-contract001-apk-1.0.5-build8
+          name: nexo-contract010-apk-1.0.6-build9
           path: |
-            dist/nexo-industrial-1.0.5-build8-contract001-actions.apk
+            dist/nexo-industrial-1.0.6-build9-contract010-actions.apk
             dist/NEXO_CONTRACT_000_ACTIONS_RECEIPT.txt
             dist/apk-signature.txt
             dist/apk-badging.txt
