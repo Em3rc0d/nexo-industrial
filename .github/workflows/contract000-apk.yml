@@ -36,6 +36,7 @@ jobs:
             'docs/contracts/CONTRACT_022_OPERATIONAL_SITE_ENRICHMENT_PILOT.md' \
             'pubspec.yaml' \
             'test/operational_site_enrichment_pilot_test.dart' \
+            'test/operational_site_verification_test.dart' \
             'tool/validate_site_enrichment_pilot.py' | sort)"
           test "$CHANGED" = "$EXPECTED"
 
