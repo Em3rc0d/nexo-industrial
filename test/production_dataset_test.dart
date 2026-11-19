@@ -148,7 +148,7 @@ void main() {
       expect(zeta.contact.phone, '+51 1 614 0707');
       expect(zeta.contact.email, isNull);
       expect(
-        accounts.where((c) => c.contact.contactPageUri != null),
+        accounts.where((c) => c.contact.contactPageUri != null).length,
         greaterThanOrEqualTo(15),
       );
     },
