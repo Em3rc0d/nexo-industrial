@@ -5,19 +5,22 @@ import 'package:flutter/services.dart';
 import '../../knowledge/domain/knowledge.dart';
 import '../domain/placement_verification.dart';
 import '../domain/site.dart';
-import 'site_discovery_repository.dart';
+import 'site_identity_reconciliation_repository.dart';
 
 class AssetPlacementVerificationRepository {
   const AssetPlacementVerificationRepository({
     this.overlayAssetPath = 'assets/data/site.placement.verified.overlay.json',
-    this.siteDiscoveryRepository = const AssetSiteDiscoveryRepository(),
+    this.siteIdentityReconciliationRepository =
+        const AssetSiteIdentityReconciliationRepository(),
   });
 
   final String overlayAssetPath;
-  final AssetSiteDiscoveryRepository siteDiscoveryRepository;
+  final AssetSiteIdentityReconciliationRepository
+      siteIdentityReconciliationRepository;
 
   Future<PlacementVerificationResult> loadSnapshot() async {
-    final discovery = await siteDiscoveryRepository.loadSnapshot();
+    final reconciliation =
+        await siteIdentityReconciliationRepository.loadSnapshot();
     final raw = await rootBundle.loadString(overlayAssetPath);
     final document = Map<String, dynamic>.from(jsonDecode(raw) as Map);
 
@@ -39,7 +42,7 @@ class AssetPlacementVerificationRepository {
         .toList(growable: false);
 
     return const PlacementVerificationEngine().apply(
-      discovery.snapshot,
+      reconciliation.snapshot,
       records,
     );
   }
