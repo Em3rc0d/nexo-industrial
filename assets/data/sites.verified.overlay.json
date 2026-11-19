@@ -2,5 +2,93 @@
   "format": "nexo-industrial-site-verifications",
   "version": 1,
   "as_of": "2026-11-19",
-  "records": []
+  "records": [
+    {
+      "id": "verification:20100003351:sima-callao:20261119",
+      "site_id": "site:20100003351:reference-1",
+      "organization_ruc": "20100003351",
+      "decision": "operational",
+      "site_function": "shipyard",
+      "method": "official_source",
+      "verified_at": "2026-11-19T00:00:00Z",
+      "reviewer": "Nexo CONTRACT 022 pilot",
+      "notes": "SIMA identifies Av. Contralmirante Mora 1102, Callao as its principal operating center with shipyard, docks, workshops and metal-mechanics activity.",
+      "evidence": [
+        {
+          "id": "evidence:site:20100003351:sima-operation-center",
+          "source_type": "url",
+          "locator": "https://www.sima.com.pe/OperationCenter",
+          "reviewed_at": "2026-11-19T00:00:00Z",
+          "summary": "Official SIMA page identifies the Callao address as its principal operating center and describes shipyard and workshop operations."
+        }
+      ]
+    },
+    {
+      "id": "verification:20262254268:zeta-gas-oquendo:20261119",
+      "site_id": "site:20262254268:reference-1",
+      "organization_ruc": "20262254268",
+      "decision": "operational",
+      "site_function": "terminal",
+      "method": "official_source",
+      "verified_at": "2026-11-19T00:00:00Z",
+      "reviewer": "Nexo CONTRACT 022 pilot",
+      "notes": "The national port-system technical sheet identifies Zeta Gas Andino as administrator of the private specialized gas terminal at the same Oquendo / Av. Nestor Gambetta location represented by the reference site.",
+      "evidence": [
+        {
+          "id": "evidence:site:20262254268:apn-terminal-sheet",
+          "source_type": "url",
+          "locator": "https://cdn.www.gob.pe/uploads/document/file/471487/Anexo_2_-_FIchas_T%C3%A9cnicas_100_TPs_y_EMBs_Versipin_221019.pdf",
+          "reviewed_at": "2026-11-19T00:00:00Z",
+          "summary": "Official port-system technical sheet identifies Terminal Portuario Multiboyas Zeta Gas Andino in Oquendo, Callao, administered by Zeta Gas Andino S.A."
+        }
+      ]
+    },
+    {
+      "id": "verification:20114915026:antapaccay-tintaya:20261119",
+      "site_id": "site:20114915026:reference-1",
+      "organization_ruc": "20114915026",
+      "decision": "operational",
+      "site_function": "mine",
+      "method": "official_source",
+      "verified_at": "2026-11-19T00:00:00Z",
+      "reviewer": "Nexo CONTRACT 022 pilot",
+      "notes": "Current public regulatory evidence identifies Compañía Minera Antapaccay facilities at Campamento Minero Tintaya / the Antapaccay-Tintaya mining unit in Espinar, matching the reference-site identity.",
+      "evidence": [
+        {
+          "id": "evidence:site:20114915026:ipen-tintaya-2026",
+          "source_type": "url",
+          "locator": "https://www.gob.pe/institucion/ipen/normas-legales/8305638-0331-26-ipen-otan",
+          "reviewed_at": "2026-11-19T00:00:00Z",
+          "summary": "IPEN 2026 installation registration places Compañía Minera Antapaccay S.A. at Campamento Minero Tintaya, Espinar, Cusco."
+        },
+        {
+          "id": "evidence:site:20114915026:senace-antapaccay-2026",
+          "source_type": "url",
+          "locator": "https://www.gob.pe/institucion/senace/noticias/1395370-cusco-senace-aprobo-la-2da-modificacion-del-estudio-de-impacto-ambiental-detallado-antapaccay",
+          "reviewed_at": "2026-11-19T00:00:00Z",
+          "summary": "SENACE 2026 identifies the Antapaccay–Tintaya mining project in Espinar, Cusco and its copper-concentrate production activity."
+        }
+      ]
+    },
+    {
+      "id": "verification:20100307902:resemin-ate-office:20261119",
+      "site_id": "site:20100307902:reference-1",
+      "organization_ruc": "20100307902",
+      "decision": "operational",
+      "site_function": "office",
+      "method": "official_source",
+      "verified_at": "2026-11-19T00:00:00Z",
+      "reviewer": "Nexo CONTRACT 022 pilot",
+      "notes": "RESEMIN's current official Peru contact page lists Luis Galvani 356, Ate, the same address represented by the reference site. This verifies an active company site, but does not assert that manufacturing occurs there.",
+      "evidence": [
+        {
+          "id": "evidence:site:20100307902:resemin-contact",
+          "source_type": "url",
+          "locator": "https://www.resemin.com/contactanos/",
+          "reviewed_at": "2026-11-19T00:00:00Z",
+          "summary": "Official RESEMIN contact page lists Luis Galvani 356, Ate, Lima as its Peru address."
+        }
+      ]
+    }
+  ]
 }
