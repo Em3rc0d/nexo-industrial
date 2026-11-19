@@ -82,3 +82,23 @@ The validated assets are also projected into a non-persistent knowledge model:
 The projection never creates a RUC, never mutates canonical assets, and never
 turns missing information into a negative fact. Confidence and freshness remain
 separate; a missing date means freshness is unknown.
+
+
+## Site / Placement projection (CONTRACT 020)
+
+The current one-company/one-point representation is projected into a
+non-persistent spatial domain:
+
+- 1,907 deterministic reference `Site` objects;
+- 1,907 `Placement` objects linked to the P1
+  `organization.location` claims;
+- 1,907 explicit `organization.operational_site` unknown gaps.
+
+A verified HQ address may label a site's function as headquarters, but it does
+not establish that industrial operations occur there. Fiscal addresses,
+interpolated positions, street references and district references remain
+evidence with their existing quality and permissions; they are not promoted to
+operational sites.
+
+This projection does not discover locations, mutate canonical geography,
+change ranking, or create new RUCs.
