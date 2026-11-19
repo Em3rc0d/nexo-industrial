@@ -51,6 +51,19 @@ void main() {
       expect(qualities[LocationQuality.districtReference], 849);
 
       expect(accounts.where((c) => c.navigationEligible), hasLength(370));
+      expect(accounts.where((c) => c.nearbyRankingEligible), hasLength(370));
+
+      final interpolated = accounts
+          .where((c) => c.locationQuality == LocationQuality.interpolatedAddress)
+          .toList();
+      expect(interpolated, hasLength(137));
+      expect(
+        interpolated.every((c) =>
+            !c.nearbyRankingEligible &&
+            !c.navigationEligible &&
+            !c.canUseDistanceForRanking),
+        isTrue,
+      );
     },
   );
   test(
