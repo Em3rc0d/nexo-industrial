@@ -84,6 +84,24 @@ Site identity: it is evidence that Nexo needs a future Site discovery/creation
 capability for organizations whose real operating location differs from their
 reference/fiscal Site.
 
+### Site Discovery / Site Creation
+
+CONTRACT 023 introduces evidence-gated creation of additional Site identities
+for existing Organizations. It is designed for the case where current public
+evidence identifies a real location that is different from the legacy
+reference/fiscal Site.
+
+Discovery never mutates `site:<ruc>:reference-1`. It creates a new Site with
+its own deterministic identity and a `site.identity` KnowledgeClaim.
+
+Site and Placement remain independent. CONTRACT 023 deliberately allows a
+new Site to exist without coordinates when address-level evidence is strong
+but coordinate evidence is not. That state is represented as an explicit
+`site.placement` KnowledgeGap rather than fabricated latitude/longitude.
+
+The first production case creates Explomin's current Huertos de Conchán Sede
+Central as a second Site and then verifies that Site through CONTRACT 021.
+
 ### Ranking
 Combina:
 - potencial interno;
