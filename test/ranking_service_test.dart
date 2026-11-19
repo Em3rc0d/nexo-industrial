@@ -14,6 +14,8 @@ void main() {
     required double longitude,
     required double potential,
     LocationQuality quality = LocationQuality.exactAddress,
+    bool? nearbyRankingEligible,
+    bool? navigationEligible,
   }) {
     final precise =
         quality == LocationQuality.exactAddress ||
@@ -45,8 +47,8 @@ void main() {
       contact: const CompanyContact(),
       source: 'test',
       sourceUpdatedAt: DateTime(2026, 11, 9),
-      nearbyRankingEligible: precise,
-      navigationEligible: precise,
+      nearbyRankingEligible: nearbyRankingEligible ?? precise,
+      navigationEligible: navigationEligible ?? precise,
     );
   }
 
@@ -95,28 +97,51 @@ void main() {
     );
   });
 
-  test('una interpolación usa cercanía con menor peso que una dirección exacta', () {
+  test('la auditoría puede negar cercanía incluso a una dirección exacta', () {
+    final exactButNotEligible = company(
+      id: 'exact-blocked',
+      name: 'Exact blocked',
+      latitude: -12.1001,
+      longitude: -77.0301,
+      potential: 0.75,
+      quality: LocationQuality.exactAddress,
+      nearbyRankingEligible: false,
+      navigationEligible: false,
+    );
+
+    expect(exactButNotEligible.canUseDistanceForRanking, isFalse);
+  });
+
+  test('una interpolación auditada como no elegible no usa cercanía', () {
     final interpolated = company(
-      id: 'interpolated',
-      name: 'Interpolated',
+      id: 'interpolated-blocked',
+      name: 'Interpolated blocked',
       latitude: -12.1001,
       longitude: -77.0301,
       potential: 0.75,
       quality: LocationQuality.interpolatedAddress,
-    );
-    final exact = company(
-      id: 'exact',
-      name: 'Exact',
-      latitude: -12.102,
-      longitude: -77.032,
-      potential: 0.75,
-      quality: LocationQuality.exactAddress,
+      nearbyRankingEligible: false,
+      navigationEligible: false,
     );
 
-    expect(
-      service.rank([interpolated, exact], anchor).first.company.id,
-      'exact',
+    expect(interpolated.canUseDistanceForRanking, isFalse);
+  });
+
+  test('una interpolación promovida explícitamente puede usar cercanía con peso reducido', () {
+    final interpolated = company(
+      id: 'interpolated-approved',
+      name: 'Interpolated approved',
+      latitude: -12.1001,
+      longitude: -77.0301,
+      potential: 0.75,
+      quality: LocationQuality.interpolatedAddress,
+      nearbyRankingEligible: true,
+      navigationEligible: false,
     );
+
+    expect(interpolated.canUseDistanceForRanking, isTrue);
+    expect(interpolated.navigationEligible, isFalse);
+    expect(interpolated.distanceEvidenceWeight, 0.55);
   });
 
   test('la búsqueda filtra por nombre', () {
