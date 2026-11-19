@@ -1,9 +1,9 @@
-name: Nexo CONTRACT 024 APK
+name: Nexo CONTRACT 025 APK
 
 on:
   push:
     branches:
-      - contract/024-placement-verification-coordinate-enrichment
+      - contract/025-site-identity-reconciliation
   workflow_dispatch:
 
 permissions:
@@ -24,24 +24,28 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          BASE="83289a7215b8c67c36f59bf1f9fc62d401268b36"
+          BASE="3b5a196f76d0cf7d215b0d978a8fdac773924903"
           CHANGED="$(git diff --name-only "$BASE"..HEAD | sort)"
           echo "$CHANGED"
           EXPECTED="$(printf '%s\n' \
             '.github/workflows/contract000-apk.yml' \
-            'assets/data/site.placement.verified.overlay.json' \
-            'data/site_enrichment/2026-11-19_placement_enrichment_pilot.json' \
+            'assets/data/site.identity.reconciliation.overlay.json' \
+            'assets/data/sites.verified.overlay.json' \
+            'data/site_enrichment/2026-11-19_site_identity_reconciliation.json' \
             'docs/ARCHITECTURE.md' \
             'docs/DATA_CONTRACT.md' \
-            'docs/contracts/CONTRACT_024_PLACEMENT_VERIFICATION.md' \
-            'lib/features/sites/data/operational_site_verification_repository.dart' \
+            'docs/contracts/CONTRACT_025_SITE_IDENTITY_RECONCILIATION.md' \
             'lib/features/sites/data/placement_verification_repository.dart' \
-            'lib/features/sites/domain/placement_verification.dart' \
-            'lib/features/sites/domain/site.dart' \
+            'lib/features/sites/data/site_identity_reconciliation_repository.dart' \
+            'lib/features/sites/domain/site_identity_reconciliation.dart' \
             'pubspec.yaml' \
+            'test/operational_site_enrichment_pilot_test.dart' \
             'test/placement_verification_test.dart' \
-            'tool/validate_placement_enrichment_pilot.py' \
-            'tool/validate_placement_verifications.py' | sort)"
+            'test/site_discovery_test.dart' \
+            'test/site_identity_reconciliation_test.dart' \
+            'tool/validate_placement_verifications.py' \
+            'tool/validate_site_identity_reconciliations.py' \
+            'tool/validate_site_verifications.py' | sort)"
           test "$CHANGED" = "$EXPECTED"
 
       - name: Set up Java 17
@@ -74,6 +78,7 @@ jobs:
           python3 tool/validate_dataset.py
           python3 tool/validate_contact_patch.py
           python3 tool/validate_site_discoveries.py
+          python3 tool/validate_site_identity_reconciliations.py
           python3 tool/validate_placement_verifications.py
           python3 tool/validate_site_verifications.py
           python3 tool/validate_site_enrichment_pilot.py
@@ -107,28 +112,28 @@ jobs:
           "$APKSIGNER" verify --verbose --print-certs "$APK" | tee dist/apk-signature.txt
           "$AAPT" dump badging "$APK" | head -n 5 | tee dist/apk-badging.txt
           PACKAGE_LINE="$("$AAPT" dump badging "$APK" | head -n 1)"
-          cp "$APK" "dist/nexo-industrial-1.0.11-build14-contract024-actions.apk"
+          cp "$APK" "dist/nexo-industrial-1.0.12-build15-contract025-actions.apk"
           printf '%s\n' \
-            "NEXO INDUSTRIAL - CONTRACT 024 ACTIONS BUILD" \
-            "base_source_commit=83289a7215b8c67c36f59bf1f9fc62d401268b36" \
+            "NEXO INDUSTRIAL - CONTRACT 025 ACTIONS BUILD" \
+            "base_source_commit=3b5a196f76d0cf7d215b0d978a8fdac773924903" \
             "workflow_commit=$GITHUB_SHA" \
-            "version=1.0.11+14" \
-            "apk_file=nexo-industrial-1.0.11-build14-contract024-actions.apk" \
+            "version=1.0.12+15" \
+            "apk_file=nexo-industrial-1.0.12-build15-contract025-actions.apk" \
             "apk_sha256=$SHA256" \
             "apk_size_bytes=$SIZE" \
             "package_badging=$PACKAGE_LINE" \
             "workflow_run_id=$GITHUB_RUN_ID" \
             "workflow_run_attempt=$GITHUB_RUN_ATTEMPT" \
-            "note=CONTRACT 024 candidate. Placement mutation is evidence-gated; Explomin coordinate candidate remains rejected due Site identity ambiguity." \
+            "note=CONTRACT 025 candidate. Explomin duplicate Site identity is reconciled as SAME_SITE; ANA Lote 1 relation remains UNKNOWN." \
             > dist/NEXO_CONTRACT_000_ACTIONS_RECEIPT.txt
-          sha256sum dist/nexo-industrial-1.0.11-build14-contract024-actions.apk | tee dist/SHA256SUMS.txt
+          sha256sum dist/nexo-industrial-1.0.12-build15-contract025-actions.apk | tee dist/SHA256SUMS.txt
 
       - name: Upload APK evidence bundle
         uses: actions/upload-artifact@v4
         with:
-          name: nexo-contract024-apk-1.0.11-build14
+          name: nexo-contract025-apk-1.0.12-build15
           path: |
-            dist/nexo-industrial-1.0.11-build14-contract024-actions.apk
+            dist/nexo-industrial-1.0.12-build15-contract025-actions.apk
             dist/NEXO_CONTRACT_000_ACTIONS_RECEIPT.txt
             dist/apk-signature.txt
             dist/apk-badging.txt
