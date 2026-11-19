@@ -152,3 +152,33 @@ A rejected record must never be interpreted as a negative fact about the whole
 organization. In particular, a reference-address mismatch indicates the need
 for a separate Site identity rather than permission to overwrite the existing
 Site.
+
+
+## Site Discovery / Site Creation overlay (CONTRACT 023)
+
+`assets/data/sites.discovered.overlay.json` may create additional Site
+identities only for RUCs already present in the canonical company dataset.
+
+Each discovery requires:
+
+- unique discovery ID;
+- unique Site ID under the owning RUC;
+- display label/address;
+- Site function;
+- discovery method and date;
+- one or more evidence records.
+
+A discovery cannot overwrite or reuse `site:<ruc>:reference-1`.
+
+Public URL evidence must use HTTPS.
+
+CONTRACT 023 does not infer coordinates from postal addresses. A discovered
+Site without coordinate evidence is created with no Placement and an explicit
+`site.placement = unknown` gap.
+
+Production currently contains one discovery:
+
+- Explomin del Perú S.A.C. — Sede Central at Panamericana Sur Km. 22, Huertos
+  de Conchán.
+
+After CONTRACT 023 there are 1,908 Site identities and 1,907 Placements.
