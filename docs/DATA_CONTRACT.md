@@ -211,3 +211,37 @@ coordinate.
 
 The audit is stored in
 `data/site_enrichment/2026-11-19_placement_enrichment_pilot.json`.
+
+
+## Site Identity Reconciliation overlay (CONTRACT 025)
+
+`assets/data/site.identity.reconciliation.overlay.json` reconciles multiple
+Site identities belonging to an existing Organization.
+
+Supported relations:
+
+- `same_site`;
+- `adjacent_site`;
+- `distinct_site`;
+- `unknown`.
+
+Only `same_site` may specify `canonical_site_id`. The non-canonical Site is
+preserved as an alias and removed only from the active Site snapshot.
+
+Production currently contains one reconciliation:
+
+- `site:20501523837:reference-1`
+- `site:20501523837:hq-conchan-1`
+- relation: `same_site`
+- canonical: `site:20501523837:reference-1`
+
+The raw discovery layer therefore remains at 1,908 Site identities, while the
+active reconciled layer contains 1,907 Site identities and 1,907 Placements.
+
+The current Explomin operational verification targets the canonical Site.
+
+The separate ANA Lote 1 property assessment remains `unknown`; no coordinate
+is assigned by this contract.
+
+The audit is stored in
+`data/site_enrichment/2026-11-19_site_identity_reconciliation.json`.
