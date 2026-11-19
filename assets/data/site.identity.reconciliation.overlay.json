@@ -1,0 +1,35 @@
+{
+  "format": "nexo-industrial-site-identity-reconciliations",
+  "version": 1,
+  "as_of": "2026-11-19",
+  "records": [
+    {
+      "id": "reconciliation:20501523837:reference-hq-conchan:20261119",
+      "organization_ruc": "20501523837",
+      "left_site_id": "site:20501523837:reference-1",
+      "right_site_id": "site:20501523837:hq-conchan-1",
+      "relation": "same_site",
+      "canonical_site_id": "site:20501523837:reference-1",
+      "method": "official_cross_reference",
+      "confidence": "high",
+      "reviewed_at": "2026-11-19T00:00:00Z",
+      "rationale": "Explomin's current official privacy policy uses Mz. B Lote 2, A.V. Villa El Milagro (Km. 22.5 de la Panamericana Sur), Villa El Salvador as its formal correspondence address while the same current page identifies Panamericana Sur Km. 22 Huertos de Conchán as Sede Central. These are treated as address aliases for one Site identity; the legacy reference ID remains canonical to preserve stable identity and its existing Placement history.",
+      "evidence": [
+        {
+          "id": "evidence:site-reconciliation:20501523837:privacy-policy",
+          "source_type": "url",
+          "locator": "https://explomin.com/es/politica-de-privacidad-web/",
+          "reviewed_at": "2026-11-19T00:00:00Z",
+          "summary": "Current official Explomin page contains both the Villa El Milagro / Km. 22.5 Panamericana Sur address and the Sede Central address Panamericana Sur Km. 22 Huertos de Conchán."
+        },
+        {
+          "id": "evidence:site-reconciliation:20501523837:contact",
+          "source_type": "url",
+          "locator": "https://explomin.com/es/contacto/",
+          "reviewed_at": "2026-11-19T00:00:00Z",
+          "summary": "Current official contact page identifies Panamericana Sur Km. 22 Huertos de Conchán as Explomin's Sede Central."
+        }
+      ]
+    }
+  ]
+}
