@@ -56,6 +56,22 @@ explicit `organization.operational_site` knowledge gap. Placement preserves
 the P1 claim/evidence chain, geographic quality, confidence and audited
 navigation/proximity eligibility.
 
+### Operational Site Verification
+
+CONTRACT 021 adds an explicit verification layer on top of the Site/Placement
+projection. A reference Site remains operationally unknown until an
+`OperationalSiteVerification` with evidence says otherwise.
+
+Verification preserves Site identity, records method/date/validity/evidence,
+and emits a P1 `KnowledgeClaim` with
+`predicate=site.operational_status`. Confirming that one reference address is
+not operational does not imply the organization lacks another operating Site;
+the organization-level gap is resolved only when at least one Site is confirmed
+operational.
+
+The production verification overlay currently contains zero records. This is a
+valid state: current evidence does not justify inventing operating locations.
+
 ### Ranking
 Combina:
 - potencial interno;
