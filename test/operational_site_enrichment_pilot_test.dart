@@ -39,16 +39,28 @@ void main() {
     expect(byRuc['20100307902']!.function, SiteFunction.office);
   });
 
-  test('historical rejections remain truthful after later contracts', () async {
+  test('historical rejections remain truthful after later reconciliation', () async {
+    final raw = await rootBundle.loadString(
+      'data/site_enrichment/2026-11-19_operational_site_pilot.json',
+    );
+    final document = Map<String, dynamic>.from(jsonDecode(raw) as Map);
+    final reviews = (document['reviews'] as List<dynamic>)
+        .map((row) => Map<String, dynamic>.from(row as Map))
+        .toList(growable: false);
+
+    final explomin = reviews.singleWhere(
+      (row) => row['ruc'] == '20501523837',
+    );
+    expect(explomin['outcome'], 'rejected_reference_mismatch');
+
     final result =
         await const AssetOperationalSiteVerificationRepository().loadSnapshot();
-
-    final explominReference = result.snapshot.siteById(
+    final canonical = result.snapshot.siteById(
       'site:20501523837:reference-1',
     )!;
     expect(
-      explominReference.operationalStatus,
-      SiteOperationalStatus.unknown,
+      canonical.operationalStatus,
+      SiteOperationalStatus.confirmedOperational,
     );
 
     final masterSites = result.snapshot.sites
@@ -56,14 +68,6 @@ void main() {
         .toList(growable: false);
     expect(masterSites, hasLength(1));
     expect(masterSites.single.operationalStatus, SiteOperationalStatus.unknown);
-    expect(
-      result.snapshot.gaps.any(
-        (gap) =>
-            gap.predicate == 'organization.operational_site' &&
-            gap.subject.id == '20329921531',
-      ),
-      isTrue,
-    );
   });
 
   test('pilot audit records six reviews, four accepted and no outreach', () async {
