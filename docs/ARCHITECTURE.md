@@ -126,6 +126,29 @@ Explomin operational property, but the current Nexo Site identities do not yet
 support an unambiguous Site↔coordinate assignment. Production therefore remains
 unchanged and the candidate is recorded as rejected rather than guessed.
 
+### Site Identity Reconciliation
+
+CONTRACT 025 inserts an evidence-backed identity-reconciliation layer after
+Site discovery and before Placement verification.
+
+The layer classifies Site pairs as `same_site`, `adjacent_site`,
+`distinct_site` or `unknown`. Only `same_site` may collapse active
+identities, and it must name one canonical Site.
+
+The absorbed Site is preserved as a `SiteAlias`; its discovery record remains
+part of history. Active downstream contracts receive only the canonical Site,
+which prevents later Placement or operational-verification writes from
+recreating the duplicate identity.
+
+For Explomin, the legacy Villa El Milagro reference and the discovered Huertos
+de Conchán headquarters are reconciled as the same Site because Explomin's
+current official privacy-policy page publishes both address formulations
+contemporaneously. The legacy reference remains canonical because it already
+owns Placement history.
+
+The ANA Lote 1 operational property remains an external UNKNOWN relation. Lot
+numbering is not treated as parcel-topology evidence.
+
 ### Ranking
 Combina:
 - potencial interno;
