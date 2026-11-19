@@ -158,9 +158,8 @@ class SiteVerificationEngine {
               .toList(growable: false),
           metadata: {
             'verification_method': _methodName(verification.method),
-            if (verification.reviewer case final reviewer?)
-              'reviewer': reviewer,
-            if (verification.notes case final notes?) 'notes': notes,
+            ..._optionalMetadata('reviewer', verification.reviewer),
+            ..._optionalMetadata('notes', verification.notes),
           },
         ),
       );
@@ -381,4 +380,10 @@ DateTime? _optionalDate(
     throw FormatException('Invalid $field in site verification: $id');
   }
   return parsed;
+}
+
+
+Map<String, String> _optionalMetadata(String key, Object? value) {
+  final text = _optionalText(value);
+  return text == null ? const {} : {key: text};
 }
