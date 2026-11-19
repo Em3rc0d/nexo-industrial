@@ -42,8 +42,9 @@ void main() {
     );
 
     final volcan = companies.singleWhere((c) => c.ruc == '20383045267');
-    expect(volcan.people, hasLength(2));
+    expect(volcan.people, hasLength(3));
     expect(volcan.people.any((p) => p.name == 'Pieri Maguiña'), isTrue);
+    expect(volcan.people.any((p) => p.name == 'Neil Mendoza'), isTrue);
     final sotrami = companies.singleWhere((c) => c.ruc == '20258699239');
     expect(sotrami.people, hasLength(2));
     final cmh = companies.singleWhere((c) => c.ruc == '20136150473');
