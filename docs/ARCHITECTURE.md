@@ -102,6 +102,30 @@ but coordinate evidence is not. That state is represented as an explicit
 The first production case creates Explomin's current Huertos de Conchán Sede
 Central as a second Site and then verifies that Site through CONTRACT 021.
 
+### Placement Verification / Coordinate Enrichment
+
+CONTRACT 024 adds an evidence-gated layer between Site discovery and downstream
+operational use of coordinates.
+
+A `PlacementVerificationRecord` may create a new Placement for a Site or
+explicitly supersede an existing Placement. Replacement is never implicit.
+
+The layer separates four independent questions:
+
+1. is the coordinate itself well supported?;
+2. is the coordinate unambiguously associated with this Site identity?;
+3. may the point participate in proximity ranking?;
+4. may the point be used for direct navigation?
+
+`property_reference` is introduced for an evidence-backed property/area point
+that is not a validated entrance or exact destination. It cannot enable
+proximity ranking or navigation.
+
+The first reality test found authoritative ANA coordinates associated with an
+Explomin operational property, but the current Nexo Site identities do not yet
+support an unambiguous Site↔coordinate assignment. Production therefore remains
+unchanged and the candidate is recorded as rejected rather than guessed.
+
 ### Ranking
 Combina:
 - potencial interno;
