@@ -72,6 +72,18 @@ operational.
 The production verification overlay currently contains zero records. This is a
 valid state: current evidence does not justify inventing operating locations.
 
+### Operational Site Enrichment Pilot
+
+CONTRACT 022 applies the verification mechanism to a controlled production
+sample. Research remains external evidence only; accepted Sites are existing
+CONTRACT 020 identities and are promoted exclusively through CONTRACT 021.
+
+The pilot currently verifies four operational Sites and keeps two reviewed
+accounts unresolved. A rejected reference mismatch is not repaired by changing
+Site identity: it is evidence that Nexo needs a future Site discovery/creation
+capability for organizations whose real operating location differs from their
+reference/fiscal Site.
+
 ### Ranking
 Combina:
 - potencial interno;
