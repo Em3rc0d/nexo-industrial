@@ -127,3 +127,28 @@ company name, commercial score or map pin cannot create operational truth.
 The initial production overlay contains **0 records**. Therefore the 1,907
 reference Sites remain operationally unknown until evidence-backed
 verifications are added.
+
+
+## Operational Site Enrichment Pilot (CONTRACT 022)
+
+The first production enrichment pilot reviews six existing S+ accounts and
+performs no outreach.
+
+Results:
+
+- reviewed: 6;
+- accepted operational Site verifications: 4;
+- rejected/unresolved: 2;
+- confirmed operational Sites after pilot: 4;
+- remaining organization operational-site gaps: 1,903.
+
+The accepted production verifications are exactly the records present in
+`assets/data/sites.verified.overlay.json`.
+
+The audit of both accepted and rejected candidates is stored in
+`data/site_enrichment/2026-11-19_operational_site_pilot.json`.
+
+A rejected record must never be interpreted as a negative fact about the whole
+organization. In particular, a reference-address mismatch indicates the need
+for a separate Site identity rather than permission to overwrite the existing
+Site.
