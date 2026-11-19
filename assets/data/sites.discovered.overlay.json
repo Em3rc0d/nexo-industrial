@@ -1,0 +1,25 @@
+{
+  "format": "nexo-industrial-site-discoveries",
+  "version": 1,
+  "as_of": "2026-11-19",
+  "records": [
+    {
+      "id": "discovery:20501523837:explomin-hq-conchan:20261119",
+      "site_id": "site:20501523837:hq-conchan-1",
+      "organization_ruc": "20501523837",
+      "display_label": "Panamericana Sur Km. 22 Huertos de Conchán - Lima, 15842",
+      "site_function": "headquarters",
+      "method": "official_source",
+      "discovered_at": "2026-11-19T00:00:00Z",
+      "evidence": [
+        {
+          "id": "evidence:site-discovery:20501523837:explomin-contact",
+          "source_type": "url",
+          "locator": "https://explomin.com/es/contacto/",
+          "reviewed_at": "2026-11-19T00:00:00Z",
+          "summary": "Explomin's current official contact page identifies Panamericana Sur Km. 22 Huertos de Conchán, Lima as its Sede Central."
+        }
+      ]
+    }
+  ]
+}
