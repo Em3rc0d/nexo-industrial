@@ -29,6 +29,7 @@ enum SiteOperationalStatus {
 enum PlacementQuality {
   exactAddress,
   addressReference,
+  propertyReference,
   interpolatedAddress,
   streetReference,
   districtReference;
@@ -37,6 +38,7 @@ enum PlacementQuality {
     return switch (value?.toString()) {
       'exact_address' => PlacementQuality.exactAddress,
       'address_reference' => PlacementQuality.addressReference,
+      'property_reference' => PlacementQuality.propertyReference,
       'interpolated_address' => PlacementQuality.interpolatedAddress,
       'street_reference' => PlacementQuality.streetReference,
       'district_reference' => PlacementQuality.districtReference,
