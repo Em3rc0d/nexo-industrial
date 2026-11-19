@@ -102,3 +102,28 @@ operational sites.
 
 This projection does not discover locations, mutate canonical geography,
 change ranking, or create new RUCs.
+
+
+## Operational Site Verification overlay (CONTRACT 021)
+
+`assets/data/sites.verified.overlay.json` is the only production input allowed
+to promote a reference Site to `confirmedOperational` or
+`confirmedNotOperational`.
+
+Each record must identify:
+
+- verification ID;
+- existing Site ID;
+- owning organization RUC;
+- decision;
+- concrete Site function when operational;
+- verification method;
+- verification date and optional validity range;
+- one or more evidence records.
+
+Public URL evidence must use HTTPS. A fiscal address, precise coordinate,
+company name, commercial score or map pin cannot create operational truth.
+
+The initial production overlay contains **0 records**. Therefore the 1,907
+reference Sites remain operationally unknown until evidence-backed
+verifications are added.
