@@ -23,11 +23,12 @@ class AssetSiteRepository {
           'Location claim must belong to an organization: ${claim.id}',
         );
       }
-      if (locationClaims.putIfAbsent(claim.subject.id, () => claim) != null) {
+      if (locationClaims.containsKey(claim.subject.id)) {
         throw FormatException(
           'Duplicate organization location claim: ${claim.subject.id}',
         );
       }
+      locationClaims[claim.subject.id] = claim;
     }
 
     final sites = <Site>[];
