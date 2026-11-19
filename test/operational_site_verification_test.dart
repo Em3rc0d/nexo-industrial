@@ -52,21 +52,36 @@ void main() {
     );
   }
 
-  test('production overlay starts with zero operational verifications', () async {
+  test('production overlay applies evidence-backed verification semantics', () async {
     final result =
         await const AssetOperationalSiteVerificationRepository().loadSnapshot();
 
-    expect(result.verifications, isEmpty);
-    expect(result.claims, isEmpty);
-    expect(result.evidence, isEmpty);
+    expect(result.claims, hasLength(result.verifications.length));
+    expect(
+      result.claims.every(
+        (claim) =>
+            claim.predicate == 'site.operational_status' &&
+            claim.evidenceIds.isNotEmpty,
+      ),
+      isTrue,
+    );
+
+    final operationalOrganizations = result.verifications
+        .where(
+          (verification) =>
+              verification.decision == OperationalSiteDecision.operational,
+        )
+        .map((verification) => verification.organizationRuc)
+        .toSet();
+
     expect(
       result.snapshot.sites.where((site) => site.isOperationallyConfirmed),
-      isEmpty,
+      hasLength(operationalOrganizations.length),
     );
     expect(
       result.snapshot.gaps
           .where((gap) => gap.predicate == 'organization.operational_site'),
-      hasLength(1907),
+      hasLength(1907 - operationalOrganizations.length),
     );
   });
 
