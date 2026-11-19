@@ -6,6 +6,7 @@ from urllib.parse import urlparse
 ROOT = Path(__file__).resolve().parents[1]
 COMPANIES = ROOT / "assets/data/companies.production.json"
 DISCOVERIES = ROOT / "assets/data/sites.discovered.overlay.json"
+RECONCILIATIONS = ROOT / "assets/data/site.identity.reconciliation.overlay.json"
 OVERLAY = ROOT / "assets/data/site.placement.verified.overlay.json"
 
 ALLOWED_QUALITIES = {
@@ -36,6 +37,15 @@ def main():
     discoveries = json.loads(DISCOVERIES.read_text(encoding="utf-8"))
     for row in discoveries.get("records", []):
         known_sites.add(str(row["site_id"]))
+
+    reconciliations = json.loads(RECONCILIATIONS.read_text(encoding="utf-8"))
+    for row in reconciliations.get("records", []):
+        if row.get("relation") == "same_site":
+            left = str(row.get("left_site_id", "")).strip()
+            right = str(row.get("right_site_id", "")).strip()
+            canonical = str(row.get("canonical_site_id", "")).strip()
+            alias = right if canonical == left else left
+            known_sites.discard(alias)
 
     document = json.loads(OVERLAY.read_text(encoding="utf-8"))
     if document.get("format") != "nexo-industrial-placement-verifications":
