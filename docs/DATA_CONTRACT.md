@@ -68,3 +68,17 @@ Además de la cuenta canónica y la auditoría geográfica, el sistema carga:
 - `data/people_enrichment/2026-11-11_mining_people.json`: 33 profesionales públicos enlazados a 21 RUC, independientes de canales empresariales. Incluye LinkedIn, evidencia y temporalidad; los perfiles no inflan cobertura de teléfono/email.
 
 El `AssetCompanyRepository` une cinco recursos locales sin nuevos descubrimientos externos. Se rechazan RUC desconocidos o duplicados en parches y personas. Una página de proveedores no se trata como teléfono/email directo. El estado efectivo esperado en código fuente es 299 RUC con teléfono/email y 304 si se incluyen portales. Esta integración aún no ha pasado la validación Dart/Flutter.
+
+
+## Read-only knowledge projection (CONTRACT 010)
+
+The validated assets are also projected into a non-persistent knowledge model:
+
+- `organization.location`: 1,907 evidenced claims.
+- `organization.contact.phone/email`: published direct channels only.
+- `person.role_at_organization`: public professional references with evidence.
+- `organization.direct_contact`: explicit unknown gap when no phone/email is loaded.
+
+The projection never creates a RUC, never mutates canonical assets, and never
+turns missing information into a negative fact. Confidence and freshness remain
+separate; a missing date means freshness is unknown.
