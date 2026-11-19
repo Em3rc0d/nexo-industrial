@@ -76,7 +76,7 @@ void main() {
     expect(evidence.locator, 'https://explomin.com/es/contacto/');
   });
 
-  test('CONTRACT 021 verifies discovered Site while reference Site stays untouched', () async {
+  test('discovery history survives later canonical Site reconciliation', () async {
     final result =
         await const AssetOperationalSiteVerificationRepository().loadSnapshot();
 
@@ -84,16 +84,16 @@ void main() {
         .sitesForOrganization('20501523837')
         .toList(growable: false);
 
-    expect(explominSites, hasLength(2));
+    expect(explominSites, hasLength(1));
 
-    final reference = explominSites
-        .singleWhere((site) => site.id == 'site:20501523837:reference-1');
-    final headquarters = explominSites
-        .singleWhere((site) => site.id == 'site:20501523837:hq-conchan-1');
-
-    expect(reference.operationalStatus, SiteOperationalStatus.unknown);
-    expect(headquarters.operationalStatus, SiteOperationalStatus.confirmedOperational);
-    expect(headquarters.function, SiteFunction.headquarters);
+    final canonical = explominSites.single;
+    expect(canonical.id, 'site:20501523837:reference-1');
+    expect(canonical.operationalStatus, SiteOperationalStatus.confirmedOperational);
+    expect(canonical.function, SiteFunction.headquarters);
+    expect(
+      result.snapshot.siteById('site:20501523837:hq-conchan-1'),
+      isNull,
+    );
 
     expect(
       result.snapshot.sites.where((site) => site.isOperationallyConfirmed),
