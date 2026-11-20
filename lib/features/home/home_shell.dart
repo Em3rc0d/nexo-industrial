@@ -5,15 +5,18 @@ import '../activity/activity_store.dart';
 import '../companies/companies_screen.dart';
 import '../companies/domain/company.dart';
 import '../map/map_screen.dart';
+import '../sites/domain/runtime_spatial_projection.dart';
 
 class HomeShell extends StatefulWidget {
   const HomeShell({
     super.key,
     required this.companies,
+    required this.spatialViews,
     required this.activityStore,
   });
 
   final List<Company> companies;
+  final List<RuntimeCompanySpatialView> spatialViews;
   final ActivityStore activityStore;
 
   @override
@@ -28,10 +31,11 @@ class _HomeShellState extends State<HomeShell> {
     final pages = [
       CompaniesScreen(
         companies: widget.companies,
+        spatialViews: widget.spatialViews,
         activityStore: widget.activityStore,
       ),
       MapScreen(
-        companies: widget.companies,
+        companies: widget.spatialViews,
         activityStore: widget.activityStore,
       ),
       ActivityScreen(activityStore: widget.activityStore),
