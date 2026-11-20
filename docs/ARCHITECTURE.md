@@ -150,6 +150,32 @@ CONTRACT 025 intentionally left the ANA Lote 1 property relation UNKNOWN.
 CONTRACT 026 later resolves the Property identity separately, without changing
 this Site reconciliation result.
 
+### Property / Facility / typed Placement
+
+CONTRACT 026 resolves the ANA Mz. B Lote 1 evidence at the Property layer. It is
+a `distinct_property` relative to the canonical Explomin Site's Mz. B Lote 2
+parcel reference, while remaining operationally related to the same
+organization. Adjacency is not inferred from consecutive lot numbering.
+
+CONTRACT 027 separates four spatial concepts:
+
+- `Property`: physical/legal parcel identity;
+- `OperationalFacility`: evidenced operation located on a Property;
+- `Site`: Nexo commercial/operational location identity;
+- `Placement`: spatial assertion owned by a typed entity.
+
+A physical `Asset` may also own a typed Placement. The ANA well is represented
+as an Asset inside the Lote 1 warehouse Facility, and the ANA coordinate belongs
+to that Asset. It does not modify the canonical Explomin Site Placement.
+
+The existing Site-specific `Placement` model remains as a compatibility layer
+for all 1,907 active Site placements. New Property/Facility/Asset coordinates
+use `EntityPlacement` with explicit entity type. This is additive and avoids a
+destructive migration.
+
+Creating a Property or Facility never creates a Site. Property-to-Site
+relationships may target only active canonical Sites.
+
 ### Ranking
 Combina:
 - potencial interno;
