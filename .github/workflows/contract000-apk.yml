@@ -1,9 +1,9 @@
-name: Nexo CONTRACT 028 APK
+name: Nexo CONTRACT 029 APK
 
 on:
   push:
     branches:
-      - contract/028-unified-spatial-placement-authority
+      - contract/029-spatial-entity-map-ux-exposure-policy
   workflow_dispatch:
 
 permissions:
@@ -24,29 +24,21 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          BASE="f28da1b4ead0d0ee1c92cf939bc4d627a456011f"
+          BASE="4f8f28c8a1bff80cfadf219cef4aa55a4deaff02"
           CHANGED="$(git diff --name-only "$BASE"..HEAD | sort)"
           echo "$CHANGED"
           EXPECTED="$(printf '%s\n' \
             '.github/workflows/contract000-apk.yml' \
-            'assets/data/property.facility.overlay.json' \
-            'data/site_enrichment/2026-11-20_unified_spatial_placement_authority.json' \
+            'data/site_enrichment/2026-11-20_spatial_entity_map_ux_exposure_policy.json' \
             'docs/ARCHITECTURE.md' \
             'docs/DATA_CONTRACT.md' \
-            'docs/contracts/CONTRACT_028_UNIFIED_SPATIAL_PLACEMENT_AUTHORITY.md' \
-            'lib/features/knowledge/data/asset_knowledge_repository.dart' \
-            'lib/features/sites/data/asset_site_repository.dart' \
-            'lib/features/sites/data/placement_verification_repository.dart' \
-            'lib/features/sites/data/property_facility_repository.dart' \
-            'lib/features/sites/data/unified_spatial_placement_repository.dart' \
-            'lib/features/sites/domain/placement_verification.dart' \
-            'lib/features/sites/domain/property_facility.dart' \
-            'lib/features/sites/domain/site.dart' \
-            'lib/features/sites/domain/unified_spatial.dart' \
+            'docs/contracts/CONTRACT_029_SPATIAL_ENTITY_MAP_UX_EXPOSURE_POLICY.md' \
+            'lib/features/sites/data/spatial_entity_exposure_policy.dart' \
+            'lib/features/sites/data/spatial_exposure_repository.dart' \
+            'lib/features/sites/domain/spatial_exposure.dart' \
             'pubspec.yaml' \
-            'test/site_placement_test.dart' \
-            'test/unified_spatial_placement_test.dart' \
-            'tool/validate_unified_spatial_authority.py' | sort)"
+            'test/spatial_exposure_policy_test.dart' \
+            'tool/validate_spatial_exposure_policy.py' | sort)"
           test "$CHANGED" = "$EXPECTED"
 
       - name: Set up Java 17
@@ -86,6 +78,7 @@ jobs:
           python3 tool/validate_placement_enrichment_pilot.py
           python3 tool/validate_property_facility_semantics.py
           python3 tool/validate_unified_spatial_authority.py
+          python3 tool/validate_spatial_exposure_policy.py
 
       - name: Bootstrap Android, analyze and test
         shell: bash
@@ -115,29 +108,29 @@ jobs:
           "$APKSIGNER" verify --verbose --print-certs "$APK" | tee dist/apk-signature.txt
           "$AAPT" dump badging "$APK" | head -n 5 | tee dist/apk-badging.txt
           PACKAGE_LINE="$("$AAPT" dump badging "$APK" | head -n 1)"
-          cp "$APK" "dist/nexo-industrial-1.0.14-build17-contract028-actions.apk"
+          cp "$APK" "dist/nexo-industrial-1.0.15-build18-contract029-actions.apk"
           printf '%s\n' \
-            "NEXO INDUSTRIAL - CONTRACT 028 ACTIONS BUILD" \
-            "base_source_commit=f28da1b4ead0d0ee1c92cf939bc4d627a456011f" \
+            "NEXO INDUSTRIAL - CONTRACT 029 ACTIONS BUILD" \
+            "base_source_commit=4f8f28c8a1bff80cfadf219cef4aa55a4deaff02" \
             "workflow_commit=$GITHUB_SHA" \
-            "version=1.0.14+17" \
-            "apk_file=nexo-industrial-1.0.14-build17-contract028-actions.apk" \
+            "version=1.0.15+18" \
+            "apk_file=nexo-industrial-1.0.15-build18-contract029-actions.apk" \
             "apk_sha256=$SHA256" \
             "apk_size_bytes=$SIZE" \
             "package_badging=$PACKAGE_LINE" \
             "workflow_run_id=$GITHUB_RUN_ID" \
             "workflow_run_attempt=$GITHUB_RUN_ATTEMPT" \
-            "note=CONTRACT 028 candidate. Unified spatial placement authority projects 1,907 Site Placements losslessly plus one non-actionable ANA Asset Placement." \
-            > dist/NEXO_CONTRACT_028_ACTIONS_RECEIPT.txt
-          sha256sum dist/nexo-industrial-1.0.14-build17-contract028-actions.apk | tee dist/SHA256SUMS.txt
+            "note=CONTRACT 029 candidate. Spatial exposure policy keeps 1,907 Site map markers, 370 nearby/navigation Sites and zero non-Site commercial exposure." \
+            > dist/NEXO_CONTRACT_029_ACTIONS_RECEIPT.txt
+          sha256sum dist/nexo-industrial-1.0.15-build18-contract029-actions.apk | tee dist/SHA256SUMS.txt
 
       - name: Upload APK evidence bundle
         uses: actions/upload-artifact@v4
         with:
-          name: nexo-contract028-apk-1.0.14-build17
+          name: nexo-contract029-apk-1.0.15-build18
           path: |
-            dist/nexo-industrial-1.0.14-build17-contract028-actions.apk
-            dist/NEXO_CONTRACT_028_ACTIONS_RECEIPT.txt
+            dist/nexo-industrial-1.0.15-build18-contract029-actions.apk
+            dist/NEXO_CONTRACT_029_ACTIONS_RECEIPT.txt
             dist/apk-signature.txt
             dist/apk-badging.txt
             dist/SHA256SUMS.txt
