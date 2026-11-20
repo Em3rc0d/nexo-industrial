@@ -32,7 +32,10 @@ flutter:
     - assets/data/sites.discovered.overlay.json
     - assets/data/site.placement.verified.overlay.json
     - assets/data/site.identity.reconciliation.overlay.json
+    - assets/data/property.facility.overlay.json
     - data/people_enrichment/2026-11-11_mining_people.json
     - data/site_enrichment/2026-11-19_operational_site_pilot.json
     - data/site_enrichment/2026-11-19_placement_enrichment_pilot.json
     - data/site_enrichment/2026-11-19_site_identity_reconciliation.json
+    - data/site_enrichment/2026-11-19_property_relationship_resolution.json
+    - data/site_enrichment/2026-11-19_property_facility_semantic_separation.json
