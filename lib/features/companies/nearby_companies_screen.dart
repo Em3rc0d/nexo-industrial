@@ -5,6 +5,7 @@ import '../activity/activity_store.dart';
 import '../map/ranking_service.dart';
 import 'company_detail_screen.dart';
 import 'domain/company.dart';
+import '../sites/domain/site.dart';
 
 enum NearbySort { potential, distance }
 
@@ -108,7 +109,7 @@ class _NearbyCompaniesScreenState extends State<NearbyCompaniesScreen> {
                   ),
                   subtitle: Text(
                     '${company.activity}\n'
-                    '${company.managementStatus ?? company.locationLabel}',
+                    '${company.managementStatus ?? item.spatial.locationLabel}',
                   ),
                   isThreeLine: true,
                   trailing: Column(
@@ -117,7 +118,7 @@ class _NearbyCompaniesScreenState extends State<NearbyCompaniesScreen> {
                     children: [
                       Text(
                         item.spatial.canUseDistanceForRanking
-                            ? '${item.spatial.locationQuality == LocationQuality.interpolatedAddress ? '≈ ' : ''}${item.distanceKm.toStringAsFixed(1)} km'
+                            ? '${item.spatial.locationQuality == PlacementQuality.interpolatedAddress ? '≈ ' : ''}${item.distanceKm.toStringAsFixed(1)} km'
                             : item.spatial.compactLocationLabel,
                         style: const TextStyle(
                           fontWeight: FontWeight.w700,
