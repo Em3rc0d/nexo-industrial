@@ -351,3 +351,29 @@ ranking and navigation. CONTRACT 029 does not mutate its evidence or Placement.
 
 The policy audit is stored in
 `data/site_enrichment/2026-11-20_spatial_entity_map_ux_exposure_policy.json`.
+
+
+## Runtime Spatial Projection Integration (CONTRACT 030)
+
+`RuntimeSpatialProjectionRepository` joins commercial Company records to their
+active canonical Site, authoritative `EntityPlacement` and CONTRACT 029
+exposure decisions.
+
+Production output:
+
+- Companies: 1,907;
+- RuntimeCompanySpatialView: 1,907;
+- map-visible views: 1,907;
+- nearby-ranking eligible: 370;
+- navigation eligible: 370;
+- non-Site runtime Company views: 0.
+
+The runtime projection is now the location source for map, nearby ranking,
+navigation and company-detail location UX.
+
+Legacy Company geography remains in the serialized commercial model only for
+compatibility/parity and is marked deprecated in Dart. It is not removed by
+CONTRACT 030.
+
+The migration audit is stored in
+`data/site_enrichment/2026-11-20_runtime_spatial_projection_integration.json`.
