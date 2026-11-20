@@ -1,6 +1,7 @@
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
+import '../companies/domain/company.dart';
 import '../sites/domain/runtime_spatial_projection.dart';
 
 class RankedCompany {
