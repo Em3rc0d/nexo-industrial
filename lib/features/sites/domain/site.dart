@@ -87,6 +87,7 @@ class Placement {
     required this.longitude,
     required this.quality,
     required this.confidence,
+    required this.mapDisplayEligible,
     required this.nearbyRankingEligible,
     required this.navigationEligible,
     required this.sourceClaimId,
@@ -104,6 +105,7 @@ class Placement {
   final double longitude;
   final PlacementQuality quality;
   final KnowledgeConfidence confidence;
+  final bool mapDisplayEligible;
   final bool nearbyRankingEligible;
   final bool navigationEligible;
   final String sourceClaimId;
