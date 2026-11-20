@@ -4,6 +4,7 @@ import '../../core/theme/app_theme.dart';
 import '../activity/activity_store.dart';
 import 'company_detail_screen.dart';
 import 'domain/company.dart';
+import '../sites/domain/runtime_spatial_projection.dart';
 
 enum _LocationFilter { all, reliable, approximate }
 
@@ -13,10 +14,12 @@ class CompaniesScreen extends StatefulWidget {
   const CompaniesScreen({
     super.key,
     required this.companies,
+    required this.spatialViews,
     required this.activityStore,
   });
 
   final List<Company> companies;
+  final List<RuntimeCompanySpatialView> spatialViews;
   final ActivityStore activityStore;
 
   @override
@@ -24,6 +27,8 @@ class CompaniesScreen extends StatefulWidget {
 }
 
 class _CompaniesScreenState extends State<CompaniesScreen> {
+  RuntimeCompanySpatialView _spatialFor(Company company) =>
+      widget.spatialViews.firstWhere((view) => view.company.id == company.id);
   String _query = '';
   String? _sector;
   _LocationFilter _locationFilter = _LocationFilter.all;
@@ -51,13 +56,16 @@ class _CompaniesScreenState extends State<CompaniesScreen> {
 
             if (_sector != null && company.sector != _sector) return false;
 
-            if (_locationFilter == _LocationFilter.reliable &&
-                !company.hasReliableCoordinates) {
+            final spatial = _spatialFor(company);
+            final reliable =
+                spatial.locationQuality == LocationQuality.exactAddress ||
+                spatial.locationQuality == LocationQuality.addressReference;
+
+            if (_locationFilter == _LocationFilter.reliable && !reliable) {
               return false;
             }
 
-            if (_locationFilter == _LocationFilter.approximate &&
-                company.hasReliableCoordinates) {
+            if (_locationFilter == _LocationFilter.approximate && reliable) {
               return false;
             }
 
@@ -334,7 +342,7 @@ class _CompaniesScreenState extends State<CompaniesScreen> {
                               ),
                               subtitle: Text(
                                 '${company.activity}\n'
-                                '${company.compactLocationLabel}'
+                                '${_spatialFor(company).compactLocationLabel}'
                                 '${latest == null ? ' · Sin gestionar' : ' · ${latest.status.label}'}',
                               ),
                               isThreeLine: true,
@@ -344,6 +352,7 @@ class _CompaniesScreenState extends State<CompaniesScreen> {
                                   MaterialPageRoute<void>(
                                     builder: (_) => CompanyDetailScreen(
                                       company: company,
+                                      spatial: _spatialFor(company),
                                       activityStore: widget.activityStore,
                                     ),
                                   ),
