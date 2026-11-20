@@ -4,6 +4,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:nexo_industrial/features/map/ranking_service.dart';
 import 'package:nexo_industrial/features/companies/data/asset_company_repository.dart';
 import 'package:nexo_industrial/features/companies/domain/company.dart';
+import 'package:nexo_industrial/features/sites/data/runtime_spatial_projection_repository.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -69,21 +70,25 @@ void main() {
   test(
     'Callao and southern accounts remain visible beyond the old top-90 cap',
     () async {
-      final accounts = await const AssetCompanyRepository().loadCompanies();
+      final runtime = await const RuntimeSpatialProjectionRepository().loadSnapshot();
+      final accounts = runtime.companies;
+      final spatial = runtime.spatialViews;
       const service = CompanyRankingService();
       final allBounds = LatLngBounds.fromPoints(
-        accounts.map((c) => c.point).toList(),
+        spatial.map((c) => c.point).toList(),
       );
-      expect(service.rankVisible(accounts, allBounds), hasLength(1907));
+      expect(service.rankVisible(spatial, allBounds), hasLength(1907));
       final callao = accounts
           .where((c) => c.locationProvince == 'CALLAO')
           .toList();
       expect(callao, hasLength(113));
+      final callaoIds = callao.map((c) => c.id).toSet();
+      final callaoSpatial = spatial.where((v) => callaoIds.contains(v.company.id)).toList();
       final callaoBounds = LatLngBounds.fromPoints(
-        callao.map((c) => c.point).toList(),
+        callaoSpatial.map((c) => c.point).toList(),
       );
       final visibleRucs = service
-          .rankVisible(accounts, callaoBounds)
+          .rankVisible(spatial, callaoBounds)
           .map((x) => x.company.ruc)
           .toSet();
       expect(visibleRucs, containsAll(callao.map((c) => c.ruc)));
@@ -92,11 +97,13 @@ void main() {
             .where((c) => c.locationDistrict == district)
             .toList();
         expect(south, isNotEmpty);
+        final southIds = south.map((c) => c.id).toSet();
+        final southSpatial = spatial.where((v) => southIds.contains(v.company.id)).toList();
         final bounds = LatLngBounds.fromPoints(
-          south.map((c) => c.point).toList(),
+          southSpatial.map((c) => c.point).toList(),
         );
         final visible = service
-            .rankVisible(accounts, bounds)
+            .rankVisible(spatial, bounds)
             .map((x) => x.company.ruc)
             .toSet();
         expect(visible, containsAll(south.map((c) => c.ruc)));
@@ -107,16 +114,17 @@ void main() {
   test(
     'district search is global, includes approximate locations and handles accents',
     () async {
-      final accounts = await const AssetCompanyRepository().loadCompanies();
+      final runtime = await const RuntimeSpatialProjectionRepository().loadSnapshot();
+      final spatial = runtime.spatialViews;
       const service = CompanyRankingService();
       const anchor = LatLng(-12.1, -77.03);
-      final callao = service.rank(accounts, anchor, query: 'Callao');
+      final callao = service.rank(spatial, anchor, query: 'Callao');
       expect(callao.length, greaterThanOrEqualTo(113));
-      final lurin = service.rank(accounts, anchor, query: 'Lurín');
+      final lurin = service.rank(spatial, anchor, query: 'Lurín');
       expect(lurin.length, greaterThanOrEqualTo(46));
-      expect(lurin.any((x) => !x.company.navigationEligible), isTrue);
+      expect(lurin.any((x) => !x.spatial.navigationEligible), isTrue);
       expect(
-        service.rank(accounts, anchor, query: 'Villa El Salvador').length,
+        service.rank(spatial, anchor, query: 'Villa El Salvador').length,
         greaterThanOrEqualTo(30),
       );
     },
