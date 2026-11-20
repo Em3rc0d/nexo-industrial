@@ -29,14 +29,7 @@ class RuntimeCompanySpatialView {
   bool get canUseDistanceForRanking => nearbyExposure.isVisible;
   bool get navigationEligible => navigationExposure.isVisible;
 
-  LocationQuality get locationQuality => switch (placement.quality) {
-        PlacementQuality.exactAddress => LocationQuality.exactAddress,
-        PlacementQuality.addressReference => LocationQuality.addressReference,
-        PlacementQuality.propertyReference => LocationQuality.districtReference,
-        PlacementQuality.interpolatedAddress => LocationQuality.interpolatedAddress,
-        PlacementQuality.streetReference => LocationQuality.streetReference,
-        PlacementQuality.districtReference => LocationQuality.districtReference,
-      };
+  PlacementQuality get locationQuality => placement.quality;
 
   double get distanceEvidenceWeight => switch (placement.quality) {
         PlacementQuality.exactAddress => 1.0,
@@ -71,6 +64,34 @@ class RuntimeCompanySpatialView {
         PlacementQuality.districtReference =>
           'Referencia distrital · búsqueda en Maps disponible',
       };
+
+  bool matchesQuery(String query) {
+    String normalize(String value) {
+      var result = value.trim().toLowerCase();
+      const accents = {
+        'á': 'a',
+        'é': 'e',
+        'í': 'i',
+        'ó': 'o',
+        'ú': 'u',
+        'ü': 'u',
+      };
+      for (final entry in accents.entries) {
+        result = result.replaceAll(entry.key, entry.value);
+      }
+      return result;
+    }
+
+    final term = normalize(query);
+    if (term.isEmpty) return true;
+    if (company.matchesQuery(query)) return true;
+    return [
+      placement.address ?? '',
+      placement.district ?? '',
+      placement.province ?? '',
+      placement.department ?? '',
+    ].any((value) => normalize(value).contains(term));
+  }
 
   String get googleMapsSearchQuery {
     final parts = <String>[
