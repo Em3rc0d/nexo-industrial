@@ -377,3 +377,15 @@ CONTRACT 030.
 
 The migration audit is stored in
 `data/site_enrichment/2026-11-20_runtime_spatial_projection_integration.json`.
+
+
+## Legacy Spatial Dependency Audit (CONTRACT 031)
+
+Removal readiness decision: **GO_FOR_REMOVAL**.
+
+Production authority consumers: 0. Production indirect consumers: 0.
+Serialization blockers: 0. Runtime coverage remains 1,907 companies / 1,907
+spatial views, with 370 nearby-eligible and 370 navigation-eligible views.
+
+The audit is stored in
+`data/site_enrichment/2026-11-20_legacy_spatial_dependency_audit.json`.
