@@ -1,0 +1,43 @@
+{
+  "format": "nexo-industrial-runtime-spatial-projection-integration-audit",
+  "version": 1,
+  "contract": "030",
+  "reviewed_on": "2026-11-20",
+  "outreach_performed": false,
+  "runtime_authority": "RuntimeSpatialProjectionRepository",
+  "input_authorities": [
+    "UnifiedSpatialPlacementRepository",
+    "SpatialEntityExposurePolicy"
+  ],
+  "expected_state": {
+    "companies": 1907,
+    "runtime_spatial_views": 1907,
+    "map_visible_views": 1907,
+    "nearby_ranking_eligible": 370,
+    "navigation_eligible": 370,
+    "non_site_runtime_views": 0
+  },
+  "migrated_consumers": [
+    "NexoApp bootstrap",
+    "HomeShell spatial distribution",
+    "CompaniesScreen location filter and detail launch",
+    "MapScreen markers/search",
+    "CompanyRankingService",
+    "NearbyCompaniesScreen",
+    "CompanyDetailScreen navigation/location presentation"
+  ],
+  "legacy_company_spatial_fields": {
+    "retained": true,
+    "authority": false,
+    "status": "deprecated_compatibility_only"
+  },
+  "invariants": [
+    "runtime_coordinates_equal_legacy_snapshot",
+    "runtime_quality_equal_legacy_snapshot",
+    "runtime_nearby_permissions_equal_legacy_snapshot",
+    "runtime_navigation_permissions_equal_legacy_snapshot",
+    "ana_asset_never_projects_as_company",
+    "no_site_identity_change",
+    "no_spatial_permission_upgrade"
+  ]
+}
