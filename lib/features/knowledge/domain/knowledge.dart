@@ -1,4 +1,4 @@
-enum KnowledgeSubjectType { organization, person, site }
+enum KnowledgeSubjectType {\n  organization,\n  person,\n  site,\n  property,\n  operationalFacility,\n  asset,\n}
 
 enum KnowledgeOrigin {
   authoritative,
