@@ -1,0 +1,29 @@
+{
+  "format": "nexo-industrial-property-relationship-resolution-audit",
+  "version": 1,
+  "contract": "026",
+  "reviewed_on": "2026-11-19",
+  "outreach_performed": false,
+  "subject": {
+    "organization_ruc": "20501523837",
+    "canonical_site_id": "site:20501523837:reference-1",
+    "canonical_site_parcel_reference": "Mz. B Lote 2",
+    "external_property_id": "property:20501523837:mz-b-lote-1",
+    "external_property_parcel_reference": "Mz. B Lote 1"
+  },
+  "resolution": {
+    "relation": "distinct_property",
+    "operationally_related": true,
+    "adjacency_proven": false,
+    "part_of_site_proven": false,
+    "creates_site": false,
+    "changes_canonical_site": false,
+    "changes_site_placement": false
+  },
+  "reasoning_boundary": "Different parcel identifiers establish distinct Property identity. Same operator and operational evidence do not prove shared Site identity or parcel adjacency.",
+  "evidence_urls": [
+    "https://www.ana.gob.pe/sites/default/files/normatividad/files/INFORME%20TECNICO%200025-2024-P%20AAACF06.pdf",
+    "https://www.ana.gob.pe/sites/default/files/normatividad/files/III-RD-1057-2024-06.pdf",
+    "https://explomin.com/es/politica-de-privacidad-web/"
+  ]
+}
