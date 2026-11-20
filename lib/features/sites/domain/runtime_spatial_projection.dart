@@ -3,6 +3,7 @@ import 'package:latlong2/latlong.dart';
 import '../../companies/domain/company.dart';
 import 'property_facility.dart';
 import 'spatial_exposure.dart';
+import 'site.dart';
 
 class RuntimeCompanySpatialView {
   const RuntimeCompanySpatialView({
