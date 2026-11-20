@@ -1,0 +1,109 @@
+{
+  "format": "nexo-industrial-property-facility-overlay",
+  "version": 1,
+  "as_of": "2026-11-19",
+  "properties": [
+    {
+      "id": "property:20501523837:mz-b-lote-1",
+      "organization_ruc": "20501523837",
+      "parcel_label": "Mz. B Lote 1, Asociación de Vivienda Villa El Milagro",
+      "tenure": "leased",
+      "tenure_valid_until": "2034-12-31T00:00:00Z",
+      "notes": "ANA evidence identifies Explomin as operator/administrado and records legitimate possession/lease of the operational property. This Property is not the canonical Site identity.",
+      "evidence": [
+        {
+          "id": "evidence:property:20501523837:ana-it-0025-2024",
+          "source_type": "url",
+          "locator": "https://www.ana.gob.pe/sites/default/files/normatividad/files/INFORME%20TECNICO%200025-2024-P%20AAACF06.pdf",
+          "reviewed_at": "2026-11-19T00:00:00Z",
+          "summary": "ANA technical report identifies Explomin del Perú S.A.C. and the well/property at Mz. B Lote 1, Villa El Milagro."
+        },
+        {
+          "id": "evidence:property:20501523837:ana-rd-1057-2024",
+          "source_type": "url",
+          "locator": "https://www.ana.gob.pe/sites/default/files/normatividad/files/III-RD-1057-2024-06.pdf",
+          "reviewed_at": "2026-11-19T00:00:00Z",
+          "summary": "ANA resolution records the operational unit/property and lease validity through 2034-12-31."
+        }
+      ]
+    }
+  ],
+  "facilities": [
+    {
+      "id": "facility:20501523837:mz-b-lote-1:warehouse",
+      "organization_ruc": "20501523837",
+      "property_id": "property:20501523837:mz-b-lote-1",
+      "type": "warehouse",
+      "display_label": "Explomin operational warehouse — Mz. B Lote 1",
+      "evidence": [
+        {
+          "id": "evidence:facility:20501523837:ana-it-0025-2024",
+          "source_type": "url",
+          "locator": "https://www.ana.gob.pe/sites/default/files/normatividad/files/INFORME%20TECNICO%200025-2024-P%20AAACF06.pdf",
+          "reviewed_at": "2026-11-19T00:00:00Z",
+          "summary": "ANA describes water use for the company/warehouse and records field verification."
+        }
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "id": "asset:20501523837:mz-b-lote-1:groundwater-well",
+      "facility_id": "facility:20501523837:mz-b-lote-1:warehouse",
+      "display_label": "ANA verified groundwater well",
+      "asset_type": "groundwater_well"
+    }
+  ],
+  "placements": [
+    {
+      "id": "placement:asset:20501523837:mz-b-lote-1:groundwater-well:ana-2024",
+      "entity_type": "asset",
+      "entity_id": "asset:20501523837:mz-b-lote-1:groundwater-well",
+      "latitude": -12.239774,
+      "longitude": -76.952451,
+      "quality": "property_reference",
+      "confidence": "high",
+      "source_claim_id": "claim:asset-placement:20501523837:ana-well-2024",
+      "source_coordinate_reference_system": "UTM WGS84 Zone 18S; source E 287610 N 8646165; WGS84 latitude/longitude stored as approximate conversion",
+      "as_of": "2024-02-06T00:00:00Z",
+      "evidence": [
+        {
+          "id": "evidence:placement:20501523837:ana-well-2024",
+          "source_type": "url",
+          "locator": "https://www.ana.gob.pe/sites/default/files/normatividad/files/INFORME%20TECNICO%200025-2024-P%20AAACF06.pdf",
+          "reviewed_at": "2026-11-19T00:00:00Z",
+          "observed_at": "2024-02-06T00:00:00Z",
+          "summary": "ANA publishes UTM WGS84 Zone 18S E 287610 N 8646165 for the verified well."
+        }
+      ]
+    }
+  ],
+  "property_site_relationships": [
+    {
+      "id": "property-site:20501523837:lote-1:reference-1:20261119",
+      "property_id": "property:20501523837:mz-b-lote-1",
+      "site_id": "site:20501523837:reference-1",
+      "relation": "distinct_property",
+      "operationally_related": true,
+      "confidence": "high",
+      "reviewed_at": "2026-11-19T00:00:00Z",
+      "rationale": "ANA directly ties Mz. B Lote 1 to Explomin operations, while the canonical Site evidence identifies Mz. B Lote 2. Distinct parcel labels establish distinct Property identity. Consecutive lot numbers do not prove adjacency, and the relationship does not create a second Site.",
+      "evidence": [
+        {
+          "id": "evidence:relationship:20501523837:ana-lote-1",
+          "source_type": "url",
+          "locator": "https://www.ana.gob.pe/sites/default/files/normatividad/files/INFORME%20TECNICO%200025-2024-P%20AAACF06.pdf",
+          "reviewed_at": "2026-11-19T00:00:00Z",
+          "summary": "ANA identifies Explomin operational activity on Mz. B Lote 1."
+        },
+        {
+          "id": "evidence:relationship:20501523837:explomin-lote-2",
+          "source_type": "url",
+          "locator": "https://explomin.com/es/politica-de-privacidad-web/",
+          "reviewed_at": "2026-11-19T00:00:00Z",
+          "summary": "Explomin's current official material identifies Mz. B Lote 2 as its formal address."
+        }
+      ]
+    }
+  ]
+}
