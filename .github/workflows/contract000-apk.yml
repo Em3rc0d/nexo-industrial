@@ -24,7 +24,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          BASE="17bc619ab81e3c6d5584c74cf99db39d02ac5e99"
+          BASE="cfcd4bd76885c004a65f853de79a09c022073d65"
           CHANGED="$(git diff --name-only "$BASE"..HEAD | sort)"
           echo "$CHANGED"
           EXPECTED="$(printf '%s\n' \
