@@ -10,7 +10,6 @@ import '../../core/theme/app_theme.dart';
 import '../../services/location_service.dart';
 import '../activity/activity_store.dart';
 import '../companies/company_detail_screen.dart';
-import '../companies/domain/company.dart';
 import '../sites/domain/runtime_spatial_projection.dart';
 import '../sites/domain/site.dart';
 import '../companies/nearby_companies_screen.dart';
