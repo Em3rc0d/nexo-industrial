@@ -1,13 +1,18 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:nexo_industrial/features/companies/domain/company.dart';
+import 'package:nexo_industrial/features/knowledge/domain/knowledge.dart';
 import 'package:nexo_industrial/features/map/ranking_service.dart';
+import 'package:nexo_industrial/features/sites/domain/property_facility.dart';
+import 'package:nexo_industrial/features/sites/domain/runtime_spatial_projection.dart';
+import 'package:nexo_industrial/features/sites/domain/site.dart';
+import 'package:nexo_industrial/features/sites/domain/spatial_exposure.dart';
 
 void main() {
   const service = CompanyRankingService();
   const anchor = LatLng(-12.10, -77.03);
 
-  Company company({
+  RuntimeCompanySpatialView spatial({
     required String id,
     required String name,
     required double latitude,
@@ -20,8 +25,10 @@ void main() {
     final precise =
         quality == LocationQuality.exactAddress ||
         quality == LocationQuality.addressReference;
+    final nearby = nearbyRankingEligible ?? precise;
+    final navigation = navigationEligible ?? precise;
 
-    return Company(
+    final company = Company(
       id: id,
       ruc: 'DEMO-$id',
       name: name,
@@ -47,13 +54,59 @@ void main() {
       contact: const CompanyContact(),
       source: 'test',
       sourceUpdatedAt: DateTime(2026, 11, 9),
-      nearbyRankingEligible: nearbyRankingEligible ?? precise,
-      navigationEligible: navigationEligible ?? precise,
+      nearbyRankingEligible: nearby,
+      navigationEligible: navigation,
+    );
+
+    final placementQuality = switch (quality) {
+      LocationQuality.exactAddress => PlacementQuality.exactAddress,
+      LocationQuality.addressReference => PlacementQuality.addressReference,
+      LocationQuality.interpolatedAddress => PlacementQuality.interpolatedAddress,
+      LocationQuality.streetReference => PlacementQuality.streetReference,
+      LocationQuality.districtReference => PlacementQuality.districtReference,
+    };
+
+    final placement = EntityPlacement(
+      id: 'placement:$id',
+      entityType: SpatialEntityType.site,
+      entityId: 'site:$id',
+      latitude: latitude,
+      longitude: longitude,
+      quality: placementQuality,
+      confidence: KnowledgeConfidence.high,
+      mapDisplayEligible: true,
+      nearbyRankingEligible: nearby,
+      navigationEligible: navigation,
+      sourceClaimId: 'claim:$id',
+      evidenceIds: const [],
+    );
+
+    SpatialExposureDecision decision(
+      SpatialExposureSurface surface,
+      bool visible,
+    ) =>
+        SpatialExposureDecision(
+          placementId: placement.id,
+          entityType: SpatialEntityType.site,
+          entityId: placement.entityId,
+          surface: surface,
+          mode: visible ? SpatialExposureMode.primary : SpatialExposureMode.hidden,
+          reason: 'test',
+        );
+
+    return RuntimeCompanySpatialView(
+      company: company,
+      siteId: placement.entityId,
+      placement: placement,
+      mapExposure: decision(SpatialExposureSurface.commercialMap, true),
+      detailExposure: decision(SpatialExposureSurface.companyDetail, true),
+      nearbyExposure: decision(SpatialExposureSurface.nearbyRanking, nearby),
+      navigationExposure: decision(SpatialExposureSurface.navigation, navigation),
     );
   }
 
   test('prioriza una oportunidad fuerte y cercana', () {
-    final nearStrong = company(
+    final nearStrong = spatial(
       id: '1',
       name: 'Cercana',
       latitude: -12.101,
@@ -61,7 +114,7 @@ void main() {
       potential: 0.95,
     );
 
-    final farWeak = company(
+    final farWeak = spatial(
       id: '2',
       name: 'Lejana',
       latitude: -12.18,
@@ -76,7 +129,7 @@ void main() {
   });
 
   test('una dirección precisa precede a un centro distrital cercano', () {
-    final approximate = company(
+    final approximate = spatial(
       id: 'district',
       name: 'District',
       latitude: -12.10,
@@ -84,7 +137,7 @@ void main() {
       potential: 1.0,
       quality: LocationQuality.districtReference,
     );
-    final precise = company(
+    final precise = spatial(
       id: 'address',
       name: 'Address',
       latitude: -12.101,
@@ -98,7 +151,7 @@ void main() {
   });
 
   test('la auditoría puede negar cercanía incluso a una dirección exacta', () {
-    final exactButNotEligible = company(
+    final item = spatial(
       id: 'exact-blocked',
       name: 'Exact blocked',
       latitude: -12.1001,
@@ -109,11 +162,11 @@ void main() {
       navigationEligible: false,
     );
 
-    expect(exactButNotEligible.canUseDistanceForRanking, isFalse);
+    expect(item.canUseDistanceForRanking, isFalse);
   });
 
   test('una interpolación auditada como no elegible no usa cercanía', () {
-    final interpolated = company(
+    final item = spatial(
       id: 'interpolated-blocked',
       name: 'Interpolated blocked',
       latitude: -12.1001,
@@ -124,11 +177,11 @@ void main() {
       navigationEligible: false,
     );
 
-    expect(interpolated.canUseDistanceForRanking, isFalse);
+    expect(item.canUseDistanceForRanking, isFalse);
   });
 
   test('una interpolación promovida explícitamente puede usar cercanía con peso reducido', () {
-    final interpolated = company(
+    final item = spatial(
       id: 'interpolated-approved',
       name: 'Interpolated approved',
       latitude: -12.1001,
@@ -139,13 +192,13 @@ void main() {
       navigationEligible: false,
     );
 
-    expect(interpolated.canUseDistanceForRanking, isTrue);
-    expect(interpolated.navigationEligible, isFalse);
-    expect(interpolated.distanceEvidenceWeight, 0.55);
+    expect(item.canUseDistanceForRanking, isTrue);
+    expect(item.navigationEligible, isFalse);
+    expect(item.distanceEvidenceWeight, 0.55);
   });
 
   test('la búsqueda filtra por nombre', () {
-    final metal = company(
+    final metal = spatial(
       id: '1',
       name: 'Metal Demo',
       latitude: -12.101,
@@ -153,7 +206,7 @@ void main() {
       potential: 0.8,
     );
 
-    final naval = company(
+    final naval = spatial(
       id: '2',
       name: 'Naval Demo',
       latitude: -12.102,
