@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../core/theme/app_theme.dart';
 import '../features/activity/activity_store.dart';
-import '../features/companies/data/asset_company_repository.dart';
-import '../features/companies/domain/company.dart';
 import '../features/home/home_shell.dart';
+import '../features/sites/data/runtime_spatial_projection_repository.dart';
+import '../features/sites/domain/runtime_spatial_projection.dart';
 
 class NexoApp extends StatefulWidget {
   const NexoApp({super.key, required this.activityStore});
@@ -16,8 +16,10 @@ class NexoApp extends StatefulWidget {
 }
 
 class _NexoAppState extends State<NexoApp> {
-  final AssetCompanyRepository _repository = const AssetCompanyRepository();
-  late final Future<List<Company>> _companies = _repository.loadCompanies();
+  final RuntimeSpatialProjectionRepository _repository =
+      const RuntimeSpatialProjectionRepository();
+  late final Future<RuntimeSpatialProjectionSnapshot> _runtime =
+      _repository.loadSnapshot();
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +27,8 @@ class _NexoAppState extends State<NexoApp> {
       title: 'Nexo Industrial',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light,
-      home: FutureBuilder<List<Company>>(
-        future: _companies,
+      home: FutureBuilder<RuntimeSpatialProjectionSnapshot>(
+        future: _runtime,
         builder: (context, snapshot) {
           if (snapshot.connectionState != ConnectionState.done) {
             return const Scaffold(
@@ -51,8 +53,10 @@ class _NexoAppState extends State<NexoApp> {
             );
           }
 
+          final runtime = snapshot.data;
           return HomeShell(
-            companies: snapshot.data ?? const [],
+            companies: runtime?.companies ?? const [],
+            spatialViews: runtime?.spatialViews ?? const [],
             activityStore: widget.activityStore,
           );
         },
