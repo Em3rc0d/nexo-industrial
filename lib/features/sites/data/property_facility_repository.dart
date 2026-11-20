@@ -55,7 +55,7 @@ class AssetPropertyFacilityRepository {
       final row = Map<String, dynamic>.from(rawFacility as Map);
       final propertyId = _requiredText(row, 'property_id');
       if (!propertyIds.contains(propertyId)) {
-        throw FormatException('Facility references unknown Property: ' + propertyId);
+        throw FormatException('Facility references unknown Property: $propertyId');
       }
       final evidence = _parseEvidenceList(row['evidence'], evidenceById);
       facilities.add(OperationalFacility(
@@ -73,7 +73,7 @@ class AssetPropertyFacilityRepository {
       final row = Map<String, dynamic>.from(rawAsset as Map);
       final facilityId = _requiredText(row, 'facility_id');
       if (!facilityIds.contains(facilityId)) {
-        throw FormatException('Asset references unknown Facility: ' + facilityId);
+        throw FormatException('Asset references unknown Facility: $facilityId');
       }
       assets.add(PhysicalAsset(
         id: _requiredText(row, 'id'),
@@ -95,7 +95,7 @@ class AssetPropertyFacilityRepository {
         SpatialEntityType.asset => assetIds.contains(entityId),
       };
       if (!exists) {
-        throw FormatException('Placement references unknown typed entity: ' + entityId);
+        throw FormatException('Placement references unknown typed entity: $entityId');
       }
 
       final evidence = _parseEvidenceList(row['evidence'], evidenceById);
@@ -114,7 +114,7 @@ class AssetPropertyFacilityRepository {
         asOf: _optionalDate(row['as_of']),
       );
       if (!placement.hasValidCoordinates) {
-        throw FormatException('Invalid typed Placement coordinates: ' + placement.id);
+        throw FormatException('Invalid typed Placement coordinates: ${placement.id}');
       }
       placements.add(placement);
     }
@@ -125,10 +125,10 @@ class AssetPropertyFacilityRepository {
       final propertyId = _requiredText(row, 'property_id');
       final siteId = _requiredText(row, 'site_id');
       if (!propertyIds.contains(propertyId)) {
-        throw FormatException('Relationship references unknown Property: ' + propertyId);
+        throw FormatException('Relationship references unknown Property: $propertyId');
       }
       if (activeSites.snapshot.siteById(siteId) == null) {
-        throw FormatException('Relationship must target active canonical Site: ' + siteId);
+        throw FormatException('Relationship must target active canonical Site: $siteId');
       }
 
       final evidence = _parseEvidenceList(row['evidence'], evidenceById);
@@ -146,7 +146,7 @@ class AssetPropertyFacilityRepository {
       relationships.add(relationship);
 
       claims.add(KnowledgeClaim(
-        id: 'claim:property-site:' + relationship.id,
+        id: 'claim:property-site:${relationship.id}',
         subject: KnowledgeSubjectRef(
           type: KnowledgeSubjectType.property,
           id: relationship.propertyId,
@@ -168,7 +168,7 @@ class AssetPropertyFacilityRepository {
 
     for (final facility in facilities) {
       claims.add(KnowledgeClaim(
-        id: 'claim:facility:' + facility.id,
+        id: 'claim:facility:${facility.id}',
         subject: KnowledgeSubjectRef(
           type: KnowledgeSubjectType.operationalFacility,
           id: facility.id,
@@ -234,7 +234,7 @@ List<EvidenceRef> _parseEvidenceList(
     if (existing != null &&
         (existing.locator != evidence.locator ||
             existing.sourceType != evidence.sourceType)) {
-      throw FormatException('Conflicting evidence id: ' + evidence.id);
+      throw FormatException('Conflicting evidence id: ${evidence.id}');
     }
     evidenceById[evidence.id] = existing ?? evidence;
     parsed.add(evidence);
@@ -247,7 +247,7 @@ PropertyTenure _parseTenure(String value) => switch (value) {
       'owned' => PropertyTenure.owned,
       'leased' => PropertyTenure.leased,
       'occupied' => PropertyTenure.occupied,
-      _ => throw FormatException('Unsupported Property tenure: ' + value),
+      _ => throw FormatException('Unsupported Property tenure: $value'),
     };
 
 OperationalFacilityType _parseFacilityType(String value) => switch (value) {
@@ -261,7 +261,7 @@ OperationalFacilityType _parseFacilityType(String value) => switch (value) {
       'shipyard' => OperationalFacilityType.shipyard,
       'terminal' => OperationalFacilityType.terminal,
       'project_site' => OperationalFacilityType.projectSite,
-      _ => throw FormatException('Unsupported Facility type: ' + value),
+      _ => throw FormatException('Unsupported Facility type: $value'),
     };
 
 SpatialEntityType _parseEntityType(String value) => switch (value) {
@@ -269,7 +269,7 @@ SpatialEntityType _parseEntityType(String value) => switch (value) {
       'property' => SpatialEntityType.property,
       'operational_facility' => SpatialEntityType.operationalFacility,
       'asset' => SpatialEntityType.asset,
-      _ => throw FormatException('Unsupported spatial entity type: ' + value),
+      _ => throw FormatException('Unsupported spatial entity type: $value'),
     };
 
 PropertyRelation _parsePropertyRelation(String value) => switch (value) {
@@ -277,7 +277,7 @@ PropertyRelation _parsePropertyRelation(String value) => switch (value) {
       'adjacent_property' => PropertyRelation.adjacentProperty,
       'distinct_property' => PropertyRelation.distinctProperty,
       'unknown' => PropertyRelation.unknown,
-      _ => throw FormatException('Unsupported Property relation: ' + value),
+      _ => throw FormatException('Unsupported Property relation: $value'),
     };
 
 KnowledgeConfidence _parseConfidence(String value) => switch (value) {
@@ -286,7 +286,7 @@ KnowledgeConfidence _parseConfidence(String value) => switch (value) {
       'low' => KnowledgeConfidence.low,
       'very_low' => KnowledgeConfidence.veryLow,
       'unknown' => KnowledgeConfidence.unknown,
-      _ => throw FormatException('Unsupported confidence: ' + value),
+      _ => throw FormatException('Unsupported confidence: $value'),
     };
 
 String _propertyRelationName(PropertyRelation value) => switch (value) {
@@ -311,13 +311,13 @@ String _facilityTypeName(OperationalFacilityType value) => switch (value) {
 
 String _requiredText(Map<String, dynamic> row, String field) {
   final value = _optionalText(row[field]);
-  if (value == null) throw FormatException('Missing required field ' + field + '.');
+  if (value == null) throw FormatException('Missing required field $field.');
   return value;
 }
 
 DateTime _requiredDate(Map<String, dynamic> row, String field) {
   final value = _optionalDate(row[field]);
-  if (value == null) throw FormatException('Invalid required date ' + field + '.');
+  if (value == null) throw FormatException('Invalid required date $field.');
   return value;
 }
 
