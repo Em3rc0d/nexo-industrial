@@ -105,6 +105,7 @@ class AssetSiteRepository {
           value['location_quality'],
         ),
         confidence: claim.confidence,
+        mapDisplayEligible: value['map_display_eligible'] as bool? ?? false,
         nearbyRankingEligible:
             value['nearby_ranking_eligible'] as bool? ?? false,
         navigationEligible:
@@ -120,6 +121,12 @@ class AssetSiteRepository {
 
       if (!placement.hasValidCoordinates) {
         throw FormatException('Invalid placement coordinates: $placementId');
+      }
+      if (!placement.mapDisplayEligible &&
+          (placement.nearbyRankingEligible || placement.navigationEligible)) {
+        throw FormatException(
+          'Hidden placement cannot be actionable: $placementId',
+        );
       }
       if (placement.navigationEligible && !placement.nearbyRankingEligible) {
         throw FormatException(
