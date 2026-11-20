@@ -1,0 +1,39 @@
+{
+  "format": "nexo-industrial-legacy-company-spatial-field-removal-audit",
+  "version": 1,
+  "contract": "032",
+  "reviewed_on": "2026-11-20",
+  "decision": "REMOVAL_COMPLETE",
+  "removed_from_company": [
+    "latitude",
+    "longitude",
+    "locationQuality",
+    "locationConfidence",
+    "nearbyRankingEligible",
+    "navigationEligible",
+    "locationDistrict",
+    "locationProvince",
+    "locationDepartment",
+    "spatial convenience getters",
+    "legacy geography parsing"
+  ],
+  "commercial_repository_geolocation_overlay_dependency": false,
+  "spatial_dataset_deleted": false,
+  "runtime_authority": "RuntimeSpatialProjectionRepository",
+  "expected_state": {
+    "companies": 1907,
+    "runtime_spatial_views": 1907,
+    "map_visible": 1907,
+    "nearby_eligible": 370,
+    "navigation_eligible": 370,
+    "non_site_runtime_views": 0
+  },
+  "invariants": [
+    "Company contains no spatial authority fields",
+    "AssetCompanyRepository does not load geolocation overlay",
+    "Site and EntityPlacement datasets remain intact",
+    "regional search uses EntityPlacement metadata",
+    "Google Maps actions use RuntimeCompanySpatialView",
+    "ANA Asset remains outside commercial runtime projection"
+  ]
+}
