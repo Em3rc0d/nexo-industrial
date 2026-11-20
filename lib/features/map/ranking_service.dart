@@ -1,44 +1,47 @@
-import 'package:latlong2/latlong.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
 
-import '../companies/domain/company.dart';
+import '../sites/domain/runtime_spatial_projection.dart';
 
 class RankedCompany {
   const RankedCompany(
     this._score, {
-    required this.company,
+    required this.spatial,
     required this.distanceKm,
   });
 
-  final Company company;
+  final RuntimeCompanySpatialView spatial;
   final double distanceKm;
   final double _score;
+
+  get company => spatial.company;
 }
 
 class CompanyRankingService {
   const CompanyRankingService();
 
   List<RankedCompany> rank(
-    List<Company> companies,
+    List<RuntimeCompanySpatialView> companies,
     LatLng anchor, {
     String query = '',
   }) {
     const distance = Distance();
 
     final ranked = companies
-        .where((company) => company.matchesQuery(query))
-        .map((company) {
+        .where((item) => item.company.matchesQuery(query))
+        .map((item) {
+          final company = item.company;
           final distanceKm = distance.as(
             LengthUnit.Kilometer,
             anchor,
-            company.point,
+            item.point,
           );
 
-          final proximity = company.canUseDistanceForRanking
-              ? (1 / (1 + (distanceKm / 2))) * company.distanceEvidenceWeight
+          final proximity = item.canUseDistanceForRanking
+              ? (1 / (1 + (distanceKm / 2))) * item.distanceEvidenceWeight
               : 0.0;
 
-          final evidence = switch (company.locationQuality) {
+          final evidence = switch (item.locationQuality) {
             LocationQuality.exactAddress => 1.0,
             LocationQuality.addressReference => 0.92,
             LocationQuality.interpolatedAddress => 0.58,
@@ -46,24 +49,28 @@ class CompanyRankingService {
             LocationQuality.districtReference => 0.08,
           };
 
-          final score = company.canUseDistanceForRanking
+          final score = item.canUseDistanceForRanking
               ? (company.internalPotential * 0.58) +
                     (proximity * 0.32) +
                     (evidence * 0.10)
               : (company.internalPotential * 0.92) + (evidence * 0.08);
 
-          return RankedCompany(score, company: company, distanceKm: distanceKm);
+          return RankedCompany(
+            score,
+            spatial: item,
+            distanceKm: distanceKm,
+          );
         })
         .toList();
 
     ranked.sort((a, b) {
-      if (a.company.canUseDistanceForRanking !=
-          b.company.canUseDistanceForRanking) {
-        return a.company.canUseDistanceForRanking ? -1 : 1;
+      if (a.spatial.canUseDistanceForRanking !=
+          b.spatial.canUseDistanceForRanking) {
+        return a.spatial.canUseDistanceForRanking ? -1 : 1;
       }
 
-      final qualityComparison = b.company.distanceEvidenceWeight.compareTo(
-        a.company.distanceEvidenceWeight,
+      final qualityComparison = b.spatial.distanceEvidenceWeight.compareTo(
+        a.spatial.distanceEvidenceWeight,
       );
 
       if (qualityComparison != 0 &&
@@ -78,15 +85,14 @@ class CompanyRankingService {
     return ranked;
   }
 
-  /// Display every account in the viewport. Ranking orders; it never hides
-  /// geographic coverage behind a radius or a top-N commercial cutoff.
   List<RankedCompany> rankVisible(
-    List<Company> companies,
+    List<RuntimeCompanySpatialView> companies,
     LatLngBounds bounds, {
     String query = '',
-  }) => rank(
-    companies.where((company) => bounds.contains(company.point)).toList(),
-    bounds.center,
-    query: query,
-  );
+  }) =>
+      rank(
+        companies.where((item) => bounds.contains(item.point)).toList(),
+        bounds.center,
+        query: query,
+      );
 }
