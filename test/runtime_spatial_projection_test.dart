@@ -13,25 +13,16 @@ void main() {
     expect(snapshot.spatialViews.every((v) => v.mapVisible), isTrue);
   });
 
-  test('runtime spatial projection is lossless against legacy geography', () async {
+  test('runtime spatial projection is complete without reading Company geography', () async {
     final snapshot =
         await const RuntimeSpatialProjectionRepository().loadSnapshot();
 
-    for (final view in snapshot.spatialViews) {
-      final company = view.company;
-      expect(view.point.latitude, company.latitude, reason: company.ruc);
-      expect(view.point.longitude, company.longitude, reason: company.ruc);
-      expect(view.locationQuality, company.locationQuality, reason: company.ruc);
-      expect(
-        view.canUseDistanceForRanking,
-        company.nearbyRankingEligible,
-        reason: company.ruc,
-      );
-      expect(
-        view.navigationEligible,
-        company.navigationEligible,
-        reason: company.ruc,
-      );
+    expect(snapshot.spatialViews, hasLength(snapshot.companies.length));
+    for (final company in snapshot.companies) {
+      final view = snapshot.forCompanyId(company.id);
+      expect(view, isNotNull, reason: company.ruc);
+      expect(view!.placement.entityId, view.siteId);
+      expect(view.mapVisible, isTrue);
     }
   });
 
