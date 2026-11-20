@@ -10,8 +10,6 @@ class AssetCompanyRepository {
     this.assetPath = 'assets/data/companies.production.json',
     this.commercialOverlayPath =
         'assets/data/companies.commercial.overlay.json.gz',
-    this.geolocationOverlayPath =
-        'assets/data/companies.geolocation.overlay.json',
     this.peopleAssetPath =
         'data/people_enrichment/2026-11-11_mining_people.json',
     this.contactPatchAssetPath = 'assets/data/companies.contact.patch.json',
@@ -19,14 +17,12 @@ class AssetCompanyRepository {
 
   final String assetPath;
   final String commercialOverlayPath;
-  final String geolocationOverlayPath;
   final String peopleAssetPath;
   final String contactPatchAssetPath;
 
   Future<List<Company>> loadCompanies() async {
     final raw = await rootBundle.loadString(assetPath);
     final commercialBytes = await rootBundle.load(commercialOverlayPath);
-    final overlayRaw = await rootBundle.loadString(geolocationOverlayPath);
     final peopleRaw = await rootBundle.loadString(peopleAssetPath);
     final contactPatchRaw = await rootBundle.loadString(contactPatchAssetPath);
 
@@ -40,7 +36,6 @@ class AssetCompanyRepository {
       ),
     );
     final commercialDecoded = jsonDecode(commercialRaw) as List<dynamic>;
-    final overlayDecoded = jsonDecode(overlayRaw) as List<dynamic>;
     final peopleDecoded = jsonDecode(peopleRaw) as Map<String, dynamic>;
     final peopleRecords = peopleDecoded['records'] as List<dynamic>? ?? const [];
     final contactPatchDecoded = jsonDecode(contactPatchRaw) as Map<String, dynamic>;
@@ -51,11 +46,6 @@ class AssetCompanyRepository {
       for (final item in commercialDecoded)
         (item as Map<String, dynamic>)['ruc'].toString(): item,
     };
-    final overlayByRuc = <String, Map<String, dynamic>>{
-      for (final item in overlayDecoded)
-        (item as Map<String, dynamic>)['ruc'].toString(): item,
-    };
-
     // Only an existing RUC can be enriched: research is NOT prospect discovery.
     // This incremental asset avoids rewriting the audited compressed base file.
     final contactPatchesByRuc = <String, Map<String, dynamic>>{};
@@ -98,7 +88,6 @@ class AssetCompanyRepository {
       final item = Map<String, dynamic>.from(rawItem as Map<String, dynamic>);
       final ruc = item['ruc'].toString();
       final commercial = commercialByRuc[ruc];
-      final overlay = overlayByRuc[ruc];
       item['people'] = peopleByRuc[ruc] ?? const <Map<String, dynamic>>[];
 
       if (commercial != null) {
@@ -144,15 +133,6 @@ class AssetCompanyRepository {
           merged['contact_source'] = contact['source'];
         }
         item['commercial'] = merged;
-      }
-
-      if (overlay != null) {
-        final geography = Map<String, dynamic>.from(
-          item['geography'] as Map<String, dynamic>? ?? const {},
-        );
-
-        geography.addAll(overlay);
-        item['geography'] = geography;
       }
 
       final company = Company.fromJson(item);
