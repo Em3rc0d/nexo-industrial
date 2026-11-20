@@ -11,6 +11,7 @@ import '../../services/location_service.dart';
 import '../activity/activity_store.dart';
 import '../companies/company_detail_screen.dart';
 import '../companies/domain/company.dart';
+import '../sites/domain/runtime_spatial_projection.dart';
 import '../companies/nearby_companies_screen.dart';
 import 'ranking_service.dart';
 
@@ -21,7 +22,7 @@ class MapScreen extends StatefulWidget {
     required this.activityStore,
   });
 
-  final List<Company> companies;
+  final List<RuntimeCompanySpatialView> companies;
   final ActivityStore activityStore;
 
   @override
@@ -44,7 +45,7 @@ class _MapScreenState extends State<MapScreen> {
   Timer? _searchDebounce;
   bool _locationUnavailable = false;
   String _query = '';
-  Company? _selected;
+  RuntimeCompanySpatialView? _selected;
 
   @override
   void initState() {
@@ -124,7 +125,7 @@ class _MapScreenState extends State<MapScreen> {
       _mapController.fitCamera(
         CameraFit.bounds(
           bounds: LatLngBounds.fromPoints(
-            matches.map((x) => x.company.point).toList(),
+            matches.map((x) => x.spatial.point).toList(),
           ),
           padding: const EdgeInsets.fromLTRB(30, 30, 30, 180),
           maxZoom: 15,
@@ -151,7 +152,7 @@ class _MapScreenState extends State<MapScreen> {
     _mapController.move(userLocation, _zoom);
   }
 
-  Color _markerColor(Company company) => switch (company.locationQuality) {
+  Color _markerColor(RuntimeCompanySpatialView spatial) => switch (spatial.locationQuality) {
     LocationQuality.exactAddress => NexoColors.mint,
     LocationQuality.addressReference => NexoColors.mint,
     LocationQuality.interpolatedAddress => NexoColors.blue,
@@ -159,11 +160,13 @@ class _MapScreenState extends State<MapScreen> {
     LocationQuality.districtReference => NexoColors.muted,
   };
 
-  void _openCompany(Company company) {
+  void _openCompany(RuntimeCompanySpatialView spatial) {
+    final company = spatial.company;
     Navigator.of(context).push(
       MaterialPageRoute<void>(
         builder: (_) => CompanyDetailScreen(
           company: company,
+          spatial: spatial,
           activityStore: widget.activityStore,
         ),
       ),
@@ -188,14 +191,14 @@ class _MapScreenState extends State<MapScreen> {
         .map(
           (item) => Marker(
             key: ValueKey(item.company.id),
-            point: item.company.point,
+            point: item.spatial.point,
             width: 34,
             height: 34,
             child: GestureDetector(
-              onTap: () => setState(() => _selected = item.company),
+              onTap: () => setState(() => _selected = item.spatial),
               child: Container(
                 decoration: BoxDecoration(
-                  color: _markerColor(item.company),
+                  color: _markerColor(item.spatial),
                   shape: BoxShape.circle,
                   border: Border.all(color: Colors.white, width: 3),
                   boxShadow: const [
@@ -470,9 +473,9 @@ class _OpportunitySheet extends StatelessWidget {
   });
 
   final List<RankedCompany> candidates;
-  final Company? selected;
+  final RuntimeCompanySpatialView? selected;
   final VoidCallback onCloseSelected;
-  final ValueChanged<Company> onOpenCompany;
+  final ValueChanged<RuntimeCompanySpatialView> onOpenCompany;
   final VoidCallback onOpenList;
 
   @override
@@ -490,7 +493,7 @@ class _OpportunitySheet extends StatelessWidget {
           clipBehavior: Clip.antiAlias,
           child: selected != null
               ? _SelectedCompanyPreview(
-                  company: selected!,
+                  spatial: selected!,
                   controller: controller,
                   onClose: onCloseSelected,
                   onOpen: () => onOpenCompany(selected!),
@@ -509,19 +512,20 @@ class _OpportunitySheet extends StatelessWidget {
 
 class _SelectedCompanyPreview extends StatelessWidget {
   const _SelectedCompanyPreview({
-    required this.company,
+    required this.spatial,
     required this.controller,
     required this.onClose,
     required this.onOpen,
   });
 
-  final Company company;
+  final RuntimeCompanySpatialView spatial;
   final ScrollController controller;
   final VoidCallback onClose;
   final VoidCallback onOpen;
 
   @override
   Widget build(BuildContext context) {
+    final company = spatial.company;
     return ListView(
       controller: controller,
       padding: const EdgeInsets.fromLTRB(18, 10, 18, 20),
@@ -545,7 +549,7 @@ class _SelectedCompanyPreview extends StatelessWidget {
           ],
         ),
         Text(
-          company.locationLabel,
+          spatial.locationLabel,
           style: const TextStyle(color: NexoColors.muted),
         ),
         const SizedBox(height: 16),
@@ -590,7 +594,7 @@ class _NearbyOpportunities extends StatelessWidget {
 
   final List<RankedCompany> candidates;
   final ScrollController controller;
-  final ValueChanged<Company> onOpenCompany;
+  final ValueChanged<RuntimeCompanySpatialView> onOpenCompany;
   final VoidCallback onOpenList;
 
   @override
@@ -646,15 +650,15 @@ class _NearbyOpportunities extends StatelessWidget {
                 style: const TextStyle(fontWeight: FontWeight.w700),
               ),
               subtitle: Text(
-                item.company.canUseDistanceForRanking
-                    ? '${item.company.locationQuality == LocationQuality.interpolatedAddress ? '≈ ' : ''}${item.distanceKm.toStringAsFixed(1)} km · '
+                item.spatial.canUseDistanceForRanking
+                    ? '${item.spatial.locationQuality == LocationQuality.interpolatedAddress ? '≈ ' : ''}${item.distanceKm.toStringAsFixed(1)} km · '
                           '${item.company.activity}'
-                    : '${item.company.activity} · ${item.company.compactLocationLabel.toLowerCase()}',
+                    : '${item.company.activity} · ${item.spatial.compactLocationLabel.toLowerCase()}',
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
               trailing: const Icon(Icons.chevron_right_rounded),
-              onTap: () => onOpenCompany(item.company),
+              onTap: () => onOpenCompany(item.spatial),
             ),
           ),
       ],
