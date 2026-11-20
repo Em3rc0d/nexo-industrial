@@ -4,6 +4,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:nexo_industrial/features/map/ranking_service.dart';
 import 'package:nexo_industrial/features/companies/data/asset_company_repository.dart';
 import 'package:nexo_industrial/features/companies/domain/company.dart';
+import 'package:nexo_industrial/features/sites/domain/site.dart';
 import 'package:nexo_industrial/features/sites/data/runtime_spatial_projection_repository.dart';
 
 void main() {
@@ -30,8 +31,8 @@ void main() {
         hasLength(370),
       );
 
-      final qualities = <LocationQuality, int>{
-        for (final quality in LocationQuality.values) quality: 0,
+      final qualities = <PlacementQuality, int>{
+        for (final quality in PlacementQuality.values) quality: 0,
       };
       for (final view in views) {
         qualities[view.locationQuality] =
@@ -40,11 +41,11 @@ void main() {
         expect(view.company.commercial.hasOfferData, isTrue);
       }
 
-      expect(qualities[LocationQuality.exactAddress], 334);
-      expect(qualities[LocationQuality.addressReference], 36);
-      expect(qualities[LocationQuality.interpolatedAddress], 137);
-      expect(qualities[LocationQuality.streetReference], 551);
-      expect(qualities[LocationQuality.districtReference], 849);
+      expect(qualities[PlacementQuality.exactAddress], 334);
+      expect(qualities[PlacementQuality.addressReference], 36);
+      expect(qualities[PlacementQuality.interpolatedAddress], 137);
+      expect(qualities[PlacementQuality.streetReference], 551);
+      expect(qualities[PlacementQuality.districtReference], 849);
     },
   );
   test(
@@ -58,12 +59,10 @@ void main() {
         spatial.map((c) => c.point).toList(),
       );
       expect(service.rankVisible(spatial, allBounds), hasLength(1907));
-      final callao = accounts
-          .where((c) => c.locationProvince == 'CALLAO')
+      final callaoSpatial = spatial
+          .where((v) => v.placement.province == 'CALLAO')
           .toList();
-      expect(callao, hasLength(113));
-      final callaoIds = callao.map((c) => c.id).toSet();
-      final callaoSpatial = spatial.where((v) => callaoIds.contains(v.company.id)).toList();
+      expect(callaoSpatial, hasLength(113));
       final callaoBounds = LatLngBounds.fromPoints(
         callaoSpatial.map((c) => c.point).toList(),
       );
@@ -71,14 +70,12 @@ void main() {
           .rankVisible(spatial, callaoBounds)
           .map((x) => x.company.ruc)
           .toSet();
-      expect(visibleRucs, containsAll(callao.map((c) => c.ruc)));
+      expect(visibleRucs, containsAll(callaoSpatial.map((v) => v.company.ruc)));
       for (final district in ['LURIN', 'VILLA EL SALVADOR']) {
-        final south = accounts
-            .where((c) => c.locationDistrict == district)
+        final southSpatial = spatial
+            .where((v) => v.placement.district == district)
             .toList();
-        expect(south, isNotEmpty);
-        final southIds = south.map((c) => c.id).toSet();
-        final southSpatial = spatial.where((v) => southIds.contains(v.company.id)).toList();
+        expect(southSpatial, isNotEmpty);
         final bounds = LatLngBounds.fromPoints(
           southSpatial.map((c) => c.point).toList(),
         );
@@ -86,7 +83,7 @@ void main() {
             .rankVisible(spatial, bounds)
             .map((x) => x.company.ruc)
             .toSet();
-        expect(visible, containsAll(south.map((c) => c.ruc)));
+        expect(visible, containsAll(southSpatial.map((v) => v.company.ruc)));
       }
     },
   );
