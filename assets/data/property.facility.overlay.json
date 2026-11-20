@@ -75,7 +75,10 @@
           "observed_at": "2024-02-06T00:00:00Z",
           "summary": "ANA publishes UTM WGS84 Zone 18S E 287610 N 8646165 for the verified well."
         }
-      ]
+      ],
+      "map_display_eligible": false,
+      "nearby_ranking_eligible": false,
+      "navigation_eligible": false
     }
   ],
   "property_site_relationships": [
