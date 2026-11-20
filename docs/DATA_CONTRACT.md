@@ -301,3 +301,30 @@ This overlay must not:
 
 The semantic audit is stored in
 `data/site_enrichment/2026-11-19_property_facility_semantic_separation.json`.
+
+
+## Unified Spatial Placement Authority (CONTRACT 028)
+
+`UnifiedSpatialPlacementRepository` is the authorized read model for new
+spatial consumers.
+
+It projects all 1,907 active Site Placements into typed `EntityPlacement`
+records with `entity_type=site`, preserving IDs, coordinates, quality,
+confidence, evidence, temporal fields and all eligibility flags.
+
+The CONTRACT 027 ANA well contributes one additional
+`EntityPlacement(entity_type=asset)`, producing 1,908 unified placements.
+
+Current permissions:
+
+- Site map-display eligible: 1,907;
+- Site nearby-ranking eligible: 370;
+- Site navigation eligible: 370;
+- ANA Asset map-display/nearby/navigation: false/false/false.
+
+The legacy Site `Placement` representation remains available only as an
+additive rollback/compatibility adapter. CONTRACT 028 does not delete or rewrite
+the 1,907 legacy records.
+
+The migration audit is stored in
+`data/site_enrichment/2026-11-20_unified_spatial_placement_authority.json`.
