@@ -3,7 +3,6 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:nexo_industrial/features/map/ranking_service.dart';
 import 'package:nexo_industrial/features/companies/data/asset_company_repository.dart';
-import 'package:nexo_industrial/features/companies/domain/company.dart';
 import 'package:nexo_industrial/features/sites/domain/site.dart';
 import 'package:nexo_industrial/features/sites/data/runtime_spatial_projection_repository.dart';
 
@@ -52,7 +51,6 @@ void main() {
     'Callao and southern accounts remain visible beyond the old top-90 cap',
     () async {
       final runtime = await const RuntimeSpatialProjectionRepository().loadSnapshot();
-      final accounts = runtime.companies;
       final spatial = runtime.spatialViews;
       const service = CompanyRankingService();
       final allBounds = LatLngBounds.fromPoints(
