@@ -18,13 +18,13 @@ void main() {
     required double latitude,
     required double longitude,
     required double potential,
-    LocationQuality quality = LocationQuality.exactAddress,
+    PlacementQuality quality = PlacementQuality.exactAddress,
     bool? nearbyRankingEligible,
     bool? navigationEligible,
   }) {
     final precise =
-        quality == LocationQuality.exactAddress ||
-        quality == LocationQuality.addressReference;
+        quality == PlacementQuality.exactAddress ||
+        quality == PlacementQuality.addressReference;
     final nearby = nearbyRankingEligible ?? precise;
     final navigation = navigationEligible ?? precise;
 
@@ -48,21 +48,13 @@ void main() {
       sourceUpdatedAt: DateTime(2026, 11, 9),
     );
 
-    final placementQuality = switch (quality) {
-      LocationQuality.exactAddress => PlacementQuality.exactAddress,
-      LocationQuality.addressReference => PlacementQuality.addressReference,
-      LocationQuality.interpolatedAddress => PlacementQuality.interpolatedAddress,
-      LocationQuality.streetReference => PlacementQuality.streetReference,
-      LocationQuality.districtReference => PlacementQuality.districtReference,
-    };
-
     final placement = EntityPlacement(
       id: 'placement:$id',
       entityType: SpatialEntityType.site,
       entityId: 'site:$id',
       latitude: latitude,
       longitude: longitude,
-      quality: placementQuality,
+      quality: quality,
       confidence: KnowledgeConfidence.high,
       mapDisplayEligible: true,
       nearbyRankingEligible: nearby,
@@ -125,7 +117,7 @@ void main() {
       latitude: -12.10,
       longitude: -77.03,
       potential: 1.0,
-      quality: LocationQuality.districtReference,
+      quality: PlacementQuality.districtReference,
     );
     final precise = spatial(
       id: 'address',
@@ -147,7 +139,7 @@ void main() {
       latitude: -12.1001,
       longitude: -77.0301,
       potential: 0.75,
-      quality: LocationQuality.exactAddress,
+      quality: PlacementQuality.exactAddress,
       nearbyRankingEligible: false,
       navigationEligible: false,
     );
@@ -162,7 +154,7 @@ void main() {
       latitude: -12.1001,
       longitude: -77.0301,
       potential: 0.75,
-      quality: LocationQuality.interpolatedAddress,
+      quality: PlacementQuality.interpolatedAddress,
       nearbyRankingEligible: false,
       navigationEligible: false,
     );
@@ -177,7 +169,7 @@ void main() {
       latitude: -12.1001,
       longitude: -77.0301,
       potential: 0.75,
-      quality: LocationQuality.interpolatedAddress,
+      quality: PlacementQuality.interpolatedAddress,
       nearbyRankingEligible: true,
       navigationEligible: false,
     );
