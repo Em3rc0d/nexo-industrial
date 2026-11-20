@@ -18,6 +18,7 @@ class PlacementVerificationRecord {
     required this.confidence,
     required this.method,
     required this.verifiedAt,
+    this.mapDisplayEligible = true,
     required this.nearbyRankingEligible,
     required this.navigationEligible,
     required this.evidence,
@@ -38,6 +39,7 @@ class PlacementVerificationRecord {
   final KnowledgeConfidence confidence;
   final PlacementVerificationMethod method;
   final DateTime verifiedAt;
+  final bool mapDisplayEligible;
   final bool nearbyRankingEligible;
   final bool navigationEligible;
   final List<EvidenceRef> evidence;
