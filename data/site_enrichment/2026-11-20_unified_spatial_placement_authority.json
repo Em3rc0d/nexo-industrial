@@ -1,0 +1,39 @@
+{
+  "format": "nexo-industrial-unified-spatial-placement-authority-audit",
+  "version": 1,
+  "contract": "028",
+  "reviewed_on": "2026-11-20",
+  "outreach_performed": false,
+  "source_contract": "027",
+  "migration_mode": "additive_lossless_adapter",
+  "authority": "UnifiedSpatialPlacementRepository",
+  "expected_state": {
+    "active_sites": 1907,
+    "site_aliases": 1,
+    "legacy_site_placements": 1907,
+    "unified_site_placements": 1907,
+    "unified_non_site_placements": 1,
+    "unified_total_placements": 1908,
+    "map_display_eligible_site_placements": 1907,
+    "nearby_ranking_eligible": 370,
+    "navigation_eligible": 370
+  },
+  "invariants": [
+    "site_coordinates_unchanged",
+    "site_placement_ids_unchanged",
+    "site_placement_quality_unchanged",
+    "site_placement_confidence_unchanged",
+    "site_placement_evidence_unchanged",
+    "site_placement_permissions_unchanged",
+    "property_facility_asset_identity_unchanged",
+    "ana_well_remains_asset_owned",
+    "ana_well_map_display_eligible_false",
+    "ana_well_nearby_ranking_eligible_false",
+    "ana_well_navigation_eligible_false",
+    "legacy_placement_remains_rollback_adapter"
+  ],
+  "rollback": {
+    "supported": true,
+    "strategy": "Consumers may revert to the legacy SiteSnapshot placements because CONTRACT 028 does not delete or rewrite them."
+  }
+}
