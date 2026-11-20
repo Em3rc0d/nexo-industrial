@@ -61,6 +61,10 @@ Company query matching retains commercial fields:
 
 Geographic matching for address/district/province/department is performed by
 `RuntimeCompanySpatialView.matchesQuery` against EntityPlacement metadata.
+The spatial knowledge repository now carries district/province/department from
+the canonical dataset into the geographic claim when the coordinate overlay
+contains only coordinate/quality fields; this metadata is never projected back
+into Company.
 
 ## Expected production state
 
