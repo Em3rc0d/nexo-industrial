@@ -5,7 +5,6 @@ import '../activity/activity_store.dart';
 import '../map/ranking_service.dart';
 import 'company_detail_screen.dart';
 import 'domain/company.dart';
-import '../sites/domain/runtime_spatial_projection.dart';
 
 enum NearbySort { potential, distance }
 
