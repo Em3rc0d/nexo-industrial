@@ -240,8 +240,64 @@ active reconciled layer contains 1,907 Site identities and 1,907 Placements.
 
 The current Explomin operational verification targets the canonical Site.
 
-The separate ANA Lote 1 property assessment remains `unknown`; no coordinate
-is assigned by this contract.
+The separate ANA Lote 1 property assessment remains `unknown` within CONTRACT
+025 itself; no coordinate is assigned by that contract. CONTRACT 026 resolves
+the Property-level relation later without rewriting the reconciliation record.
 
 The audit is stored in
 `data/site_enrichment/2026-11-19_site_identity_reconciliation.json`.
+
+
+## Property Relationship Resolution (CONTRACT 026)
+
+The ANA Mz. B Lote 1 evidence is represented as a Property distinct from the
+parcel reference supporting the canonical Explomin Site.
+
+Production resolution:
+
+- Property: `property:20501523837:mz-b-lote-1`;
+- canonical Site: `site:20501523837:reference-1`;
+- relation: `distinct_property`;
+- `operationally_related=true`;
+- adjacency remains unproven;
+- no Site identity or Site Placement changes.
+
+The audit is stored in
+`data/site_enrichment/2026-11-19_property_relationship_resolution.json`.
+
+## Property / Facility / typed Placement overlay (CONTRACT 027)
+
+`assets/data/property.facility.overlay.json` adds evidence-backed spatial
+entities without changing the active Site snapshot.
+
+The initial production overlay contains:
+
+- 1 Property: Explomin Mz. B Lote 1;
+- 1 Operational Facility: warehouse;
+- 1 Asset: ANA-verified groundwater well;
+- 1 typed Placement owned by that Asset;
+- 1 Property-to-Site relationship.
+
+Typed placements require:
+
+- explicit `entity_type`;
+- existing `entity_id` of that type;
+- coordinates and quality;
+- confidence;
+- source claim;
+- evidence.
+
+The ANA source coordinate is UTM WGS84 Zone 18S E 287610 / N 8646165. The
+overlay stores an approximate WGS84 conversion for the typed Asset Placement,
+while preserving the original CRS/reference in metadata.
+
+This overlay must not:
+
+- create a Site from a Property or Facility;
+- assign the ANA coordinate to the canonical Explomin Site;
+- alter the 1,907 existing Site Placements;
+- reinterpret CONTRACT 025 Site identity;
+- reinterpret CONTRACT 026 Property identity.
+
+The semantic audit is stored in
+`data/site_enrichment/2026-11-19_property_facility_semantic_separation.json`.
