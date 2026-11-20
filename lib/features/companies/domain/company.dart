@@ -401,9 +401,13 @@ class Company {
   final String address;
   final String? fiscalAddress;
   final String? verifiedHqAddress;
+  @Deprecated('Use RuntimeCompanySpatialView.placement latitude/longitude.')
   final double latitude;
+  @Deprecated('Use RuntimeCompanySpatialView.placement latitude/longitude.')
   final double longitude;
+  @Deprecated('Use RuntimeCompanySpatialView.locationQuality.')
   final LocationQuality locationQuality;
+  @Deprecated('Use RuntimeCompanySpatialView.placement confidence.')
   final LocationConfidence locationConfidence;
 
   /// Solo ranking interno. Nunca mostrar el número al vendedor.
@@ -416,7 +420,9 @@ class Company {
   final List<ProfessionalContact> people;
   final String source;
   final DateTime sourceUpdatedAt;
+  @Deprecated('Use RuntimeCompanySpatialView.canUseDistanceForRanking.')
   final bool nearbyRankingEligible;
+  @Deprecated('Use RuntimeCompanySpatialView.navigationEligible.')
   final bool navigationEligible;
   final String? locationDistrict;
   final String? locationProvince;
@@ -454,6 +460,7 @@ class Company {
     ].any((value) => normalize(value).contains(term));
   }
 
+  @Deprecated('Use RuntimeCompanySpatialView.point.')
   LatLng get point => LatLng(latitude, longitude);
 
   bool get hasMapCoordinates =>
@@ -469,6 +476,7 @@ class Company {
   /// La auditoría geográfica es la única autoridad para decidir si la
   /// distancia puede influir en el ranking. La calidad describe la evidencia
   /// y solo pondera su peso después de pasar este gate.
+  @Deprecated('Use RuntimeCompanySpatialView.canUseDistanceForRanking.')
   bool get canUseDistanceForRanking => nearbyRankingEligible;
 
   double get distanceEvidenceWeight => switch (locationQuality) {
@@ -509,12 +517,14 @@ class Company {
     <String, String>{'api': '1', 'query': googleMapsSearchQuery},
   );
 
+  @Deprecated('Use RuntimeCompanySpatialView.googleMapsDirectionsUri.')
   Uri get googleMapsDirectionsUri => Uri.https(
     'www.google.com',
     '/maps/dir/',
     <String, String>{'api': '1', 'destination': '$latitude,$longitude'},
   );
 
+  @Deprecated('Use RuntimeCompanySpatialView.locationActionLabel.')
   String get locationActionLabel =>
       navigationEligible ? 'Cómo llegar' : 'Buscar en Maps';
 
