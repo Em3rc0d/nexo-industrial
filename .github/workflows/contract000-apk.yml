@@ -1,9 +1,9 @@
-name: Nexo CONTRACT 029 APK
+name: Nexo CONTRACT 030 APK
 
 on:
   push:
     branches:
-      - contract/029-spatial-entity-map-ux-exposure-policy
+      - contract/030-runtime-spatial-projection-integration
   workflow_dispatch:
 
 permissions:
@@ -24,21 +24,28 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          BASE="4f8f28c8a1bff80cfadf219cef4aa55a4deaff02"
+          BASE="17bc619ab81e3c6d5584c74cf99db39d02ac5e99"
           CHANGED="$(git diff --name-only "$BASE"..HEAD | sort)"
           echo "$CHANGED"
           EXPECTED="$(printf '%s\n' \
             '.github/workflows/contract000-apk.yml' \
-            'data/site_enrichment/2026-11-20_spatial_entity_map_ux_exposure_policy.json' \
+            'data/site_enrichment/2026-11-20_runtime_spatial_projection_integration.json' \
             'docs/ARCHITECTURE.md' \
             'docs/DATA_CONTRACT.md' \
-            'docs/contracts/CONTRACT_029_SPATIAL_ENTITY_MAP_UX_EXPOSURE_POLICY.md' \
-            'lib/features/sites/data/spatial_entity_exposure_policy.dart' \
-            'lib/features/sites/data/spatial_exposure_repository.dart' \
-            'lib/features/sites/domain/spatial_exposure.dart' \
+            'docs/contracts/CONTRACT_030_RUNTIME_SPATIAL_PROJECTION_INTEGRATION.md' \
+            'lib/app/nexo_app.dart' \
+            'lib/features/companies/companies_screen.dart' \
+            'lib/features/companies/company_detail_screen.dart' \
+            'lib/features/companies/domain/company.dart' \
+            'lib/features/companies/nearby_companies_screen.dart' \
+            'lib/features/home/home_shell.dart' \
+            'lib/features/map/map_screen.dart' \
+            'lib/features/map/ranking_service.dart' \
+            'lib/features/sites/data/runtime_spatial_projection_repository.dart' \
+            'lib/features/sites/domain/runtime_spatial_projection.dart' \
             'pubspec.yaml' \
-            'test/spatial_exposure_policy_test.dart' \
-            'tool/validate_spatial_exposure_policy.py' | sort)"
+            'test/runtime_spatial_projection_test.dart' \
+            'tool/validate_runtime_spatial_integration.py' | sort)"
           test "$CHANGED" = "$EXPECTED"
 
       - name: Set up Java 17
@@ -79,6 +86,7 @@ jobs:
           python3 tool/validate_property_facility_semantics.py
           python3 tool/validate_unified_spatial_authority.py
           python3 tool/validate_spatial_exposure_policy.py
+          python3 tool/validate_runtime_spatial_integration.py
 
       - name: Bootstrap Android, analyze and test
         shell: bash
@@ -108,29 +116,29 @@ jobs:
           "$APKSIGNER" verify --verbose --print-certs "$APK" | tee dist/apk-signature.txt
           "$AAPT" dump badging "$APK" | head -n 5 | tee dist/apk-badging.txt
           PACKAGE_LINE="$("$AAPT" dump badging "$APK" | head -n 1)"
-          cp "$APK" "dist/nexo-industrial-1.0.15-build18-contract029-actions.apk"
+          cp "$APK" "dist/nexo-industrial-1.0.16-build19-contract030-actions.apk"
           printf '%s\n' \
-            "NEXO INDUSTRIAL - CONTRACT 029 ACTIONS BUILD" \
-            "base_source_commit=4f8f28c8a1bff80cfadf219cef4aa55a4deaff02" \
+            "NEXO INDUSTRIAL - CONTRACT 030 ACTIONS BUILD" \
+            "base_source_commit=17bc619ab81e3c6d5584c74cf99db39d02ac5e99" \
             "workflow_commit=$GITHUB_SHA" \
-            "version=1.0.15+18" \
-            "apk_file=nexo-industrial-1.0.15-build18-contract029-actions.apk" \
+            "version=1.0.16+19" \
+            "apk_file=nexo-industrial-1.0.16-build19-contract030-actions.apk" \
             "apk_sha256=$SHA256" \
             "apk_size_bytes=$SIZE" \
             "package_badging=$PACKAGE_LINE" \
             "workflow_run_id=$GITHUB_RUN_ID" \
             "workflow_run_attempt=$GITHUB_RUN_ATTEMPT" \
-            "note=CONTRACT 029 candidate. Spatial exposure policy keeps 1,907 Site map markers, 370 nearby/navigation Sites and zero non-Site commercial exposure." \
-            > dist/NEXO_CONTRACT_029_ACTIONS_RECEIPT.txt
-          sha256sum dist/nexo-industrial-1.0.15-build18-contract029-actions.apk | tee dist/SHA256SUMS.txt
+            "note=CONTRACT 030 candidate. Runtime map/ranking/navigation/detail consume authoritative Site Placement projection; Company spatial fields remain deprecated compatibility data." \
+            > dist/NEXO_CONTRACT_030_ACTIONS_RECEIPT.txt
+          sha256sum dist/nexo-industrial-1.0.16-build19-contract030-actions.apk | tee dist/SHA256SUMS.txt
 
       - name: Upload APK evidence bundle
         uses: actions/upload-artifact@v4
         with:
-          name: nexo-contract029-apk-1.0.15-build18
+          name: nexo-contract030-apk-1.0.16-build19
           path: |
-            dist/nexo-industrial-1.0.15-build18-contract029-actions.apk
-            dist/NEXO_CONTRACT_029_ACTIONS_RECEIPT.txt
+            dist/nexo-industrial-1.0.16-build19-contract030-actions.apk
+            dist/NEXO_CONTRACT_030_ACTIONS_RECEIPT.txt
             dist/apk-signature.txt
             dist/apk-badging.txt
             dist/SHA256SUMS.txt
