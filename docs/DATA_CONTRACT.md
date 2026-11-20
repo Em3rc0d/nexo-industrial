@@ -389,3 +389,17 @@ spatial views, with 370 nearby-eligible and 370 navigation-eligible views.
 
 The audit is stored in
 `data/site_enrichment/2026-11-20_legacy_spatial_dependency_audit.json`.
+
+
+## Legacy Company Spatial Field Removal (CONTRACT 032)
+
+Physical removal is complete. `Company` contains no spatial authority fields
+or spatial convenience getters, and `AssetCompanyRepository` no longer reads
+`companies.geolocation.overlay.json`.
+
+The geolocation dataset remains present for the Site/EntityPlacement authority.
+Production runtime invariants remain 1,907 spatial views, 1,907 map-visible,
+370 nearby-eligible and 370 navigation-eligible.
+
+Audit:
+`data/site_enrichment/2026-11-20_legacy_company_spatial_field_removal.json`.
