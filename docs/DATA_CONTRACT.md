@@ -328,3 +328,26 @@ the 1,907 legacy records.
 
 The migration audit is stored in
 `data/site_enrichment/2026-11-20_unified_spatial_placement_authority.json`.
+
+
+## Spatial Entity Map / UX Exposure Policy (CONTRACT 029)
+
+`SpatialEntityExposurePolicy` consumes only the CONTRACT 028 unified spatial
+authority and decides exposure per surface.
+
+Current production policy:
+
+- commercial-map primary Site markers: 1,907;
+- commercial-map non-Site markers: 0;
+- nearby-ranking exposed Sites: 370;
+- navigation exposed Sites: 370;
+- non-Site commercial exposure: 0.
+
+A Property, OperationalFacility or Asset may remain fully evidenced in the
+spatial data model while being hidden from commercial UX.
+
+The ANA well Asset remains hidden on commercial map, company detail, nearby
+ranking and navigation. CONTRACT 029 does not mutate its evidence or Placement.
+
+The policy audit is stored in
+`data/site_enrichment/2026-11-20_spatial_entity_map_ux_exposure_policy.json`.
