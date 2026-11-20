@@ -107,14 +107,28 @@ class AssetPropertyFacilityRepository {
         longitude: (row['longitude'] as num).toDouble(),
         quality: PlacementQuality.fromKnowledgeValue(row['quality']),
         confidence: _parseConfidence(_requiredText(row, 'confidence')),
+        mapDisplayEligible: row['map_display_eligible'] as bool? ?? false,
+        nearbyRankingEligible: row['nearby_ranking_eligible'] as bool? ?? false,
+        navigationEligible: row['navigation_eligible'] as bool? ?? false,
         sourceClaimId: _requiredText(row, 'source_claim_id'),
         evidenceIds: evidence.map((item) => item.id).toList(growable: false),
+        address: _optionalText(row['address']),
+        district: _optionalText(row['district']),
+        province: _optionalText(row['province']),
+        department: _optionalText(row['department']),
         sourceCoordinateReferenceSystem:
             _optionalText(row['source_coordinate_reference_system']),
         asOf: _optionalDate(row['as_of']),
       );
       if (!placement.hasValidCoordinates) {
         throw FormatException('Invalid typed Placement coordinates: ${placement.id}');
+      }
+      if (placement.navigationEligible && !placement.nearbyRankingEligible) {
+        throw FormatException('Navigation cannot bypass nearby eligibility: ${placement.id}');
+      }
+      if (!placement.mapDisplayEligible &&
+          (placement.nearbyRankingEligible || placement.navigationEligible)) {
+        throw FormatException('Hidden Placement cannot be actionable: ${placement.id}');
       }
       placements.add(placement);
     }
