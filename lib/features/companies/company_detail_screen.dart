@@ -469,9 +469,9 @@ class CompanyDetailScreen extends StatelessWidget {
                 const SizedBox(height: 8),
                 Text(
                   [
-                    spatial.placement.district ?? company.locationDistrict,
-                    spatial.placement.province ?? company.locationProvince,
-                    spatial.placement.department ?? company.locationDepartment,
+                    spatial.placement.district,
+                    spatial.placement.province,
+                    spatial.placement.department,
                   ].whereType<String>().toSet().join(' · '),
                 ),
                 const SizedBox(height: 8),
