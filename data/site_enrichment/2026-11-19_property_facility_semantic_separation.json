@@ -1,0 +1,26 @@
+{
+  "format": "nexo-industrial-property-facility-semantic-separation-audit",
+  "version": 1,
+  "contract": "027",
+  "reviewed_on": "2026-11-19",
+  "outreach_performed": false,
+  "invariants": [
+    "property_is_not_site",
+    "facility_is_not_site",
+    "placement_is_not_identity",
+    "coordinate_is_not_identity",
+    "property_creation_does_not_create_site",
+    "facility_creation_does_not_create_site",
+    "asset_placement_does_not_mutate_site_placement"
+  ],
+  "explomin": {
+    "canonical_site_id": "site:20501523837:reference-1",
+    "property_id": "property:20501523837:mz-b-lote-1",
+    "facility_id": "facility:20501523837:mz-b-lote-1:warehouse",
+    "asset_id": "asset:20501523837:mz-b-lote-1:groundwater-well",
+    "placement_owner_type": "asset",
+    "placement_owner_id": "asset:20501523837:mz-b-lote-1:groundwater-well",
+    "site_placement_changed": false,
+    "new_site_created": false
+  }
+}
