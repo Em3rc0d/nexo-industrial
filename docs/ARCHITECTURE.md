@@ -146,8 +146,9 @@ current official privacy-policy page publishes both address formulations
 contemporaneously. The legacy reference remains canonical because it already
 owns Placement history.
 
-The ANA Lote 1 operational property remains an external UNKNOWN relation. Lot
-numbering is not treated as parcel-topology evidence.
+CONTRACT 025 intentionally left the ANA Lote 1 property relation UNKNOWN.
+CONTRACT 026 later resolves the Property identity separately, without changing
+this Site reconciliation result.
 
 ### Ranking
 Combina:
