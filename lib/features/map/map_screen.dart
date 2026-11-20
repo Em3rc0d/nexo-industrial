@@ -12,6 +12,7 @@ import '../activity/activity_store.dart';
 import '../companies/company_detail_screen.dart';
 import '../companies/domain/company.dart';
 import '../sites/domain/runtime_spatial_projection.dart';
+import '../sites/domain/site.dart';
 import '../companies/nearby_companies_screen.dart';
 import 'ranking_service.dart';
 
@@ -153,11 +154,11 @@ class _MapScreenState extends State<MapScreen> {
   }
 
   Color _markerColor(RuntimeCompanySpatialView spatial) => switch (spatial.locationQuality) {
-    LocationQuality.exactAddress => NexoColors.mint,
-    LocationQuality.addressReference => NexoColors.mint,
-    LocationQuality.interpolatedAddress => NexoColors.blue,
-    LocationQuality.streetReference => NexoColors.muted,
-    LocationQuality.districtReference => NexoColors.muted,
+    PlacementQuality.exactAddress => NexoColors.mint,
+    PlacementQuality.addressReference => NexoColors.mint,
+    PlacementQuality.interpolatedAddress => NexoColors.blue,
+    PlacementQuality.streetReference => NexoColors.muted,
+    PlacementQuality.districtReference => NexoColors.muted,
   };
 
   void _openCompany(RuntimeCompanySpatialView spatial) {
@@ -651,7 +652,7 @@ class _NearbyOpportunities extends StatelessWidget {
               ),
               subtitle: Text(
                 item.spatial.canUseDistanceForRanking
-                    ? '${item.spatial.locationQuality == LocationQuality.interpolatedAddress ? '≈ ' : ''}${item.distanceKm.toStringAsFixed(1)} km · '
+                    ? '${item.spatial.locationQuality == PlacementQuality.interpolatedAddress ? '≈ ' : ''}${item.distanceKm.toStringAsFixed(1)} km · '
                           '${item.company.activity}'
                     : '${item.company.activity} · ${item.spatial.compactLocationLabel.toLowerCase()}',
                 maxLines: 2,
