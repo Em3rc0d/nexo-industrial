@@ -214,6 +214,26 @@ Production exposure remains 1,907 Site map markers and 370 Site placements for
 nearby ranking/direct navigation. The ANA well Asset remains hidden from all
 commercial UX surfaces.
 
+### Runtime Spatial Projection Integration
+
+CONTRACT 030 makes `RuntimeSpatialProjectionRepository` the application bridge
+between Company accounts and the spatial authority.
+
+The runtime path is now:
+
+`Company -> canonical Site -> EntityPlacement -> exposure policy -> RuntimeCompanySpatialView`.
+
+Map markers, spatial search, nearby ranking, navigation actions and company
+location presentation consume `RuntimeCompanySpatialView`. Company-level
+latitude/longitude and spatial eligibility fields remain only as deprecated
+compatibility data for parity/rollback and are no longer the intended runtime
+authority.
+
+The current projection is exactly one primary commercial Site view per Company:
+1,907 views, 1,907 map-visible, 370 nearby-eligible and 370
+navigation-eligible. Non-Site placements are excluded from Company runtime
+projection.
+
 ### Ranking
 Combina:
 - potencial interno;
