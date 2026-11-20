@@ -192,6 +192,28 @@ confidence, evidence and eligibility flags remain unchanged. The ANA Asset
 placement is explicitly hidden from commercial map display, proximity ranking
 and navigation.
 
+### Spatial Entity Map / UX Exposure Policy
+
+CONTRACT 029 introduces `SpatialEntityExposurePolicy` on top of the unified
+spatial authority.
+
+The policy is fail-closed and surface-specific:
+
+- commercial map: only canonical Site placements with
+  `map_display_eligible=true`;
+- nearby ranking: only Site placements with
+  `nearby_ranking_eligible=true`;
+- navigation: only Site placements with `navigation_eligible=true`;
+- company detail: Site remains the primary commercial spatial entity.
+
+Property, OperationalFacility and Asset placements remain valid evidence in the
+spatial model but are not exposed as commercial markers, ranking candidates or
+navigation targets by CONTRACT 029.
+
+Production exposure remains 1,907 Site map markers and 370 Site placements for
+nearby ranking/direct navigation. The ANA well Asset remains hidden from all
+commercial UX surfaces.
+
 ### Ranking
 Combina:
 - potencial interno;
