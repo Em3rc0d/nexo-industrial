@@ -53,8 +53,8 @@ def main():
     company = (ROOT / "lib/features/companies/domain/company.dart").read_text(
         encoding="utf-8"
     )
-    if "Use RuntimeCompanySpatialView" not in company:
-        fail("legacy Company spatial fields are not marked deprecated")
+    if "Deprecated compatibility field" not in company:
+        fail("legacy Company spatial fields are not marked as deprecated compatibility")
 
     print(
         "Runtime spatial integration OK: migrated consumers use runtime authority; "
