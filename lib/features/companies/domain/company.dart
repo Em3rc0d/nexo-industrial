@@ -559,12 +559,14 @@ class Company {
     final commercial = CommercialProfile.fromJson(commercialJson);
     final isProductionShape = geography != null;
 
+    // CONTRACT 031 readiness: legacy geography is optional for Company
+    // construction. Runtime spatial authority lives outside Company.
     final latitude = isProductionShape
-        ? (geography['latitude'] as num).toDouble()
-        : (json['latitude'] as num).toDouble();
+        ? (geography['latitude'] as num?)?.toDouble() ?? 0.0
+        : (json['latitude'] as num?)?.toDouble() ?? 0.0;
     final longitude = isProductionShape
-        ? (geography['longitude'] as num).toDouble()
-        : (json['longitude'] as num).toDouble();
+        ? (geography['longitude'] as num?)?.toDouble() ?? 0.0
+        : (json['longitude'] as num?)?.toDouble() ?? 0.0;
 
     final sector = (json['sector'] as String?) ?? 'Industrial';
     final verifiedHqAddress =
@@ -579,7 +581,7 @@ class Company {
                 geography['province'],
                 geography['department'],
               ].whereType<String>().join(', '))
-        : (json['address'] as String);
+        : ((json['address'] as String?) ?? fiscalAddress ?? '');
 
     final qualityRaw = isProductionShape
         ? (geography['location_quality'] ?? geography['precision']) as String?
@@ -646,7 +648,7 @@ class Company {
           .toList(growable: false),
       source: isProductionShape
           ? (geography['source'] as String? ?? 'Dataset maestro Nexo')
-          : (json['source'] as String),
+          : ((json['source'] as String?) ?? 'Dataset maestro Nexo'),
       sourceUpdatedAt: json['source_updated_at'] != null
           ? DateTime.parse(json['source_updated_at'] as String)
           : DateTime.tryParse(
