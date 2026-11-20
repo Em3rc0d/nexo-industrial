@@ -176,6 +176,22 @@ destructive migration.
 Creating a Property or Facility never creates a Site. Property-to-Site
 relationships may target only active canonical Sites.
 
+### Unified Spatial Placement Authority
+
+CONTRACT 028 establishes `UnifiedSpatialPlacementRepository` as the authorized
+read model for spatial assertions. It projects every active legacy Site
+`Placement` losslessly into `EntityPlacement(entityType=site)` and appends
+typed non-Site placements from CONTRACT 027.
+
+The legacy Site `Placement` collection remains intact as a rollback adapter;
+it is no longer the target model for new spatial consumers.
+
+Production unified cardinality is 1,908 placements: 1,907 Site placements and
+one ANA well Asset placement. Existing Site IDs, coordinates, quality,
+confidence, evidence and eligibility flags remain unchanged. The ANA Asset
+placement is explicitly hidden from commercial map display, proximity ranking
+and navigation.
+
 ### Ranking
 Combina:
 - potencial interno;
