@@ -276,3 +276,15 @@ Si el dataset crece a decenas de miles:
 ## Android
 
 El directorio Android se genera localmente mediante `tool/bootstrap_android.sh`. El build release no usa GitHub Actions.
+
+
+### Legacy Spatial Dependency Audit (CONTRACT 031)
+
+CONTRACT 031 audits residual Company-level spatial dependencies after runtime
+migration. The only indirect production dependency found was the
+`AssetCompanyRepository` filter through `company.hasMapCoordinates`; it was
+removed.
+
+Company can now be constructed without spatial arguments. Production runtime
+consumers use `RuntimeCompanySpatialView`, and CONTRACT 031 authorizes physical
+removal of the legacy Company spatial fields in CONTRACT 032.
