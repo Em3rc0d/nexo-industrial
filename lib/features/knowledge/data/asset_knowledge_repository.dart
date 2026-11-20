@@ -62,9 +62,10 @@ class AssetKnowledgeRepository {
         .map((row) => Map<String, dynamic>.from(row as Map))
         .toList(growable: false);
 
-    final canonicalRucs = <String>{
-      for (final company in companies) company['ruc'].toString(),
+    final canonicalByRuc = <String, Map<String, dynamic>>{
+      for (final company in companies) company['ruc'].toString(): company,
     };
+    final canonicalRucs = canonicalByRuc.keys.toSet();
     if (canonicalRucs.length != companies.length) {
       throw const FormatException('Canonical company RUCs must be unique.');
     }
@@ -88,6 +89,10 @@ class AssetKnowledgeRepository {
       if (!canonicalRucs.contains(ruc)) {
         throw FormatException('Unknown geographic RUC: $ruc');
       }
+
+      final canonicalCompany = canonicalByRuc[ruc]!;
+      final baseGeography =
+          canonicalCompany['geography'] as Map<String, dynamic>?;
 
       final source = _nonEmpty(row['source']) ?? geolocationOverlayPath;
       final evidenceId = 'evidence:geography:$ruc';
@@ -124,9 +129,9 @@ class AssetKnowledgeRepository {
             'longitude': row['longitude'],
             'location_quality':
                 row['location_quality'] ?? row['precision'] ?? 'unknown',
-            'district': row['district'],
-            'province': row['province'],
-            'department': row['department'],
+            'district': row['district'] ?? baseGeography?['district'],
+            'province': row['province'] ?? baseGeography?['province'],
+            'department': row['department'] ?? baseGeography?['department'],
             'map_display_eligible': row['map_display_eligible'] ?? false,
             'nearby_ranking_eligible':
                 row['nearby_ranking_eligible'] ?? false,
