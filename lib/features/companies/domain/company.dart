@@ -1,46 +1,3 @@
-import 'package:latlong2/latlong.dart';
-
-enum LocationQuality {
-  exactAddress,
-  addressReference,
-  interpolatedAddress,
-  streetReference,
-  districtReference;
-
-  static LocationQuality fromJson(String? value) {
-    return switch (value) {
-      'exact_address' => LocationQuality.exactAddress,
-      'address_reference' => LocationQuality.addressReference,
-      'interpolated_address' => LocationQuality.interpolatedAddress,
-      'street_reference' => LocationQuality.streetReference,
-      'district_reference' => LocationQuality.districtReference,
-      'address_geocoded' => LocationQuality.exactAddress,
-      _ => LocationQuality.districtReference,
-    };
-  }
-}
-
-enum LocationConfidence {
-  high,
-  medium,
-  low,
-  veryLow;
-
-  static LocationConfidence fromJson(String? value) {
-    return switch (value) {
-      'high' => LocationConfidence.high,
-      'confirmed' => LocationConfidence.high,
-      'fiscal_only' => LocationConfidence.high,
-      'address_geocoded' => LocationConfidence.high,
-      'medium' => LocationConfidence.medium,
-      'low' => LocationConfidence.low,
-      'very_low' => LocationConfidence.veryLow,
-      'district_reference' => LocationConfidence.veryLow,
-      _ => LocationConfidence.veryLow,
-    };
-  }
-}
-
 /// Professional identity from public sources. Never counted as a direct phone/email.
 /// Public professional references by RUC; not equivalent to a company phone/email.
 class ProfessionalContact {
@@ -371,10 +328,6 @@ class Company {
     required this.address,
     required this.fiscalAddress,
     required this.verifiedHqAddress,
-    this.latitude = 0.0,
-    this.longitude = 0.0,
-    this.locationQuality = LocationQuality.districtReference,
-    this.locationConfidence = LocationConfidence.veryLow,
     required this.internalPotential,
     required this.auroraProducts,
     required this.sigmaProducts,
@@ -382,11 +335,6 @@ class Company {
     required this.commercial,
     required this.source,
     required this.sourceUpdatedAt,
-    this.nearbyRankingEligible = false,
-    this.navigationEligible = false,
-    this.locationDistrict,
-    this.locationProvince,
-    this.locationDepartment,
     this.managementStatus,
     this.people = const [],
   });
@@ -401,14 +349,6 @@ class Company {
   final String address;
   final String? fiscalAddress;
   final String? verifiedHqAddress;
-  /// Deprecated compatibility field. Runtime authority: RuntimeCompanySpatialView.placement.
-  final double latitude;
-  /// Deprecated compatibility field. Runtime authority: RuntimeCompanySpatialView.placement.
-  final double longitude;
-  /// Deprecated compatibility field. Runtime authority: RuntimeCompanySpatialView.locationQuality.
-  final LocationQuality locationQuality;
-  /// Deprecated compatibility field. Runtime authority: EntityPlacement confidence.
-  final LocationConfidence locationConfidence;
 
   /// Solo ranking interno. Nunca mostrar el número al vendedor.
   final double internalPotential;
@@ -420,13 +360,6 @@ class Company {
   final List<ProfessionalContact> people;
   final String source;
   final DateTime sourceUpdatedAt;
-  /// Deprecated compatibility field. Runtime authority: RuntimeCompanySpatialView.
-  final bool nearbyRankingEligible;
-  /// Deprecated compatibility field. Runtime authority: RuntimeCompanySpatialView.
-  final bool navigationEligible;
-  final String? locationDistrict;
-  final String? locationProvince;
-  final String? locationDepartment;
   final String? managementStatus;
 
   bool matchesQuery(String query) {
@@ -454,142 +387,26 @@ class Company {
       sector,
       activity,
       address,
-      locationDistrict ?? '',
-      locationProvince ?? '',
-      locationDepartment ?? '',
     ].any((value) => normalize(value).contains(term));
   }
-
-  /// Deprecated compatibility getter. Runtime authority: RuntimeCompanySpatialView.point.
-  LatLng get point => LatLng(latitude, longitude);
-
-  bool get hasMapCoordinates =>
-      latitude >= -90 &&
-      latitude <= 90 &&
-      longitude >= -180 &&
-      longitude <= 180;
-
-  bool get hasReliableCoordinates =>
-      locationQuality == LocationQuality.exactAddress ||
-      locationQuality == LocationQuality.addressReference;
-
-  /// La auditoría geográfica es la única autoridad para decidir si la
-  /// distancia puede influir en el ranking. La calidad describe la evidencia
-  /// y solo pondera su peso después de pasar este gate.
-  /// Deprecated compatibility field. Runtime authority: RuntimeCompanySpatialView.
-  bool get canUseDistanceForRanking => nearbyRankingEligible;
-
-  double get distanceEvidenceWeight => switch (locationQuality) {
-    LocationQuality.exactAddress => 1.0,
-    LocationQuality.addressReference => 0.95,
-    LocationQuality.interpolatedAddress => 0.55,
-    LocationQuality.streetReference => 0.0,
-    LocationQuality.districtReference => 0.0,
-  };
-
-  String get googleMapsSearchQuery {
-    final parts = <String>[
-      name,
-      address,
-      ?locationDistrict,
-      ?locationProvince,
-      ?locationDepartment,
-      'Perú',
-    ];
-
-    final unique = <String>[];
-    final seen = <String>{};
-
-    for (final part in parts) {
-      final value = part.trim();
-      if (value.isEmpty) continue;
-
-      final key = value.toUpperCase();
-      if (seen.add(key)) unique.add(value);
-    }
-
-    return unique.join(', ');
-  }
-
-  Uri get googleMapsSearchUri => Uri.https(
-    'www.google.com',
-    '/maps/search/',
-    <String, String>{'api': '1', 'query': googleMapsSearchQuery},
-  );
-
-  /// Deprecated compatibility getter. Runtime authority: RuntimeCompanySpatialView.
-  Uri get googleMapsDirectionsUri => Uri.https(
-    'www.google.com',
-    '/maps/dir/',
-    <String, String>{'api': '1', 'destination': '$latitude,$longitude'},
-  );
-
-  /// Deprecated compatibility getter. Runtime authority: RuntimeCompanySpatialView.
-  String get locationActionLabel =>
-      navigationEligible ? 'Cómo llegar' : 'Buscar en Maps';
 
   String get addressTypeLabel => verifiedHqAddress?.isNotEmpty == true
       ? 'HQ verificada'
       : 'Domicilio fiscal';
 
-  String get locationLabel => switch (locationQuality) {
-    LocationQuality.exactAddress =>
-      'Dirección precisa · confirmar sede operativa',
-    LocationQuality.addressReference =>
-      'Dirección verificada · confirmar sede operativa',
-    LocationQuality.interpolatedAddress =>
-      'Dirección aproximada · validar antes de visitar',
-    LocationQuality.streetReference =>
-      'Referencia de calle · búsqueda en Maps disponible',
-    LocationQuality.districtReference =>
-      'Referencia distrital · búsqueda en Maps disponible',
-  };
-
-  String get compactLocationLabel => switch (locationQuality) {
-    LocationQuality.exactAddress => 'Precisa',
-    LocationQuality.addressReference => 'Dirección',
-    LocationQuality.interpolatedAddress => 'Aprox.',
-    LocationQuality.streetReference => 'Calle',
-    LocationQuality.districtReference => 'Distrital',
-  };
-
   factory Company.fromJson(Map<String, dynamic> json) {
-    final geography = json['geography'] as Map<String, dynamic>?;
     final commercialJson = json['commercial'] as Map<String, dynamic>?;
     final commercial = CommercialProfile.fromJson(commercialJson);
-    final isProductionShape = geography != null;
-
-    // CONTRACT 031 readiness: legacy geography is optional for Company
-    // construction. Runtime spatial authority lives outside Company.
-    final latitude = isProductionShape
-        ? (geography['latitude'] as num?)?.toDouble() ?? 0.0
-        : (json['latitude'] as num?)?.toDouble() ?? 0.0;
-    final longitude = isProductionShape
-        ? (geography['longitude'] as num?)?.toDouble() ?? 0.0
-        : (json['longitude'] as num?)?.toDouble() ?? 0.0;
-
     final sector = (json['sector'] as String?) ?? 'Industrial';
     final verifiedHqAddress =
         (commercialJson?['address_hq_verified'] as String?) ??
         (json['address_hq_verified'] as String?);
     final fiscalAddress = json['fiscal_address'] as String?;
-    final address = isProductionShape
-        ? (verifiedHqAddress ??
-              fiscalAddress ??
-              [
-                geography['district'],
-                geography['province'],
-                geography['department'],
-              ].whereType<String>().join(', '))
-        : ((json['address'] as String?) ?? fiscalAddress ?? '');
-
-    final qualityRaw = isProductionShape
-        ? (geography['location_quality'] ?? geography['precision']) as String?
-        : json['location_quality'] as String?;
-    final confidenceRaw = isProductionShape
-        ? (geography['location_confidence'] ?? geography['precision'])
-              as String?
-        : json['location_confidence'] as String?;
+    final address =
+        verifiedHqAddress ??
+        fiscalAddress ??
+        (json['address'] as String?) ??
+        '';
 
     final contactJson =
         (commercialJson?['contact'] as Map<String, dynamic>?) ??
@@ -612,6 +429,8 @@ class Company {
             ? 'Contactar o validar a $target y confirmar necesidad, volumen y proceso de compra.'
             : 'Validar la ubicación operativa y contactar a compras, abastecimiento o mantenimiento.');
 
+    final score = (commercialJson?['score'] ?? json['score']) as num?;
+
     return Company(
       id: json['id'].toString(),
       ruc: json['ruc'].toString(),
@@ -623,17 +442,11 @@ class Company {
       address: address,
       fiscalAddress: fiscalAddress,
       verifiedHqAddress: verifiedHqAddress,
-      latitude: latitude,
-      longitude: longitude,
-      locationQuality: LocationQuality.fromJson(qualityRaw),
-      locationConfidence: LocationConfidence.fromJson(confidenceRaw),
       internalPotential: json['internal_potential'] != null
           ? (json['internal_potential'] as num).toDouble()
-          : ((commercialJson?['score'] ?? json['score']) as num?)?.toDouble() !=
-                null
-          ? ((commercialJson?['score'] ?? json['score']) as num).toDouble() /
-                100
-          : 0,
+          : score != null
+              ? score.toDouble() / 100
+              : 0,
       auroraProducts: List<String>.from(
         json['aurora_products'] as List<dynamic>? ?? const [],
       ),
@@ -643,44 +456,26 @@ class Company {
       contact: contact,
       commercial: commercial,
       people: (json['people'] as List<dynamic>? ?? const [])
-          .map((row) => ProfessionalContact.fromJson(
-              Map<String, dynamic>.from(row as Map)))
+          .map(
+            (row) => ProfessionalContact.fromJson(
+              Map<String, dynamic>.from(row as Map),
+            ),
+          )
           .toList(growable: false),
-      source: isProductionShape
-          ? (geography['source'] as String? ?? 'Dataset maestro Nexo')
-          : ((json['source'] as String?) ?? 'Dataset maestro Nexo'),
-      sourceUpdatedAt: json['source_updated_at'] != null
-          ? DateTime.parse(json['source_updated_at'] as String)
-          : DateTime.tryParse(
-                  (geography?['geocoded_at'] ??
-                              geography?['geocoding_checked_at'] ??
-                              json['fiscal_address_as_of'])
-                          as String? ??
-                      '',
-                ) ??
-                DateTime(2026, 11, 9),
-      nearbyRankingEligible: isProductionShape
-          ? (geography['nearby_ranking_eligible'] as bool? ?? false)
-          : true,
-      navigationEligible: isProductionShape
-          ? (geography['navigation_eligible'] as bool? ?? false)
-          : true,
-      locationDistrict: isProductionShape
-          ? geography['district'] as String?
-          : null,
-      locationProvince: isProductionShape
-          ? geography['province'] as String?
-          : null,
-      locationDepartment: isProductionShape
-          ? geography['department'] as String?
-          : null,
-      managementStatus:
-          (json['management_status'] as String?) ??
-          (isProductionShape
-              ? (geography['navigation_eligible'] == true
-                    ? 'Dirección georreferenciada · confirmar sede operativa'
-                    : 'Ubicación aproximada · validar antes de visitar')
-              : null),
+      source:
+          (json['source'] as String?) ??
+          commercial.companySource ??
+          'Dataset maestro Nexo',
+      sourceUpdatedAt:
+          DateTime.tryParse(
+            (json['source_updated_at'] ??
+                        commercial.sourceDate ??
+                        json['fiscal_address_as_of'])
+                    as String? ??
+                '',
+          ) ??
+          DateTime(2026, 11, 9),
+      managementStatus: json['management_status'] as String?,
     );
   }
 }
