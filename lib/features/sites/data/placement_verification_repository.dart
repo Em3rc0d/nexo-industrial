@@ -97,6 +97,14 @@ class PlacementVerificationEngine {
           '${verification.id}',
         );
       }
+      if (!verification.mapDisplayEligible &&
+          (verification.nearbyRankingEligible ||
+              verification.navigationEligible)) {
+        throw FormatException(
+          'Hidden placement cannot enable proximity/navigation: '
+          '${verification.id}',
+        );
+      }
       if (verification.navigationEligible &&
           !verification.nearbyRankingEligible) {
         throw FormatException(
