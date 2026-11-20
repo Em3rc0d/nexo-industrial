@@ -37,14 +37,6 @@ void main() {
       opportunityReason: 'Puede consumir recubrimientos.',
       suggestedNextStep: 'Validar compras.',
       address: 'Lima',
-      latitude: latitude,
-      longitude: longitude,
-      locationQuality: quality,
-      locationConfidence: precise
-          ? LocationConfidence.high
-          : quality == LocationQuality.interpolatedAddress
-              ? LocationConfidence.medium
-              : LocationConfidence.veryLow,
       internalPotential: potential,
       auroraProducts: const [],
       sigmaProducts: const [],
@@ -54,8 +46,6 @@ void main() {
       contact: const CompanyContact(),
       source: 'test',
       sourceUpdatedAt: DateTime(2026, 11, 9),
-      nearbyRankingEligible: nearby,
-      navigationEligible: navigation,
     );
 
     final placementQuality = switch (quality) {
