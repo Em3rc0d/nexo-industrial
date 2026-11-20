@@ -127,6 +127,7 @@ class AssetKnowledgeRepository {
             'district': row['district'],
             'province': row['province'],
             'department': row['department'],
+            'map_display_eligible': row['map_display_eligible'] ?? false,
             'nearby_ranking_eligible':
                 row['nearby_ranking_eligible'] ?? false,
             'navigation_eligible': row['navigation_eligible'] ?? false,
