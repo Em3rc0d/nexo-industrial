@@ -54,6 +54,14 @@ def main():
         if token in repository:
             fail(f"commercial repository still reads spatial overlay: {token}")
 
+    knowledge = (
+        ROOT / "lib/features/knowledge/data/asset_knowledge_repository.dart"
+    ).read_text(encoding="utf-8")
+    if "row['district'] ?? baseGeography?['district']" not in knowledge:
+        fail("spatial authority does not preserve canonical district metadata")
+    if "row['province'] ?? baseGeography?['province']" not in knowledge:
+        fail("spatial authority does not preserve canonical province metadata")
+
     expected = audit.get("expected_state", {})
     if expected != {
         "companies": 1907,
