@@ -6,7 +6,7 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   test('Company can be constructed without legacy spatial fields', () {
-    const company = Company(
+    final company = Company(
       id: 'demo',
       ruc: '20000000000',
       name: 'Demo',
