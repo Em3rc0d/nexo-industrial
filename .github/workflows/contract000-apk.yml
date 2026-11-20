@@ -44,6 +44,8 @@ jobs:
             'lib/features/sites/data/runtime_spatial_projection_repository.dart' \
             'lib/features/sites/domain/runtime_spatial_projection.dart' \
             'pubspec.yaml' \
+            'test/production_dataset_test.dart' \
+            'test/ranking_service_test.dart' \
             'test/runtime_spatial_projection_test.dart' \
             'tool/validate_runtime_spatial_integration.py' | sort)"
           test "$CHANGED" = "$EXPECTED"
