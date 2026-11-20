@@ -38,6 +38,7 @@ jobs:
             'lib/features/companies/data/asset_company_repository.dart' \
             'lib/features/companies/domain/company.dart' \
             'lib/features/companies/nearby_companies_screen.dart' \
+            'lib/features/knowledge/data/asset_knowledge_repository.dart' \
             'lib/features/map/map_screen.dart' \
             'lib/features/map/ranking_service.dart' \
             'lib/features/sites/domain/runtime_spatial_projection.dart' \
