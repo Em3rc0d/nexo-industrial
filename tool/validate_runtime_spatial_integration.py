@@ -53,12 +53,19 @@ def main():
     company = (ROOT / "lib/features/companies/domain/company.dart").read_text(
         encoding="utf-8"
     )
-    if "Deprecated compatibility field" not in company:
+    legacy_present = (
+        "final double latitude" in company
+        or "final double longitude" in company
+        or "nearbyRankingEligible" in company
+        or "navigationEligible" in company
+    )
+    if legacy_present and "Deprecated compatibility field" not in company:
         fail("legacy Company spatial fields are not marked as deprecated compatibility")
 
+    state = "legacy fields deprecated" if legacy_present else "legacy fields removed"
     print(
         "Runtime spatial integration OK: migrated consumers use runtime authority; "
-        "1,907 views / 370 nearby / 370 navigation expected; legacy fields deprecated."
+        f"1,907 views / 370 nearby / 370 navigation expected; {state}."
     )
 
 if __name__ == "__main__":
