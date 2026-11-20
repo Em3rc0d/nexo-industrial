@@ -1,0 +1,35 @@
+{
+  "format": "nexo-industrial-legacy-spatial-dependency-audit",
+  "version": 1,
+  "contract": "031",
+  "reviewed_on": "2026-11-20",
+  "decision": "GO_FOR_REMOVAL",
+  "production_authority_consumers": 0,
+  "production_indirect_consumers": 0,
+  "compatibility_model_files": 1,
+  "serialization_blockers": 0,
+  "test_fixture_blockers": 0,
+  "runtime": {
+    "companies": 1907,
+    "spatial_views": 1907,
+    "nearby_eligible": 370,
+    "navigation_eligible": 370
+  },
+  "findings": [
+    "AssetCompanyRepository legacy hasMapCoordinates filter removed",
+    "Company construction no longer requires spatial arguments",
+    "Google Maps tests consume RuntimeCompanySpatialView",
+    "production geography tests consume RuntimeCompanySpatialView",
+    "runtime projection tests no longer compare against Company geography"
+  ],
+  "removal_scope": [
+    "Company.latitude",
+    "Company.longitude",
+    "Company.locationQuality",
+    "Company.locationConfidence",
+    "Company.nearbyRankingEligible",
+    "Company.navigationEligible",
+    "legacy Company spatial getters",
+    "Company.fromJson legacy geography parsing"
+  ]
+}
