@@ -157,6 +157,7 @@ class _MapScreenState extends State<MapScreen> {
     PlacementQuality.exactAddress => NexoColors.mint,
     PlacementQuality.addressReference => NexoColors.mint,
     PlacementQuality.interpolatedAddress => NexoColors.blue,
+    PlacementQuality.propertyReference => NexoColors.muted,
     PlacementQuality.streetReference => NexoColors.muted,
     PlacementQuality.districtReference => NexoColors.muted,
   };
