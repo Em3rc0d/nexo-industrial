@@ -67,8 +67,15 @@ class EntityPlacement {
     required this.longitude,
     required this.quality,
     required this.confidence,
+    required this.mapDisplayEligible,
+    required this.nearbyRankingEligible,
+    required this.navigationEligible,
     required this.sourceClaimId,
     required this.evidenceIds,
+    this.address,
+    this.district,
+    this.province,
+    this.department,
     this.sourceCoordinateReferenceSystem,
     this.asOf,
   });
@@ -79,8 +86,15 @@ class EntityPlacement {
   final double longitude;
   final PlacementQuality quality;
   final KnowledgeConfidence confidence;
+  final bool mapDisplayEligible;
+  final bool nearbyRankingEligible;
+  final bool navigationEligible;
   final String sourceClaimId;
   final List<String> evidenceIds;
+  final String? address;
+  final String? district;
+  final String? province;
+  final String? department;
   final String? sourceCoordinateReferenceSystem;
   final DateTime? asOf;
 
