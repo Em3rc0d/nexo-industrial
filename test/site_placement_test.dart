@@ -63,6 +63,10 @@ void main() {
     expect(byQuality[PlacementQuality.districtReference], 849);
 
     expect(
+      snapshot.placements.where((p) => p.mapDisplayEligible),
+      hasLength(1907),
+    );
+    expect(
       snapshot.placements.where((p) => p.nearbyRankingEligible),
       hasLength(370),
     );
