@@ -1,0 +1,33 @@
+{
+  "format": "nexo-industrial-spatial-entity-map-ux-exposure-policy-audit",
+  "version": 1,
+  "contract": "029",
+  "reviewed_on": "2026-11-20",
+  "outreach_performed": false,
+  "authority": "SpatialEntityExposurePolicy",
+  "input_authority": "UnifiedSpatialPlacementRepository",
+  "expected_state": {
+    "unified_placements": 1908,
+    "commercial_map_primary_site_markers": 1907,
+    "commercial_map_non_site_markers": 0,
+    "nearby_ranking_exposed_sites": 370,
+    "navigation_exposed_sites": 370,
+    "non_site_commercial_exposure": 0
+  },
+  "rules": [
+    "commercial_map_primary_marker_requires_site",
+    "commercial_map_requires_map_display_eligible",
+    "nearby_ranking_requires_site_and_nearby_ranking_eligible",
+    "navigation_requires_site_and_navigation_eligible",
+    "non_site_entities_are_fail_closed_for_commercial_ux",
+    "policy_may_not_upgrade_placement_permissions",
+    "site_identity_and_placement_authority_are_not_modified"
+  ],
+  "ana_well": {
+    "entity_type": "asset",
+    "commercial_map": "hidden",
+    "company_detail": "hidden",
+    "nearby_ranking": "hidden",
+    "navigation": "hidden"
+  }
+}
