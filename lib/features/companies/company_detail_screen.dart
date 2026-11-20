@@ -5,15 +5,18 @@ import '../../core/theme/app_theme.dart';
 import '../activity/activity_entry_sheet.dart';
 import '../activity/activity_store.dart';
 import 'domain/company.dart';
+import '../sites/domain/runtime_spatial_projection.dart';
 
 class CompanyDetailScreen extends StatelessWidget {
   const CompanyDetailScreen({
     super.key,
     required this.company,
+    required this.spatial,
     required this.activityStore,
   });
 
   final Company company;
+  final RuntimeCompanySpatialView spatial;
   final ActivityStore activityStore;
 
   Future<void> _call(BuildContext context) async {
@@ -65,10 +68,10 @@ class CompanyDetailScreen extends StatelessWidget {
   }
 
   Future<void> _openLocation(BuildContext context) async {
-    final precise = company.navigationEligible;
+    final precise = spatial.navigationEligible;
     final uri = precise
-        ? company.googleMapsDirectionsUri
-        : company.googleMapsSearchUri;
+        ? spatial.googleMapsDirectionsUri
+        : spatial.googleMapsSearchUri;
 
     if (!await launchUrl(uri, mode: LaunchMode.externalApplication) &&
         context.mounted) {
@@ -210,7 +213,7 @@ class CompanyDetailScreen extends StatelessWidget {
                       spacing: 6,
                       runSpacing: 6,
                       children: [
-                        _StatusPill(label: company.locationLabel),
+                        _StatusPill(label: spatial.locationLabel),
                         if (commercial.priority case final priority?)
                           _StatusPill(label: 'Prioridad $priority'),
                       ],
@@ -466,19 +469,19 @@ class CompanyDetailScreen extends StatelessWidget {
                 const SizedBox(height: 8),
                 Text(
                   [
-                    company.locationDistrict,
-                    company.locationProvince,
-                    company.locationDepartment,
+                    spatial.placement.district ?? company.locationDistrict,
+                    spatial.placement.province ?? company.locationProvince,
+                    spatial.placement.department ?? company.locationDepartment,
                   ].whereType<String>().toSet().join(' · '),
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  company.locationLabel,
+                  spatial.locationLabel,
                   style: const TextStyle(color: NexoColors.muted, fontSize: 12),
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  company.navigationEligible
+                  spatial.navigationEligible
                       ? 'Esta cuenta permite navegación directa por coordenadas auditadas.'
                       : 'La coordenada es referencial. “Buscar en Maps” usa empresa + dirección para ayudarte a validar el punto correcto.',
                   style: const TextStyle(fontSize: 13),
@@ -592,7 +595,7 @@ class CompanyDetailScreen extends StatelessWidget {
               style: const TextStyle(color: NexoColors.muted, fontSize: 12),
             ),
           Text(
-            'Fuente ubicación: ${company.source} · Procesado: '
+            'Fuente ubicación runtime: ${spatial.placement.sourceClaimId} · Procesado: '
             '${_dateLabel(company.sourceUpdatedAt)}',
             style: const TextStyle(color: NexoColors.muted, fontSize: 12),
           ),
@@ -622,18 +625,18 @@ class CompanyDetailScreen extends StatelessWidget {
               const SizedBox(width: 10),
               Expanded(
                 child: Tooltip(
-                  message: company.navigationEligible
+                  message: spatial.navigationEligible
                       ? 'Abrir navegación en Google Maps'
                       : 'Buscar esta empresa en Google Maps',
                   child: OutlinedButton.icon(
                     onPressed: () => _openLocation(context),
                     icon: Icon(
-                      company.navigationEligible
+                      spatial.navigationEligible
                           ? Icons.directions_outlined
                           : Icons.search_rounded,
                     ),
                     label: Text(
-                      company.locationActionLabel,
+                      spatial.locationActionLabel,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
