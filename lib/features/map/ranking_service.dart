@@ -2,6 +2,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
 import '../companies/domain/company.dart';
+import '../sites/domain/site.dart';
 import '../sites/domain/runtime_spatial_projection.dart';
 
 class RankedCompany {
@@ -29,7 +30,7 @@ class CompanyRankingService {
     const distance = Distance();
 
     final ranked = companies
-        .where((item) => item.company.matchesQuery(query))
+        .where((item) => item.matchesQuery(query))
         .map((item) {
           final company = item.company;
           final distanceKm = distance.as(
@@ -43,11 +44,12 @@ class CompanyRankingService {
               : 0.0;
 
           final evidence = switch (item.locationQuality) {
-            LocationQuality.exactAddress => 1.0,
-            LocationQuality.addressReference => 0.92,
-            LocationQuality.interpolatedAddress => 0.58,
-            LocationQuality.streetReference => 0.20,
-            LocationQuality.districtReference => 0.08,
+            PlacementQuality.exactAddress => 1.0,
+            PlacementQuality.addressReference => 0.92,
+            PlacementQuality.interpolatedAddress => 0.58,
+            PlacementQuality.propertyReference => 0.08,
+            PlacementQuality.streetReference => 0.20,
+            PlacementQuality.districtReference => 0.08,
           };
 
           final score = item.canUseDistanceForRanking
