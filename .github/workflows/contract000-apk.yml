@@ -1,9 +1,9 @@
-name: Nexo CONTRACT 031 APK
+name: Nexo CONTRACT 032 APK
 
 on:
   push:
     branches:
-      - contract/031-legacy-spatial-dependency-audit-removal-readiness
+      - contract/032-legacy-company-spatial-field-removal
   workflow_dispatch:
 
 permissions:
@@ -24,24 +24,30 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          BASE="cfcd4bd76885c004a65f853de79a09c022073d65"
+          BASE="0376ae90e5f4be58823610480eb4b9cc16b26fbc"
           CHANGED="$(git diff --name-only "$BASE"..HEAD | sort)"
           echo "$CHANGED"
           EXPECTED="$(printf '%s\n' \
             '.github/workflows/contract000-apk.yml' \
-            'data/site_enrichment/2026-11-20_legacy_spatial_dependency_audit.json' \
+            'data/site_enrichment/2026-11-20_legacy_company_spatial_field_removal.json' \
             'docs/ARCHITECTURE.md' \
             'docs/DATA_CONTRACT.md' \
-            'docs/contracts/CONTRACT_031_LEGACY_SPATIAL_DEPENDENCY_AUDIT_REMOVAL_READINESS.md' \
+            'docs/contracts/CONTRACT_032_LEGACY_COMPANY_SPATIAL_FIELD_REMOVAL.md' \
+            'lib/features/companies/companies_screen.dart' \
+            'lib/features/companies/company_detail_screen.dart' \
             'lib/features/companies/data/asset_company_repository.dart' \
             'lib/features/companies/domain/company.dart' \
+            'lib/features/companies/nearby_companies_screen.dart' \
+            'lib/features/map/map_screen.dart' \
+            'lib/features/map/ranking_service.dart' \
+            'lib/features/sites/domain/runtime_spatial_projection.dart' \
             'pubspec.yaml' \
-            'test/google_maps_fallback_test.dart' \
-            'test/legacy_spatial_removal_readiness_test.dart' \
+            'test/legacy_company_spatial_field_removal_test.dart' \
             'test/production_dataset_test.dart' \
             'test/ranking_service_test.dart' \
-            'test/runtime_spatial_projection_test.dart' \
-            'tool/validate_legacy_spatial_removal_readiness.py' | sort)"
+            'tool/validate_legacy_company_spatial_removal.py' \
+            'tool/validate_legacy_spatial_removal_readiness.py' \
+            'tool/validate_runtime_spatial_integration.py' | sort)"
           test "$CHANGED" = "$EXPECTED"
 
       - name: Set up Java 17
@@ -84,6 +90,7 @@ jobs:
           python3 tool/validate_spatial_exposure_policy.py
           python3 tool/validate_runtime_spatial_integration.py
           python3 tool/validate_legacy_spatial_removal_readiness.py
+          python3 tool/validate_legacy_company_spatial_removal.py
 
       - name: Bootstrap Android, analyze and test
         shell: bash
@@ -113,29 +120,29 @@ jobs:
           "$APKSIGNER" verify --verbose --print-certs "$APK" | tee dist/apk-signature.txt
           "$AAPT" dump badging "$APK" | head -n 5 | tee dist/apk-badging.txt
           PACKAGE_LINE="$("$AAPT" dump badging "$APK" | head -n 1)"
-          cp "$APK" "dist/nexo-industrial-1.0.17-build20-contract031-actions.apk"
+          cp "$APK" "dist/nexo-industrial-1.0.18-build21-contract032-actions.apk"
           printf '%s\n' \
-            "NEXO INDUSTRIAL - CONTRACT 031 ACTIONS BUILD" \
+            "NEXO INDUSTRIAL - CONTRACT 032 ACTIONS BUILD" \
             "base_source_commit=17bc619ab81e3c6d5584c74cf99db39d02ac5e99" \
             "workflow_commit=$GITHUB_SHA" \
-            "version=1.0.17+20" \
-            "apk_file=nexo-industrial-1.0.17-build20-contract031-actions.apk" \
+            "version=1.0.18+21" \
+            "apk_file=nexo-industrial-1.0.18-build21-contract032-actions.apk" \
             "apk_sha256=$SHA256" \
             "apk_size_bytes=$SIZE" \
             "package_badging=$PACKAGE_LINE" \
             "workflow_run_id=$GITHUB_RUN_ID" \
             "workflow_run_attempt=$GITHUB_RUN_ATTEMPT" \
-            "note=CONTRACT 031 candidate. Legacy spatial dependency audit authorizes physical Company spatial field removal." \
-            > dist/NEXO_CONTRACT_031_ACTIONS_RECEIPT.txt
-          sha256sum dist/nexo-industrial-1.0.17-build20-contract031-actions.apk | tee dist/SHA256SUMS.txt
+            "note=CONTRACT 032 candidate. Legacy Company spatial fields removed; runtime spatial authority remains Site/EntityPlacement." \
+            > dist/NEXO_CONTRACT_032_ACTIONS_RECEIPT.txt
+          sha256sum dist/nexo-industrial-1.0.18-build21-contract032-actions.apk | tee dist/SHA256SUMS.txt
 
       - name: Upload APK evidence bundle
         uses: actions/upload-artifact@v4
         with:
-          name: nexo-contract031-apk-1.0.17-build20
+          name: nexo-contract032-apk-1.0.18-build21
           path: |
-            dist/nexo-industrial-1.0.17-build20-contract031-actions.apk
-            dist/NEXO_CONTRACT_031_ACTIONS_RECEIPT.txt
+            dist/nexo-industrial-1.0.18-build21-contract032-actions.apk
+            dist/NEXO_CONTRACT_032_ACTIONS_RECEIPT.txt
             dist/apk-signature.txt
             dist/apk-badging.txt
             dist/SHA256SUMS.txt
