@@ -156,7 +156,7 @@ class AssetCompanyRepository {
       }
 
       final company = Company.fromJson(item);
-      if (company.hasMapCoordinates) companies.add(company);
+      companies.add(company);
     }
 
     return List.unmodifiable(companies);
