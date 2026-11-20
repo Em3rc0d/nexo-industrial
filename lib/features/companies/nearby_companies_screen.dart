@@ -4,7 +4,6 @@ import '../../core/theme/app_theme.dart';
 import '../activity/activity_store.dart';
 import '../map/ranking_service.dart';
 import 'company_detail_screen.dart';
-import 'domain/company.dart';
 import '../sites/domain/site.dart';
 
 enum NearbySort { potential, distance }
