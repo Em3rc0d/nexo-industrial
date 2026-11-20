@@ -5,6 +5,7 @@ import '../activity/activity_store.dart';
 import 'company_detail_screen.dart';
 import 'domain/company.dart';
 import '../sites/domain/runtime_spatial_projection.dart';
+import '../sites/domain/site.dart';
 
 enum _LocationFilter { all, reliable, approximate }
 
@@ -52,14 +53,14 @@ class _CompaniesScreenState extends State<CompaniesScreen> {
 
     final companies =
         widget.companies.where((company) {
-            if (!company.matchesQuery(query)) return false;
+            final spatial = _spatialFor(company);
+            if (!spatial.matchesQuery(query)) return false;
 
             if (_sector != null && company.sector != _sector) return false;
 
-            final spatial = _spatialFor(company);
             final reliable =
-                spatial.locationQuality == LocationQuality.exactAddress ||
-                spatial.locationQuality == LocationQuality.addressReference;
+                spatial.locationQuality == PlacementQuality.exactAddress ||
+                spatial.locationQuality == PlacementQuality.addressReference;
 
             if (_locationFilter == _LocationFilter.reliable && !reliable) {
               return false;
