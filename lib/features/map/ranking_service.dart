@@ -15,7 +15,7 @@ class RankedCompany {
   final double distanceKm;
   final double _score;
 
-  get company => spatial.company;
+  Company get company => spatial.company;
 }
 
 class CompanyRankingService {
