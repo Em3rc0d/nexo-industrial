@@ -53,10 +53,17 @@ def main():
     company = (ROOT / "lib/features/companies/domain/company.dart").read_text(
         encoding="utf-8"
     )
-    if "this.latitude = 0.0" not in company:
-        fail("Company latitude is still required")
-    if "this.navigationEligible = false" not in company:
-        fail("Company navigation eligibility is still required")
+    legacy_present = (
+        "final double latitude" in company
+        or "final double longitude" in company
+        or "nearbyRankingEligible" in company
+        or "navigationEligible" in company
+    )
+    if legacy_present:
+        if "this.latitude = 0.0" not in company:
+            fail("Company latitude is still required")
+        if "this.navigationEligible = false" not in company:
+            fail("Company navigation eligibility is still required")
 
     print(
         "Legacy spatial dependency audit OK: GO_FOR_REMOVAL; "
