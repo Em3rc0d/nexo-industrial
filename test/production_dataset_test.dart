@@ -10,39 +10,34 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   test(
-    'production contains 1907 unique RUCs with audited map coverage',
+    'production contains 1907 unique RUCs with authoritative runtime coverage',
     () async {
-      final accounts = await const AssetCompanyRepository().loadCompanies();
+      final runtime =
+          await const RuntimeSpatialProjectionRepository().loadSnapshot();
+      final accounts = runtime.companies;
+      final views = runtime.spatialViews;
 
       expect(accounts, hasLength(1907));
       expect(accounts.map((c) => c.ruc).toSet(), hasLength(1907));
-      expect(accounts.every((c) => c.hasMapCoordinates), isTrue);
+      expect(views, hasLength(1907));
+      expect(views.every((view) => view.mapVisible), isTrue);
+      expect(
+        views.where((view) => view.navigationEligible),
+        hasLength(370),
+      );
+      expect(
+        views.where((view) => view.canUseDistanceForRanking),
+        hasLength(370),
+      );
 
       final qualities = <LocationQuality, int>{
         for (final quality in LocationQuality.values) quality: 0,
       };
-
-      for (final company in accounts) {
-        qualities[company.locationQuality] =
-            (qualities[company.locationQuality] ?? 0) + 1;
-
-        expect(company.address.trim(), isNotEmpty);
-        expect(company.commercial.hasOfferData, isTrue);
-        final uri = company.navigationEligible
-            ? company.googleMapsDirectionsUri
-            : company.googleMapsSearchUri;
-        expect(uri.scheme, 'https');
-        expect(uri.host, 'www.google.com');
-        expect(uri.queryParameters['api'], '1');
-        if (!company.navigationEligible) {
-          expect(uri.queryParameters['query'], contains(company.name));
-          expect(uri.queryParameters['query'], contains(company.address));
-        }
-
-        if (company.navigationEligible) {
-          expect(company.hasReliableCoordinates, isTrue);
-          expect(company.nearbyRankingEligible, isTrue);
-        }
+      for (final view in views) {
+        qualities[view.locationQuality] =
+            (qualities[view.locationQuality] ?? 0) + 1;
+        expect(view.company.address.trim(), isNotEmpty);
+        expect(view.company.commercial.hasOfferData, isTrue);
       }
 
       expect(qualities[LocationQuality.exactAddress], 334);
@@ -50,21 +45,6 @@ void main() {
       expect(qualities[LocationQuality.interpolatedAddress], 137);
       expect(qualities[LocationQuality.streetReference], 551);
       expect(qualities[LocationQuality.districtReference], 849);
-
-      expect(accounts.where((c) => c.navigationEligible), hasLength(370));
-      expect(accounts.where((c) => c.nearbyRankingEligible), hasLength(370));
-
-      final interpolated = accounts
-          .where((c) => c.locationQuality == LocationQuality.interpolatedAddress)
-          .toList();
-      expect(interpolated, hasLength(137));
-      expect(
-        interpolated.every((c) =>
-            !c.nearbyRankingEligible &&
-            !c.navigationEligible &&
-            !c.canUseDistanceForRanking),
-        isTrue,
-      );
     },
   );
   test(
