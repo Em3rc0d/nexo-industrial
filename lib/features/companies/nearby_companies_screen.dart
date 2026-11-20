@@ -5,6 +5,7 @@ import '../activity/activity_store.dart';
 import '../map/ranking_service.dart';
 import 'company_detail_screen.dart';
 import 'domain/company.dart';
+import '../sites/domain/runtime_spatial_projection.dart';
 
 enum NearbySort { potential, distance }
 
@@ -31,12 +32,12 @@ class _NearbyCompaniesScreenState extends State<NearbyCompaniesScreen> {
 
     if (_sort == NearbySort.distance) {
       companies.sort((a, b) {
-        if (a.company.canUseDistanceForRanking !=
-            b.company.canUseDistanceForRanking) {
-          return a.company.canUseDistanceForRanking ? -1 : 1;
+        if (a.spatial.canUseDistanceForRanking !=
+            b.spatial.canUseDistanceForRanking) {
+          return a.spatial.canUseDistanceForRanking ? -1 : 1;
         }
 
-        if (!a.company.canUseDistanceForRanking) {
+        if (!a.spatial.canUseDistanceForRanking) {
           return b.company.internalPotential.compareTo(
             a.company.internalPotential,
           );
@@ -116,9 +117,9 @@ class _NearbyCompaniesScreenState extends State<NearbyCompaniesScreen> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
-                        company.canUseDistanceForRanking
-                            ? '${company.locationQuality == LocationQuality.interpolatedAddress ? '≈ ' : ''}${item.distanceKm.toStringAsFixed(1)} km'
-                            : company.compactLocationLabel,
+                        item.spatial.canUseDistanceForRanking
+                            ? '${item.spatial.locationQuality == LocationQuality.interpolatedAddress ? '≈ ' : ''}${item.distanceKm.toStringAsFixed(1)} km'
+                            : item.spatial.compactLocationLabel,
                         style: const TextStyle(
                           fontWeight: FontWeight.w700,
                           color: NexoColors.text,
@@ -132,6 +133,7 @@ class _NearbyCompaniesScreenState extends State<NearbyCompaniesScreen> {
                       MaterialPageRoute<void>(
                         builder: (_) => CompanyDetailScreen(
                           company: company,
+                          spatial: item.spatial,
                           activityStore: widget.activityStore,
                         ),
                       ),
