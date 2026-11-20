@@ -288,3 +288,18 @@ removed.
 Company can now be constructed without spatial arguments. Production runtime
 consumers use `RuntimeCompanySpatialView`, and CONTRACT 031 authorizes physical
 removal of the legacy Company spatial fields in CONTRACT 032.
+
+
+### Legacy Company Spatial Field Removal (CONTRACT 032)
+
+The commercial `Company` model is now spatial-free. Coordinates, spatial
+quality/confidence, regional Placement metadata and navigation/ranking
+eligibility are no longer projected into Company.
+
+`AssetCompanyRepository` no longer loads the geolocation overlay. Spatial
+datasets remain intact and are loaded only through the Site/EntityPlacement
+pipeline.
+
+Geographic query matching moved to `RuntimeCompanySpatialView.matchesQuery`,
+which combines commercial Company fields with authoritative EntityPlacement
+address/district/province/department metadata.
